@@ -5,7 +5,6 @@ import {
   CircleAlert,
   CircleCheck,
   CircleHelp,
-  FlaskConical,
   MessageSquareQuote,
   Wrench,
   XCircle,
@@ -30,15 +29,6 @@ export function BrandLink({ dark = false, compact = false }: { dark?: boolean; c
       <BrandMark />
       <span className={`text-lg font-extrabold tracking-tight ${compact ? "max-[520px]:sr-only" : ""}`}>RujukCepat</span>
     </Link>
-  );
-}
-
-export function SimBadge({ children = "Data simulasi" }: { children?: ReactNode }) {
-  return (
-    <span className="sim-badge">
-      <FlaskConical className="h-3.5 w-3.5" aria-hidden />
-      {children}
-    </span>
   );
 }
 
@@ -141,16 +131,5 @@ export function CapStatusChip({ status }: { status: string }) {
       {s.icon}
       {s.label}
     </span>
-  );
-}
-
-export function ModeBanner({ items }: { items: string[] }) {
-  if (!items.length) return null;
-  return (
-    <div role="status" className="flex flex-wrap items-center gap-1.5">
-      {items.map((i) => (
-        <SimBadge key={i}>{i}</SimBadge>
-      ))}
-    </div>
   );
 }

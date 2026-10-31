@@ -1,6 +1,6 @@
-import { ArrowRight, FlaskConical, Hospital, MapPin, Mic, Phone, ShieldCheck } from "lucide-react";
+import { ArrowRight, Hospital, MapPin, Mic, Phone, ShieldCheck } from "lucide-react";
 import Link from "next/link";
-import { BrandLink, SimBadge } from "@/components/badges";
+import { BrandLink } from "@/components/badges";
 import { InstallButton } from "@/components/pwa";
 
 const STEPS = [
@@ -16,9 +16,6 @@ export default function Home() {
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-2.5">
           <BrandLink />
           <div className="flex items-center gap-1">
-            <SimBadge>
-              <span className="max-[420px]:hidden">Demo ·</span> simulasi
-            </SimBadge>
             <Link href="/dashboard" aria-label="Dashboard IGD untuk petugas" className="btn btn-ghost min-w-11 px-3 text-sm font-semibold">
               <Hospital className="h-[18px] w-[18px]" aria-hidden />
               <span className="max-[420px]:hidden">Petugas IGD</span>
@@ -109,12 +106,6 @@ export default function Home() {
                 <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-accent" aria-hidden />
                 <span>
                   <strong className="text-ink">Bukan diagnosis.</strong> Ringkasan AI adalah perkiraan; keputusan klinis tetap pada tenaga kesehatan.
-                </span>
-              </li>
-              <li className="flex gap-3 py-3 text-sm leading-normal text-ink-2">
-                <FlaskConical className="mt-0.5 h-5 w-5 shrink-0 text-warn-ink" aria-hidden />
-                <span>
-                  <strong className="text-ink">Data simulasi.</strong> Kapasitas dan kesiapan rumah sakit di demo hackathon ini tidak nyata.
                 </span>
               </li>
               <li className="flex gap-3 py-3 text-sm leading-normal text-ink-2">

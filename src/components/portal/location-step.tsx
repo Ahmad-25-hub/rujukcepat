@@ -35,7 +35,7 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
         setBusy(false);
         const p = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         if (!inBounds(p)) {
-          setError("Lokasi GPS Anda berada di luar wilayah demo (Jabodetabek). Pilih titik manual di peta Jakarta.");
+          setError("Lokasi GPS Anda berada di luar wilayah layanan (Jabodetabek). Pilih titik manual di peta Jakarta.");
           setManual(true);
           return;
         }
@@ -52,7 +52,7 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
 
   function pick(p: { lat: number; lng: number }) {
     if (!inBounds(p)) {
-      setError("Titik di luar wilayah demo (Jabodetabek).");
+      setError("Titik di luar wilayah layanan (Jabodetabek).");
       return;
     }
     setError(null);
@@ -104,7 +104,7 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
         </div>
         {manual && (
           <button type="button" className="btn btn-ghost self-start px-2 text-sm font-semibold text-accent underline" onClick={() => pick({ lat: -6.1767, lng: 106.8416 })}>
-            Gunakan titik contoh demo (Senen, Jakarta Pusat)
+            Gunakan titik contoh (Senen, Jakarta Pusat)
           </button>
         )}
         {error && (

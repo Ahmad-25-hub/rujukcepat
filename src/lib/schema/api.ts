@@ -13,7 +13,7 @@ export const LatLngSchema = z
       p.lat <= SERVICE_BOUNDS.maxLat &&
       p.lng >= SERVICE_BOUNDS.minLng &&
       p.lng <= SERVICE_BOUNDS.maxLng,
-    { message: "Lokasi di luar wilayah layanan demo (Jabodetabek)." },
+    { message: "Lokasi di luar wilayah layanan (Jabodetabek)." },
   );
 export type LatLng = z.infer<typeof LatLngSchema>;
 

@@ -24,7 +24,7 @@ export class AnalyzeError extends Error {
 }
 
 const PROVIDER_MESSAGES: Record<ProviderError["code"], [number, string]> = {
-  AI_NOT_CONFIGURED: [503, "Layanan AI belum dikonfigurasi di server (GEMINI_API_KEY). Gunakan mode simulasi atau hubungi admin demo."],
+  AI_NOT_CONFIGURED: [503, "Layanan AI belum tersedia. Hubungi pengelola atau coba lagi nanti."],
   AI_TIMEOUT: [504, "Layanan AI terlalu lama merespons. Rekaman Anda masih tersimpan; silakan coba lagi."],
   AI_PROVIDER_ERROR: [502, "Layanan AI sedang gagal atau kuota habis. Rekaman Anda masih tersimpan; silakan coba lagi."],
   AI_EMPTY: [502, "Layanan AI tidak mengembalikan hasil. Silakan coba lagi."],
@@ -73,7 +73,7 @@ export async function analyzeReport(input: AnalyzeInput): Promise<AnalyzeRespons
     }
     const warnings = [...norm.warnings];
     if (attempt > 0) warnings.unshift("Keluaran AI pertama tidak valid; hasil ini dari percobaan ulang otomatis.");
-    if (mode === "MOCK") warnings.unshift(`Mode AI simulasi: hasil berasal dari fixture "${scenario}", bukan analisis audio.`);
+    if (mode === "MOCK") warnings.unshift(`Hasil contoh: berasal dari skenario "${scenario}", bukan analisis audio.`);
     return {
       result: norm.result,
       warnings,

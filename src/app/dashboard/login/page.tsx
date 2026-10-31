@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { BrandLink, SimBadge } from "@/components/badges";
+import { BrandLink } from "@/components/badges";
 import { LoginForm } from "@/components/dashboard/login-form";
 
 export const metadata: Metadata = { title: "Masuk petugas – RujukCepat" };
@@ -10,7 +10,6 @@ export default function LoginPage() {
       <header className="bg-ink">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 py-2">
           <BrandLink dark />
-          <SimBadge>Demo – data simulasi</SimBadge>
         </div>
       </header>
       <main id="main" className="anim-rise mx-auto w-full max-w-md flex-1 px-4 py-10">

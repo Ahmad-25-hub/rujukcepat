@@ -14,7 +14,7 @@ import type { CapabilityCode, CapabilityStatus } from "@/lib/schema/enums";
 //    Jika ETA tidak tersedia: urut jarak garis lurus, ETA tetap null dan diberi label.
 
 export const MATCHING_POLICY =
-  "RS layak jika semua kebutuhan wajib berstatus READY, statusnya masih baru, dan kuota simulasi > 0. Kebutuhan opsional hanya memengaruhi urutan.";
+  "RS layak jika semua kebutuhan wajib berstatus READY, statusnya masih baru, dan kuota > 0. Kebutuhan opsional hanya memengaruhi urutan.";
 
 export type NeedCheck = {
   code: CapabilityCode;
@@ -95,7 +95,7 @@ export function screenFacility(
     }
     return { code: n.code, required: n.required, status, ok, updated_at: cap?.updated_at ?? null };
   });
-  if (f.available_slots <= 0) reasons.push("Kuota rujukan simulasi 0");
+  if (f.available_slots <= 0) reasons.push("Kuota rujukan 0");
   return {
     facility: f,
     eligible: reasons.length === 0,
@@ -164,7 +164,7 @@ export function rankCandidates(
 
 export function noCandidateReason(needs: Need[], excluded: Excluded[]): string {
   const req = needs.filter((n) => n.required).map((n) => n.code).join(", ");
-  return `Tidak ada RS dalam data simulasi yang memenuhi semua kebutuhan wajib (${req}) dengan status READY terbaru dan kuota tersedia. ${excluded.length} RS dikecualikan; lihat alasan per RS.`;
+  return `Tidak ada RS dalam daftar yang memenuhi semua kebutuhan wajib (${req}) dengan status READY terbaru dan kuota tersedia. ${excluded.length} RS dikecualikan; lihat alasan per RS.`;
 }
 
 export function routingNote(status: RoutingStatus): string {
@@ -176,6 +176,6 @@ export function routingNote(status: RoutingStatus): string {
     case "FAILED":
       return "ETA tidak tersedia – layanan rute gagal; urutan berdasarkan jarak garis lurus (bukan waktu tempuh).";
     case "MOCK":
-      return "Rute simulasi: ETA dihitung dari jarak garis lurus × faktor jalan, bukan layanan rute nyata.";
+      return "Perkiraan waktu dihitung dari jarak garis lurus × faktor jalan; petunjuk berkendara tidak tersedia.";
   }
 }

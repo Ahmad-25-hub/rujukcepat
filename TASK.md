@@ -188,6 +188,14 @@ T08, T13, dan T14 adalah kelengkapan P1. Kerjakan setelah dependensinya terpenuh
 
 ## 9. Status pekerjaan dan keputusan teknis
 
+### Pemindahan penjelasan simulasi ke README (31-10-2026)
+
+- [x] Permintaan pengguna: hapus penjelasan demo/simulasi yang berulang dari tampilan dan pusatkan di README. Banner/badge beranda, portal, kartu fasilitas, login, dan dashboard dihapus; metadata/PWA serta teks status/galat diselaraskan. Komponen badge yang tidak lagi dipakai dihapus.
+- **Keputusan cakupan:** instruksi langsung ini menggantikan ketentuan label simulasi terlihat dalam GOAL §4/§7 dan AGENTS §5/§7/§8. Bukti historis di bawah mengenai badge adalah kondisi sebelum perubahan ini. README kini menjelaskan data sintetis, status/kapasitas seed, AI mock, rute mock, pratinjau GPS, serta mode database/sinkronisasi. Penanda data `is_simulated`, adapter, konfigurasi, dan logika pencocokan tetap sama.
+- **Perilaku UI:** pratinjau perjalanan dibedakan dari GPS, hasil fixture disebut hasil contoh, perkiraan garis lurus dibedakan dari rute OSRM. Persetujuan pemrosesan, batas AI, atribusi peta, kondisi offline/gagal, serta konfirmasi reset tetap tersedia. Email akun `@rujukcepat.demo` tetap dipakai agar akses akun tidak berubah.
+- **Bukti:** `npm run lint`, `npm run typecheck`, `npm run build`, `npm test` (**87/87, 10 file**) lulus. Ekspektasi tiga tes lama diperbarui mengikuti teks baru, tanpa mengubah perilaku yang diuji. Pemeriksaan teks HTML hasil build untuk `/`, `/lapor`, `/dashboard/login` lulus: tidak ada penjelasan/badge demo atau simulasi (domain akun dikecualikan). `git diff --check` lulus setelah merapikan akhir berkas.
+- **Batas verifikasi dan langkah berikutnya:** uji interaksi browser/perangkat dan integrasi layanan nyata tidak diulang untuk perubahan teks ini; pemeriksaan HTML bukan audit visual. Perubahan lokal, belum commit/push/deploy. Untuk tampil di situs publik, terapkan melalui deployment berikutnya sesuai otorisasi pengguna.
+
 Perbarui tabel ini sesuai kondisi implementasi yang benar-benar diperiksa.
 
 ### Tindak lanjut koneksi Supabase (31-10-2026)

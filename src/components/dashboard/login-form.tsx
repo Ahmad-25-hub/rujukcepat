@@ -11,7 +11,7 @@ const DEMO_EMAILS = [
   ["tarakan@rujukcepat.demo", "RSUD Tarakan"],
   ["pasarminggu@rujukcepat.demo", "RSUD Pasar Minggu"],
   ["pon@rujukcepat.demo", "RS PON"],
-  ["admin@rujukcepat.demo", "Admin demo (RSCM, dapat reset data)"],
+  ["admin@rujukcepat.demo", "Admin (RSCM, dapat reset data)"],
 ] as const;
 
 export function LoginForm() {
@@ -42,11 +42,10 @@ export function LoginForm() {
   return (
     <form onSubmit={submit} className="space-y-4 card p-6" aria-labelledby="login-title">
       <h1 id="login-title" className="text-2xl font-extrabold">
-        Masuk petugas IGD (demo)
+        Masuk petugas IGD
       </h1>
       <p className="text-sm text-ink-2">
-        Akses dibatasi per rumah sakit: setiap akun demo hanya melihat dan mengubah data RS-nya sendiri. Kata sandi akun demo ditetapkan oleh admin demo melalui
-        environment server dan tidak ditampilkan di sini.
+        Gunakan akun petugas rumah sakit Anda. Untuk mendapatkan akses atau bantuan kata sandi, hubungi pengelola.
       </p>
       <div className="space-y-1">
         <label htmlFor="email" className="block text-sm font-semibold">
@@ -98,7 +97,7 @@ export function LoginForm() {
         Masuk
       </button>
       <details className="text-sm text-ink-2">
-        <summary className="cursor-pointer font-semibold">Akun demo yang tersedia</summary>
+        <summary className="cursor-pointer font-semibold">Akun petugas yang tersedia</summary>
         <ul className="mt-2 list-disc space-y-0.5 pl-5">
           {DEMO_EMAILS.map(([v, l]) => (
             <li key={v}>

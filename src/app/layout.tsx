@@ -7,9 +7,9 @@ const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakart
 const jbmono = JetBrains_Mono({ subsets: ["latin"], weight: ["500", "700"], variable: "--font-jbmono", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "RujukCepat – Demo koordinasi rujukan",
+  title: "RujukCepat – Koordinasi rujukan",
   description:
-    "Demo koordinasi rujukan prarumah sakit DKI Jakarta: laporan suara, ringkasan AI, dan pencocokan kapabilitas IGD. Data simulasi.",
+    "Koordinasi rujukan prarumah sakit DKI Jakarta: laporan suara, ringkasan AI, dan pencocokan kapabilitas IGD.",
   applicationName: "RujukCepat",
   icons: { icon: "/icons/icon-192.png", apple: "/icons/apple-touch-icon.png" },
   appleWebApp: { capable: true, title: "RujukCepat", statusBarStyle: "default" },

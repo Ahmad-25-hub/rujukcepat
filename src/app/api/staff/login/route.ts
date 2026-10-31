@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   if (!demoPassword()) {
     return fail(
       "DEMO_ACCOUNTS_NOT_CONFIGURED",
-      "Akun petugas demo belum disiapkan: isi DEMO_STAFF_PASSWORD di environment server lalu jalankan ulang aplikasi.",
+      "Akun petugas belum tersedia. Hubungi pengelola.",
       503,
     );
   }
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
   } catch (e) {
     if (e instanceof Error && e.message === "SESSION_SECRET_MISSING") {
       console.error("[login] SESSION_SECRET_MISSING");
-      return fail("STAFF_SESSION_NOT_CONFIGURED", "Konfigurasi sesi petugas belum lengkap. Hubungi pengelola demo.", 503);
+      return fail("STAFF_SESSION_NOT_CONFIGURED", "Konfigurasi sesi petugas belum lengkap. Hubungi pengelola.", 503);
     }
     console.error("[login] gagal", (e as { code?: string }).code ?? "unknown");
     return fail("INTERNAL", "Tidak dapat memeriksa akun saat ini. Silakan coba lagi.", 500);

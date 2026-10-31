@@ -3,7 +3,6 @@
 import { Check, ChevronLeft, Loader2, RefreshCw, TriangleAlert, WifiOff, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { ModeBanner } from "@/components/badges";
 import { ApiClientError, apiFetch, type ServiceStatus } from "@/lib/client/api";
 import { toWav16k } from "@/lib/client/audio";
 import type { Candidate } from "@/lib/matching/match";
@@ -113,12 +112,6 @@ export function ReportWizard() {
     setStep(consent && location ? "record" : "prepare");
   }
 
-  const banner: string[] = [];
-  banner.push("Demo – data simulasi");
-  if (status?.ai_mode === "MOCK") banner.push("AI simulasi");
-  if (status?.routing_mode === "MOCK") banner.push("Rute simulasi");
-  if (status?.data_mode === "LOCAL") banner.push("Database lokal");
-
   const viewStep = step === "processing" ? "record" : step;
   const currentIdx = STEPS.findIndex((s) => s.id === viewStep);
   const current = STEPS[currentIdx];
@@ -186,15 +179,14 @@ export function ReportWizard() {
       )}
 
       <main id="main" className={`mx-auto flex w-full flex-1 flex-col gap-4 px-4 pb-6 pt-4 ${step === "destination" ? "max-w-6xl" : "max-w-2xl"}`}>
-        <ModeBanner items={banner} />
         {statusError && (
           <p role="alert" className="notice notice-warn">
-            Status layanan tidak dapat dimuat; mode AI/rute mungkin tidak terlihat.
+            Status layanan tidak dapat dimuat. Muat ulang halaman untuk mencoba lagi.
           </p>
         )}
         {status && status.ai_mode === "LIVE" && !status.ai_configured && (
           <p role="alert" className="notice notice-error">
-            Layanan AI belum dikonfigurasi di server (GEMINI_API_KEY). Analisis akan gagal sampai kunci diisi atau mode simulasi diaktifkan.
+            Layanan AI belum tersedia. Hubungi pengelola atau coba lagi nanti.
           </p>
         )}
 

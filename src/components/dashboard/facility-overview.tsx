@@ -40,7 +40,7 @@ export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
     <section aria-labelledby="fac-title" className="space-y-3">
       <div className="flex items-center justify-between">
         <h2 id="fac-title" className="text-xl font-bold">
-          Status fasilitas (simulasi)
+          Status fasilitas
         </h2>
         <button type="button" onClick={load} disabled={loading} className="btn btn-secondary">
           {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <RefreshCw className="h-4 w-4" aria-hidden />}
@@ -102,7 +102,7 @@ export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
           </table>
         </div>
       )}
-      <p className="text-xs text-muted">Lokasi: © OpenStreetMap contributors. Kapabilitas dan kuota: seed simulasi, bukan data nyata.</p>
+      <p className="text-xs text-muted">Lokasi: © OpenStreetMap contributors.</p>
     </section>
   );
 }

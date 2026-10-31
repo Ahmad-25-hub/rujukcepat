@@ -3,7 +3,7 @@
 import { Loader2, LogOut, RefreshCw, Trash2, WifiOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-import { BrandLink, SimBadge } from "@/components/badges";
+import { BrandLink } from "@/components/badges";
 import { SyncBadge } from "@/components/sync-badge";
 import { ApiClientError, apiFetch, type ServiceStatus } from "@/lib/client/api";
 import { useOnline } from "@/lib/client/online";
@@ -86,7 +86,7 @@ export function DashboardApp() {
         body: JSON.stringify({ confirm: resetText }),
       });
       setResetText("");
-      setToast({ ok: true, message: "Data demo direset: kapasitas dan kapabilitas semua RS dikembalikan ke seed simulasi." });
+      setToast({ ok: true, message: "Data direset: kapasitas dan kapabilitas semua RS dikembalikan ke nilai awal." });
       await load();
     } catch (e) {
       setToast({ ok: false, message: e instanceof ApiClientError ? e.message : "Reset gagal." });
@@ -104,9 +104,6 @@ export function DashboardApp() {
     );
   }
 
-  const badges = ["Demo – data simulasi"];
-  if (status?.data_mode === "LOCAL") badges.push("Database lokal");
-
   return (
     <div className="flex min-h-screen flex-col bg-[#eef1f5]">
       <header className="bg-ink text-[#e6ebf3]">
@@ -118,9 +115,6 @@ export function DashboardApp() {
               <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-[#9fb0c8]">Dashboard IGD</span>
               <span className="text-[15px] font-extrabold text-white">{staff.hospital_short_name}</span>
             </span>
-            {badges.map((b) => (
-              <SimBadge key={b}>{b}</SimBadge>
-            ))}
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <SyncBadge sync={sync} showLatency dark />
@@ -184,7 +178,7 @@ export function DashboardApp() {
         <div className="anim-rise anim-d1 flex min-w-0 flex-[2_1_520px] flex-col gap-3">
           <section aria-labelledby="overview-title" className="card px-[18px] pb-4">
             <h2 id="overview-title" className="flex min-h-[52px] items-center text-[15px] font-bold">
-              Status semua fasilitas (publik, simulasi)
+              Status semua fasilitas
             </h2>
             <FacilityOverview refreshKey={sync.events} />
           </section>
@@ -192,11 +186,11 @@ export function DashboardApp() {
             <details className="card !border-[#f3c6ce] px-[18px]">
               <summary className="flex min-h-[52px] cursor-pointer items-center gap-2 text-[15px] font-bold text-brand-ink">
                 <Trash2 className="h-[18px] w-[18px]" aria-hidden />
-                Reset data demo (admin)
+                Reset data (admin)
               </summary>
-              <section aria-label="Reset data demo" className="mb-4 flex flex-col gap-2.5">
+              <section aria-label="Reset data" className="mb-4 flex flex-col gap-2.5">
                 <p className="text-sm leading-normal text-ink-2">
-                  Mengembalikan kapasitas dan kapabilitas <strong>seluruh</strong> RS ke seed simulasi; semua perubahan petugas hilang. Tidak dapat dibatalkan.
+                  Mengembalikan kapasitas dan kapabilitas <strong>seluruh</strong> RS ke nilai awal; semua perubahan petugas hilang. Tidak dapat dibatalkan.
                 </p>
                 <div className="flex flex-wrap items-end gap-2.5">
                   <label className="flex flex-col gap-1.5 text-[13px] font-bold">
@@ -205,7 +199,7 @@ export function DashboardApp() {
                   </label>
                   <button type="button" onClick={doReset} disabled={resetText !== "RESET" || resetting} className="btn btn-brand">
                     {resetting && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
-                    Reset data demo
+                    Reset data
                   </button>
                 </div>
               </section>
@@ -214,7 +208,7 @@ export function DashboardApp() {
         </div>
       </main>
       <footer className="px-4 pb-4 pt-2 text-center text-xs text-muted">
-        Lokasi RS © OpenStreetMap contributors · kapasitas dan kesiapan adalah simulasi · hasil AI bukan diagnosis
+        Lokasi RS © OpenStreetMap contributors · hasil AI bukan diagnosis
       </footer>
     </div>
   );

@@ -6,7 +6,7 @@ import type { ServiceStatus } from "@/lib/client/api";
 export function ConsentStep({ status, checked, onChange }: { status: ServiceStatus | null; checked: boolean; onChange: (v: boolean) => void }) {
   const provider =
     status?.ai_mode === "MOCK"
-      ? "Mode AI simulasi aktif: rekaman dikirim ke server demo tetapi TIDAK dianalisis Gemini; hasil berasal dari skenario sintetis."
+      ? "Server aplikasi menggunakan skenario contoh; rekaman tidak dianalisis oleh Gemini."
       : `Server aplikasi, lalu Google Gemini API${status?.ai_model ? ` (${status.ai_model})` : ""} untuk menyusun ringkasan.`;
   const rows: [string, React.ReactNode][] = [
     ["Yang dikirim", "Rekaman suara atau teks, foto opsional, dan titik lokasi."],
@@ -37,7 +37,7 @@ export function ConsentStep({ status, checked, onChange }: { status: ServiceStat
         ))}
       </dl>
       <p className="notice notice-warn !text-[13px]">
-        Demo dengan data simulasi: jangan sebut nama, NIK, atau identitas asli pasien. Hasil AI adalah perkiraan, bukan diagnosis atau konfirmasi rumah sakit.
+        Jangan sebut nama, NIK, atau identitas asli pasien. Hasil AI adalah perkiraan, bukan diagnosis atau konfirmasi rumah sakit.
       </p>
       <p className="text-sm text-ink-2">
         Darurat nyata? Hubungi{" "}
@@ -54,7 +54,7 @@ export function ConsentStep({ status, checked, onChange }: { status: ServiceStat
         className={`flex min-h-[52px] cursor-pointer items-center gap-3 rounded-2xl border-[1.5px] px-3 py-2 transition-colors ${checked ? "border-ink bg-white" : "border-line-strong bg-white hover:border-faint"}`}
       >
         <input type="checkbox" className="h-[22px] w-[22px] shrink-0 accent-ink" checked={checked} onChange={(e) => onChange(e.target.checked)} />
-        <span className="text-[15px] font-bold">Saya mengerti dan setuju laporan diproses untuk demo ini</span>
+        <span className="text-[15px] font-bold">Saya mengerti dan setuju laporan diproses</span>
       </label>
     </section>
   );

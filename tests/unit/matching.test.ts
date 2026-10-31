@@ -64,7 +64,7 @@ describe("screenFacility – kelayakan", () => {
   it("kapasitas nol tersaring walau semua kapabilitas READY", () => {
     const s = screenFacility(fac("Z", ORIGIN, { IGD_DASAR: "READY" }, 0), [need("IGD_DASAR")], ORIGIN, NOW, 120);
     expect(s.eligible).toBe(false);
-    expect(s.reasons).toContain("Kuota rujukan simulasi 0");
+    expect(s.reasons).toContain("Kuota rujukan 0");
   });
 
   it("beberapa kebutuhan wajib: semua harus READY", () => {

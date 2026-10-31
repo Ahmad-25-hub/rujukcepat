@@ -27,7 +27,7 @@ function EtaLine({ c }: { c: Candidate }) {
     <p className="flex flex-wrap items-baseline gap-x-2">
       <span className="text-[26px] font-extrabold tracking-tight">{formatEta(c.eta_seconds)}</span>
       {c.distance_m != null && <span className="text-sm text-ink-2">{formatKm(c.distance_m)}</span>}
-      <span className="text-xs text-muted">{c.eta_source === "MOCK" ? "ETA simulasi" : "perkiraan rute OSRM, tanpa lalu lintas langsung"}</span>
+      <span className="text-xs text-muted">{c.eta_source === "MOCK" ? "Perkiraan dari jarak garis lurus" : "perkiraan rute OSRM, tanpa lalu lintas langsung"}</span>
     </p>
   );
 }
@@ -97,7 +97,6 @@ function CandidateCard({
           </span>
         </span>
         <span className="flex flex-wrap items-center gap-2 text-xs text-muted">
-          {c.is_simulated && <span className="sim-badge">Kapasitas simulasi</span>}
           diperbarui {timeAgo(c.capacity_updated_at)}
         </span>
       </button>
@@ -247,14 +246,10 @@ export function DestinationStep({
               onMarkerClick={(id) => onSelect(all.find((c) => c.facility_id === id) ?? null)}
               className="h-64 sm:h-80"
             />
-            <div className="pointer-events-none absolute right-2.5 top-2.5 z-[500] flex max-w-[60%] flex-wrap justify-end gap-1.5">
-              <span className="sim-badge">Status &amp; kapasitas simulasi</span>
-              {result.routing_status === "MOCK" && <span className="sim-badge">Rute simulasi</span>}
-            </div>
           </div>
           <p className="px-1 text-xs leading-normal text-muted">
             Lokasi RS dari OpenStreetMap; tidak menyiratkan kemitraan atau penerimaan pasien.
-            {route && ` Garis biru: ${route.source === "MOCK" ? "garis lurus simulasi" : "rute perkiraan OSRM"}.`}
+            {route && ` Garis biru: ${route.source === "MOCK" ? "garis lurus" : "rute perkiraan OSRM"}.`}
             {routeError && ` ${routeError}`}
           </p>
           <details className="card px-3.5">

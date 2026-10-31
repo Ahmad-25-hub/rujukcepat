@@ -100,7 +100,7 @@ describe("akses petugas", () => {
       expect(response.status).toBe(503);
       expect(response.json).toEqual({ ok: false, error: {
         code: "STAFF_SESSION_NOT_CONFIGURED",
-        message: "Konfigurasi sesi petugas belum lengkap. Hubungi pengelola demo.",
+        message: "Konfigurasi sesi petugas belum lengkap. Hubungi pengelola.",
       } });
       expect(response.cookie).toBeUndefined();
     } finally {

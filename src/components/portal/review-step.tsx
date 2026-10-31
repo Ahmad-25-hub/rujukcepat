@@ -119,7 +119,6 @@ export function ReviewStep({
             <h2 id="soap-title" className="text-lg font-extrabold">
               Ringkasan SOAP
             </h2>
-            {analysis.mode === "MOCK" && <span className="sim-badge">AI simulasi</span>}
           </div>
           <p className="text-[15px] leading-relaxed">{r.report.summary}</p>
           <ul aria-label="Keterangan asal data" className="flex flex-wrap gap-1.5">

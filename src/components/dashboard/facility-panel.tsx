@@ -2,7 +2,7 @@
 
 import { Loader2, RefreshCw, Save } from "lucide-react";
 import { useState } from "react";
-import { CapStatusChip, SimBadge } from "@/components/badges";
+import { CapStatusChip } from "@/components/badges";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
 import { timeAgo } from "@/lib/client/format";
 import type { Facility } from "@/lib/schema/api";
@@ -58,7 +58,6 @@ export function FacilityPanel({
         <h2 id="fac-panel-title" className="text-lg font-extrabold tracking-tight">
           Kesiapan {facility.short_name}
         </h2>
-        <SimBadge>Status simulasi</SimBadge>
       </div>
       <p className="-mt-2 text-[13px] leading-normal text-ink-2">
         Perubahan langsung memengaruhi rekomendasi di portal pelapor. Status lebih tua dari {Math.round(staleAfterMinutes / 60)} jam dianggap kedaluwarsa (tidak dianggap READY) sampai
@@ -85,7 +84,7 @@ export function FacilityPanel({
                   <span>
                     <strong className="font-mono text-[13px]">{code}</strong>
                   </span>
-                  <span className="text-xs">Tidak ditawarkan (data simulasi)</span>
+                  <span className="text-xs">Tidak ditawarkan</span>
                 </li>
               );
             }

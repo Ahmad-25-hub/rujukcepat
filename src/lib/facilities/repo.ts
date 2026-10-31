@@ -18,7 +18,7 @@ export class RepoError extends Error {
 
 const DB_ERRORS: Record<string, { status: number; message: string }> = {
   HOSPITAL_NOT_FOUND: { status: 404, message: "Rumah sakit tidak ditemukan." },
-  CAPABILITY_NOT_OFFERED: { status: 400, message: "Rumah sakit ini tidak menawarkan layanan tersebut pada data simulasi." },
+  CAPABILITY_NOT_OFFERED: { status: 400, message: "Rumah sakit ini tidak menawarkan layanan tersebut pada daftar fasilitas." },
   INVALID_CAPACITY: { status: 400, message: "Kapasitas tidak valid: tidak boleh negatif dan tersedia tidak boleh melebihi total." },
 };
 

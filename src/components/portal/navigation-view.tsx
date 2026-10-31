@@ -214,7 +214,7 @@ export function NavigationView({
     return () => stopWatching();
   }, [simulate, beginWatch, stopWatching]);
 
-  // Simulasi perjalanan di sepanjang rute (berlabel jelas di UI).
+  // Pratinjau perjalanan di sepanjang rute (dibedakan dari GPS di UI).
   useEffect(() => {
     if (!simulate) return;
     const t = setInterval(() => {
@@ -330,7 +330,7 @@ export function NavigationView({
     banner = (
       <div className="flex items-center gap-3">
         <Loader2 className="h-6 w-6 shrink-0 animate-spin" aria-hidden />
-        <p className="text-lg font-bold">{simulate ? "Memulai simulasi…" : "Mencari sinyal GPS…"}</p>
+        <p className="text-lg font-bold">{simulate ? "Memulai pratinjau…" : "Mencari sinyal GPS…"}</p>
       </div>
     );
   } else if (rerouting) {
@@ -395,13 +395,13 @@ export function NavigationView({
           {simulate && (
             <span className="inline-flex items-center gap-1 rounded-full border border-[#e2b33b] bg-warn-tint px-2 py-0.5 text-xs font-bold text-warn-ink">
               <FlaskConical className="h-3.5 w-3.5" aria-hidden />
-              Simulasi GPS – bukan posisi nyata
+              Pratinjau perjalanan
             </span>
           )}
           {route.source === "MOCK" && (
             <span className="inline-flex items-center gap-1 rounded-full border border-[#e2b33b] bg-warn-tint px-2 py-0.5 text-xs font-bold text-warn-ink">
               <FlaskConical className="h-3.5 w-3.5" aria-hidden />
-              Rute simulasi
+              Garis lurus
             </span>
           )}
           {!online && (
@@ -434,7 +434,7 @@ export function NavigationView({
             <p className="text-lg">
               <strong>{formatKm(remainingM)}</strong> lagi · <strong>{formatEta(eta)}</strong>
             </p>
-            <p className="text-xs text-muted">{route.source === "MOCK" ? "Perkiraan simulasi" : "Perkiraan, tanpa lalu lintas langsung"}</p>
+            <p className="text-xs text-muted">{route.source === "MOCK" ? "Perkiraan dari jarak garis lurus" : "Perkiraan, tanpa lalu lintas langsung"}</p>
           </div>
         )}
 
@@ -473,7 +473,7 @@ export function NavigationView({
           )}
           <button type="button" onClick={toggleSimulate} aria-pressed={simulate} className="btn border-[#e2b33b] bg-[#fff8e6] text-sm text-warn-ink hover:bg-warn-tint">
             <FlaskConical className="h-4 w-4" aria-hidden />
-            {simulate ? "Matikan simulasi" : "Simulasi perjalanan (demo)"}
+            {simulate ? "Akhiri pratinjau" : "Pratinjau perjalanan"}
           </button>
           {simulate && !arrived && (
             <button
@@ -483,7 +483,7 @@ export function NavigationView({
               }}
               className="btn border-[#e2b33b] bg-white text-sm text-warn-ink hover:bg-[#fff8e6]"
             >
-              Simulasikan keluar jalur
+              Pratinjau keluar jalur
             </button>
           )}
           <button type="button" onClick={onClose} className="btn btn-secondary">
@@ -495,7 +495,7 @@ export function NavigationView({
           <summary className="cursor-pointer">Privasi, batasan ETA, dan atribusi</summary>
           <p className="mt-1">
             Posisi GPS hanya diproses di perangkat ini; server hanya menerima koordinat untuk menghitung ulang rute dan tidak menyimpannya.
-            {route.source === "MOCK" ? " ETA simulasi." : " ETA OSRM tidak memakai lalu lintas langsung; sisa waktu dihitung proporsional dari sisa jarak."} Peta © OpenStreetMap contributors.
+            {route.source === "MOCK" ? " Perkiraan waktu dari jarak garis lurus." : " ETA OSRM tidak memakai lalu lintas langsung; sisa waktu dihitung proporsional dari sisa jarak."} Peta © OpenStreetMap contributors.
           </p>
         </details>
       </footer>

@@ -272,7 +272,7 @@ export function RecordStep({
       {status?.ai_mode === "MOCK" && status.mock_scenarios.length > 0 && (
         <div className="flex flex-col gap-1.5 rounded-2xl border border-[#f0d08a] bg-[#fff8e6] p-3">
           <label htmlFor="scenario" className="text-sm font-bold text-warn-ink">
-            Skenario AI simulasi (mode mock aktif – audio tidak dianalisis)
+            Pilih skenario contoh (audio tidak dianalisis)
           </label>
           <select id="scenario" value={draft.scenario} onChange={(e) => setDraft((d) => ({ ...d, scenario: e.target.value }))} className="field">
             <option value="">Otomatis (dari kata kunci teks; default skenario proposal)</option>

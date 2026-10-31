@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "RujukCepat – koordinasi rujukan (demo)",
+    name: "RujukCepat – koordinasi rujukan",
     short_name: "RujukCepat",
-    description: "Demo koordinasi rujukan prarumah sakit DKI Jakarta. Data kapasitas dan kesiapan adalah simulasi.",
+    description: "Koordinasi rujukan prarumah sakit DKI Jakarta.",
     lang: "id",
     start_url: "/lapor",
     scope: "/",

@@ -8,6 +8,17 @@ Alur utama: laporan suara/teks → ringkasan AI terstruktur (SOAP, urgensi, kebu
 
 > **Semua data kapasitas, kesiapan layanan, dan pasien adalah SIMULASI.** Lokasi rumah sakit dari OpenStreetMap tidak membuktikan kemitraan, kesiapan, atau penerimaan pasien. Ringkasan AI adalah perkiraan awal untuk koordinasi, **bukan diagnosis**; keputusan klinis dan penerimaan tetap pada tenaga kesehatan. Hasil uji kode tidak sama dengan validasi klinis.
 
+## Batas demo dan simulasi
+
+Atas permintaan pengguna pada 31-10-2026, penjelasan demo/simulasi dipusatkan di README ini. Banner dan badge berulang pada beranda, portal laporan, pilihan RS, login, dan dashboard dihapus. Perubahan tampilan ini menggantikan ketentuan label simulasi terlihat pada GOAL §4/§7 dan AGENTS §5/§7/§8; aplikasi tetap prototipe hackathon, bukan layanan rujukan operasional.
+
+- **Data fasilitas:** kapasitas dan kesiapan layanan berasal dari seed simulasi dan dapat diubah petugas. Status READY serta kuota bukan bukti kesiapan atau penerimaan pasien nyata. Penanda `is_simulated`, sumber, dan waktu pembaruan tetap disimpan dalam data.
+- **AI:** `AI_MODE=mock` memakai fixture sintetis, bukan analisis rekaman oleh Gemini. Antarmuka menyebutnya skenario/hasil contoh. `AI_MODE=live` memanggil Gemini melalui server; hasilnya tetap perkiraan yang perlu ditinjau.
+- **Rute:** `ROUTING_MODE=mock` menghitung waktu dari jarak garis lurus dikalikan faktor jalan. Ini bukan ETA berkendara dan tidak menyediakan petunjuk belok. Mode `live` memakai OSRM tanpa informasi lalu lintas langsung.
+- **Pratinjau perjalanan:** tombol ini memutar posisi buatan sepanjang rute untuk demonstrasi, bukan posisi GPS perangkat. Akhiri pratinjau untuk kembali memakai GPS.
+- **Penyimpanan dan sinkronisasi:** mode lokal memakai PGlite dan SSE; mode Supabase memakai PostgreSQL dan Realtime. Pilihan mode tetap mengikuti environment meskipun badge teknis di header dihapus.
+- **Data masukan:** gunakan pasien sintetis tanpa identitas atau data kesehatan orang nyata. Audio/foto tidak disimpan setelah diproses; ringkasan berada di perangkat. Persetujuan pemrosesan, informasi penyedia, batas AI, atribusi peta, dan pesan kegagalan tetap tersedia di antarmuka.
+
 ## Status (31-10-2026)
 
 | Bagian | Status |
@@ -48,8 +59,8 @@ Untuk AI sungguhan: `AI_MODE=live` + `GEMINI_API_KEY` (cek dengan `npm run check
 | Variabel | Keterangan |
 | --- | --- |
 | `DATA_MODE` | `local` (PGlite di `.data/pglite`, migrasi + seed otomatis) atau `supabase` (lihat bagian Supabase). |
-| `AI_MODE` / `GEMINI_API_KEY` / `GEMINI_MODEL` | `mock` memakai fixture sintetis (badge "AI simulasi"); `live` memanggil Gemini dari server. Model terverifikasi 31-10-2026: `gemini-3.5-flash` (`gemini-2.5-flash` ditolak 404 untuk pengguna baru). |
-| `ROUTING_MODE` / `OSRM_BASE_URL` | `mock` = ETA simulasi dari jarak garis lurus (badge "Rute simulasi"); `live` = OSRM publik. |
+| `AI_MODE` / `GEMINI_API_KEY` / `GEMINI_MODEL` | `mock` memakai fixture sintetis (skenario/hasil contoh); `live` memanggil Gemini dari server. Model terverifikasi 31-10-2026: `gemini-3.5-flash` (`gemini-2.5-flash` ditolak 404 untuk pengguna baru). |
+| `ROUTING_MODE` / `OSRM_BASE_URL` | `mock` = perkiraan waktu dari jarak garis lurus; `live` = OSRM publik. |
 | `SESSION_SECRET` | Penanda tangan cookie sesi petugas. **Wajib** di produksi. |
 | `DEMO_STAFF_PASSWORD` | Kata sandi semua akun petugas demo. Tidak ada kata sandi di repo; tanpa ini login petugas nonaktif. |
 | `STALE_AFTER_MINUTES` | Status fasilitas lebih tua dari ini dianggap kedaluwarsa, bukan READY (bawaan 1440). |
@@ -75,14 +86,14 @@ Akun dibuat/disinkronkan otomatis saat login pertama dari `DEMO_STAFF_PASSWORD`.
 2. Portal: setujui pemrosesan → lokasi (GPS, atau "Pilih di peta"/titik contoh) → rekam suara 10–15 dtk atau ketik laporan (+ foto opsional) → tinjau ringkasan → "Cari rumah sakit".
 3. Portal menampilkan IGD yang cocok (utama + alternatif) beserta ETA, status kapabilitas, dan kuota. Tidak ada permintaan yang dikirim; kuota tidak berubah.
 4. Dashboard: petugas mengubah status kapabilitas (READY/PENUH/MAINTENANCE) atau kuota (mis. kuota 0) → tekan perbarui di portal → rekomendasi berubah.
-5. Portal: **Navigasi ke RS** → layar navigasi GPS (atau "Simulasi perjalanan (demo)") → **Sudah sampai**.
+5. Portal: **Navigasi ke RS** → layar navigasi GPS (atau "Pratinjau perjalanan") → **Sudah sampai**.
 6. Layar "Sudah sampai" menampilkan ringkasan SOAP, urgensi, dan kebutuhan untuk ditunjukkan/dibacakan (TTS) ke petugas IGD. Ringkasan hanya di perangkat, tidak dikirim ke RS.
 
 Skenario sintetis proposal: lansia 70 tahun lemas dan berkeringat dingin; foto opsional glukometer menunjukkan 46 mg/dL (`tests/fixtures/photo/glukometer-46-sintetis.jpg`). Tidak ada diagnosis/terapi yang ditetapkan sebagai fakta.
 
 ### Navigasi di peta
 
-Setelah memilih tujuan, portal menampilkan rute, petunjuk belok demi belok, tombol **Buka di Google Maps/Waze**, dan **Navigasi ke RS** (GPS): titik biru mengikuti posisi, ada deteksi keluar jalur + hitung ulang rute, dan panduan suara opsional. Tanpa API berbayar: rute dari OSRM publik dengan penghematan permintaan (lihat `SPEC.md` §19). ETA tetap **perkiraan tanpa lalu lintas langsung**. Tombol "Simulasi perjalanan (demo)" memutar perjalanan berlabel simulasi untuk demo tanpa berkendara. Tombol **Sudah sampai** selalu tersedia di layar navigasi (juga saat GPS ditolak atau rute gagal) dan membuka ringkasan serah terima. Uji GPS/suara di perangkat nyata (HTTPS) belum dilakukan.
+Setelah memilih tujuan, portal menampilkan rute, petunjuk belok demi belok, tombol **Buka di Google Maps/Waze**, dan **Navigasi ke RS** (GPS): titik biru mengikuti posisi, ada deteksi keluar jalur + hitung ulang rute, dan panduan suara opsional. Tanpa API berbayar: rute dari OSRM publik dengan penghematan permintaan (lihat `SPEC.md` §19). ETA tetap **perkiraan tanpa lalu lintas langsung**. Tombol "Pratinjau perjalanan" memutar posisi buatan sepanjang rute untuk demo tanpa berkendara. Tombol **Sudah sampai** selalu tersedia di layar navigasi (juga saat GPS ditolak atau rute gagal) dan membuka ringkasan serah terima. Uji GPS/suara di perangkat nyata (HTTPS) belum dilakukan.
 
 ## Database, seed, dan reset
 
@@ -90,7 +101,7 @@ Setelah memilih tujuan, portal menampilkan rute, petunjuk belok demi belok, tomb
 - Seed simulasi: `supabase/seed.sql` (10 RS; lokasi dari snapshot OSM `data/hospitals.osm.json`; kapasitas/kapabilitas simulasi berlabel). Dapat dijalankan ulang; mengembalikan kapasitas/kapabilitas ke nilai awal.
 - **Reset data demo (mengembalikan kapasitas/kapabilitas semua RS ke seed; perubahan petugas hilang):**
   - CLI (server dihentikan): `npm run db:reset`
-  - UI: dashboard sebagai admin → "Reset data demo" → ketik `RESET`. API: `POST /api/demo/reset` `{"confirm":"RESET"}`.
+  - UI: dashboard sebagai admin → "Reset data" → ketik `RESET`. API: `POST /api/demo/reset` `{"confirm":"RESET"}`.
 - Lokasi RS diambil sekali oleh skrip (`npm run fetch:hospitals`, Overpass), bukan saat runtime.
 
 ### Memakai Supabase

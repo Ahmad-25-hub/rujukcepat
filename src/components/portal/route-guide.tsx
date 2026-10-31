@@ -51,7 +51,7 @@ export function RouteGuide({
           <p className="text-sm text-ink-2">
             <strong>{formatEta(durationS)}</strong> · {formatKm(distanceM)}{" "}
             <span className="text-xs text-muted">
-              {source === "MOCK" ? "(simulasi, garis lurus)" : "(perkiraan rute OSRM tanpa lalu lintas langsung)"}
+              {source === "MOCK" ? "(perkiraan dari jarak garis lurus)" : "(perkiraan rute OSRM tanpa lalu lintas langsung)"}
             </span>
           </p>
         </div>
@@ -126,7 +126,7 @@ export function RouteGuide({
       ) : (
         <p className="text-sm text-muted">
           {source === "MOCK"
-            ? "Petunjuk belok tidak tersedia pada rute simulasi."
+            ? "Petunjuk belok tidak tersedia untuk garis lurus."
             : "Petunjuk belok demi belok tidak tersedia untuk rute ini; gunakan tombol aplikasi peta di atas."}
         </p>
       )}

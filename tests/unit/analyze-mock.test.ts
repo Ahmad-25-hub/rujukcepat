@@ -14,7 +14,7 @@ describe("analyzeReport (mode simulasi)", () => {
     expect(r.input.kind).toBe("AUDIO");
     // tanpa foto: angka gula darah tidak boleh muncul
     expect(r.result.soap.objective.some((o) => o.value === "46")).toBe(false);
-    expect(r.warnings[0]).toContain("simulasi");
+    expect(r.warnings[0]).toContain("Hasil contoh");
   });
 
   it("dengan foto: angka dari foto tersedia dan berlabel PHOTO_READING", async () => {
