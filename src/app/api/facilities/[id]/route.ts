@@ -1,8 +1,8 @@
 import { requireStaff } from "@/lib/auth/staff";
 import { listFacilities } from "@/lib/data/facilities";
 import { fail, isUuid, ok, readJson } from "@/lib/http";
-import { mapDbError, updateFacility } from "@/lib/referrals/repo";
-import { FacilityPatchSchema } from "@/lib/schema/referral";
+import { mapDbError, updateFacility } from "@/lib/facilities/repo";
+import { FacilityPatchSchema } from "@/lib/schema/facility";
 
 export const runtime = "nodejs";
 

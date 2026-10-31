@@ -31,18 +31,6 @@ export type Urgency = (typeof URGENCY)[number];
 export const CAPABILITY_STATUS = ["READY", "PENUH", "MAINTENANCE"] as const;
 export type CapabilityStatus = (typeof CAPABILITY_STATUS)[number];
 
-export const REFERRAL_STATUS = [
-  "PENDING",
-  "ACCEPTED",
-  "REJECTED",
-  "CANCELLED",
-  "EXPIRED",
-] as const;
-export type ReferralStatus = (typeof REFERRAL_STATUS)[number];
-
-export const RESERVATION_STATUS = ["HELD", "RELEASED", "CONSUMED"] as const;
-export type ReservationStatus = (typeof RESERVATION_STATUS)[number];
-
 export const DATA_ORIGIN = [
   "USER_STATEMENT",
   "PHOTO_READING",

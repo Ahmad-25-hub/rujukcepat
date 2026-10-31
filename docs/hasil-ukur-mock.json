@@ -1,243 +1,139 @@
 {
-  "waktu": "2026-10-31T07:25:53.916Z",
+  "waktu": "2026-10-31T15:29:52.619Z",
   "server": "http://localhost:3100",
   "mode_ai": "MOCK",
   "model": null,
-  "mode_rute": "MOCK",
+  "mode_rute": "LIVE",
   "mode_data": "LOCAL",
-  "perangkat": "Windows_NT 10.0.26200 x64, AMD Ryzen 7 6800H with Radeon Graphics         , Node v22.20.0",
+  "perangkat": "Windows_NT 10.0.26200 x64, AMD Ryzen 7 8745HS w/ Radeon 780M Graphics     , Node v24.16.0",
   "jaringan": "loopback (localhost)",
   "masukan": {
-    "jenis": "AUDIO wav",
-    "audio_bytes": 494926,
-    "foto_bytes": 26129
+    "jenis": "TEKS",
+    "audio_bytes": null,
+    "foto_bytes": null
   },
-  "percobaan": 10,
-  "berhasil": 10,
-  "ac07_balapan_kuota": "status 201/409 | kuota Tarakan sesudah = 0",
+  "percobaan": 5,
+  "berhasil": 5,
+  "kuota_tanpa_tindakan_petugas": "RSCM 3/6 -> 3/6 setelah 3 rekomendasi",
   "kegagalan": [],
   "ringkasan": {
     "analisis_total_ms": {
-      "n": 10,
-      "min": 635,
-      "median": 653,
-      "p95": 714,
-      "max": 714
+      "n": 5,
+      "min": 608,
+      "median": 614,
+      "p95": 640,
+      "max": 640
     },
     "analisis_penyedia_ms": {
-      "n": 10,
-      "min": 601,
-      "median": 604,
+      "n": 5,
+      "min": 602,
+      "median": 605,
       "p95": 613,
       "max": 613
     },
-    "pencocokan_ms": {
-      "n": 10,
-      "min": 8,
-      "median": 11,
-      "p95": 38,
-      "max": 38
+    "rekomendasi_ms": {
+      "n": 5,
+      "min": 4,
+      "median": 4,
+      "p95": 1204,
+      "max": 1204
     },
-    "kirim_rujukan_ms": {
-      "n": 10,
-      "min": 12,
-      "median": 16,
-      "p95": 40,
-      "max": 40
+    "rute_ms": {
+      "n": 5,
+      "min": 294,
+      "median": 316,
+      "p95": 867,
+      "max": 867
     },
     "koordinasi_mesin_ms": {
-      "n": 10,
-      "min": 666,
-      "median": 686,
-      "p95": 811,
-      "max": 811
+      "n": 5,
+      "min": 906,
+      "median": 936,
+      "p95": 2160,
+      "max": 2160
     },
-    "kirim_ke_alert_dashboard_ms": {
-      "n": 10,
-      "min": 14,
-      "median": 18,
-      "p95": 43,
-      "max": 43
+    "ubah_kuota_petugas_ms": {
+      "n": 5,
+      "min": 7,
+      "median": 8,
+      "p95": 11,
+      "max": 11
     },
-    "sinkron_ke_dashboard_ms": {
-      "n": 10,
-      "min": 3,
-      "median": 4,
-      "p95": 5,
-      "max": 5
-    },
-    "keputusan_petugas_ms": {
-      "n": 10,
-      "min": 21,
-      "median": 46,
-      "p95": 51,
-      "max": 51
-    },
-    "keputusan_ke_portal_ms": {
-      "n": 10,
-      "min": 21,
-      "median": 47,
-      "p95": 52,
-      "max": 52
+    "ubah_kuota_ke_portal_ms": {
+      "n": 5,
+      "min": 7,
+      "median": 8,
+      "p95": 11,
+      "max": 11
     },
     "sinkron_ke_portal_ms": {
-      "n": 10,
-      "min": 2,
-      "median": 3,
-      "p95": 4,
-      "max": 4
+      "n": 5,
+      "min": 1,
+      "median": 2,
+      "p95": 3,
+      "max": 3
     }
   },
   "baris": [
     {
       "run": 1,
-      "analisis_total_ms": 714,
+      "kandidat_utama": "RSCM",
+      "analisis_total_ms": 640,
       "analisis_penyedia_ms": 602,
-      "pencocokan_ms": 38,
-      "kirim_rujukan_ms": 40,
-      "koordinasi_mesin_ms": 811,
-      "kirim_ke_alert_dashboard_ms": 43,
-      "sinkron_ke_dashboard_ms": 5,
-      "keputusan_petugas_ms": 48,
-      "keputusan_ke_portal_ms": 49,
-      "sinkron_ke_portal_ms": 3,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
+      "rekomendasi_ms": 1204,
+      "rute_ms": 317,
+      "koordinasi_mesin_ms": 2160,
+      "ubah_kuota_petugas_ms": 8,
+      "ubah_kuota_ke_portal_ms": 9,
+      "sinkron_ke_portal_ms": 1
     },
     {
       "run": 2,
-      "analisis_total_ms": 635,
-      "analisis_penyedia_ms": 604,
-      "pencocokan_ms": 12,
-      "kirim_rujukan_ms": 25,
-      "koordinasi_mesin_ms": 683,
-      "kirim_ke_alert_dashboard_ms": 28,
-      "sinkron_ke_dashboard_ms": 5,
-      "keputusan_petugas_ms": 51,
-      "keputusan_ke_portal_ms": 52,
-      "sinkron_ke_portal_ms": 3,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
+      "kandidat_utama": "RSCM",
+      "analisis_total_ms": 614,
+      "analisis_penyedia_ms": 609,
+      "rekomendasi_ms": 5,
+      "rute_ms": 316,
+      "koordinasi_mesin_ms": 936,
+      "ubah_kuota_petugas_ms": 11,
+      "ubah_kuota_ke_portal_ms": 11,
+      "sinkron_ke_portal_ms": 3
     },
     {
       "run": 3,
-      "analisis_total_ms": 668,
-      "analisis_penyedia_ms": 601,
-      "pencocokan_ms": 9,
-      "kirim_rujukan_ms": 15,
-      "koordinasi_mesin_ms": 699,
-      "kirim_ke_alert_dashboard_ms": 16,
-      "sinkron_ke_dashboard_ms": 4,
-      "keputusan_petugas_ms": 43,
-      "keputusan_ke_portal_ms": 44,
-      "sinkron_ke_portal_ms": 3,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
+      "kandidat_utama": "RSCM",
+      "analisis_total_ms": 609,
+      "analisis_penyedia_ms": 604,
+      "rekomendasi_ms": 4,
+      "rute_ms": 867,
+      "koordinasi_mesin_ms": 1480,
+      "ubah_kuota_petugas_ms": 7,
+      "ubah_kuota_ke_portal_ms": 7,
+      "sinkron_ke_portal_ms": 2
     },
     {
       "run": 4,
-      "analisis_total_ms": 653,
-      "analisis_penyedia_ms": 602,
-      "pencocokan_ms": 11,
-      "kirim_rujukan_ms": 21,
-      "koordinasi_mesin_ms": 691,
-      "kirim_ke_alert_dashboard_ms": 22,
-      "sinkron_ke_dashboard_ms": 3,
-      "keputusan_petugas_ms": 46,
-      "keputusan_ke_portal_ms": 47,
-      "sinkron_ke_portal_ms": 4,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
+      "kandidat_utama": "RSCM",
+      "analisis_total_ms": 617,
+      "analisis_penyedia_ms": 613,
+      "rekomendasi_ms": 4,
+      "rute_ms": 302,
+      "koordinasi_mesin_ms": 924,
+      "ubah_kuota_petugas_ms": 8,
+      "ubah_kuota_ke_portal_ms": 8,
+      "sinkron_ke_portal_ms": 1
     },
     {
       "run": 5,
-      "analisis_total_ms": 645,
-      "analisis_penyedia_ms": 603,
-      "pencocokan_ms": 8,
-      "kirim_rujukan_ms": 16,
-      "koordinasi_mesin_ms": 679,
-      "kirim_ke_alert_dashboard_ms": 18,
-      "sinkron_ke_dashboard_ms": 4,
-      "keputusan_petugas_ms": 47,
-      "keputusan_ke_portal_ms": 48,
-      "sinkron_ke_portal_ms": 4,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
-    },
-    {
-      "run": 6,
-      "analisis_total_ms": 644,
+      "kandidat_utama": "RSCM",
+      "analisis_total_ms": 608,
       "analisis_penyedia_ms": 605,
-      "pencocokan_ms": 12,
-      "kirim_rujukan_ms": 21,
-      "koordinasi_mesin_ms": 686,
-      "kirim_ke_alert_dashboard_ms": 22,
-      "sinkron_ke_dashboard_ms": 5,
-      "keputusan_petugas_ms": 48,
-      "keputusan_ke_portal_ms": 49,
-      "sinkron_ke_portal_ms": 3,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
-    },
-    {
-      "run": 7,
-      "analisis_total_ms": 660,
-      "analisis_penyedia_ms": 605,
-      "pencocokan_ms": 10,
-      "kirim_rujukan_ms": 14,
-      "koordinasi_mesin_ms": 694,
-      "kirim_ke_alert_dashboard_ms": 15,
-      "sinkron_ke_dashboard_ms": 3,
-      "keputusan_petugas_ms": 44,
-      "keputusan_ke_portal_ms": 44,
-      "sinkron_ke_portal_ms": 2,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
-    },
-    {
-      "run": 8,
-      "analisis_total_ms": 657,
-      "analisis_penyedia_ms": 613,
-      "pencocokan_ms": 9,
-      "kirim_rujukan_ms": 15,
-      "koordinasi_mesin_ms": 686,
-      "kirim_ke_alert_dashboard_ms": 17,
-      "sinkron_ke_dashboard_ms": 3,
-      "keputusan_petugas_ms": 21,
-      "keputusan_ke_portal_ms": 21,
-      "sinkron_ke_portal_ms": 4,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
-    },
-    {
-      "run": 9,
-      "analisis_total_ms": 636,
-      "analisis_penyedia_ms": 602,
-      "pencocokan_ms": 8,
-      "kirim_rujukan_ms": 14,
-      "koordinasi_mesin_ms": 666,
-      "kirim_ke_alert_dashboard_ms": 16,
-      "sinkron_ke_dashboard_ms": 4,
-      "keputusan_petugas_ms": 45,
-      "keputusan_ke_portal_ms": 46,
-      "sinkron_ke_portal_ms": 3,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
-    },
-    {
-      "run": 10,
-      "analisis_total_ms": 645,
-      "analisis_penyedia_ms": 606,
-      "pencocokan_ms": 16,
-      "kirim_rujukan_ms": 12,
-      "koordinasi_mesin_ms": 680,
-      "kirim_ke_alert_dashboard_ms": 14,
-      "sinkron_ke_dashboard_ms": 4,
-      "keputusan_petugas_ms": 46,
-      "keputusan_ke_portal_ms": 46,
-      "sinkron_ke_portal_ms": 4,
-      "status_portal": "ACCEPTED",
-      "reservasi_portal": "HELD"
+      "rekomendasi_ms": 4,
+      "rute_ms": 294,
+      "koordinasi_mesin_ms": 906,
+      "ubah_kuota_petugas_ms": 7,
+      "ubah_kuota_ke_portal_ms": 8,
+      "sinkron_ke_portal_ms": 2
     }
   ]
 }

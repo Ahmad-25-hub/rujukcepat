@@ -1,15 +1,14 @@
 "use client";
 
-import { Ban, Check, Loader2, Phone, RefreshCw, Route, Send } from "lucide-react";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Ban, Check, CircleCheck, ExternalLink, Loader2, Navigation, Phone, RefreshCw, Route } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CapStatusChip } from "@/components/badges";
 import MapView, { type MapMarker } from "@/components/map-dynamic";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
 import { formatEta, formatKm, timeAgo } from "@/lib/client/format";
 import type { Candidate, MatchResult } from "@/lib/matching/match";
-import type { AnalyzeResponse, Need } from "@/lib/schema/ai";
-import type { ReferralResponse } from "@/lib/schema/referral";
-import type { RouteStep } from "@/lib/routing/steps";
+import type { Need } from "@/lib/schema/ai";
+import { externalNavLinks, type RouteStep } from "@/lib/routing/steps";
 import type { ReporterLocation } from "./location-step";
 import { NavigationView } from "./navigation-view";
 import { RouteGuide } from "./route-guide";
@@ -89,7 +88,7 @@ function CandidateCard({
           ))}
         </span>
         <span className="flex w-full items-center gap-2.5 border-t border-[#eef1f5] pt-2.5">
-          <span className="shrink-0 text-[13px] text-ink-2">Kuota rujukan</span>
+          <span className="shrink-0 text-[13px] text-ink-2">Kuota pasien</span>
           <span aria-hidden className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#e6eaf0]">
             <span className={`block h-full rounded-full ${pct < 25 ? "bg-[#c25a0c]" : "bg-ok"}`} style={{ width: `${pct}%` }} />
           </span>
@@ -109,26 +108,21 @@ function CandidateCard({
 export function DestinationStep({
   location,
   needs,
-  analysis,
   online,
   selectedId,
   onSelect,
-  onSent,
+  onArrived,
   onBack,
 }: {
   location: ReporterLocation;
   needs: Need[];
-  analysis: AnalyzeResponse;
   online: boolean;
   selectedId: string | null;
   onSelect: (c: Candidate | null) => void;
-  onSent: (referralId: string) => void;
+  /** Pelapor menekan "Sudah sampai" di layar navigasi. */
+  onArrived: (c: Candidate) => void;
   onBack: () => void;
 }) {
-  const [sending, setSending] = useState(false);
-  const [sendError, setSendError] = useState<{ message: string; conflict: boolean } | null>(null);
-  // Satu kunci per percobaan pengiriman (RS + kebutuhan): klik ganda/retry jaringan memakai kunci yang sama.
-  const keyRef = useRef<{ sig: string; key: string } | null>(null);
   const [result, setResult] = useState<MatchResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -167,41 +161,6 @@ export function DestinationStep({
   function load() {
     setLoading(true);
     void fetchMatch();
-  }
-
-  async function send(candidate: Candidate) {
-    if (sending) return;
-    setSending(true);
-    setSendError(null);
-    const sig = `${candidate.facility_id}|${needs.map((n) => `${n.code}:${n.required}`).join(",")}`;
-    if (keyRef.current?.sig !== sig) keyRef.current = { sig, key: crypto.randomUUID() };
-    try {
-      const d = await apiFetch<ReferralResponse>("/api/referrals", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Idempotency-Key": keyRef.current.key },
-        body: JSON.stringify({
-          hospital_id: candidate.facility_id,
-          ai_result: analysis.result,
-          needs: needs.map(({ code, required, reason }) => ({ code, required, reason })),
-          location: { lat: location.lat, lng: location.lng },
-          location_source: location.source,
-        }),
-      });
-      keyRef.current = null;
-      onSent(d.referral.id);
-    } catch (e) {
-      const conflict = e instanceof ApiClientError && e.status === 409;
-      setSendError({ message: e instanceof ApiClientError ? e.message : "Pengiriman gagal. Silakan coba lagi.", conflict });
-      if (conflict) {
-        // Kapasitas/kesiapan berubah: muat ulang kandidat dan minta pengguna memilih ulang.
-        keyRef.current = null;
-        onSelect(null);
-        setLoading(true);
-        void fetchMatch();
-      }
-    } finally {
-      setSending(false);
-    }
   }
 
   useEffect(() => {
@@ -376,14 +335,13 @@ export function DestinationStep({
               durationS={route.duration_s}
               distanceM={route.distance_m}
               onFocusStep={setFocusPoint}
-              onStartNavigation={() => setNavigating(true)}
             />
           )}
 
           {selected && (
             <p className="px-1 text-xs leading-normal text-muted">
-              Mengirim akan menahan satu kuota simulasi di {selected.short_name} sampai petugas menjawab. Server memeriksa ulang kesiapan dan kapasitas saat
-              pengiriman.
+              Ini rekomendasi berdasarkan kesiapan dan kuota yang diperbarui petugas {selected.short_name}, bukan jaminan pasien diterima. Bila memungkinkan, hubungi
+              IGD sebelum berangkat.
             </p>
           )}
           {result.excluded.length > 0 && (
@@ -407,29 +365,44 @@ export function DestinationStep({
           origin={location}
           initialRoute={{ ...route, steps: route.steps ?? [] }}
           onClose={() => setNavigating(false)}
+          onArrived={() => {
+            setNavigating(false);
+            onArrived(selected);
+          }}
         />
       )}
 
       <div className="action-bar mt-auto">
         <div className="mx-auto flex w-full max-w-xl flex-col gap-2">
-        {sendError && (
-          <p role="alert" className="notice notice-error">
-            {sendError.message}
-            {sendError.conflict && " Daftar tujuan sudah diperbarui."}
-          </p>
-        )}
         {!online && (
           <p role="alert" className="notice notice-error font-semibold">
-            Anda offline. Rujukan tidak dapat dikirim sampai koneksi kembali; tidak ada antrean offline.
+            Anda offline. Daftar rumah sakit dan rute tidak dapat diperbarui sampai koneksi kembali.
           </p>
         )}
-        {selected ? (
+        {selected && routeError ? (
+          // Rute gagal dihitung: arahkan ke aplikasi peta perangkat, tetap sediakan "Sudah sampai".
           <>
-            <button type="button" onClick={() => void send(selected)} disabled={sending || !online} aria-busy={sending} className="btn btn-brand btn-lg w-full">
-              {sending ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Send className="h-5 w-5" aria-hidden />}
-              <span>{sending ? "Mengirim…" : sendError && !sendError.conflict ? "Coba kirim lagi" : `Kirim permintaan ke ${selected.short_name}`}</span>
+            <a
+              href={externalNavLinks(location, { lat: selected.lat, lng: selected.lng }).google}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-brand btn-lg w-full"
+            >
+              <ExternalLink className="h-5 w-5" aria-hidden />
+              Buka rute di Google Maps
+            </a>
+            <button type="button" onClick={() => onArrived(selected)} className="btn btn-secondary btn-lg w-full">
+              <CircleCheck className="h-5 w-5" aria-hidden />
+              Sudah sampai
             </button>
-            <p className="text-center text-xs leading-normal text-muted">Mengirim bukan berarti diterima — petugas IGD yang mengonfirmasi.</p>
+          </>
+        ) : selected ? (
+          <>
+            <button type="button" onClick={() => setNavigating(true)} disabled={!route} aria-busy={!route} className="btn btn-brand btn-lg w-full">
+              {route ? <Navigation className="h-5 w-5" aria-hidden /> : <Loader2 className="h-5 w-5 animate-spin" aria-hidden />}
+              <span>{route ? `Navigasi ke ${selected.short_name}` : "Menghitung rute…"}</span>
+            </button>
+            <p className="text-center text-xs leading-normal text-muted">Tekan “Sudah sampai” di layar navigasi setelah tiba di IGD.</p>
           </>
         ) : (
           <button type="button" onClick={onBack} className="btn btn-secondary btn-lg w-full">

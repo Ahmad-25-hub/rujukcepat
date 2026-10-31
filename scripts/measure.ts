@@ -3,7 +3,8 @@
 //   BASE_URL=http://localhost:3000 DEMO_STAFF_PASSWORD=... RUNS=5 npm run measure
 //   AUDIO=1  -> kirim tests/fixtures/audio/lansia-lemas-sintetis.wav (bukan teks)
 //   PHOTO=1  -> sertakan tests/fixtures/photo/glukometer-46-sintetis.jpg
-// Mengukur dua "sesi" (pelapor dan petugas) lewat HTTP + SSE. Hasil dicetak sebagai tabel dan
+// Alur: pelapor (analisis -> rekomendasi -> rute) dan petugas (ubah kuota -> portal menerima event SSE).
+// Portal hanya merekomendasikan; tidak ada pengiriman rujukan. Hasil dicetak sebagai tabel dan
 // ditulis ke docs/hasil-ukur-<mode>.json. Mode MOCK dan LIVE dipisahkan; jangan dicampur dalam klaim.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import os from "node:os";
@@ -14,7 +15,6 @@ const RUNS = Number(process.env.RUNS) || 5;
 const PASSWORD = process.env.DEMO_STAFF_PASSWORD || "";
 const SENEN = { lat: -6.177, lng: 106.842 };
 const RSCM = "00000000-0000-4000-8000-000000000001";
-const TARAKAN = "00000000-0000-4000-8000-000000000003";
 
 type Jar = { cookie: string };
 const jar = (): Jar => ({ cookie: "" });
@@ -34,12 +34,12 @@ async function call(j: Jar, p: string, init: RequestInit = {}) {
   const body = await res.json().catch(() => null);
   return { status: res.status, body };
 }
-const postJson = (j: Jar, p: string, data: unknown, headers: Record<string, string> = {}) =>
-  call(j, p, { method: "POST", headers: { "content-type": "application/json", ...headers }, body: JSON.stringify(data) });
+const sendJson = (j: Jar, method: string, p: string, data: unknown) =>
+  call(j, p, { method, headers: { "content-type": "application/json" }, body: JSON.stringify(data) });
 
 /** Buka SSE dan catat waktu terima tiap event "change". */
 function openStream(j: Jar) {
-  const events: { recvAt: number; at: number; type: string; referral_id: string | null }[] = [];
+  const events: { recvAt: number; at: number; type: string; hospital_id: string }[] = [];
   const ctrl = new AbortController();
   let ready: () => void = () => {};
   const hello = new Promise<void>((r) => (ready = r));
@@ -59,7 +59,7 @@ function openStream(j: Jar) {
         if (block.includes("event: hello")) ready();
         if (block.includes("event: change")) {
           const data = JSON.parse(block.split("\n").find((l) => l.startsWith("data: "))!.slice(6));
-          events.push({ recvAt: Date.now(), at: data.at, type: data.type, referral_id: data.referral_id });
+          events.push({ recvAt: Date.now(), at: data.at, type: data.type, hospital_id: data.hospital_id });
         }
       }
     }
@@ -80,6 +80,8 @@ const stats = (a: number[]) => {
   const q = (p: number) => s[Math.min(s.length - 1, Math.floor(p * s.length))];
   return { n: a.length, min: s[0], median: q(0.5), p95: q(0.95), max: s[s.length - 1] };
 };
+const slotsOf = async (id: string) =>
+  (await call(jar(), "/api/facilities")).body.data.facilities.find((f: { id: string }) => f.id === id) as { available_slots: number; total_slots: number };
 
 async function main() {
   if (!PASSWORD) throw new Error("Set DEMO_STAFF_PASSWORD (kata sandi akun demo) untuk mengukur sisi petugas.");
@@ -88,11 +90,11 @@ async function main() {
   console.log(`Server ${BASE} | AI ${st.ai_mode}${st.ai_model ? ` (${st.ai_model})` : ""} | rute ${st.routing_mode} | data ${st.data_mode}`);
 
   const staff = jar();
-  const login = await postJson(staff, "/api/staff/login", { email: "rscm@rujukcepat.demo", password: PASSWORD });
+  const login = await sendJson(staff, "POST", "/api/staff/login", { email: "rscm@rujukcepat.demo", password: PASSWORD });
   if (login.status !== 200) throw new Error(`Login petugas gagal: ${login.body?.error?.message}`);
   const admin = jar();
-  await postJson(admin, "/api/staff/login", { email: "admin@rujukcepat.demo", password: PASSWORD });
-  await postJson(admin, "/api/demo/reset", { confirm: "RESET" });
+  await sendJson(admin, "POST", "/api/staff/login", { email: "admin@rujukcepat.demo", password: PASSWORD });
+  await sendJson(admin, "POST", "/api/demo/reset", { confirm: "RESET" });
 
   const useAudio = process.env.AUDIO === "1";
   const usePhoto = process.env.PHOTO === "1";
@@ -101,11 +103,13 @@ async function main() {
   const audioBytes = useAudio ? readFileSync(audioFile) : null;
   const photoBytes = usePhoto ? readFileSync(photoFile) : null;
 
-  const staffStream = openStream(staff);
-  await staffStream.hello;
+  // Portal pelapor mendengarkan perubahan fasilitas (data publik) seperti di browser.
+  const portalStream = openStream(jar());
+  await portalStream.hello;
 
   const rows: Record<string, number | string | null>[] = [];
   const failures: string[] = [];
+  const before = await slotsOf(RSCM);
 
   for (let i = 1; i <= RUNS; i++) {
     const rep = jar();
@@ -127,93 +131,67 @@ async function main() {
     const providerMs = Math.round(an.body.data.timing.provider_ms);
     const ai = an.body.data;
 
-    // 2) pencocokan
+    // 2) rekomendasi RS
     const tM = performance.now();
-    const mt = await postJson(rep, "/api/match", { needs: ai.result.needs, location: SENEN, location_source: "MANUAL" });
+    const mt = await sendJson(rep, "POST", "/api/match", { needs: ai.result.needs, location: SENEN, location_source: "MANUAL" });
     const matchMs = ms(tM);
-    const target = mt.body?.data?.primary?.facility_id ?? RSCM;
-    if (target !== RSCM) failures.push(`run ${i}: kandidat utama ${mt.body?.data?.primary?.short_name} (bukan RSCM); rujukan tetap dikirim ke RSCM untuk pengukuran`);
-
-    // 3) kirim rujukan; ukur sampai dashboard menerima event
-    const nBefore = staffStream.events.length;
-    const tS = performance.now();
-    const tSendWall = Date.now();
-    const sent = await postJson(
-      rep,
-      "/api/referrals",
-      { hospital_id: RSCM, ai_result: ai.result, needs: ai.result.needs, location: SENEN, location_source: "MANUAL" },
-      { "idempotency-key": crypto.randomUUID() },
-    );
-    const sendMs = ms(tS);
-    if (sent.status !== 201) {
-      failures.push(`run ${i}: kirim ${sent.status} ${sent.body?.error?.code ?? ""}`);
+    const primary = mt.body?.data?.primary as { facility_id: string; short_name: string } | null;
+    if (!primary) {
+      failures.push(`run ${i}: tidak ada kandidat (${mt.body?.data?.no_candidate_reason ?? mt.status})`);
       continue;
     }
-    const id = sent.body.data.referral.id as string;
-    // Pelapor memperoleh cookie sesi saat mengirim; seperti portal, aliran event dibuka setelahnya.
-    const repStream = openStream(rep);
-    await repStream.hello;
-    const gotAlert = await waitFor(() => staffStream.events.slice(nBefore).some((e) => e.type === "referral" && e.referral_id === id));
-    const alertEv = staffStream.events.slice(nBefore).find((e) => e.type === "referral" && e.referral_id === id);
-    const sendToAlertMs = gotAlert && alertEv ? alertEv.recvAt - tSendWall : null;
-    const syncAlertMs = alertEv ? Math.max(0, alertEv.recvAt - alertEv.at) : null;
-    const koordinasiMachineMs = ms(tStart) - 0; // analisis + pencocokan + kirim (tanpa waktu manusia meninjau/memilih)
 
-    // 4) petugas menerima; ukur interaksi dan sinkron ke pelapor
-    const nRep = repStream.events.length;
-    const tD = performance.now();
-    const tDecWall = Date.now();
-    const dec = await postJson(staff, `/api/referrals/${id}/decision`, { action: "ACCEPT" });
-    const decisionMs = ms(tD);
-    if (dec.status !== 200) failures.push(`run ${i}: keputusan ${dec.status} ${dec.body?.error?.code ?? ""}`);
-    const gotRep = await waitFor(() => repStream.events.slice(nRep).some((e) => e.type === "referral" && e.referral_id === id));
-    const repEv = repStream.events.slice(nRep).find((e) => e.type === "referral" && e.referral_id === id);
-    const decToPortalMs = gotRep && repEv ? repEv.recvAt - tDecWall : null;
-    const syncPortalMs = repEv ? Math.max(0, repEv.recvAt - repEv.at) : null;
-    const portalView = await call(rep, `/api/referrals/${id}`);
+    // 3) rute ke kandidat utama (layar navigasi)
+    const tR = performance.now();
+    const rt = await call(rep, `/api/route?lat=${SENEN.lat}&lng=${SENEN.lng}&hospital_id=${primary.facility_id}`);
+    const routeMs = ms(tR);
+    if (rt.status !== 200) failures.push(`run ${i}: rute ${rt.status} ${rt.body?.error?.code ?? ""}`);
+    const koordinasiMachineMs = ms(tStart); // analisis + rekomendasi + rute (tanpa waktu manusia meninjau/memilih)
+
+    // 4) petugas mengubah kuota; ukur interaksi dan sinkron ke portal
+    const nPortal = portalStream.events.length;
+    const tP = performance.now();
+    const tPatchWall = Date.now();
+    const avail = i % 2 === 0 ? before.available_slots : Math.max(0, before.available_slots - 1);
+    const patch = await sendJson(staff, "PATCH", `/api/facilities/${RSCM}`, { available_slots: avail });
+    const patchMs = ms(tP);
+    if (patch.status !== 200) failures.push(`run ${i}: ubah kuota ${patch.status} ${patch.body?.error?.code ?? ""}`);
+    const got = await waitFor(() => portalStream.events.slice(nPortal).some((e) => e.hospital_id === RSCM));
+    const ev = portalStream.events.slice(nPortal).find((e) => e.hospital_id === RSCM);
+    const patchToPortalMs = got && ev ? ev.recvAt - tPatchWall : null;
+    const syncPortalMs = ev ? Math.max(0, ev.recvAt - ev.at) : null;
 
     rows.push({
       run: i,
+      kandidat_utama: primary.short_name,
       analisis_total_ms: analyzeTotal,
       analisis_penyedia_ms: providerMs,
-      pencocokan_ms: matchMs,
-      kirim_rujukan_ms: sendMs,
+      rekomendasi_ms: matchMs,
+      rute_ms: routeMs,
       koordinasi_mesin_ms: koordinasiMachineMs,
-      kirim_ke_alert_dashboard_ms: sendToAlertMs,
-      sinkron_ke_dashboard_ms: syncAlertMs,
-      keputusan_petugas_ms: decisionMs,
-      keputusan_ke_portal_ms: decToPortalMs,
+      ubah_kuota_petugas_ms: patchMs,
+      ubah_kuota_ke_portal_ms: patchToPortalMs,
       sinkron_ke_portal_ms: syncPortalMs,
-      status_portal: portalView.body?.data?.referral?.status ?? "?",
-      reservasi_portal: portalView.body?.data?.referral?.reservation_status ?? "?",
     });
-    repStream.close();
-    // Lepas kuota agar percobaan berikutnya tidak terhalang kapasitas simulasi (REVOKE melepas reservasi).
-    await postJson(staff, `/api/referrals/${id}/decision`, { action: "REVOKE", note: "selesai pengukuran" });
   }
 
-  // AC-07 pada server berjalan: dua pelapor berbeda memperebutkan satu kuota (Tarakan = 1).
-  await postJson(admin, "/api/demo/reset", { confirm: "RESET" });
-  const fdT = new FormData();
-  fdT.set("consent", "true");
-  fdT.set("text", "Kecelakaan motor, terbentur kepala");
-  const aiT = (await call(jar(), "/api/analyze", { method: "POST", body: fdT })).body?.data;
-  let race = "dilewati (analisis gagal)";
-  if (aiT) {
-    const [a, b] = [jar(), jar()];
-    const body = { hospital_id: TARAKAN, ai_result: aiT.result, needs: [{ code: "IGD_DASAR", required: true, reason: "uji" }], location: SENEN, location_source: "MANUAL" };
-    const rs = await Promise.all([a, b].map((j) => postJson(j, "/api/referrals", body, { "idempotency-key": crypto.randomUUID() })));
-    const codes = rs.map((r) => r.status).sort();
-    const fac = (await call(jar(), "/api/facilities")).body.data.facilities.find((f: { id: string }) => f.id === TARAKAN);
-    race = `status ${codes.join("/")} | kuota Tarakan sesudah = ${fac.available_slots}`;
-    if (!(codes[0] === 201 && codes[1] === 409 && fac.available_slots === 0)) failures.push(`AC-07: hasil tidak sesuai harapan (${race})`);
-  }
-  await postJson(admin, "/api/demo/reset", { confirm: "RESET" });
-  staffStream.close();
+  // Rekomendasi tidak boleh mengurangi kuota: bandingkan sebelum/sesudah tanpa perubahan petugas.
+  await sendJson(staff, "PATCH", `/api/facilities/${RSCM}`, { available_slots: before.available_slots });
+  const s0 = await slotsOf(RSCM);
+  for (let k = 0; k < 3; k++) await sendJson(jar(), "POST", "/api/match", { needs: [{ code: "IGD_DASAR", required: true, reason: "uji" }], location: SENEN, location_source: "MANUAL" });
+  const s1 = await slotsOf(RSCM);
+  const kuotaTetap = `RSCM ${s0.available_slots}/${s0.total_slots} -> ${s1.available_slots}/${s1.total_slots} setelah 3 rekomendasi`;
+  if (s0.available_slots !== s1.available_slots) failures.push(`kuota berubah tanpa tindakan petugas (${kuotaTetap})`);
+
+  await sendJson(admin, "POST", "/api/demo/reset", { confirm: "RESET" });
+  portalStream.close();
 
   const col = (k: string) => rows.map((r) => r[k]).filter((v): v is number => typeof v === "number");
   const summary = Object.fromEntries(
-    ["analisis_total_ms", "analisis_penyedia_ms", "pencocokan_ms", "kirim_rujukan_ms", "koordinasi_mesin_ms", "kirim_ke_alert_dashboard_ms", "sinkron_ke_dashboard_ms", "keputusan_petugas_ms", "keputusan_ke_portal_ms", "sinkron_ke_portal_ms"].map((k) => [k, col(k).length ? stats(col(k)) : null]),
+    ["analisis_total_ms", "analisis_penyedia_ms", "rekomendasi_ms", "rute_ms", "koordinasi_mesin_ms", "ubah_kuota_petugas_ms", "ubah_kuota_ke_portal_ms", "sinkron_ke_portal_ms"].map((k) => [
+      k,
+      col(k).length ? stats(col(k)) : null,
+    ]),
   );
   const result = {
     waktu: new Date().toISOString(),
@@ -227,7 +205,7 @@ async function main() {
     masukan: { jenis: useAudio ? "AUDIO wav" : "TEKS", audio_bytes: audioBytes?.length ?? null, foto_bytes: photoBytes?.length ?? null },
     percobaan: RUNS,
     berhasil: rows.length,
-    ac07_balapan_kuota: race,
+    kuota_tanpa_tindakan_petugas: kuotaTetap,
     kegagalan: failures,
     ringkasan: summary,
     baris: rows,
@@ -238,7 +216,7 @@ async function main() {
   console.table(rows);
   console.log("\nRingkasan (ms):");
   console.table(summary);
-  console.log("AC-07 (balapan satu kuota):", race);
+  console.log("Kuota tanpa tindakan petugas:", kuotaTetap);
   if (failures.length) console.log("Kegagalan/catatan:\n - " + failures.join("\n - "));
   console.log(`\nHasil ditulis ke ${file} (mode ${mode}).`);
 }

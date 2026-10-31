@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronLeft, Clock, Loader2, RefreshCw, TriangleAlert, WifiOff, X } from "lucide-react";
+import { Check, ChevronLeft, Loader2, RefreshCw, TriangleAlert, WifiOff, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ModeBanner } from "@/components/badges";
@@ -8,20 +8,20 @@ import { ApiClientError, apiFetch, type ServiceStatus } from "@/lib/client/api";
 import { toWav16k } from "@/lib/client/audio";
 import type { Candidate } from "@/lib/matching/match";
 import type { AnalyzeResponse } from "@/lib/schema/ai";
+import { ArrivalStep } from "./arrival-step";
 import { ConsentStep } from "./consent-step";
 import { DestinationStep } from "./destination-step";
 import { LocationStep, type ReporterLocation } from "./location-step";
 import { RecordStep, type ReportDraft } from "./record-step";
-import { setActiveReferral, StatusStep, useActiveReferral } from "./status-step";
 import { effectiveNeeds, ReviewStep, type NeedEdits } from "./review-step";
 
-type Step = "prepare" | "record" | "processing" | "review" | "destination" | "status";
+type Step = "prepare" | "record" | "processing" | "review" | "destination" | "arrived";
 const STEPS: { id: Step; label: string }[] = [
   { id: "prepare", label: "Persiapan" },
   { id: "record", label: "Laporan kondisi" },
   { id: "review", label: "Tinjau ringkasan" },
   { id: "destination", label: "Pilih rumah sakit" },
-  { id: "status", label: "Status rujukan" },
+  { id: "arrived", label: "Sudah sampai" },
 ];
 
 type Stage = "prepare" | "upload" | "done";
@@ -39,8 +39,6 @@ export function ReportWizard() {
   const [procError, setProcError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Candidate | null>(null);
   const [online, setOnline] = useState(true);
-  const [referralId, setReferralId] = useState<string | null>(null);
-  const lastReferralId = useActiveReferral();
   const abortRef = useRef<AbortController | null>(null);
   const headingRef = useRef<HTMLDivElement>(null);
 
@@ -107,21 +105,13 @@ export function ReportWizard() {
     }
   }
 
-  function rememberReferral(id: string | null) {
-    setReferralId(id);
-    setActiveReferral(id);
-  }
-
   function startNew() {
-    rememberReferral(null);
     setAnalysis(null);
     setEdits({});
     setSelected(null);
     setDraftState({ audio: null, text: "", useText: false, photo: null, scenario: "" });
     setStep(consent && location ? "record" : "prepare");
   }
-
-  const supabaseChannels = status?.data_mode === "SUPABASE" && referralId ? ["rc:facilities", `rc:referral:${referralId}`] : null;
 
   const banner: string[] = [];
   banner.push("Demo – data simulasi");
@@ -141,8 +131,8 @@ export function ReportWizard() {
           ? () => setStep("record")
           : step === "destination"
             ? () => setStep("review")
-            : step === "status"
-              ? "home"
+            : step === "arrived"
+              ? () => setStep("destination")
               : null;
 
   return (
@@ -215,24 +205,6 @@ export function ReportWizard() {
                 <h1 className="text-[28px] font-extrabold leading-tight tracking-[-0.03em]">Dua hal sebelum mulai</h1>
                 <p className="mt-1.5 text-base leading-relaxed text-ink-2">Setelah ini langsung ke rekaman.</p>
               </div>
-              {lastReferralId && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setReferralId(lastReferralId);
-                    setStep("status");
-                  }}
-                  className="anim-rise flex min-h-[60px] items-center gap-3 rounded-2xl border border-line bg-white px-3 py-2.5 text-left transition-colors hover:bg-[#eef1f5]"
-                >
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-warn-tint text-warn-ink">
-                    <Clock className="h-[18px] w-[18px]" aria-hidden />
-                  </span>
-                  <span className="flex-1">
-                    <span className="block text-xs font-semibold text-muted">Rujukan terakhir di perangkat ini</span>
-                    <span className="block text-[15px] font-bold">Lihat status permintaan</span>
-                  </span>
-                </button>
-              )}
               <ConsentStep status={status} checked={consent} onChange={setConsent} />
               <LocationStep value={location} onChange={setLocation} />
               <div className="action-bar mt-auto">
@@ -306,29 +278,19 @@ export function ReportWizard() {
             <DestinationStep
               location={location}
               needs={needs}
-              analysis={analysis}
               online={online}
               selectedId={selected?.facility_id ?? null}
               onSelect={setSelected}
-              onSent={(id) => {
-                rememberReferral(id);
-                setStep("status");
+              onArrived={(c) => {
+                setSelected(c);
+                setStep("arrived");
               }}
               onBack={() => setStep("review")}
             />
           )}
 
-          {step === "status" && referralId && (
-            <StatusStep
-              referralId={referralId}
-              supabaseChannels={supabaseChannels}
-              onBack={analysis && location ? () => setStep("destination") : null}
-              onNew={startNew}
-              onGone={() => {
-                rememberReferral(null);
-                setStep("prepare");
-              }}
-            />
+          {step === "arrived" && analysis && selected && (
+            <ArrivalStep hospital={selected} result={analysis.result} needs={needs} onNew={startNew} onBack={() => setStep("destination")} />
           )}
         </div>
       </main>

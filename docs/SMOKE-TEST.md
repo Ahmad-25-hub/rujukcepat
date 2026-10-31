@@ -14,20 +14,20 @@ Dijalankan **setelah** deployment publik ada (Vercel + Supabase). Hasil lokal ti
 
 - **SSE (`/api/stream`) tidak dipakai di mode `supabase`**: sinkronisasi memakai broadcast Supabase Realtime. Pastikan kanal `rc:*` tersambung (badge "Tersambung (Supabase Realtime)") dan polling 5 dtk bekerja bila diputus.
 - Pembatas laju per instans serverless tidak global.
-- Realtime Supabase, RLS, `SUPABASE_DB_URL` (pooler, SSL), dan `create_referral` pada koneksi sungguhan **belum pernah diuji**.
+- Realtime Supabase, RLS, `SUPABASE_DB_URL` (pooler, SSL), dan `update_facility` pada koneksi sungguhan **belum diuji untuk alur baru** (fitur kirim/`create_referral` sudah dihapus dari aplikasi).
 
 ## Daftar periksa (SPEC §13.4)
 
 - [ ] 1. Portal dan dashboard terbuka via HTTPS di ponsel dan desktop.
 - [ ] 2. Izin mikrofon dan lokasi muncul dan berfungsi.
 - [ ] 3. `/api/analyze` mode LIVE berhasil dengan audio sintetis; waktu dicatat.
-- [ ] 4. Rujukan dari ponsel muncul di dashboard (Realtime); konfirmasi kembali ke ponsel.
+- [ ] 4. Perubahan kuota di dashboard terlihat di portal ponsel (Realtime); kuota tidak berubah ketika pelapor mencari/bernavigasi.
 - [ ] 5. Perubahan kapabilitas di dashboard mengubah rekomendasi portal.
 - [ ] 6. `npm run build && npm run check:secrets` lulus dengan semua kunci produksi terisi di environment build.
 - [ ] 7. Badge simulasi terlihat; atribusi peta tampil.
 - [ ] 8. Login petugas hanya melihat RS-nya; RS lain 403 (coba dua akun).
-- [ ] 9. Dua pelapor memperebutkan satu kuota (Tarakan setelah reset): satu berhasil, satu mendapat pesan.
-- [ ] 10. Putuskan jaringan di ponsel: banner offline, tombol kirim nonaktif; sambung kembali: status pulih.
+- [ ] 9. Navigasi di ponsel: GPS mengikuti posisi; tombol **Sudah sampai** membuka ringkasan serah terima.
+- [ ] 10. Putuskan jaringan di ponsel: banner offline; sambung kembali: daftar RS dapat diperbarui.
 - [ ] 11. PWA: pemasangan di Android Chrome / iOS "Tambah ke Layar Utama"; mode offline menampilkan halaman offline jujur.
-- [ ] 12. TTS dan alarm pada perangkat nyata (suara id-ID tersedia atau fallback teks).
+- [ ] 12. TTS "Bacakan ringkasan" dan suara navigasi pada perangkat nyata (suara id-ID tersedia atau fallback teks).
 - [ ] 13. Reset demo oleh admin sebelum perekaman video.

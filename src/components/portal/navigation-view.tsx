@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Crosshair, ExternalLink, FlaskConical, Flag, Loader2, Navigation, RefreshCw, Volume2, VolumeX, WifiOff, X } from "lucide-react";
+import { AlertTriangle, CircleCheck, Crosshair, ExternalLink, FlaskConical, Flag, Loader2, Navigation, RefreshCw, Volume2, VolumeX, WifiOff, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import MapView, { type LivePosition, type MapMarker } from "@/components/map-dynamic";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
@@ -59,11 +59,14 @@ export function NavigationView({
   origin,
   initialRoute,
   onClose,
+  onArrived,
 }: {
   hospital: { id: string; short_name: string; name: string; lat: number; lng: number };
   origin: Pt;
   initialRoute: RouteData;
   onClose: () => void;
+  /** Pengguna menyatakan sudah sampai (tombol), terlepas dari deteksi GPS. */
+  onArrived: () => void;
 }) {
   const [route, setRoute] = useState<RouteData>(initialRoute);
   const idx = useMemo(() => buildRouteIndex(route.geometry), [route]);
@@ -307,7 +310,7 @@ export function NavigationView({
         <Flag className="h-8 w-8 shrink-0" aria-hidden />
         <div>
           <p className="text-xl font-extrabold">Anda telah tiba di {hospital.short_name}</p>
-          <p className="text-sm text-[#c9d2e0]">Tiba di lokasi bukan konfirmasi penerimaan; ikuti arahan petugas IGD.</p>
+          <p className="text-sm text-[#c9d2e0]">Tekan “Sudah sampai” untuk menampilkan ringkasan bagi petugas IGD.</p>
         </div>
       </div>
     );
@@ -448,6 +451,11 @@ export function NavigationView({
           </div>
         )}
 
+        <button type="button" onClick={onArrived} className={`btn btn-lg w-full bg-ok text-white hover:bg-ok-strong ${arrived ? "anim-pop" : ""}`}>
+          <CircleCheck className="h-5 w-5" aria-hidden />
+          Sudah sampai
+        </button>
+
         <div className="flex flex-wrap gap-2">
           {gps.status === "denied" && !simulate && (
             <button type="button" onClick={retryGps} className="btn btn-secondary">
@@ -478,9 +486,9 @@ export function NavigationView({
               Simulasikan keluar jalur
             </button>
           )}
-          <button type="button" onClick={onClose} className="btn btn-primary">
+          <button type="button" onClick={onClose} className="btn btn-secondary">
             <X className="h-4 w-4" aria-hidden />
-            {arrived ? "Selesai" : "Hentikan navigasi"}
+            {arrived ? "Tutup peta" : "Hentikan navigasi"}
           </button>
         </div>
         <details className="text-[11px] text-muted">

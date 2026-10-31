@@ -3,10 +3,8 @@ import { createHash, createHmac, randomUUID, scryptSync, timingSafeEqual } from 
 
 // Sesi demo berbasis cookie bertanda tangan (HMAC). Keamanan bukan fokus proyek ini,
 // tetapi akses lintas rumah sakit tetap ditegakkan di setiap route (lihat requireStaff).
-//  - rc_rid   : id pelapor anonim (UUID acak, httpOnly) -> requester_id rujukan.
 //  - rc_staff : token petugas "userId.exp.hmac".
 
-export const REPORTER_COOKIE = "rc_rid";
 export const STAFF_COOKIE = "rc_staff";
 const STAFF_TTL_SECONDS = 8 * 60 * 60;
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -31,20 +29,6 @@ export function parseCookies(request: Request): Record<string, string> {
 function cookieHeader(name: string, value: string, maxAge: number) {
   const secure = process.env.NODE_ENV === "production" ? "; Secure" : "";
   return `${name}=${encodeURIComponent(value)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=${maxAge}${secure}`;
-}
-
-/** Id pelapor dari cookie; bila belum ada dibuat baru dan `setCookie` berisi header Set-Cookie. */
-export function reporterId(request: Request): { id: string; setCookie: string | null } {
-  const existing = parseCookies(request)[REPORTER_COOKIE];
-  if (existing && UUID_RE.test(existing)) return { id: existing.toLowerCase(), setCookie: null };
-  const id = randomUUID();
-  return { id, setCookie: cookieHeader(REPORTER_COOKIE, id, 7 * 24 * 3600) };
-}
-
-/** Id pelapor yang sudah ada (tanpa membuat baru). */
-export function existingReporterId(request: Request): string | null {
-  const v = parseCookies(request)[REPORTER_COOKIE];
-  return v && UUID_RE.test(v) ? v.toLowerCase() : null;
 }
 
 function sign(payload: string) {

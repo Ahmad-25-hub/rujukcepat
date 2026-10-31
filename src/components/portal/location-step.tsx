@@ -75,7 +75,7 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
               {value.source === "GPS" ? `Terdeteksi dari GPS · ± ${value.accuracy_m} m` : "Dipilih manual di peta"}
             </p>
           ) : (
-            <p className="mt-0.5 text-sm text-muted">Dipakai untuk memperkirakan rute; koordinat dibulatkan sebelum disimpan.</p>
+            <p className="mt-0.5 text-sm text-muted">Dipakai untuk memperkirakan rute; tidak disimpan di server.</p>
           )}
         </div>
       </div>

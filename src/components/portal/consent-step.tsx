@@ -14,7 +14,7 @@ export function ConsentStep({ status, checked, onChange }: { status: ServiceStat
     [
       "Disimpan",
       <>
-        Audio dan foto <strong>tidak disimpan</strong> setelah diproses. Ringkasan baru disimpan bila Anda mengirim permintaan rujukan.
+        Audio dan foto <strong>tidak disimpan</strong> setelah diproses. Ringkasan hanya ditampilkan di perangkat ini dan tidak disimpan di server.
       </>,
     ],
   ];

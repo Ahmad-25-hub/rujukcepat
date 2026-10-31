@@ -8,15 +8,12 @@ import { getSupabaseServerConfig } from "@/lib/supabase/server-config";
 //
 //  - LOCAL    : EventEmitter dalam proses + Server-Sent Events (/api/stream).
 //  - SUPABASE : tambahan broadcast Supabase Realtime dari server (REST) ke kanal
-//               "rc:facilities", "rc:hospital:<id>", dan "rc:referral:<id>" (belum diuji tanpa kredensial).
+//               "rc:facilities" (belum diuji tanpa kredensial).
 
 export type SyncEvent = {
   seq: number;
-  type: "referral" | "facility";
+  type: "facility";
   hospital_id: string;
-  referral_id: string | null;
-  /** Hanya untuk penyaringan di server; tidak pernah dikirim ke klien. */
-  requester_id: string | null;
   /** Waktu server (ms epoch) saat perubahan tersimpan; dipakai untuk mengukur latensi sinkronisasi. */
   at: number;
 };
@@ -32,7 +29,7 @@ export function subscribe(l: Listener): () => void {
 }
 
 export function publicEvent(e: SyncEvent) {
-  return { seq: e.seq, type: e.type, hospital_id: e.hospital_id, referral_id: e.referral_id, at: e.at };
+  return { seq: e.seq, type: e.type, hospital_id: e.hospital_id, at: e.at };
 }
 
 let sbClient: ReturnType<typeof createClient> | null = null;
@@ -46,19 +43,13 @@ async function broadcast(e: SyncEvent) {
   const sb = supabaseClient();
   if (!sb) return;
   const payload = publicEvent(e);
-  const topics = ["rc:facilities", `rc:hospital:${e.hospital_id}`];
-  if (e.referral_id) topics.push(`rc:referral:${e.referral_id}`);
-  await Promise.allSettled(
-    topics.map((t) => {
-      const ch = sb.channel(t);
-      return ch.httpSend("change", payload).finally(() => void sb.removeChannel(ch));
-    }),
-  );
+  const ch = sb.channel("rc:facilities");
+  await ch.httpSend("change", payload).finally(() => void sb.removeChannel(ch));
 }
 
 /** Umumkan perubahan SETELAH transaksi database tersimpan. */
-export function notifyChange(e: Omit<SyncEvent, "seq" | "at" | "referral_id" | "requester_id"> & { referral_id?: string | null; requester_id?: string | null }) {
-  const full: SyncEvent = { seq: ++bus.seq, at: Date.now(), referral_id: null, requester_id: null, ...e };
+export function notifyChange(e: Pick<SyncEvent, "hospital_id">) {
+  const full: SyncEvent = { seq: ++bus.seq, at: Date.now(), type: "facility", ...e };
   for (const l of bus.listeners) {
     try {
       l(full);

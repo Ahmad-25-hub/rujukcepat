@@ -499,3 +499,17 @@ Permintaan pengguna di luar daftar T01–T20; keputusan cakupan dicatat di `TASK
 | Suara | Opsional, default mati, `speechSynthesis` `id-ID`, hanya kalimat navigasi; teks selalu tampil. |
 | Simulasi | "Simulasi perjalanan (demo)" memutar posisi di sepanjang rute (±25 m/dtk) dengan badge "Simulasi GPS – bukan posisi nyata"; "Simulasikan keluar jalur" menguji hitung ulang. Berguna untuk demo/video tanpa berkendara. |
 | Privasi | Posisi GPS tidak disimpan; server hanya menerima koordinat untuk menghitung ulang rute. Layar dijaga menyala via Wake Lock bila didukung. |
+
+## 20. Perubahan alur: rekomendasi tanpa permintaan rujukan (31-10-2026)
+
+Keputusan pengguna; menggantikan §8 (lifecycle rujukan dan kuota), bagian rujukan pada §9–§11, dan penanganan "Tiba" pada §19.
+
+| Bagian | Sekarang |
+| --- | --- |
+| Portal | Persiapan → Laporan → Tinjau → Pilih RS (rekomendasi + rute) → **Sudah sampai**. Tidak ada tombol kirim, status rujukan, atau konfirmasi petugas. Tombol utama di langkah Pilih RS = "Navigasi ke RS"; bila rute gagal, tombol Google Maps + "Sudah sampai". |
+| Sudah sampai | Tombol hijau selalu ada di layar navigasi (juga saat GPS ditolak). Membuka layar ringkasan serah terima (urgensi, SOAP, kebutuhan, belum diketahui) + "Bacakan ringkasan" (TTS). Data hanya di memori halaman; tidak ada yang dikirim atau disimpan di server. |
+| Kuota | Diatur manual oleh petugas RS lewat `PATCH /api/facilities/:id` → `update_facility()`. Tidak ada reservasi, pengurangan otomatis, expiry, atau idempotency key. Pencocokan tetap mensyaratkan kuota > 0. |
+| Dashboard | Hanya panel kesiapan/kuota RS sendiri, ringkasan semua fasilitas, dan reset admin. Antrean, detail rujukan, alarm, dan keputusan Terima/Tolak dihapus. |
+| API | `/api/referrals*` dihapus. Event sinkronisasi hanya `facility` (`seq`, `type`, `hospital_id`, `at`) pada SSE `/api/stream` dan kanal Supabase `rc:facilities`. Cookie pelapor anonim `rc_rid` dihapus. |
+| Database | Tidak ada migrasi baru. Tabel `referral_requests`, `quota_reservations`, `referral_events` dan fungsi `create_referral`, `transition_referral`, `release_reservation`, `expire_stale_referrals` tetap ada di migrasi 0001–0004 tetapi tidak dipanggil aplikasi; `update_facility` masih mencatat audit ke `referral_events`. Reset demo tetap mengosongkan tabel tersebut lalu menjalankan seed. |
+| Uji | `tests/integration/api.test.ts` (akses, kuota manual, rekomendasi tidak mengubah kuota, kuota 0, event, reset) dan `db.test.ts` (`update_facility`, reset, constraint). Tes transaksi rujukan dihapus bersama fiturnya. |

@@ -106,7 +106,7 @@ export function SpeakPanel({ lines, title = "Panduan suara" }: { lines: string[]
           <li key={i}>{l}</li>
         ))}
       </ul>
-      <p className="text-xs text-muted">Panduan ini hanya untuk koordinasi rujukan, bukan diagnosis atau instruksi pengobatan.</p>
+      <p className="text-xs text-muted">Ringkasan ini hanya untuk serah terima informasi, bukan diagnosis atau instruksi pengobatan.</p>
     </section>
   );
 }

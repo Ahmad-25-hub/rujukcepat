@@ -22,5 +22,4 @@ export const config = {
   routingTimeoutMs: int("ROUTING_TIMEOUT_MS", 4000),
   matchMaxRouted: int("MATCH_MAX_ROUTED", 5),
   staleAfterMinutes: int("STALE_AFTER_MINUTES", 1440),
-  referralTtlSeconds: int("REFERRAL_PENDING_TTL_SECONDS", 600),
 };

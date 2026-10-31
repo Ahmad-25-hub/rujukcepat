@@ -33,7 +33,7 @@ export async function applySeed(db: PGlite) {
   await db.exec(readSql("seed.sql"));
 }
 
-/** Hapus data rujukan demo lalu jalankan ulang seed. Menghapus data demo. */
+/** Hapus sisa data rujukan lama lalu jalankan ulang seed. Menghapus data demo. */
 export async function resetDemoData(db: PGlite) {
   await db.exec(
     "delete from referral_events; delete from quota_reservations; delete from referral_requests;",

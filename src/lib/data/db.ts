@@ -56,7 +56,7 @@ export async function resetDbHandle() {
   }
 }
 
-/** Hapus semua rujukan/reservasi/event demo lalu jalankan ulang seed. MENGHAPUS data demo. */
+/** Kembalikan seed kapasitas/kapabilitas (perubahan petugas hilang) dan hapus sisa tabel rujukan lama. MENGHAPUS data demo. */
 export async function resetDemoDataOn(db: Db) {
   await db.exec("delete from referral_events; delete from quota_reservations; delete from referral_requests;");
   await applySeed(db as unknown as Parameters<typeof applySeed>[0]);

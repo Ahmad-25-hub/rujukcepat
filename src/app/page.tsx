@@ -6,7 +6,7 @@ import { InstallButton } from "@/components/pwa";
 const STEPS = [
   { title: "Rekam laporan", body: "Suara atau teks, plus foto alat ukur bila ada." },
   { title: "Tinjau ringkasan AI", body: "SOAP, perkiraan urgensi, dan kebutuhan layanan — Anda yang memutuskan." },
-  { title: "Kirim ke IGD yang siap", body: "Petugas menerima pemberitahuan pra-kedatangan dan mengonfirmasi." },
+  { title: "Menuju IGD yang siap", body: "Rekomendasi RS sesuai kebutuhan dan kuota terkini, lalu navigasi sampai tiba." },
 ];
 
 export default function Home() {

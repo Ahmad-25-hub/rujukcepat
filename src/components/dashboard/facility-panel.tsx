@@ -7,7 +7,7 @@ import { ApiClientError, apiFetch } from "@/lib/client/api";
 import { timeAgo } from "@/lib/client/format";
 import type { Facility } from "@/lib/schema/api";
 import { CAPABILITY_CODES, CAPABILITY_LABELS, CAPABILITY_STATUS, type CapabilityCode, type CapabilityStatus } from "@/lib/schema/enums";
-import type { FacilityPatch } from "@/lib/schema/referral";
+import type { FacilityPatch } from "@/lib/schema/facility";
 
 // Label pendek + warna status terpilih; nilai lengkap tetap di title dan pembaca layar.
 const SEG_LABEL: Record<CapabilityStatus, string> = { READY: "Ready", PENUH: "Penuh", MAINTENANCE: "Maint." };
@@ -31,7 +31,7 @@ export function FacilityPanel({
   onUpdated: (t: FacilityToast) => void;
 }) {
   const [busy, setBusy] = useState<string | null>(null);
-  // Isian kapasitas di-reset (key) setiap data server berubah, mis. kuota berubah karena rujukan masuk.
+  // Isian kapasitas di-reset (key) setiap data server berubah, mis. diubah petugas lain di RS yang sama.
   const sig = `${facility.total_slots}/${facility.available_slots}/${facility.capacity_updated_at}`;
 
   async function patch(key: string, body: FacilityPatch, okMsg: string) {
@@ -158,7 +158,7 @@ function CapacityEditor({
   const capDirty = totalN !== facility.total_slots || availN !== facility.available_slots;
   return (
       <div className="flex flex-col gap-2.5 rounded-2xl bg-soft p-3.5">
-        <h3 className="eyebrow">Kuota rujukan masuk</h3>
+        <h3 className="eyebrow">Kuota pasien rujukan</h3>
         <p className="flex items-baseline gap-1" aria-hidden>
           <span className="text-[34px] font-extrabold leading-none tracking-tight">{facility.available_slots}</span>
           <span className="text-lg font-bold text-muted">/ {facility.total_slots} tersedia</span>
@@ -202,7 +202,8 @@ function CapacityEditor({
           </p>
         )}
         <p className="text-xs text-muted">
-          Diperbarui {timeAgo(facility.capacity_updated_at, Date.parse(serverTime))}. Mengubah angka ini tidak mengubah reservasi yang sedang ditahan oleh rujukan PENDING/ACCEPTED.
+          Diperbarui {timeAgo(facility.capacity_updated_at, Date.parse(serverTime))}. Kuota tidak berkurang otomatis saat pelapor memilih RS ini; perbarui angka ini setiap kali kondisi IGD berubah. Kuota 0 membuat RS tidak
+          direkomendasikan.
         </p>
       </div>
   );

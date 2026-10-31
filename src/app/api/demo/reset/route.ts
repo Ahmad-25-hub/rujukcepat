@@ -1,11 +1,11 @@
 import { requireStaff } from "@/lib/auth/staff";
 import { fail, ok, readJson } from "@/lib/http";
-import { mapDbError, resetDemo } from "@/lib/referrals/repo";
-import { ResetSchema } from "@/lib/schema/referral";
+import { mapDbError, resetDemo } from "@/lib/facilities/repo";
+import { ResetSchema } from "@/lib/schema/facility";
 
 export const runtime = "nodejs";
 
-// MENGHAPUS seluruh rujukan, reservasi, dan event demo lalu memulihkan seed kapasitas/kapabilitas.
+// Memulihkan seed kapasitas/kapabilitas semua RS (perubahan petugas hilang) dan menghapus sisa data rujukan lama.
 // Hanya admin demo dengan konfirmasi { "confirm": "RESET" }.
 export async function POST(request: Request) {
   const auth = await requireStaff(request);
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   }
   try {
     await resetDemo();
-    return ok({ reset: true, note: "Rujukan demo dihapus; kapasitas dan kapabilitas simulasi dikembalikan ke seed." });
+    return ok({ reset: true, note: "Kapasitas dan kapabilitas simulasi dikembalikan ke seed." });
   } catch (e) {
     const err = mapDbError(e);
     return fail(err.code, err.message, err.status);
