@@ -13,7 +13,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 function secret(): string {
   const s = process.env.SESSION_SECRET;
-  if (s && !s.startsWith("<")) return s;
+  if (s?.trim() && !s.trim().startsWith("<")) return s;
   if (process.env.NODE_ENV === "production") throw new Error("SESSION_SECRET_MISSING");
   return "dev-only-secret-rujukcepat";
 }

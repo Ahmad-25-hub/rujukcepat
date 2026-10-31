@@ -1,4 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, beforeAll, describe, expect, it, vi } from "vitest";
 import type { Db } from "@/lib/data/db";
 import type { NormalizedAiResult } from "@/lib/schema/ai";
 
@@ -283,6 +283,24 @@ describe("T11 - akses petugas dan pelapor", () => {
     const ok = await call(routes.login.POST, "POST", { body: { email: "rscm@rujukcepat.demo", password: "sandi-uji-lokal" } });
     expect(ok.json.data.staff.hospital_short_name).toBe("RSCM");
     expect(ok.json.data.staff).not.toHaveProperty("password_hash");
+  });
+
+  it.each([undefined, "<string-acak-panjang>", "   "])("login produksi tanpa session secret valid mengembalikan JSON yang dapat ditangani (%s)", async (secret) => {
+    vi.stubEnv("NODE_ENV", "production");
+    vi.stubEnv("SESSION_SECRET", secret);
+    const log = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    try {
+      const response = await call(routes.login.POST, "POST", { body: { email: "rscm@rujukcepat.demo", password: "sandi-uji-lokal" } });
+      expect(response.status).toBe(503);
+      expect(response.json).toEqual({ ok: false, error: {
+        code: "STAFF_SESSION_NOT_CONFIGURED",
+        message: "Konfigurasi sesi petugas belum lengkap. Hubungi pengelola demo.",
+      } });
+      expect(response.cookie).toBeUndefined();
+    } finally {
+      vi.unstubAllEnvs();
+      log.mockRestore();
+    }
   });
 
   it("antrean petugas hanya berisi rujukan RS-nya dan butuh login", async () => {

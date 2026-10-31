@@ -20,13 +20,17 @@ export async function POST(request: Request) {
       503,
     );
   }
-  let staff;
   try {
-    staff = await loginStaff(parsed.data.email, parsed.data.password);
+    const staff = await loginStaff(parsed.data.email, parsed.data.password);
+    if (!staff) return fail("INVALID_CREDENTIALS", "Email atau kata sandi salah.", 401);
+    // Pembuatan cookie juga bisa gagal bila SESSION_SECRET produksi belum diatur.
+    return ok({ staff }, 200, staffCookie(staff.user_id));
   } catch (e) {
+    if (e instanceof Error && e.message === "SESSION_SECRET_MISSING") {
+      console.error("[login] SESSION_SECRET_MISSING");
+      return fail("STAFF_SESSION_NOT_CONFIGURED", "Konfigurasi sesi petugas belum lengkap. Hubungi pengelola demo.", 503);
+    }
     console.error("[login] gagal", (e as { code?: string }).code ?? "unknown");
     return fail("INTERNAL", "Tidak dapat memeriksa akun saat ini. Silakan coba lagi.", 500);
   }
-  if (!staff) return fail("INVALID_CREDENTIALS", "Email atau kata sandi salah.", 401);
-  return ok({ staff }, 200, staffCookie(staff.user_id));
 }

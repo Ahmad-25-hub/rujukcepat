@@ -118,6 +118,12 @@ Koneksi SQL memakai SSL require dan satu koneksi per proses. Opsional `SUPABASE_
 
 **Hasil terbaru (31-10-2026):** koneksi PostgreSQL nyata lulus; migrasi 0001–0004 dan seed 10 RS diterapkan. Setup ulang melewati migrasi/seed dan mempertahankan data. `DATA_MODE=supabase` aktif. Next.js produksi lokal membaca 10 RS dari Supabase (HTTP 200); API antrean tanpa sesi ditolak 401. Transaksi SQL nyata (buat, retry idempoten, reservasi, ACCEPT, REVOKE, pelepasan sekali, RLS anon) lulus dalam satu transaksi yang seluruhnya di-rollback. URL + publishable key dan **secret key terbaru sama-sama HTTP 200**. `npm run check:supabase` exit 0: **broadcast Realtime server → klien publik lulus** pada kanal uji sementara. Pemindaian bundle klien dengan nilai rahasia terbaru lulus. Password petugas masih perlu diisi, sehingga alur login/kirim/konfirmasi pada dua sesi belum diuji; `SESSION_SECRET` acak sudah dibuat lokal. Konkurensi multi-koneksi belum diuji. Detail ada di `TASK.md`.
 
+### Login petugas gagal HTTP 500 setelah deployment
+
+Jika halaman login menampilkan “Respons server tidak valid (HTTP 500)” ketika password benar, periksa `SESSION_SECRET` di **Vercel → Project Settings → Environment Variables**. Variabel ini diperlukan untuk menandatangani cookie sesi, terpisah dari `DEMO_STAFF_PASSWORD` dan secret key Supabase. Pasang string acak dari `.env.local` sebagai **Secret** pada scope **Production**, kemudian **Redeploy**. Jangan memakai placeholder atau nilai kosong.
+
+Bug lama meletakkan pembuatan cookie di luar penanganan error, sehingga `SESSION_SECRET_MISSING` dapat menjadi respons 500 non-JSON. Sekarang kondisi ini ditangani sebagai JSON 503 `STAFF_SESSION_NOT_CONFIGURED` dengan pesan konfigurasi sesi belum lengkap. Jika variabel sudah berlaku pada deployment terbaru tetapi login tetap gagal, periksa log fungsi `/api/staff/login`; diagnosis kondisi remote memerlukan log, bukan hanya screenshot. Tidak perlu membagikan password atau isi secret.
+
 ## Arsitektur
 
 ```
