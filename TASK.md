@@ -234,6 +234,7 @@ Catat keputusan final beserta alasan dan dampaknya pada implementasi. Jangan men
 - Luaran wajib (GOAL §11): aplikasi dua antarmuka + repo GitHub, README, deklarasi AI/pihak ketiga/atribusi, tag `submission-24h`, video < 3 menit, pitch deck, isian Devpost — belum dikerjakan (T17–T20).
 - Instruksi pengguna (31-10-2026): kerjakan sampai T09; keamanan bukan fokus → pembatasan akses dan RLS ditulis sesuai SPEC tetapi tidak diuji mendalam pada tahap ini.
 - Instruksi pengguna lanjutan (31-10-2026): pelajari semua `.md`, kerjakan sampai T20 sesuai TASK.md, pastikan semua fungsi bekerja, keamanan bukan fokus, tanyakan bila kurang jelas. T10–T17 dikerjakan; T18–T20 tidak dapat diselesaikan tanpa kredensial/otorisasi/brief (AGENTS §2: tidak mendeploy, mempublikasikan repo, menandai tag, atau mengirim Devpost tanpa otorisasi) sehingga dicatat terhambat dan ditanyakan ke pengguna.
+- **Keputusan pengguna (31-10-2026): lingkup pekerjaan diubah menjadi sampai T17.** T18–T20 tetap `[ ]` (terhambat, bukan dibatalkan) dan dikerjakan nanti setelah pengguna memberi kredensial (Vercel, Supabase, GitHub, `GEMINI_API_KEY`), otorisasi deploy/commit/tag, dan challenge brief. Pengukuran performa LIVE dan pengujian Supabase (Realtime, RLS) ikut tertunda.
 
 ## 10. Log verifikasi
 
