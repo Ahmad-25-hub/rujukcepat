@@ -13,4 +13,4 @@ const MapView = dynamic(() => import("./map-view"), {
 });
 
 export default MapView;
-export type { MapMarker } from "./map-view";
+export type { MapMarker, LivePosition } from "./map-view";

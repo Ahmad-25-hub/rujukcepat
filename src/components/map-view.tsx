@@ -2,7 +2,7 @@
 
 import "leaflet/dist/leaflet.css";
 import { useEffect } from "react";
-import { CircleMarker, MapContainer, Polyline, TileLayer, Tooltip, useMap, useMapEvents } from "react-leaflet";
+import { Circle, CircleMarker, MapContainer, Polyline, TileLayer, Tooltip, useMap, useMapEvents } from "react-leaflet";
 import type { LatLngBoundsExpression } from "leaflet";
 
 export type MapMarker = {
@@ -39,6 +39,21 @@ function FitBounds({ points }: { points: [number, number][] }) {
   return null;
 }
 
+export type LivePosition = { lat: number; lng: number; accuracy: number | null };
+
+// Mengikuti posisi langsung; berhenti mengikuti bila pengguna menggeser peta sendiri.
+function Follower({ live, follow, onUserPan }: { live: LivePosition | null; follow: boolean; onUserPan?: () => void }) {
+  const map = useMap();
+  useMapEvents({ dragstart: () => onUserPan?.() });
+  const lat = live?.lat;
+  const lng = live?.lng;
+  useEffect(() => {
+    if (!follow || lat == null || lng == null) return;
+    map.setView([lat, lng], Math.max(map.getZoom(), 16), { animate: true });
+  }, [follow, lat, lng, map]);
+  return null;
+}
+
 export default function MapView({
   origin,
   markers = [],
@@ -46,6 +61,10 @@ export default function MapView({
   onPick,
   onMarkerClick,
   fitTo,
+  live,
+  follow = false,
+  onUserPan,
+  originLabel = "Lokasi pelapor",
   className = "h-72",
 }: {
   origin?: { lat: number; lng: number } | null;
@@ -54,6 +73,11 @@ export default function MapView({
   onPick?: (p: { lat: number; lng: number }) => void;
   onMarkerClick?: (id: string) => void;
   fitTo?: [number, number][];
+  /** Posisi GPS langsung (navigasi). */
+  live?: LivePosition | null;
+  follow?: boolean;
+  onUserPan?: () => void;
+  originLabel?: string;
   className?: string;
 }) {
   const center = origin ?? JAKARTA_CENTER;
@@ -66,6 +90,7 @@ export default function MapView({
         />
         {onPick && <ClickPicker onPick={onPick} />}
         {fitTo && <FitBounds points={fitTo} />}
+        {live !== undefined && <Follower live={live} follow={follow} onUserPan={onUserPan} />}
         {route && route.length > 1 && <Polyline positions={route} pathOptions={{ color: "#2563eb", weight: 5, opacity: 0.8 }} />}
         {markers.map((m) => {
           const s = KIND_STYLE[m.kind];
@@ -88,8 +113,16 @@ export default function MapView({
             pathOptions={{ color: "#000", fillColor: "#facc15", fillOpacity: 1, weight: 3 }}
           >
             <Tooltip direction="top" permanent>
-              Lokasi pelapor
+              {originLabel}
             </Tooltip>
+          </CircleMarker>
+        )}
+        {live && live.accuracy != null && live.accuracy > 15 && (
+          <Circle center={[live.lat, live.lng]} radius={live.accuracy} pathOptions={{ color: "#2563eb", weight: 1, fillColor: "#3b82f6", fillOpacity: 0.12 }} />
+        )}
+        {live && (
+          <CircleMarker center={[live.lat, live.lng]} radius={10} pathOptions={{ color: "#fff", weight: 4, fillColor: "#2563eb", fillOpacity: 1 }}>
+            <Tooltip direction="top">Posisi Anda</Tooltip>
           </CircleMarker>
         )}
       </MapContainer>

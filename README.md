@@ -79,6 +79,10 @@ Akun dibuat/disinkronkan otomatis saat login pertama dari `DEMO_STAFF_PASSWORD`.
 
 Skenario sintetis proposal: lansia 70 tahun lemas dan berkeringat dingin; foto opsional glukometer menunjukkan 46 mg/dL (`tests/fixtures/photo/glukometer-46-sintetis.jpg`). Tidak ada diagnosis/terapi yang ditetapkan sebagai fakta.
 
+### Navigasi di peta
+
+Setelah memilih tujuan, portal menampilkan rute, petunjuk belok demi belok, tombol **Buka di Google Maps/Waze**, dan **Mulai navigasi (GPS)**: titik biru mengikuti posisi, ada deteksi keluar jalur + hitung ulang rute, dan panduan suara opsional. Tanpa API berbayar: rute dari OSRM publik dengan penghematan permintaan (lihat `SPEC.md` §19). ETA tetap **perkiraan tanpa lalu lintas langsung**. Tombol "Simulasi perjalanan (demo)" memutar perjalanan berlabel simulasi untuk demo tanpa berkendara. Uji GPS/suara di perangkat nyata (HTTPS) belum dilakukan.
+
 ## Database, seed, dan reset
 
 - Migrasi: `supabase/migrations/0001_init.sql` (skema, view publik, RLS, fungsi transaksi), `0002_realtime.sql`, `0003_staff_ops.sql` (akun petugas, `update_facility`, perbaikan `transition_referral`).

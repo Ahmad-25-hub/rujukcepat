@@ -484,3 +484,18 @@ Pengukuran performa: `timing` dari `/api/analyze`, `referral_events` untuk waktu
 | Pengujian dua sesi | Playwright | Tes API (dua cookie jar), browser pane manual, `scripts/measure.ts` (HTTP+SSE) | Tanpa unduhan browser Playwright (T16). |
 | Pembatas laju | usulan §16 | Dalam memori per proses: 12 analisis/menit, 10 login/menit (env) | Melindungi kuota AI gratis (T15). |
 | PWA | §11.3 | `public/sw.js` + `public/offline.html`; `app/manifest.ts`; ikon dibuat `npm run make:icons` | Cache hanya aset statis; offline jujur (T14). |
+
+## 19. Navigasi langsung di portal (tambahan, 31-10-2026)
+
+Permintaan pengguna di luar daftar T01–T20; keputusan cakupan dicatat di `TASK.md` §9.
+
+| Bagian | Rancangan |
+| --- | --- |
+| Petunjuk | `/api/route` meminta OSRM `steps=true&overview=full`; `src/lib/routing/steps.ts` membuat kalimat Indonesia (mulai, belok, bundaran, tol, tiba). Rute simulasi (mock) tidak memiliki langkah. |
+| Posisi | `watchPosition` di klien (`navigation-view.tsx`); `src/lib/navigation/progress.ts` memproyeksikan posisi ke polyline, menghitung jarak tempuh, langkah aktif, dan sisa jarak. Sisa ETA = durasi rute × sisa jarak/total jarak (perkiraan, bukan lalu lintas langsung). |
+| Keluar jalur | Menyimpang > max(50 m, 1,5× akurasi, maks 150 m) dengan akurasi ≤ 100 m. Hitung ulang hanya bila menyimpang ≥ 10 dtk, ≥ 30 dtk sejak hitung ulang terakhir, maks 8 per sesi; `/api/route` dibatasi 20/menit per klien (`ROUTE_RATE_PER_MINUTE`). Gagal → pesan + rute lama + tombol aplikasi peta. |
+| Tiba | Dalam radius max(40 m, akurasi, maks 80 m). Layar tiba menyatakan bahwa tiba bukan konfirmasi penerimaan. |
+| Cadangan | Izin GPS ditolak/tidak didukung → pesan + tombol Google Maps/Waze (tautan, tanpa kunci API) + "Coba GPS lagi". |
+| Suara | Opsional, default mati, `speechSynthesis` `id-ID`, hanya kalimat navigasi; teks selalu tampil. |
+| Simulasi | "Simulasi perjalanan (demo)" memutar posisi di sepanjang rute (±25 m/dtk) dengan badge "Simulasi GPS – bukan posisi nyata"; "Simulasikan keluar jalur" menguji hitung ulang. Berguna untuk demo/video tanpa berkendara. |
+| Privasi | Posisi GPS tidak disimpan; server hanya menerima koordinat untuk menghitung ulang rute. Layar dijaga menyala via Wake Lock bila didukung. |

@@ -9,9 +9,12 @@ import { formatEta, formatKm, timeAgo } from "@/lib/client/format";
 import type { Candidate, MatchResult } from "@/lib/matching/match";
 import type { AnalyzeResponse, Need } from "@/lib/schema/ai";
 import type { ReferralResponse } from "@/lib/schema/referral";
+import type { RouteStep } from "@/lib/routing/steps";
 import type { ReporterLocation } from "./location-step";
+import { NavigationView } from "./navigation-view";
+import { RouteGuide } from "./route-guide";
 
-type RouteGeo = { source: "OSRM" | "MOCK"; duration_s: number; distance_m: number; geometry: [number, number][] };
+type RouteGeo = { source: "OSRM" | "MOCK"; duration_s: number; distance_m: number; geometry: [number, number][]; steps: RouteStep[] };
 
 function EtaLine({ c }: { c: Candidate }) {
   if (c.eta_seconds == null) {
@@ -111,6 +114,8 @@ export function DestinationStep({
   const [result, setResult] = useState<MatchResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [focusPoint, setFocusPoint] = useState<[number, number] | null>(null);
+  const [navigating, setNavigating] = useState(false);
   const [routeState, setRouteState] = useState<{ id: string; geo: RouteGeo | null; error: string | null } | null>(null);
 
   const fetchMatch = useCallback(
@@ -274,12 +279,33 @@ export function DestinationStep({
         </div>
       </div>
 
-      <MapView origin={location} markers={markers} route={route?.geometry ?? null} fitTo={fitTo} onMarkerClick={(id) => onSelect(all.find((c) => c.facility_id === id) ?? null)} className="h-80" />
+      <MapView origin={location} markers={markers} route={route?.geometry ?? null} fitTo={focusPoint ? [focusPoint] : fitTo} onMarkerClick={(id) => onSelect(all.find((c) => c.facility_id === id) ?? null)} className="h-80" />
       <p className="text-xs text-slate-600">
         Lokasi RS dari OpenStreetMap; tidak menyiratkan kemitraan atau penerimaan pasien.
         {route && ` Garis biru: ${route.source === "MOCK" ? "garis lurus simulasi" : "rute perkiraan OSRM"}.`}
         {routeError && ` ${routeError}`}
       </p>
+      {selected && route && (
+        <RouteGuide
+          hospitalName={selected.short_name}
+          origin={location}
+          dest={{ lat: selected.lat, lng: selected.lng }}
+          steps={route.steps ?? []}
+          source={route.source}
+          durationS={route.duration_s}
+          distanceM={route.distance_m}
+          onFocusStep={setFocusPoint}
+          onStartNavigation={() => setNavigating(true)}
+        />
+      )}
+      {navigating && selected && route && (
+        <NavigationView
+          hospital={{ id: selected.facility_id, short_name: selected.short_name, name: selected.name, lat: selected.lat, lng: selected.lng }}
+          origin={location}
+          initialRoute={{ ...route, steps: route.steps ?? [] }}
+          onClose={() => setNavigating(false)}
+        />
+      )}
 
       {result.primary ? (
         <ul className="space-y-3">

@@ -2,6 +2,7 @@ import "server-only";
 import { config } from "@/lib/config";
 import { haversineKm } from "@/lib/geo";
 import type { LatLng } from "@/lib/schema/api";
+import { buildSteps, type RouteStep } from "./steps";
 
 // Adapter rute/ETA. LIVE = OSRM (perkiraan rute tanpa lalu lintas langsung).
 // MOCK = perkiraan simulasi dari jarak garis lurus, selalu berlabel "simulasi".
@@ -14,6 +15,7 @@ export type RouteResult = {
   duration_s: number;
   distance_m: number;
   geometry: [number, number][]; // [lat, lng]
+  steps: RouteStep[]; // kosong bila tidak tersedia (mock/garis lurus)
 };
 
 export class RoutingError extends Error {}
@@ -76,10 +78,10 @@ export async function etaTable(origin: LatLng, destinations: LatLng[]): Promise<
 export async function routeGeometry(origin: LatLng, dest: LatLng): Promise<RouteResult> {
   if (config.routingMode === "mock") {
     const e = mockEntry(origin, dest)!;
-    return { source: "MOCK", ...e, geometry: [[origin.lat, origin.lng], [dest.lat, dest.lng]] };
+    return { source: "MOCK", ...e, geometry: [[origin.lat, origin.lng], [dest.lat, dest.lng]], steps: [] };
   }
   const json = await fetchJson(
-    `${config.osrmBaseUrl}/route/v1/driving/${origin.lng},${origin.lat};${dest.lng},${dest.lat}?overview=simplified&geometries=geojson`,
+    `${config.osrmBaseUrl}/route/v1/driving/${origin.lng},${origin.lat};${dest.lng},${dest.lat}?overview=full&geometries=geojson&steps=true`,
   );
   const r = json.routes?.[0];
   if (!r) throw new RoutingError("OSRM tanpa rute");
@@ -88,5 +90,6 @@ export async function routeGeometry(origin: LatLng, dest: LatLng): Promise<Route
     duration_s: Math.round(r.duration),
     distance_m: Math.round(r.distance),
     geometry: (r.geometry.coordinates as [number, number][]).map(([lng, lat]) => [lat, lng]),
+    steps: buildSteps(r.legs?.[0]?.steps),
   };
 }

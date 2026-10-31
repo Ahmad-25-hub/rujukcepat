@@ -255,6 +255,7 @@ Catat keputusan final beserta alasan dan dampaknya pada implementasi. Jangan men
 | Pembatas laju dalam memori: 12 analisis/menit dan 10 login/menit per klien (env dapat diubah) | Melindungi kuota Gemini gratis; per instans pada serverless | T15 |
 | Service worker minimal: hanya aset statis berhash + ikon + halaman offline; tanpa cache `/api/*` dan HTML | AGENTS §8: kapasitas/laporan lama tidak boleh tampil sebagai mutakhir | T14 |
 | Reservasi `ACCEPTED` tetap `HELD` sampai `ARRIVED`/`REVOKE` atau reset demo; `ARRIVED` dan `REVOKE` hanya sekali dan saling meniadakan | `0003_staff_ops.sql`; AGENTS §6 | T10 |
+| **Navigasi langsung ala peta (permintaan pengguna 31-10-2026, di luar daftar T01–T20):** petunjuk belok demi belok (OSRM `steps`), titik GPS mengikuti posisi, deteksi keluar jalur, hitung ulang rute hemat, panduan suara opsional, tombol buka di Google Maps/Waze, dan simulasi perjalanan berlabel | GOAL §8 mengecualikan "pelacakan armada berkelanjutan"; yang dibuat adalah navigasi di perangkat pelapor (GPS hanya diproses di klien, server hanya menerima koordinat untuk hitung ulang dan tidak menyimpannya), bukan pelacakan armada/dispatch. Tanpa API berbayar: OSRM publik dengan penghematan (menyimpang ≥ 10 dtk, jeda ≥ 30 dtk, maks 8 hitung ulang/sesi, `/api/route` dibatasi 20/menit per klien). ETA tetap perkiraan tanpa lalu lintas langsung | T05/T09 (tambahan) |
 
 **Cakupan T01 (dirangkum dari GOAL; brief panitia belum tersedia → belum terverifikasi):**
 
