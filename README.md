@@ -1,48 +1,184 @@
 # RujukCepat
 
-PWA demo koordinasi rujukan prarumah sakit DKI Jakarta (TwinTech – UNJ, INCEPTION 2026).
-Laporan suara → ringkasan AI terstruktur (SOAP, urgensi, kebutuhan) → pencocokan kapabilitas IGD → pilihan tujuan.
+PWA demo koordinasi rujukan prarumah sakit DKI Jakarta — tim TwinTech, Universitas Negeri Jakarta, INCEPTION 2026.
 
-> **Status:** tahap T01–T09 (portal sampai pilihan tujuan). Pengiriman rujukan, kuota, dashboard petugas, dan Realtime (T10–T12) belum aktif. README lengkap (T17) menyusul.
-> Seluruh kapasitas/kesiapan RS adalah **simulasi**. Ringkasan AI bukan diagnosis.
+Alur utama: laporan suara/teks → ringkasan AI terstruktur (SOAP, urgensi, kebutuhan) → pencocokan kapabilitas IGD → kirim permintaan rujukan → notifikasi dashboard IGD → konfirmasi petugas → status terbarui di portal.
+
+> **Semua data kapasitas, kesiapan layanan, dan pasien adalah SIMULASI.** Lokasi rumah sakit dari OpenStreetMap tidak membuktikan kemitraan, kesiapan, atau penerimaan pasien. Ringkasan AI adalah perkiraan awal untuk koordinasi, **bukan diagnosis**; keputusan klinis dan penerimaan tetap pada tenaga kesehatan. Hasil uji kode tidak sama dengan validasi klinis.
+
+## Status (31-10-2026)
+
+| Bagian | Status |
+| --- | --- |
+| P0: portal → AI → pencocokan → rujukan → dashboard → konfirmasi → status portal | Berfungsi pada dua tampilan (mode data lokal). Lihat "Hasil pengujian". |
+| P1: foto opsional, panduan suara (TTS), alarm dashboard, PWA, aksesibilitas | Diimplementasikan; kekurangan uji perangkat nyata dicatat di bawah. |
+| Demo publik (Vercel/Supabase), video, pitch deck, tag `submission-24h`, Devpost | **Belum dilakukan** (butuh otorisasi/kredensial pengguna). Bahan pendukung ada di `docs/`. |
+
+Rincian per tugas dan bukti ada di [TASK.md](TASK.md); rancangan teknis di [SPEC.md](SPEC.md).
 
 ## Menjalankan lokal
 
-Prasyarat: Node.js 20+ (diuji Node 24) dan npm.
+Prasyarat: Node.js 20+ (diuji Node 22) dan npm.
 
 ```bash
 npm install
-cp .env.example .env.local   # lalu sesuaikan, lihat di bawah
+cp .env.example .env.local   # lalu isi sesuai tabel di bawah
 npm run dev                  # http://localhost:3000
 ```
 
-- Portal: `/` dan `/lapor` (mobile-first). Dashboard (pratinjau baca-saja): `/dashboard`.
+Konfigurasi minimum **tanpa layanan eksternal** (semua mock, data lokal):
+
+```ini
+DATA_MODE=local
+AI_MODE=mock
+ROUTING_MODE=mock
+SESSION_SECRET=isi-string-acak
+DEMO_STAFF_PASSWORD=pilih-kata-sandi-demo
+```
+
+Untuk AI sungguhan: `AI_MODE=live` + `GEMINI_API_KEY` (cek dengan `npm run check:gemini`). Untuk rute sungguhan: `ROUTING_MODE=live` (OSRM publik, tanpa kunci).
+
+- Portal ponsel: `/` dan `/lapor`. Dashboard petugas: `/dashboard` (login di `/dashboard/login`).
 - Mikrofon, kamera, dan GPS memerlukan HTTPS atau `localhost`.
 
-### Mode layanan (`.env.local`)
+### Variabel environment
 
-| Variabel | Nilai | Keterangan |
-| --- | --- | --- |
-| `AI_MODE` | `live` / `mock` | `mock` memakai fixture sintetis di `tests/fixtures/ai` (badge "AI simulasi"). `live` butuh `GEMINI_API_KEY`. |
-| `GEMINI_MODEL` | `gemini-3.5-flash` (terverifikasi 31-10-2026) | Verifikasi: `npm run check:gemini` (cek model + audio sintetis). `gemini-2.5-flash` ditolak untuk pengguna baru. |
-| `ROUTING_MODE` | `live` / `mock` | `live` memanggil OSRM publik (`OSRM_BASE_URL`). |
-| `DATA_MODE` | `local` / `supabase` | `local` = PGlite (Postgres WASM) di `.data/pglite`, migrasi + seed otomatis. |
+| Variabel | Keterangan |
+| --- | --- |
+| `DATA_MODE` | `local` (PGlite di `.data/pglite`, migrasi + seed otomatis) atau `supabase` (lihat bagian Supabase). |
+| `AI_MODE` / `GEMINI_API_KEY` / `GEMINI_MODEL` | `mock` memakai fixture sintetis (badge "AI simulasi"); `live` memanggil Gemini dari server. Model terverifikasi 31-10-2026: `gemini-3.5-flash` (`gemini-2.5-flash` ditolak 404 untuk pengguna baru). |
+| `ROUTING_MODE` / `OSRM_BASE_URL` | `mock` = ETA simulasi dari jarak garis lurus (badge "Rute simulasi"); `live` = OSRM publik. |
+| `SESSION_SECRET` | Penanda tangan cookie sesi petugas. **Wajib** di produksi. |
+| `DEMO_STAFF_PASSWORD` | Kata sandi semua akun petugas demo. Tidak ada kata sandi di repo; tanpa ini login petugas nonaktif. |
+| `REFERRAL_PENDING_TTL_SECONDS` | Masa tunggu `PENDING` sebelum `EXPIRED` (bawaan 600 dtk). |
+| `STALE_AFTER_MINUTES` | Status fasilitas lebih tua dari ini dianggap kedaluwarsa, bukan READY (bawaan 1440). |
+| `ANALYZE_RATE_PER_MINUTE`, `LOGIN_RATE_PER_MINUTE` | Pembatas laju per klien (bawaan 12 dan 10). |
+| `SUPABASE_DB_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SUPABASE_*` | Hanya `DATA_MODE=supabase`. Kunci rahasia hanya dibaca server. |
 
-### Database
+Daftar lengkap: [.env.example](.env.example). **Jangan commit `.env.local`.**
 
-- Migrasi: `supabase/migrations/*.sql` (dapat dijalankan di Supabase; di lokal dijalankan otomatis via PGlite + `supabase/local/auth-shim.sql`).
-- Seed simulasi: `supabase/seed.sql` (idempoten). Lokasi RS dari snapshot OpenStreetMap `data/hospitals.osm.json` (`npm run fetch:hospitals`).
-- **Reset demo (menghapus semua data rujukan demo):** hentikan `npm run dev`, lalu `npm run db:reset`.
+### Akun petugas demo
+
+Satu akun per RS contoh, semuanya memakai `DEMO_STAFF_PASSWORD`:
+
+| Email | Akses |
+| --- | --- |
+| `rscm@rujukcepat.demo`, `fatmawati@…`, `tarakan@…`, `pasarminggu@…`, `pon@…` (`@rujukcepat.demo`) | Hanya melihat/mengubah rujukan dan fasilitas RS-nya sendiri. |
+| `admin@rujukcepat.demo` | Petugas RSCM + boleh mereset data demo. |
+
+Akun dibuat/disinkronkan otomatis saat login pertama dari `DEMO_STAFF_PASSWORD`.
+
+## Skenario demo (dua tampilan)
+
+1. Buka portal (`/lapor`) di ponsel/tab 1; buka dashboard (`/dashboard`) di desktop/tab 2, login sebagai `rscm@rujukcepat.demo`.
+2. Portal: setujui pemrosesan → lokasi (GPS, atau "Pilih di peta"/titik contoh) → rekam suara 10–15 dtk atau ketik laporan (+ foto opsional) → tinjau ringkasan → "Cari rumah sakit".
+3. Pilih tujuan (utama/alternatif) → **Kirim permintaan rujukan**. Status `PENDING` + kuota simulasi ditahan; bukan diterima.
+4. Dashboard: alert visual (+ alarm bila diaktifkan) → buka permintaan → **Terima** (atau Tolak) → portal ikut berubah.
+5. Dashboard: ubah status kapabilitas (READY/PENUH/MAINTENANCE) atau kapasitas → rekomendasi portal berubah.
+6. "Pasien tiba" menandai kuota terpakai; "Batalkan penerimaan" melepas kuota.
+
+Skenario sintetis proposal: lansia 70 tahun lemas dan berkeringat dingin; foto opsional glukometer menunjukkan 46 mg/dL (`tests/fixtures/photo/glukometer-46-sintetis.jpg`). Tidak ada diagnosis/terapi yang ditetapkan sebagai fakta.
+
+## Database, seed, dan reset
+
+- Migrasi: `supabase/migrations/0001_init.sql` (skema, view publik, RLS, fungsi transaksi), `0002_realtime.sql`, `0003_staff_ops.sql` (akun petugas, `update_facility`, perbaikan `transition_referral`).
+- Seed simulasi: `supabase/seed.sql` (10 RS; lokasi dari snapshot OSM `data/hospitals.osm.json`; kapasitas/kapabilitas simulasi berlabel). Dapat dijalankan ulang; mengembalikan kapasitas/kapabilitas ke nilai awal.
+- **Reset data demo (MENGHAPUS semua rujukan, reservasi, riwayat):**
+  - CLI (server dihentikan): `npm run db:reset`
+  - UI: dashboard sebagai admin → "Reset data demo" → ketik `RESET`. API: `POST /api/demo/reset` `{"confirm":"RESET"}`.
+- Lokasi RS diambil sekali oleh skrip (`npm run fetch:hospitals`, Overpass), bukan saat runtime.
+
+### Memakai Supabase (belum diuji — tanpa kredensial di pengembangan)
+
+1. Buat project Supabase (region Singapura disarankan). Jalankan `supabase/migrations/*.sql` berurutan lalu `supabase/seed.sql` di SQL Editor (jangan jalankan `supabase/local/auth-shim.sql`).
+2. Isi `DATA_MODE=supabase`, `SUPABASE_DB_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SESSION_SECRET`, `DEMO_STAFF_PASSWORD`.
+3. Sinkronisasi memakai kanal broadcast Supabase Realtime yang dipicu server (`rc:facilities`, `rc:hospital:<id>`, `rc:referral:<id>`); klien tetap mengambil ulang data dari API dan memakai polling 5 dtk bila kanal terputus.
+
+## Arsitektur
+
+```
+Portal (ponsel)                      Server (Next.js route handlers, Node)                     Data
+ rekam/teks + foto ──POST /api/analyze──► adapter Gemini ─► validasi Zod ─► normalisasi
+ tinjau hasil     ──POST /api/match────► pencocokan murni (kapabilitas+READY+segar+kuota) ─► ETA OSRM
+ kirim            ──POST /api/referrals► create_referral() atomik ──────────────────────────► PostgreSQL
+                         (Idempotency-Key)   kuota: kunci baris + reservasi HELD                (PGlite lokal
+ status           ◄──GET /api/referrals/:id                                                    / Supabase)
+                                         notifyChange() ─► SSE /api/stream (lokal)
+Dashboard (desktop)                                       └► broadcast Supabase Realtime
+ antrean/alert    ◄──GET /api/referrals + SSE
+ terima/tolak/tiba──POST /api/referrals/:id/decision ─► transition_referral()
+ kesiapan/kuota   ──PATCH /api/facilities/:id ───────► update_facility()
+```
+
+- **Satu sumber enum/schema:** `src/lib/schema` (kapabilitas, status, hasil AI, kontrak rujukan) dipakai server dan UI; dicerminkan di enum Postgres.
+- **Lifecycle:** `PENDING → ACCEPTED | REJECTED | CANCELLED | EXPIRED`. Status permintaan dan status reservasi kuota (`HELD/RELEASED/CONSUMED`) selalu terpisah. `ACCEPTED` **tidak** melepas kuota; reservasi berakhir `CONSUMED` saat petugas menandai pasien tiba, atau `RELEASED` bila penerimaan dibatalkan. Pelepasan tepat satu kali (`update … where status='HELD'`). Expiry malas (tanpa cron) pada setiap pembacaan/pengiriman.
+- **Sinkronisasi:** database = sumber kebenaran. Event hanya pemicu; klien mengambil ulang via API (event ganda aman), rekonsiliasi penuh saat (re)connect, polling 5 dtk + badge "Sinkronisasi terbatas" saat terputus.
+- **Akses:** cookie pelapor anonim (`rc_rid`) menentukan pemilik rujukan; cookie petugas bertanda tangan (`rc_staff`) mengikat satu RS. Setiap route memeriksa kepemilikan/RS; RLS tertulis di migrasi sebagai pertahanan tambahan.
+- **PWA:** service worker hanya menyimpan aset statis berhash + ikon + halaman offline; `/api/*` dan HTML tidak pernah di-cache; offline → banner jujur, tombol kirim nonaktif, tanpa antrean offline.
 
 ## Pemeriksaan
 
 ```bash
 npm run lint
 npm run typecheck
-npm test
+npm test                 # unit + integrasi (PGlite in-memory)
 npm run build
+npm run check:secrets    # pindai .next/static: nilai rahasia server tidak boleh ada di bundle klien
+npm run measure          # ukur skenario terhadap server berjalan (lihat scripts/measure.ts)
 ```
 
-## Atribusi
+## Hasil pengujian (31-10-2026, Windows 11, Node 22, tanpa commit)
 
-Data peta & lokasi RS © OpenStreetMap contributors (ODbL), via Overpass API. Rute/ETA: OSRM (perkiraan tanpa lalu lintas langsung). AI: Google Gemini API (mode live).
+| Pemeriksaan | Hasil |
+| --- | --- |
+| `npm run lint`, `npm run typecheck`, `npm run build` | Lulus. |
+| `npm test` | 78 tes, 8 file, lulus. Mencakup: schema/normalisasi AI, pencocokan, migrasi+seed+fungsi SQL, **API rujukan** (kuota serentak, idempotency, transisi, expiry, akses lintas RS/pelapor, cookie palsu, reset), **kegagalan** (persetujuan, unggahan, JSON rusak, audio tidak jelas, foto tidak terbaca, OSRM gagal, tanpa kandidat, rate limit), perilaku service worker. |
+| `npm run check:secrets` | Lulus; nilai `SESSION_SECRET` dan `DEMO_STAFF_PASSWORD` tidak ada di `.next/static`. Pemindai terbukti mendeteksi nilai yang sengaja disisipkan. `GEMINI_API_KEY`/Supabase belum diisi saat pemindaian — ulangi setelah diisi. |
+| Dua tampilan di browser (tab portal + tab dashboard) | Kirim → alert dashboard → Terima → status portal berubah; ubah kapabilitas → rekomendasi berubah; kuota bentrok → pesan + daftar tujuan diperbarui; klik kirim berulang → satu reservasi; server mati lalu hidup → dashboard pulih dari database. |
+
+### Performa — target proposal vs. hasil aktual
+
+Target adalah sasaran proposal, bukan jaminan. Detail mentah: `docs/hasil-ukur-mock.json`.
+
+**MOCK (AI & rute simulasi), 10 percobaan, `localhost`, produksi `next start`, audio 495 KB + foto 26 KB, AMD Ryzen 7 6800H:**
+
+| Indikator (target) | Hasil (median / maks) | Catatan |
+| --- | --- | --- |
+| Respons AI (< 3 dtk) | 0,60 dtk / 0,61 dtk (penyedia) | **Tidak bermakna:** mock menunda 600 ms secara sengaja. Hasil LIVE harus diukur terpisah. |
+| Koordinasi digital (< 15 dtk) | 0,69 dtk / 0,81 dtk | Analisis + pencocokan + kirim; **tanpa** waktu manusia meninjau/memilih. |
+| Sinkronisasi (< 200 ms) | 4 ms / 5 ms (server→klien SSE) | Satu mesin, jam sama; tidak mewakili lintas perangkat/jaringan. Hingga UI menggambar belum diukur. |
+| Interaksi pembaruan status (< 2 dtk) | 46 ms / 51 ms (POST keputusan) | Sisi server+jaringan loopback. |
+
+**LIVE (Gemini):** pada sesi ini **belum diukur ulang** (tanpa `GEMINI_API_KEY`). Pengukuran awal 31-10-2026 pada tahap T04 (`gemini-3.5-flash`, jaringan rumah) berkisar 5,5–13,2 dtk — **target < 3 dtk belum tercapai** (lihat TASK.md §10). Jalankan `AUDIO=1 PHOTO=1 npm run measure` dengan server `AI_MODE=live` untuk hasil terbaru.
+
+## Cakupan terhadap proposal dan selisih
+
+P0 dan P1 (foto, TTS, alarm, PWA, aksesibilitas dasar) diimplementasikan. Selisih yang diketahui:
+
+- Realtime **Supabase** belum diuji (tanpa kredensial); sinkronisasi terverifikasi memakai SSE pada mode data lokal.
+- Registrasi service worker tidak dapat diuji di browser pane pengembangan (registrasi ditolak); perilaku dilindungi tes tiruan, perlu uji di Chrome/Android/iOS sungguhan.
+- Mikrofon/kamera/GPS ponsel nyata, suara TTS bahasa Indonesia, dan bunyi alarm belum diuji di perangkat nyata (browser pane tanpa mikrofon, tanpa suara id-ID).
+- Audit aksesibilitas penuh (pembaca layar, kontras terukur) belum dilakukan; yang ada: teks+ikon untuk status, fokus keyboard terlihat, skip link, tombol besar.
+- Tidak ada Playwright; uji dua sesi dilakukan lewat tes API (dua cookie jar) dan browser pane manual.
+- Pembatas laju bersifat per proses (serverless: per instans).
+
+## Privasi, data, dan retensi
+
+- Hanya data sintetis. Jangan memasukkan identitas atau data kesehatan orang nyata ke seed, log, tangkapan layar, atau rekaman demo.
+- Sebelum unggah, portal menjelaskan bahwa audio/foto/teks dikirim ke Google Gemini untuk diringkas. Server menolak unggahan tanpa persetujuan.
+- **Audio dan foto tidak disimpan** (diproses di memori fungsi). Laporan yang tidak dikirim tidak disimpan di server. Yang disimpan hanya ringkasan/transkrip AI pada rujukan yang dikirim, dengan koordinat dibulatkan 3 desimal, sampai reset data demo.
+- Log hanya memuat kode galat/status, bukan transkrip, SOAP, audio, atau foto.
+- Id rujukan terakhir disimpan di `localStorage` perangkat pelapor (hanya id) untuk memantau status; hilang saat "Buat laporan baru".
+
+## Deklarasi penggunaan AI, layanan pihak ketiga, dan atribusi
+
+- **AI:** Google Gemini API (`@google/genai`, model `gemini-3.5-flash` pada mode live) untuk transkripsi/ringkasan SOAP, perkiraan urgensi, dan kebutuhan kapabilitas dari suara/teks/foto sintetis. Keluaran divalidasi schema dan disaring (kode ilegal dibuang, item rencana berdosis dibuang); bukan diagnosis. Bila memakai tier gratis, penyedia dapat memakai data untuk peningkatan layanan — gunakan data sintetis saja. Kode proyek ini dibantu asisten AI (Claude) di bawah arahan tim.
+- **Peta/lokasi/rute:** © OpenStreetMap contributors (ODbL) — tile OSM, snapshot lokasi RS via Overpass API (diambil 31-10-2026), Leaflet; rute/ETA via OSRM publik (perkiraan tanpa lalu lintas langsung; layanan demo tanpa SLA).
+- **Data:** PGlite (Postgres WASM) lokal; Supabase (opsional, belum diuji); Next.js, React, Tailwind CSS, Lucide Icons, Zod.
+- **Hosting rencana:** Vercel Hobby (nonkomersial) — belum dideploy.
+
+## Keterbatasan dan pekerjaan tersisa
+
+Di luar MVP: integrasi SIRANAP/SISRUTE/rekam medis, data kapasitas nyata, diagnosis/terapi otonom, dispatch ambulans, klaim manfaat klinis. Validasi klinis, kerja sama rumah sakit, dan uji lapangan tetap pekerjaan lanjutan.
+
+Belum dikerjakan karena membutuhkan otorisasi/kredensial pengguna: demo publik (Vercel + Supabase + GitHub), smoke test deployment, video < 3 menit, pitch deck, tag `submission-24h`, dan pengumpulan Devpost. Bahan: [docs/SMOKE-TEST.md](docs/SMOKE-TEST.md), [docs/DEMO-SCRIPT.md](docs/DEMO-SCRIPT.md), [docs/PITCH-DECK.md](docs/PITCH-DECK.md), [docs/DEVPOST.md](docs/DEVPOST.md).

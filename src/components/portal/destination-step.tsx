@@ -1,13 +1,14 @@
 "use client";
 
 import { Ban, CheckCircle2, Hospital, Loader2, Navigation, Phone, RefreshCw, Route, Send } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { CapStatusChip, SimBadge } from "@/components/badges";
 import MapView, { type MapMarker } from "@/components/map-dynamic";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
 import { formatEta, formatKm, timeAgo } from "@/lib/client/format";
 import type { Candidate, MatchResult } from "@/lib/matching/match";
-import type { Need } from "@/lib/schema/ai";
+import type { AnalyzeResponse, Need } from "@/lib/schema/ai";
+import type { ReferralResponse } from "@/lib/schema/referral";
 import type { ReporterLocation } from "./location-step";
 
 type RouteGeo = { source: "OSRM" | "MOCK"; duration_s: number; distance_m: number; geometry: [number, number][] };
@@ -87,16 +88,26 @@ function CandidateCard({
 export function DestinationStep({
   location,
   needs,
+  analysis,
+  online,
   selectedId,
   onSelect,
+  onSent,
   onBack,
 }: {
   location: ReporterLocation;
   needs: Need[];
+  analysis: AnalyzeResponse;
+  online: boolean;
   selectedId: string | null;
   onSelect: (c: Candidate | null) => void;
+  onSent: (referralId: string) => void;
   onBack: () => void;
 }) {
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState<{ message: string; conflict: boolean } | null>(null);
+  // Satu kunci per percobaan pengiriman (RS + kebutuhan): klik ganda/retry jaringan memakai kunci yang sama.
+  const keyRef = useRef<{ sig: string; key: string } | null>(null);
   const [result, setResult] = useState<MatchResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -133,6 +144,41 @@ export function DestinationStep({
   function load() {
     setLoading(true);
     void fetchMatch();
+  }
+
+  async function send(candidate: Candidate) {
+    if (sending) return;
+    setSending(true);
+    setSendError(null);
+    const sig = `${candidate.facility_id}|${needs.map((n) => `${n.code}:${n.required}`).join(",")}`;
+    if (keyRef.current?.sig !== sig) keyRef.current = { sig, key: crypto.randomUUID() };
+    try {
+      const d = await apiFetch<ReferralResponse>("/api/referrals", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Idempotency-Key": keyRef.current.key },
+        body: JSON.stringify({
+          hospital_id: candidate.facility_id,
+          ai_result: analysis.result,
+          needs: needs.map(({ code, required, reason }) => ({ code, required, reason })),
+          location: { lat: location.lat, lng: location.lng },
+          location_source: location.source,
+        }),
+      });
+      keyRef.current = null;
+      onSent(d.referral.id);
+    } catch (e) {
+      const conflict = e instanceof ApiClientError && e.status === 409;
+      setSendError({ message: e instanceof ApiClientError ? e.message : "Pengiriman gagal. Silakan coba lagi.", conflict });
+      if (conflict) {
+        // Kapasitas/kesiapan berubah: muat ulang kandidat dan minta pengguna memilih ulang.
+        keyRef.current = null;
+        onSelect(null);
+        setLoading(true);
+        void fetchMatch();
+      }
+    } finally {
+      setSending(false);
+    }
   }
 
   useEffect(() => {
@@ -294,17 +340,29 @@ export function DestinationStep({
             Pilihan ini <strong>belum</strong> merupakan konfirmasi rumah sakit. Rumah sakit baru mengetahui setelah permintaan rujukan dikirim, dan penerimaan
             tetap diputuskan petugas IGD.
           </p>
+          {sendError && (
+            <p role="alert" className="rounded-lg border-2 border-red-400 bg-red-50 p-3 text-sm text-red-950">
+              {sendError.message}
+              {sendError.conflict && " Daftar tujuan sudah diperbarui."}
+            </p>
+          )}
+          {!online && (
+            <p role="alert" className="text-sm font-semibold text-red-800">
+              Anda offline. Rujukan tidak dapat dikirim sampai koneksi kembali; tidak ada antrean offline.
+            </p>
+          )}
           <button
             type="button"
-            disabled
-            aria-describedby="send-note"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-400 px-6 py-4 text-lg font-bold text-white"
+            onClick={() => void send(selected)}
+            disabled={sending || !online}
+            aria-busy={sending}
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-700 px-6 py-4 text-lg font-bold text-white hover:bg-red-800 disabled:bg-slate-400"
           >
-            <Send className="h-5 w-5" aria-hidden />
-            Kirim permintaan rujukan
+            {sending ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Send className="h-5 w-5" aria-hidden />}
+            {sending ? "Mengirim…" : sendError && !sendError.conflict ? "Coba kirim lagi" : "Kirim permintaan rujukan"}
           </button>
-          <p id="send-note" className="text-xs text-slate-600">
-            Pengiriman rujukan, penguncian kuota, dan notifikasi dashboard dikerjakan pada tahap berikutnya (T10–T12) dan belum aktif di build ini.
+          <p className="text-xs text-slate-600">
+            Mengirim akan menahan satu kuota simulasi di {selected.short_name} sampai petugas menjawab. Server memeriksa ulang kesiapan dan kapasitas saat pengiriman.
           </p>
         </div>
       )}

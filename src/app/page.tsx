@@ -1,6 +1,7 @@
 import { Hospital, Mic, Phone } from "lucide-react";
 import Link from "next/link";
 import { SimBadge } from "@/components/badges";
+import { InstallButton } from "@/components/pwa";
 
 export default function Home() {
   return (
@@ -11,7 +12,7 @@ export default function Home() {
           <SimBadge>Demo – data simulasi</SimBadge>
         </div>
       </header>
-      <main className="mx-auto w-full max-w-2xl flex-1 space-y-6 px-4 py-8">
+      <main id="main" className="mx-auto w-full max-w-2xl flex-1 space-y-6 px-4 py-8">
         <h1 className="text-3xl font-extrabold leading-tight">Koordinasi rujukan gawat darurat lebih cepat</h1>
         <p className="text-lg text-slate-700">
           Ceritakan kondisi pasien dengan suara. AI merangkum laporan, lalu aplikasi mencari IGD yang kesiapan layanannya sesuai – sebelum Anda berangkat.
@@ -33,6 +34,7 @@ export default function Home() {
             112
           </a>
         </div>
+        <InstallButton />
         <div className="space-y-2 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
           <p className="font-bold">Penting</p>
           <ul className="list-disc space-y-1 pl-5">

@@ -2,7 +2,7 @@
 
 ## 0. Status dan posisi dokumen
 
-- **Status:** draf v0.2. v0.1 disusun 31 Oktober 2026 sebelum ada kode; v0.2 mencatat penyesuaian implementasi T01–T09 di bagian 18.
+- **Status:** draf v0.3. v0.1 disusun 31 Oktober 2026 sebelum ada kode; v0.2 mencatat penyesuaian T01–T09 dan v0.3 penyesuaian T10–T17, keduanya di bagian 18.
 - **Hubungan dengan dokumen lain:** `GOAL.md` menetapkan hasil dan cakupan, `AGENTS.md` mengatur cara kerja, `TASK.md` mencatat pelaksanaan. `SPEC.md` menerjemahkan keduanya menjadi rancangan teknis: arsitektur, model data, kontrak API, schema AI, lifecycle rujukan, dan konfigurasi deployment.
 - **Jika terjadi konflik:** `GOAL.md` dan instruksi pengguna menang. Perbarui spesifikasi ini dan catat keputusannya di `TASK.md`.
 - **Label keyakinan:** bagian bertanda **[USULAN]** adalah keputusan turunan yang boleh diubah saat implementasi; bagian bertanda **[VERIFIKASI]** bergantung pada dokumentasi/kuota layanan pihak ketiga yang harus dicek saat T02/T04/T05/T18.
@@ -474,3 +474,13 @@ Pengukuran performa: `timing` dari `/api/analyze`, `referral_events` untuk waktu
 | Model Gemini | `gemini-2.5-flash` [VERIFIKASI] | `gemini-3.5-flash`, `thinkingLevel` LOW (`GEMINI_THINKING_LEVEL`) | 2.5-flash ditolak 404 untuk pengguna baru; 3.8/3.7-flash timeout saat diuji 31-10-2026. |
 | Foto tak terbaca | `input_quality` dari AI | Server menandai `FOTO_TIDAK_TERBACA` bila foto ada tanpa angka `PHOTO_READING` | Model tidak selalu menandainya sendiri. |
 | Mode mock AI | fixture | Pemilihan skenario di UI (hanya saat `AI_MODE=mock`) + skenario `rusak` dan `tidak-jelas` untuk uji pemulihan | Audio tidak dianalisis dalam mock; dinyatakan di UI. |
+| Akses SQL | Supabase CLI/klien | Antarmuka `Db` (`src/lib/data/db.ts`): PGlite lokal atau `pg` ke `SUPABASE_DB_URL` (SQL yang sama); fungsi atomik di migrasi | Satu jalur kode untuk dua mode; jalur `pg`/Supabase belum diuji (T10). |
+| Autentikasi | Supabase Auth (anonim + email/sandi), RLS `auth.uid()` | Cookie `rc_rid` (pelapor anonim) dan `rc_staff` (HMAC, 8 jam); akun demo di `staff_credentials` (scrypt), sandi dari `DEMO_STAFF_PASSWORD`; `DEMO_ADMIN_EMAILS` dihapus (flag `is_demo_admin`). Akses ditegakkan di route; RLS tetap ditulis sebagai pertahanan tambahan | Berjalan tanpa Supabase dan dapat diuji otomatis (T11). |
+| ETA saat kirim | Klien mengirim `eta_seconds` (§9) | Server menghitung ulang ETA dari lokasi + RS tujuan; klien tidak mengirim ETA | Mencegah ETA palsu (T10). |
+| Respons `/api/referrals` | `201`/`200`/`409` | Ditambah `GET /api/referrals` (antrean petugas), `GET /api/stream` (SSE), `POST /api/staff/login|logout`, `GET /api/staff/me`; `409` memuat kode `NO_CAPACITY`/`CAPABILITY_CHANGED` | Kebutuhan dashboard dan sinkronisasi (T10–T12). |
+| Lifecycle ARRIVED/REVOKE | usulan | `0003_staff_ops.sql`: `ARRIVED` dan `REVOKE` hanya sekali, saling meniadakan (REVOKE ditolak setelah tiba) | Reservasi `CONSUMED` tidak dapat dilepas (T10). |
+| Pembaruan fasilitas | `PATCH` biasa | Fungsi SQL `update_facility()` atomik + event audit; hanya kapabilitas yang ditawarkan RS; "konfirmasi" menyegarkan `updated_at` | Menangani status kedaluwarsa (T12). |
+| Realtime | `postgres_changes` terfilter RLS | Event = pemicu ambil-ulang: SSE `/api/stream` (lokal) atau broadcast Supabase Realtime dari server ke `rc:facilities`, `rc:hospital:<id>`, `rc:referral:<id>`; polling 5 dtk bila putus | Sesi tidak memakai Supabase Auth dan SSE tidak lintas instans serverless (T12). Jalur Supabase belum diuji. |
+| Pengujian dua sesi | Playwright | Tes API (dua cookie jar), browser pane manual, `scripts/measure.ts` (HTTP+SSE) | Tanpa unduhan browser Playwright (T16). |
+| Pembatas laju | usulan §16 | Dalam memori per proses: 12 analisis/menit, 10 login/menit (env) | Melindungi kuota AI gratis (T15). |
+| PWA | §11.3 | `public/sw.js` + `public/offline.html`; `app/manifest.ts`; ikon dibuat `npm run make:icons` | Cache hanya aset statis; offline jujur (T14). |

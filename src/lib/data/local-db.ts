@@ -50,16 +50,3 @@ export async function openDatabase(dataDir?: string) {
   if (rows[0].n === 0) await applySeed(db);
   return db;
 }
-
-const globalForDb = globalThis as unknown as { __rujukDb?: Promise<PGlite> };
-
-export function getLocalDb(): Promise<PGlite> {
-  if (!globalForDb.__rujukDb) {
-    const dir = path.resolve(/*turbopackIgnore: true*/ process.cwd(), process.env.LOCAL_DB_DIR || ".data/pglite");
-    globalForDb.__rujukDb = openDatabase(dir).catch((e) => {
-      globalForDb.__rujukDb = undefined;
-      throw e;
-    });
-  }
-  return globalForDb.__rujukDb;
-}

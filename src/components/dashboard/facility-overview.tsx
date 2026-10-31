@@ -8,7 +8,7 @@ import { timeAgo } from "@/lib/client/format";
 import type { Facility } from "@/lib/schema/api";
 import { CAPABILITY_CODES } from "@/lib/schema/enums";
 
-export function FacilityOverview() {
+export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
   const [data, setData] = useState<{ facilities: Facility[]; stale_after_minutes: number; server_time: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -34,14 +34,14 @@ export function FacilityOverview() {
 
   useEffect(() => {
     void fetchData();
-  }, [fetchData]);
+  }, [fetchData, refreshKey]);
 
   return (
     <section aria-labelledby="fac-title" className="space-y-3">
       <div className="flex items-center justify-between">
-        <h1 id="fac-title" className="text-xl font-bold">
+        <h2 id="fac-title" className="text-xl font-bold">
           Status fasilitas (simulasi)
-        </h1>
+        </h2>
         <button type="button" onClick={load} disabled={loading} className="flex items-center gap-2 rounded-lg border-2 border-slate-400 bg-white px-3 py-2 text-sm font-semibold">
           {loading ? <Loader2 className="h-4 w-4 animate-spin" aria-hidden /> : <RefreshCw className="h-4 w-4" aria-hidden />}
           Muat ulang

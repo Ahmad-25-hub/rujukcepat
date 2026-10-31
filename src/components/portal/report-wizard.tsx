@@ -11,15 +11,17 @@ import { ConsentStep } from "./consent-step";
 import { DestinationStep } from "./destination-step";
 import { LocationStep, type ReporterLocation } from "./location-step";
 import { RecordStep, type ReportDraft } from "./record-step";
+import { setActiveReferral, StatusStep, useActiveReferral } from "./status-step";
 import { effectiveNeeds, ReviewStep, type NeedEdits } from "./review-step";
 
-type Step = "consent" | "location" | "record" | "processing" | "review" | "destination";
+type Step = "consent" | "location" | "record" | "processing" | "review" | "destination" | "status";
 const STEPS: { id: Step; label: string }[] = [
   { id: "consent", label: "Persetujuan" },
   { id: "location", label: "Lokasi" },
   { id: "record", label: "Laporan" },
   { id: "review", label: "Tinjau" },
   { id: "destination", label: "Tujuan" },
+  { id: "status", label: "Status" },
 ];
 
 type Stage = "prepare" | "upload" | "done";
@@ -36,6 +38,8 @@ export function ReportWizard() {
   const [procError, setProcError] = useState<string | null>(null);
   const [selected, setSelected] = useState<Candidate | null>(null);
   const [online, setOnline] = useState(true);
+  const [referralId, setReferralId] = useState<string | null>(null);
+  const lastReferralId = useActiveReferral();
   const abortRef = useRef<AbortController | null>(null);
   const headingRef = useRef<HTMLDivElement>(null);
 
@@ -102,6 +106,22 @@ export function ReportWizard() {
     }
   }
 
+  function rememberReferral(id: string | null) {
+    setReferralId(id);
+    setActiveReferral(id);
+  }
+
+  function startNew() {
+    rememberReferral(null);
+    setAnalysis(null);
+    setEdits({});
+    setSelected(null);
+    setDraftState({ audio: null, text: "", useText: false, photo: null, scenario: "" });
+    setStep("record");
+  }
+
+  const supabaseChannels = status?.data_mode === "SUPABASE" && referralId ? ["rc:facilities", `rc:referral:${referralId}`] : null;
+
   const banner: string[] = [];
   banner.push("Demo – data simulasi");
   if (status?.ai_mode === "MOCK") banner.push("AI simulasi");
@@ -129,7 +149,7 @@ export function ReportWizard() {
         </p>
       )}
 
-      <main className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 py-5">
+      <main id="main" className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 py-5">
         <nav aria-label="Langkah laporan">
           <ol className="flex gap-1">
             {STEPS.map((s, i) => (
@@ -144,7 +164,23 @@ export function ReportWizard() {
         </nav>
 
         <div ref={headingRef} tabIndex={-1} className="outline-none">
-          {step === "consent" && <ConsentStep status={status} onAccept={() => setStep("location")} />}
+          {step === "consent" && (
+            <div className="space-y-4">
+              {lastReferralId && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setReferralId(lastReferralId);
+                    setStep("status");
+                  }}
+                  className="w-full rounded-xl border-2 border-blue-700 bg-blue-50 px-4 py-3 text-base font-bold text-blue-900"
+                >
+                  Lihat status permintaan rujukan terakhir
+                </button>
+              )}
+              <ConsentStep status={status} onAccept={() => setStep("location")} />
+            </div>
+          )}
 
           {step === "location" && <LocationStep value={location} onChange={setLocation} onNext={() => setStep("record")} />}
 
@@ -200,9 +236,28 @@ export function ReportWizard() {
             <DestinationStep
               location={location}
               needs={needs}
+              analysis={analysis}
+              online={online}
               selectedId={selected?.facility_id ?? null}
               onSelect={setSelected}
+              onSent={(id) => {
+                rememberReferral(id);
+                setStep("status");
+              }}
               onBack={() => setStep("review")}
+            />
+          )}
+
+          {step === "status" && referralId && (
+            <StatusStep
+              referralId={referralId}
+              supabaseChannels={supabaseChannels}
+              onBack={analysis && location ? () => setStep("destination") : null}
+              onNew={startNew}
+              onGone={() => {
+                rememberReferral(null);
+                setStep("consent");
+              }}
             />
           )}
         </div>

@@ -20,6 +20,14 @@ const nextConfig: NextConfig = {
         headers: [{ key: "Cache-Control", value: "no-store" }],
       },
       {
+        // Service worker tidak boleh di-cache lama agar pembaruan sampai ke perangkat.
+        source: "/sw.js",
+        headers: [
+          { key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
+          { key: "Service-Worker-Allowed", value: "/" },
+        ],
+      },
+      {
         source: "/(.*)",
         headers: [
           {

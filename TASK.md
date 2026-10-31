@@ -88,64 +88,103 @@ T08, T13, dan T14 adalah kelengkapan P1. Kerjakan setelah dependensinya terpenuh
 
 ## 6. Rujukan dan dashboard IGD
 
-- [ ] **T10 - Transaksi rujukan dan kuota** (P0; setelah T03/T07/T09).
+- [x] **T10 - Transaksi rujukan dan kuota** (P0; setelah T03/T07/T09).
   **Kerjakan:** Validasi ulang kesiapan/kapasitas di server; buat permintaan dan reservasi atomik. Terapkan idempotency dan transisi status, termasuk pelepasan kuota dan reset demo yang terdokumentasi.
 
   **Kriteria selesai:** dua permintaan untuk satu kuota tidak menyebabkan overbooking/kapasitas negatif dan retry tidak membuat reservasi ganda. Bukti: AC-05/AC-07.
 
-- [ ] **T11 - Dashboard petugas dan pembatasan akses** (P0; setelah T03/T10).
+  **Bukti (31-10-2026):** `POST /api/referrals` (wajib `Idempotency-Key`; ETA dihitung ulang server, bukan dari klien) memanggil `create_referral()` (cek ulang kapabilitas wajib READY+segar dan kuota, kunci baris, rujukan `PENDING` + reservasi `HELD` atomik). `GET /api/referrals/:id`, `POST …/cancel` (pelapor), `POST …/decision` (petugas), `POST /api/demo/reset` (admin + konfirmasi `RESET`). Migrasi `0003_staff_ops.sql` memperbaiki `transition_referral` (ARRIVED sekali; REVOKE tidak sah setelah tiba). Portal: tombol kirim aktif (nonaktif saat mengirim/offline, kunci idempotensi per percobaan, 409 → pesan + daftar tujuan dimuat ulang) dan langkah **Status** (status permintaan, kuota simulasi, ringkasan AI, hitung mundur expiry, batalkan). Tes `tests/integration/api.test.ts` (lulus): kirim → `PENDING`+`HELD`, kuota −1; retry kunci sama → rujukan sama, kuota tetap; 3 klik serentak kunci sama → satu rujukan; **dua pelapor untuk satu kuota (Tarakan) → 201 + 409 `NO_CAPACITY`, kuota 0 tidak negatif**; kapasitas nol → 409; kapabilitas berubah → 409 `CAPABILITY_CHANGED` tanpa mengunci kuota; tolak/batal/expiry → kuota dilepas tepat sekali (aksi kedua 409); terima tidak melepas kuota; ARRIVED → `CONSUMED`; reset menghapus rujukan & memulihkan seed. Browser: klik kirim 3× sinkron → kuota RSCM 3 → 2 (satu reservasi). Skrip `measure` juga memeriksa balapan kuota pada server berjalan (201/409, kuota 0). **Belum diuji:** konkurensi multi-koneksi di Postgres/Supabase sungguhan (PGlite satu koneksi; penguncian `FOR UPDATE` tetap perlu dibuktikan di Supabase).
+
+- [x] **T11 - Dashboard petugas dan pembatasan akses** (P0; setelah T03/T10).
   **Kerjakan:** Buat akses petugas demo yang dibatasi per rumah sakit, daftar permintaan, detail SOAP/ETA, notifikasi visual, dan konfirmasi. Bedakan status permintaan dari reservasi.
 
   **Kriteria selesai:** petugas yang tepat dapat meninjau/mengonfirmasi dan akses tidak sah ditolak. Bukti: AC-05/AC-06/AC-12.
 
-- [ ] **T12 - Sinkronisasi dan pembaruan fasilitas** (P0; setelah T10/T11).
+  **Bukti (31-10-2026):** login petugas (`/dashboard/login`, `POST /api/staff/login`; kata sandi dari env `DEMO_STAFF_PASSWORD`, hash scrypt di `staff_credentials`, cookie `rc_staff` bertanda tangan HMAC, 8 jam) dengan 6 akun demo (5 RS contoh + admin). Dashboard `/dashboard`: antrean `PENDING` urut urgensi lalu waktu + "sudah diproses", alert merah + judul tab "(n) Permintaan baru", detail (status permintaan dan reservasi kuota **terpisah**, ETA berlabel, ringkasan, SOAP berasal-data, kebutuhan, riwayat kejadian, hitung mundur), aksi Terima/Tolak/Pasien tiba/Batalkan penerimaan (loading, cegah klik ganda, waktu simpan ditampilkan), panel reset admin. Tes API (lulus): sandi salah/akun tak ada → 401; antrean hanya RS sendiri; **petugas RS lain → 403 (baca & keputusan), tanpa sesi → 401, pelapor lain → 403, pelapor pemilik tidak dapat memutuskan, cookie palsu → 401, PATCH fasilitas RS lain → 403, reset non-admin → 403**; respons tidak memuat `requester_id`/hash. Browser: login → dashboard memuat; rujukan dari tab portal muncul sebagai alert; Terima mengubah tombol menjadi "Pasien tiba"/"Batalkan penerimaan". Keamanan bukan fokus proyek (instruksi pengguna): RLS ditulis di migrasi tetapi **tidak diuji pada Supabase sungguhan**; akses ditegakkan di route.
+
+- [x] **T12 - Sinkronisasi dan pembaruan fasilitas** (P0; setelah T10/T11).
   **Kerjakan:** Hubungkan Realtime, kontrol READY/PENUH/MAINTENANCE, kapasitas, pembaruan portal, serta penanganan event ganda dan reconnect.
 
   **Kriteria selesai:** dua sesi browser menampilkan perubahan konsisten dan state pulih dari database setelah koneksi putus. Bukti: AC-06/AC-08.
 
-- [ ] **T13 - TTS dan alarm dashboard** (P1; setelah T09/T11).
+  **Bukti (31-10-2026):** `PATCH /api/facilities/:id` → fungsi SQL `update_facility()` (atomik, log event tanpa data kesehatan; kapabilitas hanya yang ditawarkan RS; `0 ≤ tersedia ≤ total`; "Konfirmasi" menyegarkan status kedaluwarsa). Dashboard: kontrol READY/PENUH/MAINTENANCE per kapabilitas + editor kapasitas. Sinkronisasi: `notifyChange()` setelah transaksi → **SSE `/api/stream`** (mode lokal) dan, untuk mode `supabase`, broadcast Supabase Realtime dari server; klien (`useSync`) memperlakukan event sebagai pemicu ambil-ulang (event ganda aman), rekonsiliasi penuh saat setiap (re)connect/online/tab terlihat, polling 5 dtk + badge "Sinkronisasi terbatas" bila putus. Pengukuran browser: PATCH `IGD_DASAR`→PENUH 178 ms; `/api/match` setelahnya mengecualikan RSCM ("IGD_DASAR: PENUH") dan kandidat utama berganti; pengembalian ke READY berhasil. Dua sesi: rujukan dari tab portal → dashboard menerima (badge "Tersambung (SSE) · 17 ms"); Terima di dashboard → portal berubah ke "Diterima petugas IGD". **Pemulihan:** server dihentikan → badge dashboard "Sinkronisasi terbatas"; `db:reset` dijalankan saat mati; server dinyalakan → dashboard otomatis "Tersambung" dan daftar kosong sesuai database. Tes: event hanya ke petugas RS terkait/pelapor pemilik, tidak membawa `requester_id`. **Belum diuji:** Supabase Realtime sungguhan (tanpa kredensial) — jalur kode ada tetapi tidak terbukti; pemulihan sisi portal setelah putus hanya diuji lewat logika yang sama (hook `useSync`).
+
+- [x] **T13 - TTS dan alarm dashboard** (P1; setelah T09/T11).
   **Kerjakan:** Tambahkan speechSynthesis untuk informasi koordinasi yang sesuai, kontrol berhenti, alarm pada perangkat yang mendukung, dan fallback teks/visual. Jangan menghasilkan terapi definitif.
 
   **Kriteria selesai:** suara dapat dikendalikan dan pemblokiran autoplay tidak menghilangkan informasi. Bukti: AC-11.
 
+  **Bukti (31-10-2026):** `SpeakPanel` (portal, langkah Status): teks panduan koordinasi (status rujukan, ETA berlabel, 119/112, butir Plan AI yang sudah disaring dosis) selalu tampil; tombol Putar/Berhenti (hanya diputar atas klik pengguna); fallback bila `speechSynthesis` tidak ada atau suara id-ID tidak ditemukan. Browser pane: `speechSynthesis` ada, `speaking=true` setelah Putar (Putar nonaktif/Berhenti aktif), `speaking=false` setelah Berhenti; pesan "Suara Bahasa Indonesia tidak ditemukan… teks tetap tersedia" tampil (pane tanpa suara id-ID). Alarm dashboard (Web Audio, `Aktifkan alarm` lewat klik, tersimpan di localStorage): alert visual + judul tab selalu muncul walau alarm mati; saat diblokir tampil catatan "Alarm suara diblokir…". **Belum diverifikasi:** bunyi alarm dan suara TTS tidak dapat didengar di lingkungan pengujian; perilaku di perangkat nyata (iOS Safari, Android) belum diuji.
+
 ## 7. Ketahanan dan pembuktian
 
-- [ ] **T14 - Kelengkapan PWA dan aksesibilitas** (P1; setelah T09/T11).
+- [x] **T14 - Kelengkapan PWA dan aksesibilitas** (P1; setelah T09/T11).
   **Kerjakan:** Tambahkan manifest/ikon, perilaku pemasangan yang didukung, tombol besar, kontras, label/fokus keyboard, dan layout responsif. Periksa cache agar laporan atau kapasitas lama tidak disajikan sebagai data mutakhir.
 
   **Kriteria selesai:** portal ponsel dan dashboard desktop dapat digunakan serta mode offline jujur. Bukti: AC-10/AC-11.
 
-- [ ] **T15 - Penanganan gagal dan pemeriksaan akses** (P0; setelah T04/T05/T10/T11/T12).
+  **Bukti (31-10-2026):** `app/manifest.ts` (standalone, `lang: id`, ikon 192/512 + maskable, shortcut portal/dashboard) → `/manifest.webmanifest` 200 `application/manifest+json` pada `next start`; ikon PNG dibuat `npm run make:icons` (salib putih pada merah); `apple-touch-icon`, `theme-color`; tombol "Pasang aplikasi" (`beforeinstallprompt`) dan petunjuk iOS di beranda; service worker `public/sw.js` + `public/offline.html` (hanya aset `/_next/static` berhash + ikon + halaman offline; **tidak pernah** `/api/*` atau HTML; navigasi offline → halaman offline jujur dengan tel 119/112, tanpa antrean). Tes `tests/unit/sw.test.ts` (6, lulus) pada lingkungan SW tiruan: tidak menyentuh `/api/*`/non-GET/lintas origin, navigasi offline → `/offline.html`, HTML tidak di-cache, aset statis cache-first, cache lama dihapus. Banner offline di portal (kirim nonaktif) dan dashboard; badge sinkron berteks+ikon; skip link "Lompat ke konten utama", `id="main"`, fokus terlihat (`:focus-visible`), tombol besar (≥ 44 px), status/urgensi teks+ikon. Portal 375 px: tidak ada overflow horizontal (`scrollWidth` = 375). **Belum diuji:** registrasi SW di browser pane gagal ("unknown error fetching the script", pane tidak mendukung SW; header sw.js benar) sehingga pemasangan/offline nyata perlu uji Chrome/Android/iOS; audit aksesibilitas penuh (pembaca layar, kontras terukur, axe) belum dilakukan.
+
+- [x] **T15 - Penanganan gagal dan pemeriksaan akses** (P0; setelah T04/T05/T10/T11/T12).
   **Kerjakan:** Uji izin ditolak, audio tidak jelas, foto tidak terbaca, JSON rusak, AI/rute gagal, kandidat kosong, perubahan kapasitas saat kirim, dan koneksi putus. Periksa rahasia, otorisasi lintas rumah sakit, kebijakan media, persetujuan unggah, retensi, serta penghapusan demo.
 
   **Kriteria selesai:** pemulihan dapat dilakukan tanpa keberhasilan palsu atau kebocoran akses. Bukti: AC-09/AC-12.
 
-- [ ] **T16 - Uji menyeluruh dan performa** (P0; setelah T10/T11/T12/T15).
+  **Bukti (31-10-2026):** tes otomatis `tests/integration/failures.test.ts` + `match-failures.test.ts` (12, lulus): tanpa persetujuan → `CONSENT_REQUIRED` (server); tanpa masukan/format audio salah (415)/audio & teks & foto berlebih (413/415); keluaran AI rusak → 422 `AI_OUTPUT_INVALID` tanpa `data`; audio tidak jelas → `AUDIO_TIDAK_JELAS` + `needs_review`; foto tanpa angka terbaca → tidak ada angka dikarang; **analisis tidak menulis apa pun ke database dan skema tidak punya kolom/tabel media**; rate limit 429 (12 analisis/menit/klien; 10 login/menit); **OSRM tak terjangkau (`ROUTING_MODE=live`, alamat mati) → `routing_status=FAILED`, `eta_seconds=null`, urut jarak garis lurus + keterangan**; tanpa kandidat (HEMODIALISA+ANTI_BISA wajib) → alasan untuk 10 RS; kapasitas nol tersaring; lokasi di luar Jabodetabek/payload rusak/kode palsu → 400. Akses lintas RS: lihat T11 (403/401). Kapasitas berubah saat kirim: tes API 409 dan **UI browser** (kuota Tarakan diambil pihak lain sebelum klik kirim → pesan "Kuota rujukan rumah sakit ini sudah habis… Daftar tujuan sudah diperbarui", tujuan dipilih ulang otomatis). Koneksi putus: T12 (server mati → "Sinkronisasi terbatas" → pulih), banner offline portal/dashboard, kirim nonaktif saat offline. Izin lokasi/mikrofon ditolak, AI 422, tanpa kandidat: T05/T06/T09 (browser). `npm run check:secrets` memindai `.next/static`: nilai `SESSION_SECRET`/`DEMO_STAFF_PASSWORD` tidak ada, terbukti mendeteksi nilai yang disisipkan; log server hanya kode galat/status (dicek `grep console.`). Retensi/penghapusan: audio/foto tidak disimpan, rujukan demo sampai reset (UI admin `RESET`, `npm run db:reset`), didokumentasikan di README. **Belum diuji:** RLS/kebijakan media pada Supabase sungguhan (tidak ada Storage dipakai), `GEMINI_API_KEY`/kunci Supabase pada pemindaian bundle (belum terisi), perangkat nyata.
+
+- [x] **T16 - Uji menyeluruh dan performa** (P0; setelah T10/T11/T12/T15).
   **Kerjakan:** Jalankan skenario proposal dengan data sintetis pada dua sesi, tes kuota serentak/retry, schema, dan pencocokan. Jalankan pemeriksaan kode yang tersedia. Ukur target di GOAL dengan batas waktu yang jelas; catat perangkat, koneksi, model, ukuran masukan, jumlah percobaan, serta kegagalan.
 
   **Kriteria selesai:** AC memiliki hasil/bukti dan target yang belum tercapai disebutkan. T08/T13/T14 harus ikut diuji sebelum klaim P1 selesai.
 
+  **Bukti (31-10-2026, tanpa commit):** `npm run lint`/`typecheck`/`build` lulus; `npm test` 78 tes (8 file) lulus; juga lulus pada salinan bersih proyek (`npm ci` + env minimum README). Skrip `npm run measure` (`scripts/measure.ts`, dua sesi HTTP+SSE) pada `next start`, **MOCK**, `localhost`, Windows 11 / Ryzen 7 6800H / Node 22, teks→audio WAV 495 KB + foto 26 KB dikirim, 10 percobaan, 0 gagal (`docs/hasil-ukur-mock.json`): analisis (penyedia) median 604 ms (**mock menunda 600 ms; tidak bermakna untuk target <3 dtk**), pencocokan 11 ms, kirim rujukan 16 ms, koordinasi mesin (analisis+cocok+kirim, tanpa waktu manusia) 686 ms vs target <15 dtk, kirim→alert dashboard 18 ms, **sinkron server→penerima (SSE) 4 ms (maks 5) vs target <200 ms** (satu mesin/jam sama; belum sampai UI tergambar), keputusan petugas→tersimpan 46 ms (maks 51) vs <2 dtk, keputusan→portal 47 ms; balapan 1 kuota → 201/409, kuota 0. **LIVE (Gemini) tidak diukur ulang di sesi ini** (tanpa `GEMINI_API_KEY`); angka LIVE terakhir (T04, §10): 5,5–13,2 dtk → **target <3 dtk belum tercapai**.
+
+  | AC | Status | Bukti |
+  | --- | --- | --- |
+  | AC-01 | Lulus (mock+LIVE T04) | Schema valid; hasil tidak valid tidak dipakai (422). Rekaman 10–15 dtk LIVE dari T04/T06; mikrofon nyata belum. |
+  | AC-02 | Lulus | Nilai tak dilaporkan `null`; chip asal data di portal dan dashboard; foto buram tanpa angka. |
+  | AC-03 | Lulus | Tes pencocokan + `/api/match`; PENUH/MAINTENANCE/kapasitas 0/kedaluwarsa tersaring; alternatif dan tanpa kandidat. |
+  | AC-04 | Lulus | ETA berlabel; OSRM gagal → ETA null (tes). |
+  | AC-05 | Lulus | Satu pengiriman → satu rujukan di dashboard (ringkasan, tujuan, waktu, ETA). |
+  | AC-06 | Lulus | Konfirmasi terlihat di portal; status permintaan, hasil AI, dan kuota terpisah. |
+  | AC-07 | Lulus (PGlite) | Tes API + `measure`: 201/409, retry tidak mengurangi dua kali, pelepasan sekali. Belum di Supabase sungguhan. |
+  | AC-08 | Sebagian | Perubahan fasilitas memengaruhi `/api/match`/dashboard; pemulihan dashboard setelah putus teruji; Supabase Realtime belum. |
+  | AC-09 | Lulus | Izin ditolak, AI 422/503, tanpa kandidat, koneksi putus: lihat T05/T06/T15. |
+  | AC-10 | Sebagian | Portal 375 px dan dashboard desktop; status teks+ikon; fokus keyboard; belum perangkat nyata/pembaca layar. |
+  | AC-11 | Sebagian | Foto (LIVE, T08) dan TTS (kontrol+fallback) diuji di browser pane; kamera/suara perangkat nyata belum. |
+  | AC-12 | Sebagian | Pemindaian bundle lulus (nilai yang ada); akses petugas terbatas (tes); label simulasi; RLS Supabase belum diuji; kunci Gemini/Supabase belum dipindai. |
+
+  **T08/T13/T14 ikut diuji** (bukti masing-masing). Klaim P1 selesai dibatasi pada implementasi + uji browser pane/tes otomatis; uji perangkat nyata belum.
+
 ## 8. Paket demo dan pengumpulan
 
-- [ ] **T17 - README dan deklarasi** (P0 luaran; setelah T16).
+- [x] **T17 - README dan deklarasi** (P0 luaran; setelah T16).
   **Kerjakan:** Tulis cara setup, environment, migrasi/seed/reset, arsitektur, akun demo tanpa rahasia produksi, batas simulasi, retensi, hasil uji, dan kendala tersisa. Tambahkan deklarasi AI/pihak ketiga serta atribusi.
 
   **Kriteria selesai:** petunjuk dapat diikuti untuk menjalankan demo dari lingkungan yang baru disiapkan.
+
+  **Bukti (31-10-2026):** `README.md` memuat setup, tabel environment, akun demo (kata sandi dari env, bukan repo), skenario demo, seed/reset (CLI + UI), panduan Supabase (berlabel belum diuji), arsitektur, pemeriksaan, hasil uji dan performa (target vs aktual, MOCK vs LIVE terpisah), selisih cakupan, privasi/retensi, deklarasi AI/pihak ketiga/atribusi, serta keterbatasan; `.env.example` diperbarui. **Diverifikasi dari salinan bersih** (file terlacak + tak-terabaikan disalin ke folder baru): `npm ci` → `.env.local` minimum dari README → `npm run lint`, `typecheck`, `npm test` (78 lulus), `npm run build`, `npm run check:secrets` lulus; `next start` → `/lapor` 200, login petugas 200 dengan sandi env, sandi salah 401. Bahan paket T18–T20: `docs/SMOKE-TEST.md`, `docs/DEMO-SCRIPT.md`, `docs/PITCH-DECK.md`, `docs/DEVPOST.md` (draf, belum final).
 
 - [ ] **T18 - Demo publik dan smoke test** (P0 luaran; setelah T15/T16/T17).
   **Kerjakan:** Siapkan konfigurasi Vercel/Supabase dan publikasi GitHub sesuai otorisasi yang tersedia. Uji ulang alur portal-dashboard pada deployment, izin perangkat via HTTPS, Realtime, akses petugas, serta label simulasi.
 
   **Kriteria selesai:** tautan dan commit tercatat serta smoke test deployment lolos; hasil lokal saja tidak menutup tugas ini.
 
+  **Status (31-10-2026): TERHAMBAT — belum dikerjakan.** Membutuhkan keputusan/otorisasi pengguna: akun Vercel (Hobby), project Supabase + kredensial, kunci Gemini, repositori GitHub (publikasi), dan izin commit/push. Pekerjaan independen yang sudah siap: build produksi lulus lokal, `vercel.json`, `docs/SMOKE-TEST.md` (daftar periksa + risiko: Realtime Supabase, pooler, rate limit per instans), skrip `check:secrets` dan `measure` yang dapat dijalankan terhadap URL deployment.
+
 - [ ] **T19 - Video, pitch deck, dan tag** (P0 luaran; setelah T18).
   **Kerjakan:** Siapkan video demo kurang dari tiga menit, pitch deck, dan tag `submission-24h` sesuai aturan/otorisasi. Perlihatkan input, rekomendasi, rujukan, konfirmasi, serta pembaruan kapasitas; jelaskan simulasi dan batas AI.
 
   **Kriteria selesai:** berkas/tautan dan commit yang dipresentasikan konsisten.
 
+  **Status (31-10-2026): TERHAMBAT — bergantung T18.** Siap: naskah video `docs/DEMO-SCRIPT.md` (< 3 menit) dan kerangka deck `docs/PITCH-DECK.md`. Belum ada: video, berkas deck, tag `submission-24h` (tag hanya setelah commit final dan otorisasi pengguna). Repo belum ada commit untuk pekerjaan T10–T17.
+
 - [ ] **T20 - Pengumpulan Devpost** (P0 luaran; setelah T01/T17/T18/T19).
   **Kerjakan:** Cocokkan paket dengan brief aktual, siapkan isian dan tautan, lalu lakukan submission bila diotorisasi pengguna.
 
   **Kriteria selesai:** Pengiriman benar-benar terkonfirmasi dan buktinya dicatat. Jika baru siap kirim, catat status tersebut dan biarkan checklist ini belum selesai.
+
+  **Status (31-10-2026): TERHAMBAT — belum siap kirim.** Challenge brief panitia belum pernah diberikan (kesesuaian brief tidak terverifikasi), tautan demo/repo/video/deck belum ada, dan pengiriman memerlukan otorisasi eksplisit pengguna. Draf isian: `docs/DEVPOST.md` (tautan masih kosong).
 
 ## 9. Status pekerjaan dan keputusan teknis
 
@@ -153,7 +192,7 @@ Perbarui tabel ini sesuai kondisi implementasi yang benar-benar diperiksa.
 
 | Tugas aktif | Status | Kendala | Langkah berikutnya |
 | --- | --- | --- | --- |
-| T10 (berikutnya) | T01–T09 selesai dan terverifikasi (31-10-2026): portal berfungsi sampai pilihan tujuan dengan Gemini LIVE (`gemini-3.5-flash`), OSRM live, dan DB lokal PGlite | Kredensial Supabase belum ada (DB lokal dipakai); challenge brief belum diterima; Gemini kadang 503 dan latensi 5–13 dtk; mikrofon/kamera ponsel nyata belum diuji | T10: transaksi rujukan memakai fungsi SQL `create_referral`/`transition_referral` yang sudah teruji; uji perangkat nyata. |
+| T18 (berikutnya, terhambat) | T01–T17 selesai dan terverifikasi lokal (31-10-2026): alur P0 dua tampilan berfungsi (portal → AI → pencocokan → rujukan → dashboard → konfirmasi → status), P1 diimplementasikan, 78 tes lulus, README + deklarasi ada. T18–T20 **belum** dikerjakan | Butuh otorisasi/kredensial pengguna: Vercel, Supabase (+ `SUPABASE_DB_URL`), `GEMINI_API_KEY`, GitHub, izin commit/push/tag, challenge brief, Devpost. Realtime Supabase, RLS Supabase, mikrofon/kamera/GPS/TTS/alarm/PWA pada perangkat nyata, dan performa LIVE terbaru belum diuji | Pengguna memutuskan T18: kredensial + otorisasi deployment dan commit; jalankan `docs/SMOKE-TEST.md`; ukur LIVE (`AUDIO=1 PHOTO=1 npm run measure`); lalu T19 (video/deck/tag) dan T20 (Devpost). |
 
 | Keputusan yang diperlukan | Tugas terkait |
 | --- | --- |
@@ -179,6 +218,14 @@ Catat keputusan final beserta alasan dan dampaknya pada implementasi. Jangan men
 | Foto ada tanpa angka terbaca → server menandai `FOTO_TIDAK_TERBACA` | Model tidak selalu menandai foto buram | T08 |
 | Audio dikonversi klien ke WAV 16 kHz mono sebelum unggah | Kompatibilitas format Gemini lintas browser; ±32 KB/dtk | T04/T06 |
 | Seed RSCM tanpa ANTI_BISA | Agar keadaan "tanpa kandidat" dapat didemokan (HEMODIALISA + ANTI_BISA) | T07 |
+| Akses SQL lewat satu antarmuka `Db` (`src/lib/data/db.ts`): PGlite lokal atau `pg` ke `SUPABASE_DB_URL` | SQL/fungsi transaksi yang sama di dua mode; jalur `pg` belum diuji tanpa kredensial. Menambah dependensi `pg` | T10 |
+| Login petugas dan sesi buatan sendiri (cookie HMAC, hash scrypt di `staff_credentials`, kata sandi dari `DEMO_STAFF_PASSWORD`) — bukan Supabase Auth; pelapor = cookie anonim `rc_rid` | Berjalan tanpa Supabase dan dapat diuji otomatis; RLS `auth.uid()` di migrasi menjadi pertahanan tambahan yang tidak terpakai oleh jalur server. `DEMO_ADMIN_EMAILS` dihapus (admin = flag `is_demo_admin`) | T11 |
+| ETA rujukan dihitung ulang di server saat kirim; klien tidak mengirim `eta_seconds` | Mencegah ETA palsu dari klien (menyimpang dari SPEC §9 awal) | T10 |
+| Sinkronisasi: event = pemicu ambil-ulang. Lokal: SSE `/api/stream` (EventEmitter dalam proses). Supabase: broadcast Realtime dari server ke kanal `rc:*` (tanpa Supabase Auth), polling 5 dtk bila putus | SSE tidak bekerja lintas instans serverless (Vercel); `postgres_changes` + RLS tidak dipakai karena sesi tidak memakai Supabase Auth. Jalur Supabase belum diuji | T12 |
+| Tidak memakai Playwright; uji dua sesi = tes API dua cookie jar + browser pane manual + `scripts/measure.ts` | Unduhan browser Playwright tidak diperlukan; kekurangan dicatat di README | T16 |
+| Pembatas laju dalam memori: 12 analisis/menit dan 10 login/menit per klien (env dapat diubah) | Melindungi kuota Gemini gratis; per instans pada serverless | T15 |
+| Service worker minimal: hanya aset statis berhash + ikon + halaman offline; tanpa cache `/api/*` dan HTML | AGENTS §8: kapasitas/laporan lama tidak boleh tampil sebagai mutakhir | T14 |
+| Reservasi `ACCEPTED` tetap `HELD` sampai `ARRIVED`/`REVOKE` atau reset demo; `ARRIVED` dan `REVOKE` hanya sekali dan saling meniadakan | `0003_staff_ops.sql`; AGENTS §6 | T10 |
 
 **Cakupan T01 (dirangkum dari GOAL; brief panitia belum tersedia → belum terverifikasi):**
 
@@ -186,6 +233,7 @@ Catat keputusan final beserta alasan dan dampaknya pada implementasi. Jangan men
 - Batas simulasi: seluruh kapasitas/kesiapan RS adalah seed berlabel "simulasi"; lokasi RS dari OSM tidak menyiratkan kemitraan; pasien sintetis; AI hanya perkiraan; ETA OSRM tanpa lalu lintas langsung. Badge mode (AI simulasi, Rute simulasi, Database lokal) tampil di portal.
 - Luaran wajib (GOAL §11): aplikasi dua antarmuka + repo GitHub, README, deklarasi AI/pihak ketiga/atribusi, tag `submission-24h`, video < 3 menit, pitch deck, isian Devpost — belum dikerjakan (T17–T20).
 - Instruksi pengguna (31-10-2026): kerjakan sampai T09; keamanan bukan fokus → pembatasan akses dan RLS ditulis sesuai SPEC tetapi tidak diuji mendalam pada tahap ini.
+- Instruksi pengguna lanjutan (31-10-2026): pelajari semua `.md`, kerjakan sampai T20 sesuai TASK.md, pastikan semua fungsi bekerja, keamanan bukan fokus, tanyakan bila kurang jelas. T10–T17 dikerjakan; T18–T20 tidak dapat diselesaikan tanpa kredensial/otorisasi/brief (AGENTS §2: tidak mendeploy, mempublikasikan repo, menandai tag, atau mengirim Devpost tanpa otorisasi) sehingga dicatat terhambat dan ditanyakan ke pengguna.
 
 ## 10. Log verifikasi
 
@@ -193,18 +241,18 @@ Isi setiap bukti dengan commit/versi, perintah atau langkah uji, hasil aktual, d
 
 | Area | Tugas/AC | Status awal | Bukti/hasil |
 | --- | --- | --- | --- |
-| Build, lint, typecheck | T02/T16 | Lulus | 31-10-2026, tanpa commit (folder belum repo Git): `npm run lint` 0 masalah, `npm run typecheck` 0 error, `npm run build` sukses tanpa peringatan (Next 16.4.3, Turbopack), `npm test` 40/40 lulus (4 file). |
+| Build, lint, typecheck | T02/T16 | Lulus | 31-10-2026, tanpa commit: `npm run lint` 0 masalah, `npm run typecheck` 0 error, `npm run build` sukses, `npm test` 78/78 lulus (8 file), `npm run check:secrets` lulus. Diulang pada salinan bersih (`npm ci`) dengan hasil sama. |
 | Audio, JSON, dan asal data | T04/T06; AC-01/02 | Lulus (mock + LIVE) | Unit: schema rusak, field hilang, null tetap null, kode ilegal dibuang, Plan berdosis dibuang, angka foto tanpa foto dikosongkan. LIVE `gemini-3.5-flash`: `npm run check:gemini` + 3 percobaan skrip + 2 percobaan portal → semua JSON valid setelah normalisasi; 2 dari ±8 panggilan gagal 503/timeout lalu berhasil saat dicoba ulang. |
 | Kapabilitas, alternatif, rute | T05/T07; AC-03/04 | Lulus | `tests/unit/matching.test.ts` 10 kasus lulus; `/api/match` dengan OSRM publik LIVE (Senen → RSCM ±414 dtk); tanpa kandidat & alasan per RS tampil di UI; OSRM tak terjangkau → ETA null + label jarak garis lurus. |
-| Rujukan dan konfirmasi | T10/T11; AC-05/06 | Belum diuji | Belum tersedia. |
-| Kuota serentak dan idempotency | T10; AC-07 | Belum diuji | Belum tersedia. |
-| Realtime dan reconnect | T12; AC-08 | Belum diuji | Belum tersedia. |
-| Error dan pemulihan | T15; AC-09 | Sebagian (portal T01–T09) | Browser pane: izin lokasi ditolak → pilih manual; izin mikrofon ditolak → pesan + input teks; AI 422 → coba lagi tanpa kehilangan rekaman; tanpa kandidat → 119/112 + tinjau kebutuhan; banner offline tersedia (belum diuji dengan jaringan diputus). |
-| Responsivitas dan aksesibilitas | T14/T16; AC-10 | Sebagian | Portal diuji 375×812 (emulasi ponsel) dan dashboard desktop di browser pane; urgensi/status memakai teks + ikon; fokus keyboard terlihat (`:focus-visible`). Audit aksesibilitas penuh dan perangkat nyata belum. |
-| Foto dan suara keluaran | T08/T13; AC-11 | Foto lulus (LIVE); TTS belum | Foto jelas → 46 mg/dL `PHOTO_READING`; foto buram → tanpa angka + `FOTO_TIDAK_TERBACA`; kompresi & hapus foto berfungsi. TTS (T13) belum dikerjakan. |
-| Akses, rahasia, dan data simulasi | T11/T15; AC-12 | Belum diuji | Belum tersedia. |
-| Performa | T16; tabel target GOAL | Diukur awal (LIVE, belum formal) | 31-10-2026, Windows 11 desktop, jaringan rumah, `gemini-3.5-flash` LOW. Respons AI (waktu penyedia): audio WAV 495 KB → 9,5 / 5,5 dtk; teks + foto 26 KB → 13,2 dtk; audio + foto buram → 8,6 / 9,9 dtk; portal (WAV 23,5 dtk + foto) → 6,9 dtk. **Target < 3 dtk belum tercapai.** Mock: ±0,6 dtk (tidak dihitung). Pengukuran formal T16. |
-| Deployment dan submission | T18/T19/T20 | Belum dilakukan | Belum tersedia. |
+| Rujukan dan konfirmasi | T10/T11; AC-05/06 | Lulus (lokal) | Tes API (`tests/integration/api.test.ts`) + dua tab browser: kirim → `PENDING`+kuota ditahan → alert dashboard → Terima → portal "Diterima petugas IGD"; status permintaan dan reservasi terpisah. Belum di Supabase/deployment. |
+| Kuota serentak dan idempotency | T10; AC-07 | Lulus (PGlite) | Tes API: dua pelapor/1 kuota → 201+409, kuota 0; retry & 3 klik serentak kunci sama → satu rujukan; pelepasan tepat sekali (tolak/batal/expiry/revoke). `measure` pada server berjalan: 201/409. UI: klik kirim 3× → kuota −1. Konkurensi multi-koneksi Supabase belum diuji. |
+| Realtime dan reconnect | T12; AC-08 | Sebagian | SSE lokal: dua tab konsisten, latensi server→klien 4 ms (median, 10 percobaan) / badge 10–98 ms; server mati → "Sinkronisasi terbatas" → hidup → pulih dari database. Supabase Realtime: belum diuji. |
+| Error dan pemulihan | T15; AC-09 | Lulus (lokal) | `failures.test.ts` + `match-failures.test.ts` (12) + browser (izin ditolak, 422 coba lagi, kandidat kosong, kuota bentrok saat kirim, server putus). Banner offline diuji hanya lewat logika (tanpa memutus jaringan perangkat). |
+| Responsivitas dan aksesibilitas | T14/T16; AC-10 | Sebagian | Portal 375×812 (tanpa overflow) dan dashboard desktop di browser pane; teks+ikon untuk status; skip link; fokus terlihat. Audit penuh (axe/pembaca layar) dan perangkat nyata belum. |
+| Foto dan suara keluaran | T08/T13; AC-11 | Foto lulus (LIVE); TTS lulus di pane (tanpa suara id-ID) | Foto: lihat T08. TTS: Putar → `speaking=true`, Berhenti → `false`, fallback suara/teks tampil. Alarm: alert visual selalu ada; bunyi belum terdengar/terverifikasi. Perangkat nyata belum. |
+| Akses, rahasia, dan data simulasi | T11/T15; AC-12 | Sebagian | Tes akses lintas RS/pelapor/tanpa sesi/cookie palsu lulus; `check:secrets` lulus (nilai yang ada); label simulasi terlihat; audio/foto tidak disimpan (tes). RLS Supabase dan kunci Gemini/Supabase pada bundle belum diuji. |
+| Performa | T16; tabel target GOAL | MOCK terukur; LIVE awal (T04) | **MOCK** 31-10-2026, `next start`, localhost, Windows 11/Ryzen 7 6800H/Node 22, audio 495 KB + foto 26 KB, 10 percobaan, 0 gagal: koordinasi mesin median 686 ms (<15 dtk, tanpa waktu manusia), sinkron SSE 4 ms (<200 ms; satu mesin), keputusan petugas 46 ms (<2 dtk); respons AI 604 ms **tidak bermakna** (mock menunda 600 ms). **LIVE** (T04, belum diulang): 5,5–13,2 dtk → **target <3 dtk belum tercapai**. Data mentah `docs/hasil-ukur-mock.json`. |
+| Deployment dan submission | T18/T19/T20 | Terhambat | Belum dilakukan: butuh kredensial/otorisasi/brief pengguna (lihat T18–T20 dan §9). Siap: `docs/SMOKE-TEST.md`, `DEMO-SCRIPT.md`, `PITCH-DECK.md`, `DEVPOST.md`. |
 
 ## 11. Batas penyelesaian agent
 

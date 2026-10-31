@@ -1,8 +1,6 @@
 import "server-only";
-import { createClient } from "@supabase/supabase-js";
-import { config } from "@/lib/config";
 import { FacilitySchema, type Facility } from "@/lib/schema/api";
-import { getLocalDb } from "./local-db";
+import { getDb } from "./db";
 
 // Adapter pembacaan status fasilitas publik (view facility_public_status).
 
@@ -36,16 +34,7 @@ export function rowToFacility(r: Row): Facility {
 }
 
 export async function listFacilities(): Promise<Facility[]> {
-  if (config.dataMode === "supabase") {
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-    if (!url || !key) throw new Error("SUPABASE_NOT_CONFIGURED");
-    const sb = createClient(url, key, { auth: { persistSession: false } });
-    const { data, error } = await sb.from("facility_public_status").select("*").order("short_name");
-    if (error) throw new Error(`SUPABASE_ERROR:${error.code}`);
-    return (data ?? []).map(rowToFacility);
-  }
-  const db = await getLocalDb();
+  const db = await getDb();
   const { rows } = await db.query<Row>("select * from facility_public_status order by short_name");
   return rows.map(rowToFacility);
 }

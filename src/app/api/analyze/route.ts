@@ -1,6 +1,7 @@
 import { analyzeReport, AnalyzeError } from "@/lib/ai/analyze";
 import { isMockScenario } from "@/lib/ai/mock";
 import { fail, ok } from "@/lib/http";
+import { allow, clientKey } from "@/lib/ratelimit";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
@@ -15,7 +16,14 @@ function baseType(t: string) {
   return t.split(";")[0].trim().toLowerCase();
 }
 
+// Batas pemakaian per klien untuk melindungi kuota layanan AI gratis.
+const ANALYZE_MAX_PER_MINUTE = Number(process.env.ANALYZE_RATE_PER_MINUTE) || 12;
+
 export async function POST(request: Request) {
+  const rate = allow(`analyze:${clientKey(request)}`, ANALYZE_MAX_PER_MINUTE, 60_000);
+  if (!rate.ok) {
+    return fail("RATE_LIMITED", `Terlalu banyak permintaan analisis. Coba lagi dalam ${rate.retryAfterSec} detik.`, 429);
+  }
   let form: FormData;
   try {
     form = await request.formData();

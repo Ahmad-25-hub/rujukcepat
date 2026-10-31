@@ -29,7 +29,7 @@ export async function POST(request: Request) {
   try {
     facilities = await listFacilities();
   } catch (e) {
-    console.error("[match] data fasilitas gagal", e instanceof Error ? e.message.split(":")[0] : "unknown");
+    console.error("[match] data fasilitas gagal", (e as { code?: string }).code ?? (e instanceof Error ? e.name : "unknown"));
     return fail("FACILITY_DATA_UNAVAILABLE", "Data fasilitas tidak dapat dimuat. Silakan coba lagi.", 503);
   }
 

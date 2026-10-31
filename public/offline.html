@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#b91c1c" />
+    <title>Offline – RujukCepat</title>
+    <style>
+      body { font-family: system-ui, sans-serif; margin: 0; background: #fff; color: #0f172a; }
+      header { background: #b91c1c; color: #fff; padding: 16px; font-size: 1.25rem; font-weight: 800; }
+      main { max-width: 36rem; margin: 0 auto; padding: 24px 16px; line-height: 1.5; }
+      h1 { font-size: 1.5rem; }
+      a.btn, button { display: inline-block; margin: 8px 8px 0 0; padding: 14px 20px; border-radius: 12px; border: 2px solid #b91c1c; background: #b91c1c; color: #fff; font-size: 1.125rem; font-weight: 700; text-decoration: none; cursor: pointer; }
+      a.alt { background: #fff; color: #b91c1c; }
+      p.note { background: #fef3c7; border: 1px solid #f59e0b; padding: 12px; border-radius: 8px; }
+    </style>
+  </head>
+  <body>
+    <header>RujukCepat</header>
+    <main>
+      <h1>Anda sedang offline</h1>
+      <p class="note">
+        Data kapasitas dan kesiapan rumah sakit <strong>tidak disimpan</strong> di perangkat dan tidak dapat diperbarui saat offline.
+        Permintaan rujukan tidak dapat dikirim tanpa koneksi; aplikasi tidak membuat antrean offline.
+      </p>
+      <p>Jika ini keadaan darurat, hubungi layanan darurat langsung.</p>
+      <p>
+        <a class="btn alt" href="tel:119">Telepon 119</a>
+        <a class="btn alt" href="tel:112">Telepon 112</a>
+      </p>
+      <p><button type="button" onclick="location.reload()">Coba muat ulang</button></p>
+    </main>
+  </body>
+</html>
