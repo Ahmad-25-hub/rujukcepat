@@ -1,6 +1,6 @@
 # RujukCepat
 
-PWA demo koordinasi rujukan prarumah sakit DKI Jakarta — tim TwinTech, Universitas Negeri Jakarta, INCEPTION 2026.
+PWA demo koordinasi rujukan prarumah sakit DKI Jakarta dan Jawa Timur — tim TwinTech, Universitas Negeri Jakarta, INCEPTION 2026.
 
 Alur utama: laporan suara/teks → ringkasan AI terstruktur (SOAP, urgensi, kebutuhan) → rekomendasi IGD yang kapabilitasnya READY dan kuotanya tersedia → navigasi ke RS → **"Sudah sampai"** → ringkasan serah terima untuk petugas IGD. Petugas RS mengatur kesiapan layanan dan kuota secara manual di dashboard.
 
@@ -63,7 +63,8 @@ Untuk AI sungguhan: `AI_MODE=live` + `GEMINI_API_KEY` (cek dengan `npm run check
 | `ROUTING_MODE` / `OSRM_BASE_URL` | `mock` = perkiraan waktu dari jarak garis lurus; `live` = OSRM publik. |
 | `SESSION_SECRET` | Penanda tangan cookie sesi petugas. **Wajib** di produksi. |
 | `DEMO_STAFF_PASSWORD` | Kata sandi semua akun petugas demo. Tidak ada kata sandi di repo; tanpa ini login petugas nonaktif. |
-| `STALE_AFTER_MINUTES` | Status fasilitas lebih tua dari ini dianggap kedaluwarsa, bukan READY (bawaan 1440). |
+| `MATCH_MAX_KM` | Radius garis lurus (km) dari pasien; RS di luar radius tidak dinilai (bawaan 100). Mencegah RS Jakarta muncul untuk pasien di Jawa Timur dan sebaliknya. |
+| `STALE_AFTER_MINUTES` | Status fasilitas lebih tua dari ini dianggap kedaluwarsa, bukan READY (bawaan 43200 = 30 hari selama masa lomba; sebelumnya 1440). **Set juga di Vercel** bila variabel ini pernah diisi di sana. |
 | `ANALYZE_RATE_PER_MINUTE`, `LOGIN_RATE_PER_MINUTE` | Pembatas laju per klien (bawaan 12 dan 10). |
 | `SUPABASE_DB_URL`, `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Mode Supabase; key `ANON_KEY`/`SERVICE_ROLE_KEY` lama juga didukung. Rahasia hanya dibaca server. |
 
@@ -79,6 +80,8 @@ Satu akun per RS contoh, semuanya memakai `DEMO_STAFF_PASSWORD`:
 | `admin@rujukcepat.demo` | Petugas RSCM + boleh mereset data demo. |
 
 Akun dibuat/disinkronkan otomatis saat login pertama dari `DEMO_STAFF_PASSWORD`.
+
+**Akun RS impor (195 akun, satu per RS):** dibuat oleh `npm run hospitals:import` dengan kata sandi acak per akun. Daftar email + kata sandi ada di `akunRumahsakit.md` (gitignored; sumbernya `data/akun-rumahsakit.local.json`, juga gitignored). Database hanya menyimpan hash scrypt. Menjalankan ulang skrip memakai kata sandi yang sama.
 
 ## Skenario demo (dua tampilan)
 
@@ -98,7 +101,8 @@ Setelah memilih tujuan, portal menampilkan rute, petunjuk belok demi belok, tomb
 ## Database, seed, dan reset
 
 - Migrasi: `supabase/migrations/0001_init.sql` (skema, view publik, RLS, fungsi transaksi), `0002_realtime.sql`, `0003_staff_ops.sql` (akun petugas, `update_facility`, perbaikan `transition_referral`).
-- Seed simulasi: `supabase/seed.sql` (10 RS; lokasi dari snapshot OSM `data/hospitals.osm.json`; kapasitas/kapabilitas simulasi berlabel). Dapat dijalankan ulang; mengembalikan kapasitas/kapabilitas ke nilai awal.
+- Seed simulasi: `supabase/seed.sql` (10 RS awal Jakarta) + `supabase/seed-osm.sql` (190 RS impor OSM: 90 Jakarta, 100 Jawa Timur). Total **100 RS DKI Jakarta + 100 RS Jawa Timur**. Dapat dijalankan ulang; mengembalikan kapasitas/kapabilitas ke nilai awal.
+- **RS impor OSM** (`npm run fetch:hospitals` → snapshot `data/osm/hospitals-{jakarta,jatim}.json`; `npm run build:hospitals` → `supabase/seed-osm.sql` + ringkasan `data/osm/rs-terpilih.json`; `npm run hospitals:import` → terapkan ke database aktif + akun petugas). Aturan seleksi: hanya nama RS (puskesmas/klinik/gigi/apotek/lab dibuang), `emergency=no` dan RS Mata/Jiwa/Gigi/Ketergantungan Obat/THT/Kusta tidak diambil, diurutkan menurut kelengkapan tag OSM, duplikat (nama mirip < 400 m) dibuang. Kapabilitas hanya dari bukti: `healthcare:speciality` OSM dan jenis RS dari nama (RSIA/Bersalin → PONEK_NICU saja; RS Jantung → +CATH_LAB; RS Orthopedi → +TRAUMA_BEDAH); tanpa keterangan → bawaan `IGD_DASAR` READY. Kuota bawaan 5/5, atau ceil(tempat tidur/25) (2–20) bila OSM mencantumkan `beds`/`rooms`. Sumber tiap kapabilitas tersimpan di kolom `source` (`OSM_EMERGENCY`, `OSM_SPESIALISASI`, `JENIS_RS_DARI_NAMA`, `BAWAAN_IMPOR`). Telepon/situs OSM ditampilkan di kartu kandidat. Untuk Supabase: `npm run supabase:setup` (migrasi 0005) dulu, lalu `npm run hospitals:import`.
 - **Reset data demo (mengembalikan kapasitas/kapabilitas semua RS ke seed; perubahan petugas hilang):**
   - CLI (server dihentikan): `npm run db:reset`
   - UI: dashboard sebagai admin → "Reset data" → ketik `RESET`. API: `POST /api/demo/reset` `{"confirm":"RESET"}`.
@@ -216,6 +220,7 @@ P0 dan P1 (foto, TTS, alarm, PWA, aksesibilitas dasar) diimplementasikan. Selisi
 
 - **AI:** Google Gemini API (`@google/genai`, model `gemini-3.5-flash` pada mode live) untuk transkripsi/ringkasan SOAP, perkiraan urgensi, dan kebutuhan kapabilitas dari suara/teks/foto sintetis. Keluaran divalidasi schema dan disaring (kode ilegal dibuang, item rencana berdosis dibuang); bukan diagnosis. Bila memakai tier gratis, penyedia dapat memakai data untuk peningkatan layanan — gunakan data sintetis saja. Kode proyek ini dibantu asisten AI (Claude) di bawah arahan tim.
 - **Peta/lokasi/rute:** © OpenStreetMap contributors (ODbL) — tile OSM, snapshot lokasi RS via Overpass API (diambil 31-10-2026), Leaflet; rute/ETA via OSRM publik (perkiraan tanpa lalu lintas langsung; layanan demo tanpa SLA).
+- **Foto beranda** (`public/images/`, diunduh 01-11-2026, dikompresi ulang): “Vibrant Night in Jakarta” oleh David Tumpal, “Woman in Pink Hijab Holding Black Mobile Phone” oleh Tia Rahayu, dan “Healthcare Professionals in Hospital Corridor” oleh Adarsh Mp — semuanya dari Pexels ([lisensi Pexels](https://www.pexels.com/license/)); “Toyota HiAce ambulance in Jakarta, Indonesia” oleh Secretdriver, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Toyota_HiAce_ambulance_in_Jakarta,_Indonesia.jpg), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Orang di foto adalah model stok, bukan pasien atau petugas RujukCepat, dan tidak menyatakan dukungan.
 - **Data:** PGlite (Postgres WASM) lokal; Supabase (opsional, belum diuji); Next.js, React, Tailwind CSS, Lucide Icons, Zod.
 - **Hosting rencana:** Vercel Hobby (nonkomersial) — belum dideploy.
 

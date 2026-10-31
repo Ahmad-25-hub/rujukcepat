@@ -43,3 +43,7 @@ next-env.d.ts
 
 # database lokal PGlite (data simulasi)
 /.data/
+
+# akun petugas RS impor (berisi kata sandi; hanya di perangkat lokal)
+/akunRumahsakit.md
+/data/akun-rumahsakit.local.json

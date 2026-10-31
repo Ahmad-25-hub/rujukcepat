@@ -9,7 +9,7 @@ const jbmono = JetBrains_Mono({ subsets: ["latin"], weight: ["500", "700"], vari
 export const metadata: Metadata = {
   title: "RujukCepat – Koordinasi rujukan",
   description:
-    "Koordinasi rujukan prarumah sakit DKI Jakarta: laporan suara, ringkasan AI, dan pencocokan kapabilitas IGD.",
+    "Koordinasi rujukan prarumah sakit DKI Jakarta dan Jawa Timur: laporan suara, ringkasan AI, dan pencocokan kapabilitas IGD.",
   applicationName: "RujukCepat",
   icons: { icon: "/icons/icon-192.png", apple: "/icons/apple-touch-icon.png" },
   appleWebApp: { capable: true, title: "RujukCepat", statusBarStyle: "default" },
@@ -32,6 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Lompat ke konten utama
         </a>
         {children}
+        <noscript>
+          <style>{`.reveal{opacity:1!important;transform:none!important;filter:none!important}`}</style>
+        </noscript>
         <PwaRegister />
       </body>
     </html>

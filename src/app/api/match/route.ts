@@ -34,13 +34,14 @@ export async function POST(request: Request) {
   }
 
   const now = new Date();
-  const { toRoute, otherEligible, excluded } = screenAll(
+  const { toRoute, otherEligible, excluded, inRange, outOfRange } = screenAll(
     facilities,
     needs,
     location,
     now,
     config.staleAfterMinutes,
     config.matchMaxRouted,
+    config.matchMaxKm,
   );
 
   let routingStatus: RoutingStatus = config.routingMode === "mock" ? "MOCK" : "OK";
@@ -65,7 +66,9 @@ export async function POST(request: Request) {
     alternatives: ranked.slice(1, 4),
     excluded,
     other_eligible_count: otherEligible + Math.max(0, ranked.length - 4),
-    no_candidate_reason: ranked.length ? null : noCandidateReason(needs, excluded),
+    out_of_range_count: outOfRange,
+    max_radius_km: config.matchMaxKm,
+    no_candidate_reason: ranked.length ? null : noCandidateReason(needs, excluded, inRange, config.matchMaxKm),
     routing_status: routingStatus,
     routing_note: routingNote(routingStatus),
     policy: MATCHING_POLICY,

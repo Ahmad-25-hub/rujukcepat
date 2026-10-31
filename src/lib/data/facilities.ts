@@ -30,6 +30,8 @@ export function rowToFacility(r: Row): Facility {
     capacity_updated_at: iso(r.capacity_updated_at),
     is_simulated: Boolean(r.is_simulated),
     capabilities: (caps ?? []).map((c) => ({ ...c, updated_at: iso(c.updated_at) })),
+    phone: r.phone ?? null,
+    website: r.website ?? null,
   });
 }
 

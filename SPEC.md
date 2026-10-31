@@ -513,3 +513,24 @@ Keputusan pengguna; menggantikan §8 (lifecycle rujukan dan kuota), bagian rujuk
 | API | `/api/referrals*` dihapus. Event sinkronisasi hanya `facility` (`seq`, `type`, `hospital_id`, `at`) pada SSE `/api/stream` dan kanal Supabase `rc:facilities`. Cookie pelapor anonim `rc_rid` dihapus. |
 | Database | Tidak ada migrasi baru. Tabel `referral_requests`, `quota_reservations`, `referral_events` dan fungsi `create_referral`, `transition_referral`, `release_reservation`, `expire_stale_referrals` tetap ada di migrasi 0001–0004 tetapi tidak dipanggil aplikasi; `update_facility` masih mencatat audit ke `referral_events`. Reset demo tetap mengosongkan tabel tersebut lalu menjalankan seed. |
 | Uji | `tests/integration/api.test.ts` (akses, kuota manual, rekomendasi tidak mengubah kuota, kuota 0, event, reset) dan `db.test.ts` (`update_facility`, reset, constraint). Tes transaksi rujukan dihapus bersama fiturnya. |
+
+## 21. Wilayah layanan: DKI Jakarta dan Jawa Timur (01-11-2026)
+
+| Bagian | Rancangan |
+| --- | --- |
+| Sumber wilayah | `src/lib/regions.ts`: `SERVICE_REGIONS` (kotak batas, tampilan peta, titik contoh), `regionOf`, `inServiceArea`. Jakarta: lat −6,8…−5,9, lng 106,3…107,3. Jawa Timur: daratan + Madura lat −8,9…−6,6, lng 110,85…114,62; pulau timur laut lat −7,2…−5,7, lng 112,5…116,3. Kotak sengaja longgar; validasi bukan batas administratif. |
+| Validasi | `LatLngSchema` (match, route) dan pemilih lokasi menolak titik di luar kedua wilayah. |
+| Pencocokan | `screenAll(..., maxKm)` membuang RS dengan jarak garis lurus > `MATCH_MAX_KM` (bawaan 100) sebelum penilaian; `MatchResult.out_of_range_count` + `max_radius_km`. Tanpa RS dalam radius → alasan "Belum ada rumah sakit dalam radius … km". |
+| UI | Pemilih lokasi: tombol peta Jakarta/Surabaya (bawaan Surabaya), titik contoh Kampus UPN Veteran Jatim dan Senen. Dashboard: filter wilayah turunan koordinat (tanpa kolom baru di database) + cari nama. |
+
+## 22. Impor 200 RS dari OpenStreetMap + akun petugas per RS (01-11-2026)
+
+| Bagian | Rancangan |
+| --- | --- |
+| Data | Snapshot Overpass `data/osm/hospitals-jakarta.json` (350 elemen) dan `hospitals-jatim.json` (450 elemen), diambil 31-10/01-11-2026. `scripts/build-hospital-seed.ts` memilih 90 RS Jakarta baru (+10 seed lama = 100) dan 100 RS Jawa Timur → `supabase/seed-osm.sql`. ID RS = UUID deterministik dari `osm_id`. |
+| Seleksi | Nama harus RS; puskesmas/klinik/gigi/apotek/lab, `emergency=no`, dan RS Mata/Jiwa/Gigi/Ketergantungan/THT/Kusta dibuang; skor kelengkapan tag (alamat, telepon, situs, IGD, spesialisasi, operator, jam, kamar); duplikat (nama mirip ≥ 60% kata, < 400 m) dibuang; nama singkat kembar diberi keterangan jalan. |
+| Kapabilitas & kuota | Hanya dari bukti OSM/nama (lihat README); tanpa keterangan → `IGD_DASAR` READY; kuota 5/5 atau dari `beds`/`rooms`. Semua `is_simulated=true`, `source` mencatat asal. |
+| Skema | Migrasi `0005_hospital_details.sql`: kolom `phone`, `website`, `beds`, `hospital_type` (tambahan saja) + view `facility_public_status` menambah `phone`, `website` di akhir. |
+| Kedaluwarsa | `STALE_AFTER_MINUTES` bawaan 43200 (30 hari) selama masa lomba, karena RS impor tidak punya petugas nyata; seed Kramat Jati dibuat 45 hari agar uji kedaluwarsa tetap ada. |
+| Akun | `scripts/hospitals-import.ts`: satu akun per RS tanpa akun demo (195), email `slug@rujukcepat.demo`, kata sandi acak 10 karakter disimpan sekali di `data/akun-rumahsakit.local.json` (gitignored) → hash scrypt di `staff_credentials`; daftar ditulis ke `akunRumahsakit.md` (gitignored). Hash/UUID dipindah ke `src/lib/auth/password.ts` agar dapat dipakai skrip. |
+| Penerapan | Lokal: seed otomatis untuk database baru dan reset demo. Supabase: `supabase:setup` (0005) lalu `hospitals:import` (diterapkan 01-11-2026: 200 RS, 195 akun). |

@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "RujukCepat – koordinasi rujukan",
     short_name: "RujukCepat",
-    description: "Koordinasi rujukan prarumah sakit DKI Jakarta.",
+    description: "Koordinasi rujukan prarumah sakit DKI Jakarta dan Jawa Timur.",
     lang: "id",
     start_url: "/lapor",
     scope: "/",

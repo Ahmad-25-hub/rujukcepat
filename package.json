@@ -14,6 +14,8 @@
     "check:secrets": "tsx scripts/check-secrets.ts",
     "make:icons": "tsx scripts/make-icons.ts",
     "fetch:hospitals": "tsx scripts/fetch-hospitals.ts",
+    "build:hospitals": "tsx scripts/build-hospital-seed.ts",
+    "hospitals:import": "tsx --conditions=react-server scripts/hospitals-import.ts",
     "check:gemini": "tsx --conditions=react-server scripts/check-gemini.ts",
     "check:supabase": "tsx --conditions=react-server scripts/check-supabase.ts",
     "supabase:setup": "tsx --conditions=react-server scripts/supabase-setup.ts"

@@ -79,9 +79,9 @@ from (values
  ('00000000-0000-4000-8000-000000000009','IGD_DASAR','READY',7),
  ('00000000-0000-4000-8000-000000000009','CATH_LAB','PENUH',7),
  ('00000000-0000-4000-8000-000000000009','CT_SCAN','READY',7),
- -- RSUD Kramat Jati: status sengaja KEDALUWARSA (3 hari) untuk menguji kebaruan
- ('00000000-0000-4000-8000-000000000010','IGD_DASAR','READY',4320),
- ('00000000-0000-4000-8000-000000000010','CT_SCAN','READY',4320)
+ -- RSUD Kramat Jati: status sengaja KEDALUWARSA (45 hari, batas 30 hari) untuk menguji kebaruan
+ ('00000000-0000-4000-8000-000000000010','IGD_DASAR','READY',64800),
+ ('00000000-0000-4000-8000-000000000010','CT_SCAN','READY',64800)
 ) as v(h, c, s, age_min);
 
 insert into hospital_capacity (hospital_id, total_slots, available_slots, is_simulated, updated_at) values

@@ -29,8 +29,10 @@ export async function applyMigrations(db: PGlite) {
   }
 }
 
+/** Seed simulasi: 10 RS awal (seed.sql) + RS impor OSM Jakarta & Jawa Timur (seed-osm.sql). */
 export async function applySeed(db: PGlite) {
   await db.exec(readSql("seed.sql"));
+  await db.exec(readSql("seed-osm.sql"));
 }
 
 /** Hapus sisa data rujukan lama lalu jalankan ulang seed. Menghapus data demo. */

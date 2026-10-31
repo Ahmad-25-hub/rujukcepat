@@ -53,7 +53,9 @@ describe("pencocokan saat rute gagal", () => {
     expect(body.data.primary).toBeNull();
     expect(body.data.alternatives).toEqual([]);
     expect(body.data.no_candidate_reason).toBeTruthy();
-    expect(body.data.excluded.length).toBe(10);
+    // Semua RS Jakarta (100) dalam radius dari Senen dinilai dan dikecualikan dengan alasan; RS Jatim di luar radius.
+    expect(body.data.excluded.length).toBe(100);
+    expect(body.data.out_of_range_count).toBe(100);
     expect(body.data.excluded.every((x: { reasons: string[] }) => x.reasons.length > 0)).toBe(true);
   });
 
@@ -61,6 +63,18 @@ describe("pencocokan saat rute gagal", () => {
     const { body } = await run([{ code: "IGD_DASAR", required: true, reason: "uji" }]);
     const byName = Object.fromEntries(body.data.excluded.map((x: { short_name: string; reasons: string[] }) => [x.short_name, x.reasons.join(" ")]));
     expect(byName["RSUD Pasar Minggu"]).toMatch(/kapasitas|kuota/i);
+  });
+
+  it("lokasi di Jawa Timur (UPNVJT) -> hanya RS Jawa Timur yang direkomendasikan", async () => {
+    const { regionOf } = await import("@/lib/regions");
+    const upnvjt = { lat: -7.3338, lng: 112.7889 };
+    const { status, body } = await run([{ code: "IGD_DASAR", required: true, reason: "uji" }], upnvjt);
+    expect(status).toBe(200);
+    const all = [body.data.primary, ...body.data.alternatives];
+    expect(body.data.primary).not.toBeNull();
+    expect(all.every((c: { lat: number; lng: number; straight_km: number }) => regionOf(c) === "JAWA_TIMUR" && c.straight_km <= 100)).toBe(true);
+    // 100 RS Jakarta + RS Jatim yang jauh (Madura timur, Banyuwangi, dst.) di luar radius.
+    expect(body.data.out_of_range_count).toBeGreaterThanOrEqual(100);
   });
 
   it("lokasi di luar wilayah layanan ditolak 400; payload tidak valid ditolak", async () => {

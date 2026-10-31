@@ -9,6 +9,7 @@ import { ApiClientError, apiFetch, type ServiceStatus } from "@/lib/client/api";
 import { useOnline } from "@/lib/client/online";
 import { useSync } from "@/lib/client/sync";
 import type { Facility } from "@/lib/schema/api";
+import { regionOf } from "@/lib/regions";
 import { FacilityOverview } from "./facility-overview";
 import { FacilityPanel, type FacilityToast } from "./facility-panel";
 
@@ -105,9 +106,11 @@ export function DashboardApp() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#eef1f5]">
-      <header className="bg-ink text-[#e6ebf3]">
-        <div className="mx-auto flex max-w-[90rem] flex-wrap items-center justify-between gap-2.5 px-4 py-2 sm:px-5">
+    <div className="flex min-h-screen flex-col">
+      <header className="hero-dark relative overflow-hidden text-[#e6ebf3]">
+        <div className="hero-grid pointer-events-none absolute inset-0 opacity-70" aria-hidden />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#ff5c77]/50 to-transparent" aria-hidden />
+        <div className="relative mx-auto flex max-w-[90rem] flex-wrap items-center justify-between gap-2.5 px-4 py-2 sm:px-5">
           <div className="flex min-w-0 flex-wrap items-center gap-3">
             <BrandLink dark compact />
             <span className="h-6 w-px bg-[#24324d] max-[520px]:hidden" aria-hidden />
@@ -118,7 +121,7 @@ export function DashboardApp() {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <SyncBadge sync={sync} showLatency dark />
-            <button type="button" onClick={logout} aria-label="Keluar" className="btn min-w-11 border-[#34425e] bg-transparent text-sm text-[#e6ebf3] hover:bg-ink-soft">
+            <button type="button" onClick={logout} aria-label="Keluar" className="btn btn-glass min-w-11 text-sm">
               <LogOut className="h-[18px] w-[18px]" aria-hidden />
               <span className="max-[520px]:sr-only">Keluar</span>
             </button>
@@ -180,7 +183,12 @@ export function DashboardApp() {
             <h2 id="overview-title" className="flex min-h-[52px] items-center text-[15px] font-bold">
               Status semua fasilitas
             </h2>
-            <FacilityOverview refreshKey={sync.events} />
+            {/* key: pasang ulang setelah RS petugas diketahui agar filter bawaan = wilayah RS-nya. */}
+            <FacilityOverview
+              key={myFacility ? "siap" : "memuat"}
+              refreshKey={sync.events}
+              defaultRegion={(myFacility && regionOf(myFacility)) || "ALL"}
+            />
           </section>
           {staff.is_demo_admin && (
             <details className="card !border-[#f3c6ce] px-[18px]">

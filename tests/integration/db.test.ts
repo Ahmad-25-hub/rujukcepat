@@ -38,8 +38,10 @@ describe("migrasi dan seed", () => {
     await applyMigrations(db);
     await applySeed(db);
     await applySeed(db);
-    const { rows } = await db.query<{ n: number }>("select count(*)::int as n from hospitals");
-    expect(rows[0].n).toBe(10);
+    const { rows } = await db.query<{ n: number; osm: number }>("select count(*)::int as n, count(distinct osm_id)::int as osm from hospitals");
+    // 10 RS seed awal + 190 RS impor OSM (90 Jakarta, 100 Jawa Timur), tanpa duplikat.
+    expect(rows[0].n).toBe(200);
+    expect(rows[0].osm).toBe(200);
   });
 
   it("view publik memuat kedelapan kode, PENUH, MAINTENANCE, kapasitas nol, dan penanda simulasi", async () => {

@@ -35,9 +35,10 @@ async function main() {
       const count = await client.query<{ n: number }>("select count(*)::int as n from public.hospitals");
       if (count.rows[0].n === 0) {
         await client.query(readFileSync(path.join(process.cwd(), "supabase", "seed.sql"), "utf8"));
-        console.log("Seed awal: 10 RS dengan kapasitas/kapabilitas SIMULASI.");
+        await client.query(readFileSync(path.join(process.cwd(), "supabase", "seed-osm.sql"), "utf8"));
+        console.log("Seed awal: 10 RS + RS impor OSM (Jakarta & Jawa Timur) dengan kapasitas/kapabilitas SIMULASI.");
       } else {
-        console.log("Seed dilewati: data RS sudah ada; kapasitas dan rujukan dipertahankan.");
+        console.log("Seed dilewati: data RS sudah ada; kapasitas dipertahankan. Untuk menambah RS impor OSM: npm run hospitals:import.");
       }
       await client.query("notify pgrst, 'reload schema'");
       await client.query("commit");

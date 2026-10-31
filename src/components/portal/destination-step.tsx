@@ -100,6 +100,13 @@ function CandidateCard({
           diperbarui {timeAgo(c.capacity_updated_at)}
         </span>
       </button>
+      {c.phone && (
+        // Di luar tombol kartu: tautan tidak boleh bersarang di dalam <button>.
+        <a href={`tel:${c.phone.replace(/[^\d+]/g, "")}`} className="mt-1.5 inline-flex min-h-11 items-center gap-1.5 px-1 text-sm font-semibold text-accent underline">
+          <Phone className="h-4 w-4" aria-hidden />
+          Telepon {c.short_name}: {c.phone}
+        </a>
+      )}
     </li>
   );
 }
@@ -262,7 +269,10 @@ export function DestinationStep({
                 {result.routing_note}
                 {location.source === "MANUAL" && " Dihitung dari titik yang Anda pilih secara manual."}
               </p>
-              <p className="text-xs text-muted">Aturan: {result.policy} Kebutuhan bertanda * wajib.</p>
+              <p className="text-xs text-muted">
+                Aturan: {result.policy} Kebutuhan bertanda * wajib. Hanya RS dalam radius {result.max_radius_km} km dari lokasi pasien yang dinilai
+                {result.out_of_range_count > 0 && ` (${result.out_of_range_count} RS lain di luar radius)`}.
+              </p>
             </div>
           </details>
         </div>

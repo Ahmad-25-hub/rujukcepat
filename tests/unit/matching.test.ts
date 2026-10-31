@@ -131,4 +131,18 @@ describe("screenAll + rankCandidates – urutan", () => {
     expect(r.toRoute).toHaveLength(5);
     expect(r.otherEligible).toBe(3);
   });
+
+  it("RS di luar radius tidak dinilai, hanya dihitung; tanpa RS dalam radius -> alasan radius", () => {
+    const fs = [
+      fac("Dekat", { lat: -6.21, lng: 106.84 }, { IGD_DASAR: "READY" }),
+      fac("Surabaya", { lat: -7.2575, lng: 112.7521 }, { IGD_DASAR: "READY" }),
+    ];
+    const r = screenAll(fs, [need("IGD_DASAR")], ORIGIN, NOW, 120, 5, 100);
+    expect(r.toRoute.map((s) => s.facility.id)).toEqual(["Dekat"]);
+    expect(r.excluded).toEqual([]);
+    expect(r.outOfRange).toBe(1);
+    const far = screenAll(fs.slice(1), [need("IGD_DASAR")], ORIGIN, NOW, 120, 5, 100);
+    expect(far.inRange).toBe(0);
+    expect(noCandidateReason([need("IGD_DASAR")], far.excluded, far.inRange, 100)).toMatch(/radius 100 km/);
+  });
 });

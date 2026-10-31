@@ -60,7 +60,8 @@ export function FacilityPanel({
         </h2>
       </div>
       <p className="-mt-2 text-[13px] leading-normal text-ink-2">
-        Perubahan langsung memengaruhi rekomendasi di portal pelapor. Status lebih tua dari {Math.round(staleAfterMinutes / 60)} jam dianggap kedaluwarsa (tidak dianggap READY) sampai
+        Perubahan langsung memengaruhi rekomendasi di portal pelapor. Status lebih tua dari{" "}
+        {staleAfterMinutes >= 2880 ? `${Math.round(staleAfterMinutes / 1440)} hari` : `${Math.round(staleAfterMinutes / 60)} jam`} dianggap kedaluwarsa (tidak dianggap READY) sampai
         dikonfirmasi ulang.
       </p>
 

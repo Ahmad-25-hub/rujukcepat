@@ -21,5 +21,7 @@ export const config = {
   osrmBaseUrl: (process.env.OSRM_BASE_URL || "https://router.project-osrm.org").replace(/\/$/, ""),
   routingTimeoutMs: int("ROUTING_TIMEOUT_MS", 4000),
   matchMaxRouted: int("MATCH_MAX_ROUTED", 5),
-  staleAfterMinutes: int("STALE_AFTER_MINUTES", 1440),
+  // Radius garis lurus dari pasien; RS di luar radius tidak dinilai (mis. Jakarta vs Jawa Timur).
+  matchMaxKm: int("MATCH_MAX_KM", 100),
+  staleAfterMinutes: int("STALE_AFTER_MINUTES", 43200),
 };

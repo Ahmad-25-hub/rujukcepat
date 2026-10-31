@@ -9,6 +9,8 @@ import type { CapabilityCode, CapabilityStatus } from "@/lib/schema/enums";
 //  - Kebutuhan wajib (required=true): SEMUA harus READY, segar (tidak kedaluwarsa),
 //    dan RS harus punya available_slots > 0. Jika satu saja gagal → RS dikecualikan.
 //  - Kebutuhan opsional (required=false): tidak memengaruhi kelayakan, hanya pemecah seri.
+//  - Hanya RS dalam radius `maxKm` (garis lurus) dari pasien yang dinilai; RS di luar radius
+//    (mis. RS Jakarta untuk pasien di Surabaya) tidak ditampilkan, hanya dihitung.
 //  - Tidak ada pelonggaran diam-diam bila kandidat kosong.
 //  - Urutan akhir: ETA berkendara naik → jumlah opsional terpenuhi turun → slot tersedia turun.
 //    Jika ETA tidak tersedia: urut jarak garis lurus, ETA tetap null dan diberi label.
@@ -43,6 +45,7 @@ export type Candidate = {
   total_slots: number;
   capacity_updated_at: string;
   is_simulated: boolean;
+  phone: string | null;
   checks: NeedCheck[];
   optional_met: number;
   optional_missing: CapabilityCode[];
@@ -61,6 +64,9 @@ export type MatchResult = {
   alternatives: Candidate[];
   excluded: Excluded[];
   other_eligible_count: number;
+  /** Jumlah RS di luar radius yang tidak dinilai. */
+  out_of_range_count: number;
+  max_radius_km: number;
   no_candidate_reason: string | null;
   routing_status: RoutingStatus;
   routing_note: string;
@@ -114,14 +120,22 @@ export function screenAll(
   now: Date,
   staleAfterMinutes: number,
   maxRouted: number,
+  maxKm = Number.POSITIVE_INFINITY,
 ) {
-  const screened = facilities.map((f) => screenFacility(f, needs, origin, now, staleAfterMinutes));
+  const all = facilities.map((f) => screenFacility(f, needs, origin, now, staleAfterMinutes));
+  const screened = all.filter((s) => s.straight_km <= maxKm);
   const eligible = screened.filter((s) => s.eligible).sort((a, b) => a.straight_km - b.straight_km);
   const excluded: Excluded[] = screened
     .filter((s) => !s.eligible)
     .map((s) => ({ facility_id: s.facility.id, short_name: s.facility.short_name, reasons: s.reasons }))
     .sort((a, b) => a.short_name.localeCompare(b.short_name));
-  return { toRoute: eligible.slice(0, maxRouted), otherEligible: eligible.length - Math.min(eligible.length, maxRouted), excluded };
+  return {
+    toRoute: eligible.slice(0, maxRouted),
+    otherEligible: eligible.length - Math.min(eligible.length, maxRouted),
+    excluded,
+    inRange: screened.length,
+    outOfRange: all.length - screened.length,
+  };
 }
 
 /** Tahap 2: gabungkan ETA dan urutkan. `etas` sejajar dengan `toRoute`; null = rute gagal. */
@@ -142,6 +156,7 @@ export function rankCandidates(
       total_slots: s.facility.total_slots,
       capacity_updated_at: s.facility.capacity_updated_at,
       is_simulated: s.facility.is_simulated,
+      phone: s.facility.phone ?? null,
       checks: s.checks,
       optional_met: s.optional_met,
       optional_missing: s.checks.filter((c) => !c.required && !c.ok).map((c) => c.code),
@@ -162,7 +177,10 @@ export function rankCandidates(
   });
 }
 
-export function noCandidateReason(needs: Need[], excluded: Excluded[]): string {
+export function noCandidateReason(needs: Need[], excluded: Excluded[], inRange = excluded.length, maxKm?: number): string {
+  if (inRange === 0) {
+    return `Belum ada rumah sakit dalam radius ${maxKm ?? "?"} km dari lokasi pasien pada data RujukCepat.`;
+  }
   const req = needs.filter((n) => n.required).map((n) => n.code).join(", ");
   return `Tidak ada RS dalam daftar yang memenuhi semua kebutuhan wajib (${req}) dengan status READY terbaru dan kuota tersedia. ${excluded.length} RS dikecualikan; lihat alasan per RS.`;
 }

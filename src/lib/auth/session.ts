@@ -1,5 +1,6 @@
 import "server-only";
-import { createHash, createHmac, randomUUID, scryptSync, timingSafeEqual } from "node:crypto";
+import { createHmac, timingSafeEqual } from "node:crypto";
+export { deterministicUuid, hashPassword, verifyPassword } from "./password";
 
 // Sesi demo berbasis cookie bertanda tangan (HMAC). Keamanan bukan fokus proyek ini,
 // tetapi akses lintas rumah sakit tetap ditegakkan di setiap route (lihat requireStaff).
@@ -56,23 +57,4 @@ export function staffUserId(request: Request): string | null {
   if (a.length !== b.length || !timingSafeEqual(a, b)) return null;
   if (Number(exp) < Math.floor(Date.now() / 1000)) return null;
   return userId.toLowerCase();
-}
-
-export function hashPassword(password: string, salt = randomUUID().replace(/-/g, "")): string {
-  const hash = scryptSync(password, salt, 32).toString("hex");
-  return `scrypt$${salt}$${hash}`;
-}
-
-export function verifyPassword(password: string, stored: string): boolean {
-  const [scheme, salt, hash] = stored.split("$");
-  if (scheme !== "scrypt" || !salt || !hash) return false;
-  const actual = Buffer.from(scryptSync(password, salt, 32).toString("hex"));
-  const expected = Buffer.from(hash);
-  return actual.length === expected.length && timingSafeEqual(actual, expected);
-}
-
-/** UUID deterministik untuk akun demo (agar seed idempoten). */
-export function deterministicUuid(seed: string): string {
-  const h = createHash("sha1").update(`rujukcepat:${seed}`).digest("hex");
-  return `${h.slice(0, 8)}-${h.slice(8, 12)}-4${h.slice(13, 16)}-8${h.slice(17, 20)}-${h.slice(20, 32)}`;
 }

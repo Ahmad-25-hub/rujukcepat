@@ -10,7 +10,7 @@ export type MapMarker = {
   lat: number;
   lng: number;
   label: string;
-  kind: "primary" | "alternative" | "excluded" | "selected" | "facility";
+  kind: "primary" | "alternative" | "excluded" | "selected" | "facility" | "ready" | "full" | "unknown";
 };
 
 const KIND_STYLE: Record<MapMarker["kind"], { color: string; fill: string; radius: number }> = {
@@ -19,6 +19,9 @@ const KIND_STYLE: Record<MapMarker["kind"], { color: string; fill: string; radiu
   alternative: { color: "#0b1324", fill: "#ffffff", radius: 9 },
   excluded: { color: "#9aa5b8", fill: "#e3e7ee", radius: 6 },
   facility: { color: "#ffffff", fill: "#c4122f", radius: 7 },
+  ready: { color: "#ffffff", fill: "#127a4b", radius: 8 },
+  full: { color: "#ffffff", fill: "#c4122f", radius: 8 },
+  unknown: { color: "#ffffff", fill: "#9aa5b8", radius: 7 },
 };
 
 export const JAKARTA_CENTER = { lat: -6.2088, lng: 106.8456 };
@@ -66,6 +69,7 @@ export default function MapView({
   onUserPan,
   originLabel = "Lokasi pelapor",
   className = "h-72",
+  interactive = true,
 }: {
   origin?: { lat: number; lng: number } | null;
   markers?: MapMarker[];
@@ -79,11 +83,24 @@ export default function MapView({
   onUserPan?: () => void;
   originLabel?: string;
   className?: string;
+  /** false = peta statis (tanpa geser/zoom) agar tidak mengganggu gulir halaman. */
+  interactive?: boolean;
 }) {
   const center = origin ?? JAKARTA_CENTER;
   return (
     <div className={`relative w-full overflow-hidden rounded-[22px] border border-line ${className}`}>
-      <MapContainer center={[center.lat, center.lng]} zoom={12} className="h-full w-full" scrollWheelZoom>
+      <MapContainer
+        center={[center.lat, center.lng]}
+        zoom={12}
+        className="h-full w-full"
+        scrollWheelZoom={interactive}
+        dragging={interactive}
+        touchZoom={interactive}
+        doubleClickZoom={interactive}
+        boxZoom={interactive}
+        keyboard={interactive}
+        zoomControl={interactive}
+      >
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -1,0 +1,5231 @@
+{
+ "source": "OpenStreetMap via Overpass API",
+ "attribution": "© OpenStreetMap contributors (ODbL)",
+ "area": "Jawa Timur",
+ "query": "[out:json][timeout:120];\narea[\"name\"=\"Jawa Timur\"][\"admin_level\"=\"4\"]->.a;\nnwr[\"amenity\"=\"hospital\"][\"name\"](area.a);\nout center tags;",
+ "fetched_at": "2026-10-31T18:50:53.347Z",
+ "osm_base_timestamp": "2026-10-31T18:48:59Z",
+ "note": "Tag OSM apa adanya. Tidak menyiratkan kemitraan, kapabilitas, atau ketersediaan layanan.",
+ "count": 450,
+ "elements": [
+  {
+   "osm_id": "node/10076829728",
+   "lat": -8.3529361,
+   "lng": 113.4130989,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Pembantu Menampu"
+   }
+  },
+  {
+   "osm_id": "node/10083847367",
+   "lat": -7.5423087,
+   "lng": 112.6986249,
+   "tags": {
+    "addr:city": "Porong",
+    "addr:housenumber": "5-6",
+    "addr:street": "Jalan Arteri Porong",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RS. Bhayangkara Pusdik",
+    "operator": "Pusdiklat Bhayangkara",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "node/10221460547",
+   "lat": -7.8686197,
+   "lng": 112.5116734,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Dr. Etty Asharto"
+   }
+  },
+  {
+   "osm_id": "node/10221460550",
+   "lat": -7.8797569,
+   "lng": 112.5284132,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Ibu & Anak HAJI"
+   }
+  },
+  {
+   "osm_id": "node/10221642027",
+   "lat": -7.896097,
+   "lng": 112.582173,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Pusdik Arhanud"
+   }
+  },
+  {
+   "osm_id": "node/10288554585",
+   "lat": -8.3655566,
+   "lng": 114.1637608,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Genteng"
+   }
+  },
+  {
+   "osm_id": "node/10309980410",
+   "lat": -8.4383554,
+   "lng": 114.301877,
+   "tags": {
+    "addr:housenumber": "rt 04 rw 03",
+    "amenity": "hospital",
+    "name": "rumah herry afriyadi"
+   }
+  },
+  {
+   "osm_id": "node/10309997709",
+   "lat": -8.4275137,
+   "lng": 114.2875331,
+   "tags": {
+    "amenity": "hospital",
+    "name": "rumahnya uun"
+   }
+  },
+  {
+   "osm_id": "node/10310036209",
+   "lat": -8.4271058,
+   "lng": 114.2714731,
+   "tags": {
+    "addr:housenumber": "rt 5 rw 2",
+    "amenity": "hospital",
+    "name": "Rumah Maria Ulfa"
+   }
+  },
+  {
+   "osm_id": "node/10312430409",
+   "lat": -8.4413942,
+   "lng": 114.3204915,
+   "tags": {
+    "addr:housenumber": "RT 3 RW 3",
+    "amenity": "hospital",
+    "name": "Rumah Muh. Sayutii Dwi ku"
+   }
+  },
+  {
+   "osm_id": "node/10779013848",
+   "lat": -8.2317672,
+   "lng": 113.8506934,
+   "tags": {
+    "addr:city": "Jember",
+    "addr:housenumber": "72",
+    "addr:postcode": "68184",
+    "addr:street": "Pertelon, Jalan Silo Sanen",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "community;clinic",
+    "name": "Puskesmas Silo II",
+    "operator": "Dinas Kesehatan Kab Jember",
+    "phone": "+62 33-1521404"
+   }
+  },
+  {
+   "osm_id": "node/10825659208",
+   "lat": -8.097921,
+   "lng": 111.6323431,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Suruh"
+   }
+  },
+  {
+   "osm_id": "node/10825663332",
+   "lat": -8.2012317,
+   "lng": 111.3324674,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Lorok"
+   }
+  },
+  {
+   "osm_id": "node/11252234337",
+   "lat": -7.1640882,
+   "lng": 112.7209504,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Kamal",
+    "opening_hours": "Mo-Sa 07:00-16:00"
+   }
+  },
+  {
+   "osm_id": "node/11401082455",
+   "lat": -8.0258062,
+   "lng": 111.9203578,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS. Putra Waspada"
+   }
+  },
+  {
+   "osm_id": "node/11640077621",
+   "lat": -7.6893956,
+   "lng": 111.6160775,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Paru Dungus"
+   }
+  },
+  {
+   "osm_id": "node/11753487361",
+   "lat": -5.8483144,
+   "lng": 112.6609345,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD UMAR MAS'UD BAWEAN"
+   }
+  },
+  {
+   "osm_id": "node/11779586664",
+   "lat": -7.3243692,
+   "lng": 112.5234446,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD GRESIK SEHATI"
+   }
+  },
+  {
+   "osm_id": "node/11905927382",
+   "lat": -8.2068847,
+   "lng": 111.1245047,
+   "tags": {
+    "addr:street": "Jalan Lintas Selatan Jawa",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Medical Mandiri"
+   }
+  },
+  {
+   "osm_id": "node/11918920263",
+   "lat": -8.1448121,
+   "lng": 113.2346495,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Posyandu Gerbang Mas"
+   }
+  },
+  {
+   "osm_id": "node/11937413069",
+   "lat": -7.4641291,
+   "lng": 112.7227569,
+   "tags": {
+    "addr:city": "Sidoarjo",
+    "addr:postcode": "61215",
+    "addr:province": "Jawa Timur",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;blood_check",
+    "name": "Puskesmas Sekardangan",
+    "opening_hours": "Mo-Th 07:30-12:00; Fr 07:30-10:00; Sa 07:30-11:00",
+    "phone": "+62 31 8962125"
+   }
+  },
+  {
+   "osm_id": "node/11971508621",
+   "lat": -7.2901907,
+   "lng": 112.435762,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Walisongo"
+   }
+  },
+  {
+   "osm_id": "node/12037920569",
+   "lat": -7.4591997,
+   "lng": 112.7218706,
+   "tags": {
+    "addr:postcode": "61215",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Umum Jasem",
+    "opening_hours": "24/7",
+    "phone": "+62 31 8962129"
+   }
+  },
+  {
+   "osm_id": "node/12292717236",
+   "lat": -7.2912069,
+   "lng": 112.7362614,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Katolik Vincentius A Poli"
+   }
+  },
+  {
+   "osm_id": "node/13088579433",
+   "lat": -7.1826405,
+   "lng": 112.6491487,
+   "tags": {
+    "addr:street": "Jalan Veteran",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Gending"
+   }
+  },
+  {
+   "osm_id": "node/13205863501",
+   "lat": -7.2921556,
+   "lng": 112.7362334,
+   "tags": {
+    "addr:housenumber": "26",
+    "addr:street": "Jalan Ciliwung",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Umum Dan Spesialis Ciliwung 26",
+    "opening_hours": "Mo-Su 07:00-12:00",
+    "website": "https://www.rkzsurabaya.com"
+   }
+  },
+  {
+   "osm_id": "node/13399427551",
+   "lat": -7.4333793,
+   "lng": 112.7216295,
+   "tags": {
+    "addr:city": "Sidoarjo",
+    "addr:province": "east java",
+    "addr:street": "Jenggolo Utara",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "dentist",
+    "name": "Anda Medica"
+   }
+  },
+  {
+   "osm_id": "node/13470105341",
+   "lat": -8.484078,
+   "lng": 114.3146857,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Hospital"
+   }
+  },
+  {
+   "osm_id": "node/13542411990",
+   "lat": -7.8622015,
+   "lng": 111.4745067,
+   "tags": {
+    "addr:city": "Ponorogo",
+    "addr:district": "Ponorogo",
+    "addr:housenumber": "93",
+    "addr:postcode": "63411",
+    "addr:province": "East JAva",
+    "addr:street": "Jalan K.H. Ahmad Dahlan",
+    "addr:subdistrict": "Bangunsari",
+    "amenity": "hospital",
+    "email": "primadental17@gmail.com",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "dentist;general;dental_oral_maxillo_facial_surgery",
+    "name": "Dokter Gigi Ponorogo - Prima Dentaris Harimurti",
+    "official_name": "Dokter Gigi Ponorogo - Prima Dentaris Harimurti",
+    "opening_hours": "Mo-Sa 17:00-20:00"
+   }
+  },
+  {
+   "osm_id": "node/13599880168",
+   "lat": -8.1337594,
+   "lng": 113.2236496,
+   "tags": {
+    "addr:housenumber": "13",
+    "addr:street": "Jalan Jend. S Parman",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Dinkes"
+   }
+  },
+  {
+   "osm_id": "node/13645728776",
+   "lat": -7.8489338,
+   "lng": 111.419486,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Sukorejo"
+   }
+  },
+  {
+   "osm_id": "node/13665939384",
+   "lat": -7.8347079,
+   "lng": 112.009608,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Citra Keluarga"
+   }
+  },
+  {
+   "osm_id": "node/13666403949",
+   "lat": -7.9122692,
+   "lng": 111.9830746,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Arga Husada"
+   }
+  },
+  {
+   "osm_id": "node/1376961352",
+   "lat": -7.5442151,
+   "lng": 112.233871,
+   "tags": {
+    "addr:city": "Jombang",
+    "addr:street": "Jl. Urip Sumoharjo",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Rumah Sakit Anak Bersalin Muslimat"
+   }
+  },
+  {
+   "osm_id": "node/13824545101",
+   "lat": -7.370575,
+   "lng": 112.7131758,
+   "tags": {
+    "addr:postcode": "61257",
+    "addr:street": "Jl. Jeruk No.117",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Usada",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "node/13945233101",
+   "lat": -7.4380175,
+   "lng": 112.7143959,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mitra Keluarga Sidoarjo"
+   }
+  },
+  {
+   "osm_id": "node/13951196525",
+   "lat": -7.463224,
+   "lng": 112.4436725,
+   "tags": {
+    "addr:street": "Jalan Sawo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Gedongan"
+   }
+  },
+  {
+   "osm_id": "node/13951196529",
+   "lat": -7.4590538,
+   "lng": 112.4447034,
+   "tags": {
+    "addr:street": "Jalan Lawu Raya",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Wates"
+   }
+  },
+  {
+   "osm_id": "node/13986281114",
+   "lat": -7.8484114,
+   "lng": 111.5016828,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Setono"
+   }
+  },
+  {
+   "osm_id": "node/14001610898",
+   "lat": -7.1530413,
+   "lng": 111.8954784,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah sakit Islam pemuda"
+   }
+  },
+  {
+   "osm_id": "node/14001630041",
+   "lat": -7.1532311,
+   "lng": 111.8952936,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemuda"
+   }
+  },
+  {
+   "osm_id": "node/14078882869",
+   "lat": -7.4951245,
+   "lng": 112.4609602,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Klinik PPNI",
+    "opening_hours": "Mo-Su 07:00-22:00"
+   }
+  },
+  {
+   "osm_id": "node/14096073301",
+   "lat": -7.4856479,
+   "lng": 112.6526763,
+   "tags": {
+    "addr:city": "Sidoarjo",
+    "addr:district": "Tulangan",
+    "addr:postcode": "61273",
+    "addr:province": "Jawa Timur",
+    "alt_name": "RSU 'Aisyiyah Siti Fatimah",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Aisyiyah Siti Fatimah",
+    "official_name": "Rumah Sakit Umum Aisyiyah Siti Fatimah",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "node/14216340601",
+   "lat": -8.1712716,
+   "lng": 112.688077,
+   "tags": {
+    "addr:housenumber": "210",
+    "addr:postcode": "65175",
+    "addr:street": "Jalan Panglima Besar Sudirman",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Turen",
+    "phone": "+62 341 824214"
+   }
+  },
+  {
+   "osm_id": "node/1634141782",
+   "lat": -8.1095353,
+   "lng": 112.179866,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Mardi Waluyo"
+   }
+  },
+  {
+   "osm_id": "node/1634419580",
+   "lat": -8.0998161,
+   "lng": 112.1721818,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Katolik Budi Rahayu",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "node/1697246042",
+   "lat": -8.1710106,
+   "lng": 113.7007694,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Panti Siwi"
+   }
+  },
+  {
+   "osm_id": "node/1731394467",
+   "lat": -8.1219107,
+   "lng": 112.0836358,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "UGD Puskesmas Rejotangan"
+   }
+  },
+  {
+   "osm_id": "node/1733934509",
+   "lat": -8.1807654,
+   "lng": 113.6844758,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Bina Sehat"
+   }
+  },
+  {
+   "osm_id": "node/1733934575",
+   "lat": -8.1816363,
+   "lng": 113.6751847,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Kaliwates"
+   }
+  },
+  {
+   "osm_id": "node/1734900978",
+   "lat": -8.1666454,
+   "lng": 113.6804561,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Citra Husada"
+   }
+  },
+  {
+   "osm_id": "node/1734901009",
+   "lat": -8.1637027,
+   "lng": 113.7063287,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "RS DKT"
+   }
+  },
+  {
+   "osm_id": "node/1766466390",
+   "lat": -8.101432,
+   "lng": 112.1692246,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSU Aminah"
+   }
+  },
+  {
+   "osm_id": "node/1822418831",
+   "lat": -8.1087739,
+   "lng": 112.1573343,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "puskesmas karangsari"
+   }
+  },
+  {
+   "osm_id": "node/1822691956",
+   "lat": -7.1849825,
+   "lng": 112.3459082,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas 24 Jam Kembang Bahu"
+   }
+  },
+  {
+   "osm_id": "node/1921006913",
+   "lat": -8.09961,
+   "lng": 112.1477694,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Syuhada Haji Blitar"
+   }
+  },
+  {
+   "osm_id": "node/2153956385",
+   "lat": -8.1338856,
+   "lng": 113.8214117,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "RSD Kalisat"
+   }
+  },
+  {
+   "osm_id": "node/2197700452",
+   "lat": -7.9171115,
+   "lng": 112.1285698,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Wates"
+   }
+  },
+  {
+   "osm_id": "node/2286853003",
+   "lat": -6.9577913,
+   "lng": 112.2982706,
+   "tags": {
+    "amenity": "hospital",
+    "name": "puskesmas laren"
+   }
+  },
+  {
+   "osm_id": "node/2321364839",
+   "lat": -7.3924731,
+   "lng": 111.4454129,
+   "tags": {
+    "addr:city": "Ngawi",
+    "addr:district": "Ngawi",
+    "addr:postcode": "63221",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Dokter Wahidin Sudirohusodo",
+    "addr:subdistrict": "Karang Tengah",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "physiatry;dentist;general;ophthalmology;orthopaedics;otolaryngology;radiology;anaesthetics;paediatric_surgery;transplant;psychiatry;gynaecology;vaccination;internal;surgery;blood_check;body",
+    "name": "RS. Umum Daerah Dr. Soeroto",
+    "opening_hours": "24/7",
+    "operator": "Yuma",
+    "operator:type": "public"
+   }
+  },
+  {
+   "osm_id": "node/2347668026",
+   "lat": -7.4646218,
+   "lng": 112.3362719,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskemas Kesamben"
+   }
+  },
+  {
+   "osm_id": "node/2347668036",
+   "lat": -7.4939817,
+   "lng": 112.1706192,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskemas Megaluh"
+   }
+  },
+  {
+   "osm_id": "node/2347668046",
+   "lat": -7.5895998,
+   "lng": 112.1267498,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Bandar KedungMulyo"
+   }
+  },
+  {
+   "osm_id": "node/2347668051",
+   "lat": -7.4678822,
+   "lng": 112.1840924,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Bangsri Plandaan"
+   }
+  },
+  {
+   "osm_id": "node/2347668069",
+   "lat": -7.6382275,
+   "lng": 112.2279818,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Blimbing Gudo"
+   }
+  },
+  {
+   "osm_id": "node/2347668078",
+   "lat": -7.473927,
+   "lng": 112.3875495,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Blimbing Kesamben"
+   }
+  },
+  {
+   "osm_id": "node/2347668089",
+   "lat": -7.5814617,
+   "lng": 112.2132867,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Brambang"
+   }
+  },
+  {
+   "osm_id": "node/2347668140",
+   "lat": -7.6348687,
+   "lng": 112.3227505,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Japanan"
+   }
+  },
+  {
+   "osm_id": "node/2347668149",
+   "lat": -7.5974919,
+   "lng": 112.2866267,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Jarak Kulon"
+   }
+  },
+  {
+   "osm_id": "node/2347668159",
+   "lat": -7.5464457,
+   "lng": 112.2425749,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Jelakombo"
+   }
+  },
+  {
+   "osm_id": "node/2347668169",
+   "lat": -7.4487536,
+   "lng": 112.3247413,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Keboan"
+   }
+  },
+  {
+   "osm_id": "node/2347668174",
+   "lat": -7.6570423,
+   "lng": 112.2592402,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Kesamben"
+   }
+  },
+  {
+   "osm_id": "node/2347668187",
+   "lat": -7.5655281,
+   "lng": 112.3621183,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Mojoagung"
+   }
+  },
+  {
+   "osm_id": "node/2347668193",
+   "lat": -7.5788541,
+   "lng": 112.1479631,
+   "tags": {
+    "addr:city": "Jombang",
+    "addr:postcode": "61461",
+    "addr:street": "Jalan Raya Jombang - Kertosono",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Puskesmas Perak",
+    "opening_hours": "24/7",
+    "operator": "Public Health Office",
+    "operator:type": "government",
+    "phone": "+62321868665"
+   }
+  },
+  {
+   "osm_id": "node/2347668201",
+   "lat": -7.5384758,
+   "lng": 112.2726871,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Peterongan"
+   }
+  },
+  {
+   "osm_id": "node/2347668220",
+   "lat": -7.5454484,
+   "lng": 112.2299563,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Pulo Lor"
+   }
+  },
+  {
+   "osm_id": "node/2347668229",
+   "lat": -7.6774235,
+   "lng": 112.2336529,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Pulorejo"
+   }
+  },
+  {
+   "osm_id": "node/2347668265",
+   "lat": -7.4530979,
+   "lng": 112.2389116,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Tapen"
+   }
+  },
+  {
+   "osm_id": "node/2347668275",
+   "lat": -7.4899921,
+   "lng": 112.2311083,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Tembelang"
+   }
+  },
+  {
+   "osm_id": "node/2347668282",
+   "lat": -7.7086313,
+   "lng": 112.3696413,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Wonosalam"
+   }
+  },
+  {
+   "osm_id": "node/2348030176",
+   "lat": -7.6114132,
+   "lng": 112.2425607,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Cukir"
+   }
+  },
+  {
+   "osm_id": "node/2348030177",
+   "lat": -7.4608277,
+   "lng": 112.2595753,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Dukuh Klopo"
+   }
+  },
+  {
+   "osm_id": "node/2348030178",
+   "lat": -7.5705672,
+   "lng": 112.3371168,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Gambiran"
+   }
+  },
+  {
+   "osm_id": "node/2348030185",
+   "lat": -7.4598711,
+   "lng": 112.272688,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Jati Wates"
+   }
+  },
+  {
+   "osm_id": "node/2348030190",
+   "lat": -7.5584465,
+   "lng": 112.3128452,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Jogoloyo"
+   }
+  },
+  {
+   "osm_id": "node/2348030194",
+   "lat": -7.3924247,
+   "lng": 112.215981,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Karangpakis"
+   }
+  },
+  {
+   "osm_id": "node/2348030205",
+   "lat": -7.5770189,
+   "lng": 112.2728194,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Mayangan"
+   }
+  },
+  {
+   "osm_id": "node/2348030221",
+   "lat": -7.6148194,
+   "lng": 112.1764443,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Plumbon Gambang"
+   }
+  },
+  {
+   "osm_id": "node/2348030231",
+   "lat": -7.6021384,
+   "lng": 112.3125767,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Selorejo Mojowarno"
+   }
+  },
+  {
+   "osm_id": "node/2348030233",
+   "lat": -7.5208017,
+   "lng": 112.2327512,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Tambak Rejo"
+   }
+  },
+  {
+   "osm_id": "node/2348052996",
+   "lat": -7.5596141,
+   "lng": 112.2164747,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "healthcare": "community_health_worker",
+    "name": "Puskesmas Jabon"
+   }
+  },
+  {
+   "osm_id": "node/2362816574",
+   "lat": -7.4571955,
+   "lng": 111.6049501,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Karangjati"
+   }
+  },
+  {
+   "osm_id": "node/2362855211",
+   "lat": -7.4296822,
+   "lng": 111.521929,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Padas"
+   }
+  },
+  {
+   "osm_id": "node/2371575519",
+   "lat": -7.4645794,
+   "lng": 112.451225,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Kamar Medika"
+   }
+  },
+  {
+   "osm_id": "node/2389784520",
+   "lat": -7.4125665,
+   "lng": 111.4893898,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Tawun"
+   }
+  },
+  {
+   "osm_id": "node/2875732333",
+   "lat": -7.4777551,
+   "lng": 112.4315612,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Rekso Waluyo"
+   }
+  },
+  {
+   "osm_id": "node/3222391358",
+   "lat": -8.2679969,
+   "lng": 113.6489676,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Jenggawah"
+   }
+  },
+  {
+   "osm_id": "node/3268565055",
+   "lat": -7.3870658,
+   "lng": 112.7282712,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "healthcare": "hospital",
+    "name": "Puskesmas Gedangan"
+   }
+  },
+  {
+   "osm_id": "node/3438188108",
+   "lat": -8.1958699,
+   "lng": 111.1001093,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Pacitan"
+   }
+  },
+  {
+   "osm_id": "node/3589321850",
+   "lat": -7.1208276,
+   "lng": 112.402291,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS. Fatimah",
+    "operator": "dr. Arianto"
+   }
+  },
+  {
+   "osm_id": "node/3763768485",
+   "lat": -7.600905,
+   "lng": 112.094237,
+   "tags": {
+    "addr:city": "Nganjuk",
+    "addr:street": "Jalan Panglima Besar Sudirman Kertosono",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RSUD Kerrtosono"
+   }
+  },
+  {
+   "osm_id": "node/3840520470",
+   "lat": -8.1008381,
+   "lng": 112.1683384,
+   "tags": {
+    "addr:city": "Blitar",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Ibu & Anak Aminah"
+   }
+  },
+  {
+   "osm_id": "node/4130835178",
+   "lat": -8.344341,
+   "lng": 113.5983649,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "RS UTAMA HUSADA"
+   }
+  },
+  {
+   "osm_id": "node/4189190497",
+   "lat": -7.4050624,
+   "lng": 112.7267153,
+   "tags": {
+    "addr:city": "Tebel, Gedangan, Kabupaten Sidoarjo, Jawa Timur, Indonesia",
+    "addr:housenumber": "3",
+    "addr:postcode": "61254",
+    "addr:street": "Jl. Raya Tebel Barat",
+    "amenity": "hospital",
+    "name": "Klinik Bds Tebel"
+   }
+  },
+  {
+   "osm_id": "node/4189205726",
+   "lat": -7.3877756,
+   "lng": 112.7178459,
+   "tags": {
+    "addr:city": "Kec. Sidoarjo, Indonesia",
+    "addr:postcode": "61234",
+    "addr:street": "JL. Balai Desa",
+    "amenity": "hospital",
+    "name": "KLINIK DR. TITUT HARNANIK"
+   }
+  },
+  {
+   "osm_id": "node/4608884410",
+   "lat": -7.9007224,
+   "lng": 113.8696764,
+   "tags": {
+    "addr:street": "jl. situbondo",
+    "amenity": "hospital",
+    "name": "RS NU"
+   }
+  },
+  {
+   "osm_id": "node/4664659144",
+   "lat": -7.4446167,
+   "lng": 112.7166296,
+   "tags": {
+    "addr:city": "Sidoarjo",
+    "amenity": "hospital",
+    "name": "Rumah Sakit DKT Sidoarjo"
+   }
+  },
+  {
+   "osm_id": "node/4664680622",
+   "lat": -7.4445803,
+   "lng": 112.7155906,
+   "tags": {
+    "addr:city": "Sidoarjo",
+    "amenity": "hospital",
+    "name": "Puskesmas Sidoarjo"
+   }
+  },
+  {
+   "osm_id": "node/4670724332",
+   "lat": -7.3953531,
+   "lng": 111.3703264,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Gemarang"
+   }
+  },
+  {
+   "osm_id": "node/4673984279",
+   "lat": -7.3940264,
+   "lng": 112.672984,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSIA Arafah Anwar Medika Sukodono"
+   }
+  },
+  {
+   "osm_id": "node/4673985518",
+   "lat": -7.4143721,
+   "lng": 112.6745462,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Assakinah Medika"
+   }
+  },
+  {
+   "osm_id": "node/4674016744",
+   "lat": -7.4419765,
+   "lng": 112.68597,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Urangagung"
+   }
+  },
+  {
+   "osm_id": "node/4704620391",
+   "lat": -7.152546,
+   "lng": 111.9013554,
+   "tags": {
+    "addr:city": "Bojonegoro",
+    "addr:housenumber": "07",
+    "addr:postcode": "62119",
+    "addr:street": "Jalan Lisman",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "surgery;gynaecology;paediatrics;internal",
+    "name": "RS. Ibnu Sina Bojonegoro",
+    "opening_hours": "24/7",
+    "phone": "+62 353 883238"
+   }
+  },
+  {
+   "osm_id": "node/5301640598",
+   "lat": -8.3595637,
+   "lng": 113.4715671,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Puger"
+   }
+  },
+  {
+   "osm_id": "node/5308603196",
+   "lat": -7.6880001,
+   "lng": 112.7093968,
+   "tags": {
+    "addr:city": "Suwayuwo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Sahabat"
+   }
+  },
+  {
+   "osm_id": "node/5468386045",
+   "lat": -7.9866318,
+   "lng": 113.9191743,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Puskesmas Tlogosari"
+   }
+  },
+  {
+   "osm_id": "node/5656259622",
+   "lat": -6.8924303,
+   "lng": 113.7418648,
+   "tags": {
+    "addr:street": "JL.KH.HASYIM AS'ARI",
+    "amenity": "hospital",
+    "name": "Puskesmas Ambunten",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "node/5938000986",
+   "lat": -7.8670195,
+   "lng": 111.4752088,
+   "tags": {
+    "addr:city": "Ponorogo",
+    "addr:housenumber": "68",
+    "addr:postcode": "63419",
+    "addr:street": "Jalan Sultan Agung",
+    "amenity": "hospital",
+    "email": "rsgw.ponorogo@gmail.com",
+    "emergency": "yes",
+    "healthcare:speciality": "general",
+    "name": "Griya Waluya",
+    "opening_hours": "24/7",
+    "operator": "Yayasan Kesehatan GKJW",
+    "phone": "+62 352 481483",
+    "website": "https://www.rs-griyawaluya.com/"
+   }
+  },
+  {
+   "osm_id": "node/5964579889",
+   "lat": -7.7649776,
+   "lng": 112.1496625,
+   "tags": {
+    "addr:city": "Kediri",
+    "addr:housenumber": "48",
+    "addr:postcode": "64227",
+    "addr:street": "Jl. Raya Kediri - Pare, Templek, Darungan, Pare",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "gynaecology;paediatrics;general",
+    "name": "Permata Hati Baby Spa, Kids & Mom Treatment",
+    "operator": "RSIA Permata Hati"
+   }
+  },
+  {
+   "osm_id": "node/6009242511",
+   "lat": -7.6108978,
+   "lng": 111.9058839,
+   "tags": {
+    "addr:city": "Nganjuk",
+    "addr:street": "Jalan Imam Bonjol",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Rumah sakit Muhammadiyah",
+    "operator": "Muhammadiyah"
+   }
+  },
+  {
+   "osm_id": "node/6283763385",
+   "lat": -8.4291953,
+   "lng": 114.2310712,
+   "tags": {
+    "addr:housenumber": "71",
+    "addr:postcode": "68482",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Benculuk",
+    "opening_hours": "24/7",
+    "phone": "+62 333 396685"
+   }
+  },
+  {
+   "osm_id": "node/6595594817",
+   "lat": -7.0379097,
+   "lng": 112.05152,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "puskesmas poncol"
+   }
+  },
+  {
+   "osm_id": "node/6763875680",
+   "lat": -7.0628564,
+   "lng": 113.4327177,
+   "tags": {
+    "addr:city": "Pamekasan",
+    "addr:postcode": "69362",
+    "addr:street": "Jl Raya Pasar Palengaan",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Palengaan"
+   }
+  },
+  {
+   "osm_id": "node/6765428693",
+   "lat": -7.1837866,
+   "lng": 113.478218,
+   "tags": {
+    "addr:city": "Pamekasan",
+    "addr:street": "Jalan Trunojoyo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Pamekasan"
+   }
+  },
+  {
+   "osm_id": "node/6765777439",
+   "lat": -7.0407244,
+   "lng": 113.6902674,
+   "tags": {
+    "addr:city": "Sumenep",
+    "addr:street": "Jl Raya Ganding",
+    "amenity": "hospital",
+    "healthcare": "doctor;hospital;laboratory",
+    "name": "Puskesmas Ganding"
+   }
+  },
+  {
+   "osm_id": "node/6765876085",
+   "lat": -7.1552897,
+   "lng": 113.4819507,
+   "tags": {
+    "addr:city": "Pamekasan",
+    "addr:street": "Jalan Mandi Laras",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Larasati"
+   }
+  },
+  {
+   "osm_id": "node/7168089458",
+   "lat": -7.7533636,
+   "lng": 111.9736297,
+   "tags": {
+    "addr:city": "Kabupaten Kediri",
+    "addr:postcode": "64151",
+    "addr:street": "Jalan Raya Nganjuk - Kediri",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "PUSKESMAS GROGOL",
+    "phone": "+62354773233"
+   }
+  },
+  {
+   "osm_id": "node/7215516217",
+   "lat": -7.3446267,
+   "lng": 112.7754245,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mitra Keluarga"
+   }
+  },
+  {
+   "osm_id": "node/7257193085",
+   "lat": -7.5675848,
+   "lng": 112.6595494,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS. Bhayangkara Brimob Watukosek"
+   }
+  },
+  {
+   "osm_id": "node/7259368678",
+   "lat": -8.1740895,
+   "lng": 113.6873968,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Siloam Hospitals"
+   }
+  },
+  {
+   "osm_id": "node/7371193435",
+   "lat": -7.8902297,
+   "lng": 111.4601259,
+   "tags": {
+    "addr:city": "Ponorogo",
+    "addr:postcode": "63419",
+    "addr:street": "Jl. Laksamana Yos Sudarso, Segading, Pakunden, Kec. Ponorogo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. Harjono Ponorogo"
+   }
+  },
+  {
+   "osm_id": "node/7371316955",
+   "lat": -7.8772516,
+   "lng": 111.4699156,
+   "tags": {
+    "addr:city": "Ponorogo",
+    "addr:housenumber": "155",
+    "addr:postcode": "63419",
+    "addr:street": "Jalan Jenderal Achmad Yani",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Muslimat Ponorogo"
+   }
+  },
+  {
+   "osm_id": "node/7699817603",
+   "lat": -7.8686926,
+   "lng": 111.4715736,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum 'Aisyiyah"
+   }
+  },
+  {
+   "osm_id": "node/7723848633",
+   "lat": -7.0292832,
+   "lng": 112.0962631,
+   "tags": {
+    "addr:housenumber": "33",
+    "addr:street": "Jalan Raya Plumpang",
+    "amenity": "hospital",
+    "name": "Puskesmas Plumpang",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "node/8251375821",
+   "lat": -8.343896,
+   "lng": 114.1196504,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Pembantu Kaigondo"
+   }
+  },
+  {
+   "osm_id": "node/8251828420",
+   "lat": -8.3531756,
+   "lng": 114.1255752,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Gentengkulon"
+   }
+  },
+  {
+   "osm_id": "node/8251828527",
+   "lat": -8.3125462,
+   "lng": 114.1474242,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Sempu"
+   }
+  },
+  {
+   "osm_id": "node/8539678329",
+   "lat": -8.2330366,
+   "lng": 113.6559588,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Ajung"
+   }
+  },
+  {
+   "osm_id": "node/8849751994",
+   "lat": -8.3588383,
+   "lng": 113.4721729,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Graha Puger Sehat"
+   }
+  },
+  {
+   "osm_id": "node/8973418689",
+   "lat": -7.1483557,
+   "lng": 111.66766,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "PUSTU Desa Kacangan"
+   }
+  },
+  {
+   "osm_id": "node/9075660016",
+   "lat": -7.8684367,
+   "lng": 111.4717028,
+   "tags": {
+    "amenity": "hospital",
+    "name": "IGD RSU Aisyiyah"
+   }
+  },
+  {
+   "osm_id": "node/9096785817",
+   "lat": -8.2701969,
+   "lng": 113.4902869,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Puskesmas Karangduren"
+   }
+  },
+  {
+   "osm_id": "node/9100150217",
+   "lat": -8.2703926,
+   "lng": 113.4902553,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Puskesmas Karangduren"
+   }
+  },
+  {
+   "osm_id": "node/9149465625",
+   "lat": -8.2709605,
+   "lng": 113.539416,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Balung"
+   }
+  },
+  {
+   "osm_id": "node/9307757682",
+   "lat": -7.5980404,
+   "lng": 112.7801261,
+   "tags": {
+    "addr:city": "Bangil",
+    "addr:postcode": "67153",
+    "addr:street": "Jalan Jenderal Ahmad Yani",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RSI Masyitoh"
+   }
+  },
+  {
+   "osm_id": "node/9449282584",
+   "lat": -7.5392872,
+   "lng": 111.6557944,
+   "tags": {
+    "addr:street": "Jl. Ahmad Yani No.KM 2, Caruban, Ngampel, Kec. Mejayan, Kabupaten Madiun, Jawa Timur 63153",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Caruban"
+   }
+  },
+  {
+   "osm_id": "node/9454905614",
+   "lat": -7.9538746,
+   "lng": 111.9621196,
+   "tags": {
+    "addr:city": "Kabupaten Kediri",
+    "addr:housenumber": "222",
+    "addr:postcode": "64172",
+    "addr:street": "Jalan Setia Bakti",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Kras",
+    "operator": "UPTD Puskesmas Kras",
+    "operator:type": "government",
+    "phone": "+62 354 476294",
+    "website": "https://puskesmas-kras.bussiness.site/"
+   }
+  },
+  {
+   "osm_id": "node/9459384909",
+   "lat": -7.7141641,
+   "lng": 112.9986944,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Grati"
+   }
+  },
+  {
+   "osm_id": "node/9494173401",
+   "lat": -8.2942713,
+   "lng": 113.6285103,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Kemuningsari Kidul"
+   }
+  },
+  {
+   "osm_id": "node/9601981870",
+   "lat": -7.7434014,
+   "lng": 113.2140248,
+   "tags": {
+    "addr:city": "probolinggo",
+    "addr:postcode": "67218",
+    "addr:street": "Jalan Dokter Mohamad Saleh",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Ibu dan Anak Amanah Probolinggo"
+   }
+  },
+  {
+   "osm_id": "node/9660176771",
+   "lat": -7.9759374,
+   "lng": 112.6389389,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Bhirawa Bhakti"
+   }
+  },
+  {
+   "osm_id": "node/9682832855",
+   "lat": -7.5592843,
+   "lng": 111.9153248,
+   "tags": {
+    "addr:city": "Kabupaten Nganjuk",
+    "addr:housenumber": "Desa Kedungdowo",
+    "addr:postcode": "64413",
+    "amenity": "hospital",
+    "email": "ptochisaktimedika@gmail.com",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "diabetology;woundcare",
+    "name": "SAKTI MEDIKA NGAJUK",
+    "operator": "Bayu",
+    "operator:type": "public",
+    "phone": "+6281132222002"
+   }
+  },
+  {
+   "osm_id": "node/9753337829",
+   "lat": -7.4331082,
+   "lng": 112.4635899,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS. Citra Medika"
+   }
+  },
+  {
+   "osm_id": "node/9798446868",
+   "lat": -7.6455997,
+   "lng": 111.3483485,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Ibu dan Anak"
+   }
+  },
+  {
+   "osm_id": "node/9800695400",
+   "lat": -7.4917719,
+   "lng": 111.4294454,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Daerah Geneng"
+   }
+  },
+  {
+   "osm_id": "node/9813748542",
+   "lat": -7.401129,
+   "lng": 112.7268937,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Mitra Husada"
+   }
+  },
+  {
+   "osm_id": "node/9824048049",
+   "lat": -7.2911822,
+   "lng": 112.7951887,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSGM Nala Husada"
+   }
+  },
+  {
+   "osm_id": "node/9833059949",
+   "lat": -7.2931451,
+   "lng": 112.7354954,
+   "tags": {
+    "addr:housenumber": "42",
+    "addr:street": "Jalan Ciliwung",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Gigi RKZ"
+   }
+  },
+  {
+   "osm_id": "node/9938222591",
+   "lat": -7.4924084,
+   "lng": 111.6026033,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Simo"
+   }
+  },
+  {
+   "osm_id": "relation/10049119",
+   "lat": -8.3779751,
+   "lng": 114.3331436,
+   "tags": {
+    "addr:full": "Dusun Kumendung RT 01 RW 02",
+    "amenity": "hospital",
+    "name": "Klinik Mitra Sehat"
+   }
+  },
+  {
+   "osm_id": "relation/16122043",
+   "lat": -6.7819012,
+   "lng": 111.7754549,
+   "tags": {
+    "addr:housenumber": "130",
+    "addr:street": "Jalan Raya Semarang - Tuban",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "UPTD Puskesmas Bancar",
+    "operator": "Dinas Kesehatan Pemerintah Kabupaten Tuban",
+    "operator:type": "public/government"
+   }
+  },
+  {
+   "osm_id": "relation/16167168",
+   "lat": -6.9729022,
+   "lng": 111.7147867,
+   "tags": {
+    "addr:housenumber": "180",
+    "addr:postcode": "62364",
+    "addr:street": "Jalan Raya Bangilan",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "UPTD Puskesmas Bangilan",
+    "operator": "Dinas Kesehatan Pemerintah Kabupaten Tuban",
+    "operator:type": "public/government"
+   }
+  },
+  {
+   "osm_id": "relation/17730885",
+   "lat": -6.9015329,
+   "lng": 112.0498331,
+   "tags": {
+    "addr:housenumber": "45",
+    "addr:street": "Jalan Dr. Wahidin Sudirohusodo",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "UOBF Puskesmas Tuban",
+    "operator": "Dinas Kesehatan Pemerintah Kabupaten Tuban",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "relation/17796915",
+   "lat": -6.8985754,
+   "lng": 112.046753,
+   "tags": {
+    "addr:housenumber": "800",
+    "addr:street": "Jalan Dr. Wahidin Sudirohusodo",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. R. Koesma Tuban"
+   }
+  },
+  {
+   "osm_id": "relation/18681976",
+   "lat": -6.9059089,
+   "lng": 112.0581619,
+   "tags": {
+    "addr:housenumber": "699",
+    "addr:postcode": "62315",
+    "addr:street": "Jalan Mojopahit",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Medika Mulia",
+    "operator": "Yayasan Bhakti Mulia Persada"
+   }
+  },
+  {
+   "osm_id": "relation/18828289",
+   "lat": -6.8961228,
+   "lng": 112.0206658,
+   "tags": {
+    "addr:street": "Jalan Masjid Al-Falah",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Klinik Uswah Sehat",
+    "operator": "Yayasan Islam Al-Uswah Tuban",
+    "operator:type": "religious"
+   }
+  },
+  {
+   "osm_id": "relation/19739573",
+   "lat": -6.885081,
+   "lng": 112.0124236,
+   "tags": {
+    "addr:street": "Jalan Prof. Dr. KH. Fathurrahman Kafrawi",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Utama Semen Gresik Tuban",
+    "operator": "PT. Semen Indonesia Persero Tbk.",
+    "operator:type": "corporation"
+   }
+  },
+  {
+   "osm_id": "relation/19907673",
+   "lat": -7.9889161,
+   "lng": 112.625401,
+   "tags": {
+    "addr:city": "Kota Malang",
+    "addr:postcode": "65117",
+    "addr:street": "Jalan Sulawesi",
+    "alt_name": "Rumah Sakit Islam Aisyiah Malang",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RS Islam Aisyiah",
+    "operator": "Muhammadiyah",
+    "operator:type": "religious",
+    "website": "https://rsiaisyiyah-malang.or.id/"
+   }
+  },
+  {
+   "osm_id": "relation/20068787",
+   "lat": -7.8719653,
+   "lng": 112.5230236,
+   "tags": {
+    "addr:city": "Batu",
+    "addr:full": "Jalan Ahmad Yani No.11-13, Ngaglik, Kec. Batu, Kota Batu, Jawa Timur 65311",
+    "alt_name": "RSUD Karsa Husada Batu",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Karsa Husada",
+    "operator:type": "government",
+    "website": "https://rsukarsahusadabatu.jatimprov.go.id/"
+   }
+  },
+  {
+   "osm_id": "relation/4601203",
+   "lat": -7.6952843,
+   "lng": 113.9959256,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSUD Situbondo",
+    "operator:type": "government",
+    "rooms": "80"
+   }
+  },
+  {
+   "osm_id": "relation/6703135",
+   "lat": -7.2119504,
+   "lng": 112.724599,
+   "tags": {
+    "addr:full": "Jalan Teluk Bayur",
+    "amenity": "hospital",
+    "name": "Rumah Sakit TNI AL Dr. Oepomo",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/1017414584",
+   "lat": -7.3529698,
+   "lng": 112.6912846,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;ophthalmology",
+    "name": "RS MATA FATMA"
+   }
+  },
+  {
+   "osm_id": "way/1017414592",
+   "lat": -7.3527549,
+   "lng": 112.6912474,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "dermatology",
+    "name": "KLINIK DR JAMILAH"
+   }
+  },
+  {
+   "osm_id": "way/1018988163",
+   "lat": -8.1149176,
+   "lng": 112.1631967,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSI Aminah Blitar"
+   }
+  },
+  {
+   "osm_id": "way/1058627655",
+   "lat": -8.2133283,
+   "lng": 111.4745346,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Dinas Bidan Desa Sawahan"
+   }
+  },
+  {
+   "osm_id": "way/1058635401",
+   "lat": -8.2169844,
+   "lng": 111.4570129,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Bodag"
+   }
+  },
+  {
+   "osm_id": "way/1060080015",
+   "lat": -7.5492295,
+   "lng": 111.7323203,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Saradan"
+   }
+  },
+  {
+   "osm_id": "way/1065399072",
+   "lat": -8.0648506,
+   "lng": 112.0803277,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Srengat Kabupaten Blitar"
+   }
+  },
+  {
+   "osm_id": "way/1071822442",
+   "lat": -8.2944189,
+   "lng": 114.0287249,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Bakti Husada"
+   }
+  },
+  {
+   "osm_id": "way/1101053683",
+   "lat": -7.4253779,
+   "lng": 111.5610762,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "KLINIK KALINGGA"
+   }
+  },
+  {
+   "osm_id": "way/1101613919",
+   "lat": -7.1804974,
+   "lng": 111.7152243,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Gayam"
+   }
+  },
+  {
+   "osm_id": "way/1102935426",
+   "lat": -7.8229564,
+   "lng": 112.7179281,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSJ Dr. Radjiman Wediodiningrat",
+    "official_name": "Rumah Sakit Jiwa Dr. Radjiman Wediodiningrat",
+    "website": "https://rsjrw.id/"
+   }
+  },
+  {
+   "osm_id": "way/1103038155",
+   "lat": -7.1674278,
+   "lng": 111.6093326,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Daerah Padangan"
+   }
+  },
+  {
+   "osm_id": "way/1112289277",
+   "lat": -7.5566612,
+   "lng": 111.5848168,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Balerejo"
+   }
+  },
+  {
+   "osm_id": "way/1134687782",
+   "lat": -7.6295664,
+   "lng": 111.5201766,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit TNI-AD (DKT)"
+   }
+  },
+  {
+   "osm_id": "way/1162383632",
+   "lat": -8.1417091,
+   "lng": 112.1452071,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Kademangan"
+   }
+  },
+  {
+   "osm_id": "way/1169798615",
+   "lat": -7.058208,
+   "lng": 112.0127204,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Rengel"
+   }
+  },
+  {
+   "osm_id": "way/1170474820",
+   "lat": -7.0744324,
+   "lng": 112.0206713,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Mruwut"
+   }
+  },
+  {
+   "osm_id": "way/1171512404",
+   "lat": -7.1063543,
+   "lng": 112.0214577,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Kanor"
+   }
+  },
+  {
+   "osm_id": "way/1181320067",
+   "lat": -7.175708,
+   "lng": 112.0044176,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSI Muhammadiyah Sumberrejo"
+   }
+  },
+  {
+   "osm_id": "way/1188374201",
+   "lat": -7.6584978,
+   "lng": 112.1543496,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Surya Prima"
+   }
+  },
+  {
+   "osm_id": "way/1189920586",
+   "lat": -7.314081,
+   "lng": 112.7662153,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Universitas Surabaya"
+   }
+  },
+  {
+   "osm_id": "way/1202329139",
+   "lat": -7.8268135,
+   "lng": 112.0325514,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Baptis"
+   }
+  },
+  {
+   "osm_id": "way/121862400",
+   "lat": -7.2908984,
+   "lng": 112.7892865,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "oncology",
+    "name": "Rumah Sakit Onkologi",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/1221227372",
+   "lat": -7.9110545,
+   "lng": 113.8223756,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Bhayangkara"
+   }
+  },
+  {
+   "osm_id": "way/1221241461",
+   "lat": -8.1665863,
+   "lng": 113.6798585,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Citra Husada"
+   }
+  },
+  {
+   "osm_id": "way/1230006719",
+   "lat": -8.0673394,
+   "lng": 111.9077176,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS. Bhayangkara"
+   }
+  },
+  {
+   "osm_id": "way/1231909696",
+   "lat": -7.8133616,
+   "lng": 112.0176402,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Bhayangkara"
+   }
+  },
+  {
+   "osm_id": "way/1231912484",
+   "lat": -7.8204878,
+   "lng": 111.9982868,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Ratih"
+   }
+  },
+  {
+   "osm_id": "way/1231912485",
+   "lat": -7.8169112,
+   "lng": 111.9896662,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Lirboyo"
+   }
+  },
+  {
+   "osm_id": "way/1231912486",
+   "lat": -7.8102754,
+   "lng": 112.0042201,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "maternity",
+    "name": "Rumah Sakit Ibu dan Anak Nirmala"
+   }
+  },
+  {
+   "osm_id": "way/1231912487",
+   "lat": -7.8088308,
+   "lng": 112.0095123,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit DKT"
+   }
+  },
+  {
+   "osm_id": "way/1231912488",
+   "lat": -7.7977661,
+   "lng": 112.0358538,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Aura Syifa"
+   }
+  },
+  {
+   "osm_id": "way/1252227818",
+   "lat": -7.6888368,
+   "lng": 111.6171619,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Paru Dungus"
+   }
+  },
+  {
+   "osm_id": "way/1265243159",
+   "lat": -5.8484102,
+   "lng": 112.6611898,
+   "tags": {
+    "addr:district": "Kabupaten Gresik",
+    "addr:postcode": "61181",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Pendidikan",
+    "addr:subdistrict": "Sangkapura",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD UMAR MAS'UD BAWEAN",
+    "opening_hours": "24/7",
+    "operator:type": "public",
+    "phone": "+6281336139526",
+    "website": "https://pgds.kemkes.go.id/profil_rs?id=35452"
+   }
+  },
+  {
+   "osm_id": "way/1284762852",
+   "lat": -8.1448175,
+   "lng": 113.234663,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "community",
+    "name": "Posyandu"
+   }
+  },
+  {
+   "osm_id": "way/1308943401",
+   "lat": -8.1255506,
+   "lng": 112.2071232,
+   "tags": {
+    "addr:city": "Blitar",
+    "addr:district": "Kanigoro",
+    "addr:housenumber": "1",
+    "addr:postcode": "66171",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Raya Blitar - Kanigoro",
+    "addr:subdistrict": "Kanigoro",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Medika Utama",
+    "operator": "PT NUSANTARA MEDIKA UTAMA"
+   }
+  },
+  {
+   "osm_id": "way/1353032024",
+   "lat": -7.0155832,
+   "lng": 113.8642272,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSUD Dr. H. Moh. Anwar"
+   }
+  },
+  {
+   "osm_id": "way/1355626640",
+   "lat": -7.6091462,
+   "lng": 112.2311202,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Hasyim Asy'ari"
+   }
+  },
+  {
+   "osm_id": "way/1359834565",
+   "lat": -7.6986909,
+   "lng": 114.0136069,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RS Mitra Sehat",
+    "operator": "yayasan Mitra Sehat",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/1361119225",
+   "lat": -7.7045361,
+   "lng": 112.2085852,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Badas"
+   }
+  },
+  {
+   "osm_id": "way/1361614541",
+   "lat": -7.96795,
+   "lng": 112.6230827,
+   "tags": {
+    "addr:housenumber": "2",
+    "addr:street": "Jalan Pahlawan TRIP",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;ophthalmology",
+    "name": "RSIA Husada Bunda",
+    "official_name": "Rumah Sakit Ibu dan Anak Husada Bunda",
+    "website": "https://www.rsiahusadabunda.com/"
+   }
+  },
+  {
+   "osm_id": "way/1387285487",
+   "lat": -8.2274428,
+   "lng": 112.1260149,
+   "tags": {
+    "addr:district": "Blitar",
+    "addr:full": "Pasiraman Kec. Wonotirto Kabupaten Blitar Jawa Timur 66173",
+    "addr:postcode": "66173",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jl. Raya Trisula",
+    "addr:subdistrict": "Wonotirto",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Wonotirto Blitar",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "way/1387285489",
+   "lat": -8.1972346,
+   "lng": 112.1034239,
+   "tags": {
+    "addr:district": "Blitar",
+    "addr:full": "Krajan Suruhwadang Kec. Kademangan Kabupaten Blitar Jawa Timur 66161",
+    "addr:postcode": "66161",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jl. Raya Trisula",
+    "addr:subdistrict": "Kademangan",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Suruhwadang",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "way/1420692478",
+   "lat": -7.9268554,
+   "lng": 112.599234,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Universitas Muhammadiyah Malang"
+   }
+  },
+  {
+   "osm_id": "way/1421526762",
+   "lat": -7.9413074,
+   "lng": 112.6213578,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Soekarno Hatta",
+    "alt_name": "Rumah Sakit Universitas Brawijaya",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Universitas Brawijaya",
+    "operator": "Universitas Brawijaya",
+    "operator:type": "government",
+    "phone": "+62 341 403 000",
+    "short_name": "RSUB",
+    "website": "https://rumahsakit.ub.ac.id/"
+   }
+  },
+  {
+   "osm_id": "way/1429654053",
+   "lat": -8.0132343,
+   "lng": 112.756631,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Sumber Sentosa"
+   }
+  },
+  {
+   "osm_id": "way/1431158719",
+   "lat": -7.8393193,
+   "lng": 112.0325207,
+   "tags": {
+    "addr:city": "Kota Kediri",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RSUD Gambiran"
+   }
+  },
+  {
+   "osm_id": "way/1441579247",
+   "lat": -7.8482749,
+   "lng": 112.6968189,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Siti Miriam",
+    "operator": "Yayasan Karya Misericordia",
+    "operator:type": "religious"
+   }
+  },
+  {
+   "osm_id": "way/1463070224",
+   "lat": -7.9062517,
+   "lng": 112.6570762,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Marsudi Waluyo",
+    "official_name": "Rumah Sakit Marsudi Waluyo",
+    "operator": "Yayasan Kesehatan Greja Kristen Jawi Wetan",
+    "operator:type": "religious"
+   }
+  },
+  {
+   "osm_id": "way/1463412159",
+   "lat": -7.9844716,
+   "lng": 112.6286859,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSIA Muhammadiyah",
+    "official_name": "Rumah Sakit Ibu dan Anak Muhammadiyah Malang",
+    "operator": "Muhammadiyah",
+    "operator:type": "religious"
+   }
+  },
+  {
+   "osm_id": "way/1463510809",
+   "lat": -7.9350419,
+   "lng": 112.6505906,
+   "tags": {
+    "addr:full": "Kompleks Araya Bussiness Center Kav. 2-4, Jalan Panji Suroso, Kota Malang 65126",
+    "amenity": "hospital",
+    "email": "info@persadahospital.co.id",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Persada Hospital",
+    "operator:type": "private",
+    "website": "https://persadahospital.co.id/"
+   }
+  },
+  {
+   "osm_id": "way/1463869790",
+   "lat": -7.9398429,
+   "lng": 112.6094321,
+   "tags": {
+    "addr:city": "Kota Malang",
+    "addr:district": "Lowokwaru",
+    "addr:housenumber": "139",
+    "addr:postcode": "6514651444",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Mayjend. M.T. Haryono",
+    "addr:subdistrict": "Dinoyo",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;internal;dermatology",
+    "name": "RS Islam Unisma"
+   }
+  },
+  {
+   "osm_id": "way/1464094923",
+   "lat": -7.9584496,
+   "lng": 112.6549649,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:district": "Blimbing",
+    "addr:housenumber": "60A",
+    "addr:postcode": "65126",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Simpang Sulfat Utara",
+    "addr:subdistrict": "Pandanwangi",
+    "alt_name": "Rumah Sakit Ibu dan Anak Puri Bunda",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Puri Bunda"
+   }
+  },
+  {
+   "osm_id": "way/1464395419",
+   "lat": -7.9799565,
+   "lng": 112.6607724,
+   "tags": {
+    "alt_name": "Rumah Sakit Ibu dan Anak Permata Hati",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSIA Permata Hati",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/1465016885",
+   "lat": -7.9389173,
+   "lng": 112.6247231,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:housenumber": "75",
+    "addr:postcode": "65141",
+    "addr:street": "Jalan Soekarno-Hatta",
+    "amenity": "hospital",
+    "email": "rs_permatabunda@yahoo.co.id",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Permata Bunda",
+    "official_name": "Rumah Sakit Permata Bunda Malang",
+    "phone": "+62 34-1407462",
+    "website": "https://www.rspermatabundamalang.com/"
+   }
+  },
+  {
+   "osm_id": "way/1465167898",
+   "lat": -7.9675348,
+   "lng": 112.6216942,
+   "tags": {
+    "alt_name": "Rumah Sakit Ibu dan Anak Mitra Mulia",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSIA Mitra Mulia"
+   }
+  },
+  {
+   "osm_id": "way/1465379652",
+   "lat": -7.9830184,
+   "lng": 112.6278463,
+   "tags": {
+    "addr:housenumber": "23",
+    "addr:street": "Jalan Kauman",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSIA Mardi Waloeja",
+    "official_name": "Rumah Sakit Ibu dan Anak Mardi Waloeja",
+    "operator": "Yayasan Kesehatan Greja Kristen Jawi Wetan",
+    "operator:type": "religious"
+   }
+  },
+  {
+   "osm_id": "way/1466153538",
+   "lat": -7.8719452,
+   "lng": 112.5240333,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Bhayangkara Hasta Brata"
+   }
+  },
+  {
+   "osm_id": "way/1466373307",
+   "lat": -7.8391685,
+   "lng": 112.5309927,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Punten",
+    "official_name": "Rumah Sakit Punten",
+    "website": "https://rspunten.id/"
+   }
+  },
+  {
+   "osm_id": "way/1466376699",
+   "lat": -7.9532957,
+   "lng": 112.6408519,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:district": "Blimbing",
+    "addr:housenumber": "19",
+    "addr:postcode": "65126",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Ciujung",
+    "addr:subdistrict": "Purwantoro",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Mutiara Bunda",
+    "official_name": "Rumah Sakit Ibu dan Anak Mutiara Bunda",
+    "phone": "+62 341 400403"
+   }
+  },
+  {
+   "osm_id": "way/1473366016",
+   "lat": -7.8165327,
+   "lng": 112.0061924,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Gigi dan Mulut IIK Bhakta"
+   }
+  },
+  {
+   "osm_id": "way/1482687730",
+   "lat": -7.0158302,
+   "lng": 113.8453199,
+   "tags": {
+    "addr:street": "Jalan Jokotole",
+    "amenity": "hospital",
+    "email": "info@baghrafhealthcare.com",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "BHC Baghraf Health Care",
+    "opening_hours": "Mo-Fr 09:00-17:00; Sa 09:00-13:00",
+    "operator:type": "private",
+    "phone": "+628113597800",
+    "website": "https://baghrafhealthcare.com/"
+   }
+  },
+  {
+   "osm_id": "way/1488657740",
+   "lat": -7.9754676,
+   "lng": 112.6345908,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSIA Melati"
+   }
+  },
+  {
+   "osm_id": "way/1492173409",
+   "lat": -7.9529353,
+   "lng": 112.61953,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Brimedika",
+    "official_name": "Rumah Sakit Umum Brimedika"
+   }
+  },
+  {
+   "osm_id": "way/1499862325",
+   "lat": -7.9744587,
+   "lng": 112.6217856,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Puri"
+   }
+  },
+  {
+   "osm_id": "way/150186302",
+   "lat": -8.0618371,
+   "lng": 112.0624391,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Puskesmas Srengat"
+   }
+  },
+  {
+   "osm_id": "way/1546658771",
+   "lat": -7.4380116,
+   "lng": 112.7136668,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Mitra Keluarga Sidoarjo"
+   }
+  },
+  {
+   "osm_id": "way/1547912479",
+   "lat": -6.8681088,
+   "lng": 112.3570532,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU dr. Suyudi",
+    "opening_hours": "24/7"
+   }
+  },
+  {
+   "osm_id": "way/1559222687",
+   "lat": -7.6308318,
+   "lng": 112.8797214,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Graha Sehat Medika"
+   }
+  },
+  {
+   "osm_id": "way/1561095097",
+   "lat": -7.6190501,
+   "lng": 111.5022779,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Hermina Madiun"
+   }
+  },
+  {
+   "osm_id": "way/1568134686",
+   "lat": -7.6054733,
+   "lng": 112.8180986,
+   "tags": {
+    "addr:street": "Jalan Raya Raci",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Daerah Bangil",
+    "short_name": "RSUD Bangil"
+   }
+  },
+  {
+   "osm_id": "way/158405004",
+   "lat": -8.0540316,
+   "lng": 111.9181393,
+   "tags": {
+    "addr:city": "Tulungagung",
+    "addr:full": "Jalan Dr. Wahidin Sudiro Husodo",
+    "addr:postcode": "66223",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. Iskak Tulungagung",
+    "operator:type": "government",
+    "phone": "+62 355 322609",
+    "website": "https://rsudtulungagung.com/home"
+   }
+  },
+  {
+   "osm_id": "way/162640488",
+   "lat": -8.3766782,
+   "lng": 114.1469784,
+   "tags": {
+    "addr:city": "Banyuwangi",
+    "addr:postcode": "68465",
+    "addr:street": "Jalan Raya Gambiran",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RS Al-Huda Genteng"
+   }
+  },
+  {
+   "osm_id": "way/165060653",
+   "lat": -8.0833401,
+   "lng": 112.3156172,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Ngudi Waluyo"
+   }
+  },
+  {
+   "osm_id": "way/173113346",
+   "lat": -7.6033971,
+   "lng": 111.8950232,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Daerah Nganjuk"
+   }
+  },
+  {
+   "osm_id": "way/185053556",
+   "lat": -7.2661587,
+   "lng": 112.7370451,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "TEGALSARI",
+    "addr:postcode": "60261",
+    "addr:street": "Jalan Tegalsari",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA PUSURA",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/192939465",
+   "lat": -8.182131,
+   "lng": 112.9951355,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Supiturang"
+   }
+  },
+  {
+   "osm_id": "way/193411986",
+   "lat": -8.1844436,
+   "lng": 113.0448483,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Sumberwuluh"
+   }
+  },
+  {
+   "osm_id": "way/194433170",
+   "lat": -7.2828126,
+   "lng": 112.7798288,
+   "tags": {
+    "addr:city": "Klampis Ngasem, Sukolilo, Surabaya",
+    "addr:housenumber": "10",
+    "addr:postcode": "60116",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jl. Manyar Kertoadi",
+    "amenity": "hospital",
+    "email": "rshaji@jatimprov.go.id",
+    "healthcare": "hospital",
+    "name": "RSUD Haji Provinsi Jawa Timur",
+    "operator:type": "government",
+    "phone": "+62 31-5924000",
+    "website": "https://rsuhaji.jatimprov.go.id"
+   }
+  },
+  {
+   "osm_id": "way/194443493",
+   "lat": -8.1189661,
+   "lng": 113.0589099,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Pasrujambe",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/194581545",
+   "lat": -8.1217603,
+   "lng": 113.2269721,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSUD Lumajang",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/194736181",
+   "lat": -8.1313808,
+   "lng": 113.2309004,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Kota"
+   }
+  },
+  {
+   "osm_id": "way/194738905",
+   "lat": -8.1334309,
+   "lng": 113.2218393,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Bhayangkara",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/194741339",
+   "lat": -8.1026902,
+   "lng": 113.2332229,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Sukodono",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/197162491",
+   "lat": -8.2159364,
+   "lng": 112.9768983,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Sumberurip"
+   }
+  },
+  {
+   "osm_id": "way/198709427",
+   "lat": -8.1087109,
+   "lng": 113.2310438,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Wijaya Kusuma",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/198709944",
+   "lat": -8.0509458,
+   "lng": 113.2365076,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Kedungjajang",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/198710449",
+   "lat": -7.9483634,
+   "lng": 113.2609399,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Ranuyoso",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/198712357",
+   "lat": -8.1179377,
+   "lng": 113.359199,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS PTPN XI Jatiroto",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/200118065",
+   "lat": -7.9921225,
+   "lng": 113.2485899,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Klakah",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/200132645",
+   "lat": -8.2368729,
+   "lng": 113.0926736,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Bades",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/200447361",
+   "lat": -8.2087972,
+   "lng": 113.1158892,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Pasirian",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/201368745",
+   "lat": -8.1862615,
+   "lng": 113.304956,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Sumbersari",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/201373782",
+   "lat": -8.2195476,
+   "lng": 113.2256574,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Kunir",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/201373783",
+   "lat": -8.2306389,
+   "lng": 113.2671403,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Krai",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/207833044",
+   "lat": -8.122256,
+   "lng": 113.2327613,
+   "tags": {
+    "addr:full": "Jl.Musi No 9 Lumajang",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Gedung NU Lumajang (Klinik Kesehatan NU)"
+   }
+  },
+  {
+   "osm_id": "way/209297546",
+   "lat": -7.9880372,
+   "lng": 113.0181992,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Argosari",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/216561078",
+   "lat": -8.0712643,
+   "lng": 113.3053795,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Randuagung",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/219096671",
+   "lat": -7.1518759,
+   "lng": 111.8738437,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Bhayangkara"
+   }
+  },
+  {
+   "osm_id": "way/221566058",
+   "lat": -8.0677861,
+   "lng": 113.3347092,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pustu Randuagung",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/221597653",
+   "lat": -8.1012037,
+   "lng": 113.0980275,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Senduro",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/222719251",
+   "lat": -8.1678717,
+   "lng": 113.7051734,
+   "tags": {
+    "addr:city": "Jember",
+    "addr:full": "Jalan Bedadung No.2",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS PTP Jember Klinik",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/223636812",
+   "lat": -7.2297109,
+   "lng": 111.8685262,
+   "tags": {
+    "amenity": "hospital",
+    "name": "PuskesDes Ngraseh"
+   }
+  },
+  {
+   "osm_id": "way/229132726",
+   "lat": -7.3758595,
+   "lng": 111.2150723,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Pembantu Kauman"
+   }
+  },
+  {
+   "osm_id": "way/230176615",
+   "lat": -8.2797987,
+   "lng": 113.0673125,
+   "tags": {
+    "amenity": "hospital",
+    "name": "pustu dampar",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/232106779",
+   "lat": -7.3916193,
+   "lng": 111.221897,
+   "tags": {
+    "addr:postcode": "63256",
+    "addr:street": "Jl Raya Gendingan-Ngrambe",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Puskemas Walikukun"
+   }
+  },
+  {
+   "osm_id": "way/236697323",
+   "lat": -8.2111989,
+   "lng": 112.9438841,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesman Pronojiwo",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/239266911",
+   "lat": -7.7074014,
+   "lng": 113.9969016,
+   "tags": {
+    "addr:full": "Jalan W.R. Supratman",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "RS Elizabeth",
+    "operator:type": "private",
+    "rooms": "50"
+   }
+  },
+  {
+   "osm_id": "way/249861270",
+   "lat": -7.465125,
+   "lng": 112.7155619,
+   "tags": {
+    "addr:city": "Celep",
+    "addr:full": "Jalan Majapahit No. 667, Sidoarjo, Jawa Timur",
+    "addr:housenumber": "667",
+    "addr:postcode": "61215",
+    "addr:street": "Jalan Majapahit",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Rumah Sakit Umum Daerah Raden Tumenggung Notopuro",
+    "operator:type": "government",
+    "website": "https://rsudrtnotopuro.sidoarjokab.go.id"
+   }
+  },
+  {
+   "osm_id": "way/257897278",
+   "lat": -7.2697298,
+   "lng": 112.7849794,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:postcode": "60115",
+    "addr:street": "Jalan Dharmahusada Indah Utara",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Rumah Sakit Universitas Airlangga",
+    "operator:type": "private",
+    "phone": "+62315916290",
+    "short_name": "RSUA"
+   }
+  },
+  {
+   "osm_id": "way/280299555",
+   "lat": -7.287413,
+   "lng": 112.7382653,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:housenumber": "90",
+    "addr:postcode": "60241",
+    "addr:street": "Jalan Raya Darmo",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Darmo"
+   }
+  },
+  {
+   "osm_id": "way/282207716",
+   "lat": -7.7598794,
+   "lng": 112.1758313,
+   "tags": {
+    "addr:city": "Pare, Kediri",
+    "addr:housenumber": "1",
+    "addr:postcode": "64213",
+    "addr:street": "Jalan Pahlawan Kusuma Bangsa",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Daerah Kabupaten Kediri",
+    "phone": "+62 354 391718",
+    "website": "https://rsud.kedirikab.go.id/"
+   }
+  },
+  {
+   "osm_id": "way/299820320",
+   "lat": -7.6120758,
+   "lng": 111.5185448,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Kota Madiun",
+    "official_name": "Rumah Sakit Umum Daerah Sogaten Madiun"
+   }
+  },
+  {
+   "osm_id": "way/304620874",
+   "lat": -7.5500605,
+   "lng": 112.2373467,
+   "tags": {
+    "addr:postcode": "61416",
+    "addr:street": "Jalan KH. Wahid Hasyim No.52, Kepanjen, Kec. Jombang, Kabupaten Jombang",
+    "amenity": "hospital",
+    "contact:email": "rsudjombang@yahoo.co.id",
+    "contact:phone": "+62 321 863502; +62 321 865716",
+    "contact:website": "www.rsudjombang.jombangkab.go.id",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Jombang"
+   }
+  },
+  {
+   "osm_id": "way/307262240",
+   "lat": -8.4411209,
+   "lng": 114.17923,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Ar - Rohma",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/307282253",
+   "lat": -7.2861609,
+   "lng": 112.7620875,
+   "tags": {
+    "addr:city": "Kertajaya, Gubeng, Surabaya, East Java",
+    "addr:full": "Jalan Menur 120",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Jiwa Menur Provinsi Jawa Timur",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/307387547",
+   "lat": -7.6,
+   "lng": 111.8947637,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS. Bhayangkara",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/307388808",
+   "lat": -7.8106824,
+   "lng": 111.9976262,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Daha Husada"
+   }
+  },
+  {
+   "osm_id": "way/308202386",
+   "lat": -7.4471641,
+   "lng": 112.7014426,
+   "tags": {
+    "addr:street": "Jalan Pahlawan",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Delta Surya"
+   }
+  },
+  {
+   "osm_id": "way/308346521",
+   "lat": -7.569615,
+   "lng": 112.34425,
+   "tags": {
+    "addr:full": "Desa Kauman",
+    "amenity": "hospital",
+    "name": "BP Sayyid Abdurrahnman",
+    "operator:type": "private",
+    "rooms": "15"
+   }
+  },
+  {
+   "osm_id": "way/308351958",
+   "lat": -7.4128776,
+   "lng": 112.6744791,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Sukodono"
+   }
+  },
+  {
+   "osm_id": "way/311265632",
+   "lat": -8.1439425,
+   "lng": 112.5698535,
+   "tags": {
+    "addr:city": "Kepanjen",
+    "addr:full": "jalan raden panji",
+    "addr:postcode": "65163",
+    "addr:street": "Jalan Panji",
+    "amenity": "hospital",
+    "emergency": "no",
+    "healthcare": "hospital",
+    "name": "RSUD Kanjuruhan Kepanjen Kab. Malang",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/313037158",
+   "lat": -7.1967857,
+   "lng": 113.2437465,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSUD Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037159",
+   "lat": -7.1962282,
+   "lng": 113.2434454,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037160",
+   "lat": -7.1963006,
+   "lng": 113.2439499,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037161",
+   "lat": -7.1964332,
+   "lng": 113.2437632,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037163",
+   "lat": -7.1963773,
+   "lng": 113.2436311,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037164",
+   "lat": -7.1970454,
+   "lng": 113.24333,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037166",
+   "lat": -7.1965094,
+   "lng": 113.2432314,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313037170",
+   "lat": -7.1972898,
+   "lng": 113.2435216,
+   "tags": {
+    "amenity": "hospital",
+    "name": "UTD PMI Sampang"
+   }
+  },
+  {
+   "osm_id": "way/313212964",
+   "lat": -7.1968694,
+   "lng": 113.2429386,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Pemda Sampang"
+   }
+  },
+  {
+   "osm_id": "way/320182744",
+   "lat": -7.2699287,
+   "lng": 112.7863259,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:postcode": "60115",
+    "addr:street": "Jl. Mulyorejo",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Khusus Infeksi",
+    "phone": "+62 31 5961389",
+    "short_name": "RSKI",
+    "website": "rski.unair.ac.id"
+   }
+  },
+  {
+   "osm_id": "way/321954135",
+   "lat": -7.7635688,
+   "lng": 112.1981593,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit HVA Tulungrejo",
+    "operator": "PT NUSANTARA MEDIKA UTAMA"
+   }
+  },
+  {
+   "osm_id": "way/322999885",
+   "lat": -7.0522696,
+   "lng": 113.2767089,
+   "tags": {
+    "addr:city": "Gunungeleh",
+    "addr:postcode": "69252",
+    "addr:street": "Jalan raya Gunungeleh",
+    "amenity": "hospital",
+    "name": "Ponkesdes/ Polindes Gunungeleh"
+   }
+  },
+  {
+   "osm_id": "way/323351603",
+   "lat": -7.6633138,
+   "lng": 112.899052,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD dr. R. Soedarsono"
+   }
+  },
+  {
+   "osm_id": "way/324950923",
+   "lat": -8.1242546,
+   "lng": 112.5660348,
+   "tags": {
+    "addr:full": "jl. sukun",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSKB Hasta Husada",
+    "official_name": "Rumah Sakit Khusus Bedah Hasta Husada",
+    "operator:type": "private",
+    "rooms": "50"
+   }
+  },
+  {
+   "osm_id": "way/325854081",
+   "lat": -8.0557548,
+   "lng": 111.6977041,
+   "tags": {
+    "addr:full": "Jl Meyjen Sungkono",
+    "amenity": "hospital",
+    "name": "RS Budi Asih",
+    "operator:type": "private",
+    "rooms": "60"
+   }
+  },
+  {
+   "osm_id": "way/325854082",
+   "lat": -8.0592106,
+   "lng": 111.7037903,
+   "tags": {
+    "addr:full": "Jalan Dr Soetomo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Dr. Soedomo",
+    "operator:type": "government",
+    "rooms": "300"
+   }
+  },
+  {
+   "osm_id": "way/326028542",
+   "lat": -8.0481103,
+   "lng": 111.7312275,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Rejowinangun"
+   }
+  },
+  {
+   "osm_id": "way/328697364",
+   "lat": -7.7501182,
+   "lng": 114.2343691,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSUD asembagus"
+   }
+  },
+  {
+   "osm_id": "way/328920112",
+   "lat": -7.7363749,
+   "lng": 113.6953722,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Besuki",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/330160587",
+   "lat": -8.0591031,
+   "lng": 111.7037872,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. Sudomo Trenggalek",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/342221720",
+   "lat": -7.1156776,
+   "lng": 112.4101579,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. Soegiri",
+    "official_name": "Rumah Sakit Umum Daerah Dr. Soegiri",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/344100866",
+   "lat": -7.2808544,
+   "lng": 112.6345629,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Ciputra Hospital",
+    "operator": "Ciputra Group"
+   }
+  },
+  {
+   "osm_id": "way/355649079",
+   "lat": -7.5790548,
+   "lng": 112.2370241,
+   "tags": {
+    "addr:city": "JOMBANG",
+    "addr:postcode": "61471",
+    "addr:street": "Jl. KH. Hasyim Asy'ari",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS NAHDLATUL ULAMA",
+    "operator": "NU"
+   }
+  },
+  {
+   "osm_id": "way/365147166",
+   "lat": -7.6327376,
+   "lng": 111.5121981,
+   "tags": {
+    "addr:city": "madiun",
+    "addr:street": "Jalan Mayjend. Sungkono",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Islam Aisyah Madiun"
+   }
+  },
+  {
+   "osm_id": "way/365353774",
+   "lat": -8.1597852,
+   "lng": 113.7056703,
+   "tags": {
+    "addr:city": "jember",
+    "addr:housenumber": "28",
+    "addr:street": "Jl. Nusa Indah",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "RS Paru Jember",
+    "phone": "+62331487255",
+    "website": "rspjember.com/"
+   }
+  },
+  {
+   "osm_id": "way/365355287",
+   "lat": -8.1516177,
+   "lng": 113.7155331,
+   "tags": {
+    "addr:city": "Kabupaten Jember",
+    "addr:full": "Jalan Dr. Soebandi No.293, Krajan, Kel. Kec, Kec. Patrang, Kabupaten Jember, Jawa Timur 68111",
+    "addr:street": "Jalan Dr. Soebandi No.124, Cangkring, Kec Patrang, Kabupaten Jember",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RUSD Dr. Soebandi Jember",
+    "operator:type": "public",
+    "website": "https://rsddrsoebandi.id/"
+   }
+  },
+  {
+   "osm_id": "way/370079963",
+   "lat": -7.5193463,
+   "lng": 112.5595597,
+   "tags": {
+    "addr:street": "Jalan Hayam Wuruk",
+    "amenity": "hospital",
+    "name": "RSUD Dr. Soekandar"
+   }
+  },
+  {
+   "osm_id": "way/370079964",
+   "lat": -7.5313314,
+   "lng": 112.6000423,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Islam Mawaddah"
+   }
+  },
+  {
+   "osm_id": "way/375052973",
+   "lat": -7.5462274,
+   "lng": 112.5861034,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Pos Kesehatan Desa",
+    "operator": "Bidan Desa"
+   }
+  },
+  {
+   "osm_id": "way/376494209",
+   "lat": -7.2918904,
+   "lng": 112.7353796,
+   "tags": {
+    "addr:full": "Jalan Diponegoro no 51, Surabaya Jawa Timur",
+    "alt_name": "RSK St. Vincentius A Paulo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Katolik St. Vincentius A Paulo (RKZ)",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/388812246",
+   "lat": -7.986419,
+   "lng": 112.6249269,
+   "tags": {
+    "addr:city": "Kota Malang",
+    "addr:full": "Jalan Nusakambangan No. 56",
+    "addr:housenumber": "56",
+    "addr:postcode": "65117",
+    "addr:street": "Jalan Nusa Kambangan",
+    "alt_name": "Rooms Katholiek Ziekenhuis (RKZ)",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RS Panti Waluya Sawahan",
+    "operator": "Yayasan Karya Misericordia",
+    "operator:type": "religious",
+    "short_name": "RKZ",
+    "website": "https://www.pantiwaluya.or.id/"
+   }
+  },
+  {
+   "osm_id": "way/391734293",
+   "lat": -7.5517619,
+   "lng": 112.618197,
+   "tags": {
+    "addr:city": "Kabupaten Mojokerto",
+    "addr:postcode": "61385",
+    "addr:street": "Jalan Sedati Ngoro, Kecamatan Ngoro, Kabupaten Mojokerto Jawa Timur, 61385",
+    "amenity": "hospital",
+    "name": "Puskesmas Ngoro"
+   }
+  },
+  {
+   "osm_id": "way/392583090",
+   "lat": -7.9889063,
+   "lng": 112.6201865,
+   "tags": {
+    "addr:city": "Kota Malang",
+    "addr:housenumber": "22",
+    "addr:postcode": "65139",
+    "addr:street": "Jalan Sudanco Supriyadi",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Tentara Dr. Soepraoen",
+    "operator": "TNI AD",
+    "operator:type": "military",
+    "website": "https://www.rssoepraoen.co.id"
+   }
+  },
+  {
+   "osm_id": "way/406576266",
+   "lat": -8.0265659,
+   "lng": 112.6391205,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Kota Malang"
+   }
+  },
+  {
+   "osm_id": "way/424126805",
+   "lat": -7.9479108,
+   "lng": 112.6195972,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:district": "Lowokwaru",
+    "addr:housenumber": "3",
+    "addr:postcode": "65141",
+    "addr:street": "Jalan Andong",
+    "addr:subdistrict": "Jatimulyo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RS Ibu dan Anak Galeri Chandra"
+   }
+  },
+  {
+   "osm_id": "way/429077947",
+   "lat": -7.2737545,
+   "lng": 112.7448221,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Ferina Surabaya"
+   }
+  },
+  {
+   "osm_id": "way/430278756",
+   "lat": -7.2579795,
+   "lng": 111.8740826,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "no",
+    "name": "Puskesmas Pembantu Sumberarum"
+   }
+  },
+  {
+   "osm_id": "way/435232553",
+   "lat": -8.3014871,
+   "lng": 114.1041709,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Sumbergondo"
+   }
+  },
+  {
+   "osm_id": "way/443530641",
+   "lat": -7.6358072,
+   "lng": 112.3023235,
+   "tags": {
+    "addr:street": "Jalan Merdeka",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Kristen Mojowarno"
+   }
+  },
+  {
+   "osm_id": "way/446524876",
+   "lat": -7.3096549,
+   "lng": 112.7385128,
+   "tags": {
+    "addr:city": "Kota Surabaya, Jawa Timur",
+    "addr:housenumber": "No. 1",
+    "addr:postcode": "60244",
+    "addr:street": "Dinas Pertanian UPT Pengawasan dan sertifikasi hasil pertanian",
+    "amenity": "hospital",
+    "email": "rsaldrramelan@yahoo.com",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Angkatan Laut Dr. Ramelan",
+    "phone": "+62 31-8438153",
+    "website": "http://rsalramelansby.id"
+   }
+  },
+  {
+   "osm_id": "way/446537097",
+   "lat": -7.2993423,
+   "lng": 112.676384,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Boulevard Famili Sel. No.Kav.1, Babatan, Kec. Wiyung, Kota SBY, Jawa Timur 60227",
+    "addr:housenumber": "1",
+    "addr:postcode": "60227",
+    "addr:street": "Jalan Lingkar Dalam Barat",
+    "amenity": "hospital",
+    "email": "info@national-hospital.com",
+    "healthcare": "hospital",
+    "name": "National Hospital",
+    "operator:type": "private",
+    "phone": "+62312975777",
+    "website": "https://www.national-hospital.com/"
+   }
+  },
+  {
+   "osm_id": "way/447609697",
+   "lat": -7.2651863,
+   "lng": 112.7516509,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS DKT Gubeng Pojok"
+   }
+  },
+  {
+   "osm_id": "way/447610406",
+   "lat": -7.2426787,
+   "lng": 112.7519019,
+   "tags": {
+    "addr:full": "Jalan Kapasari No. 97-101",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Adi Husada Kapasan",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/447615916",
+   "lat": -7.2889539,
+   "lng": 112.741385,
+   "tags": {
+    "addr:full": "Jalan Kapuas",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Surabaya Medical Center",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/448107876",
+   "lat": -7.254337,
+   "lng": 112.7434557,
+   "tags": {
+    "addr:full": "Jalan Undaan kulon 17 19",
+    "amenity": "hospital",
+    "name": "RS Mata Undaan"
+   }
+  },
+  {
+   "osm_id": "way/448112158",
+   "lat": -7.290849,
+   "lng": 112.7826956,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Arief Rahman Hakim No.212",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Ibu dan Anak Putri",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/448114210",
+   "lat": -7.2899849,
+   "lng": 112.7635634,
+   "tags": {
+    "addr:city": "Menur Pumpungan, Sukolilo, Surabaya, East Java",
+    "addr:housenumber": "No.9",
+    "addr:postcode": "60118",
+    "addr:street": "Jl. Raya Manyar",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Manyar Medical Centre",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/449621808",
+   "lat": -7.2514797,
+   "lng": 112.7458467,
+   "tags": {
+    "addr:city": "Kota Surabaya, Jawa Timur",
+    "addr:full": "Jalan Undaan Wetan",
+    "addr:housenumber": "No. 40-44",
+    "addr:postcode": "60272",
+    "addr:street": "Jalan Undaan Wetan, Ketabang, Kecamatan Genteng",
+    "amenity": "hospital",
+    "email": "sekretariat@undaan.adihusada.com",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Adi Husada Undaan Wetan",
+    "operator:type": "private",
+    "phone": "+62 31-5318000"
+   }
+  },
+  {
+   "osm_id": "way/449624602",
+   "lat": -7.2648315,
+   "lng": 112.7561908,
+   "tags": {
+    "addr:city": "Kota Surabaya, Jawa Timur Indonesia",
+    "addr:full": "Jalan Mayjen Prof.Dr.Moestopo",
+    "addr:housenumber": "No. 31-35",
+    "addr:postcode": "60131",
+    "addr:street": "Jalan Prof. Dr. Moestopo",
+    "amenity": "hospital",
+    "email": "info@husadautamahospital.com",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Spesialis Husada Utama",
+    "operator:type": "private",
+    "phone": "+62 31-5017975",
+    "website": "https://www.husadautamahospital.com/"
+   }
+  },
+  {
+   "osm_id": "way/449903849",
+   "lat": -7.283108,
+   "lng": 112.7528757,
+   "tags": {
+    "addr:city": "Kertajaya, Gubeng, Surabaya, East Java",
+    "addr:housenumber": "No. 12-14",
+    "addr:postcode": "60282",
+    "addr:street": "JL. Pucang Adi",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Pura Raharja"
+   }
+  },
+  {
+   "osm_id": "way/450513383",
+   "lat": -7.2740186,
+   "lng": 112.7463992,
+   "tags": {
+    "addr:city": "Gubeng, Surabaya, East Java",
+    "addr:full": "Jalan Karimun Jawa nomor 6",
+    "addr:housenumber": "No. 7",
+    "addr:postcode": "60281",
+    "addr:street": "Jalan Raya Gubeng, Kelurahan Gubeng, Kecamatan Gubeng",
+    "amenity": "hospital",
+    "email": "http://www.mail.siloamhospitals.com",
+    "healthcare": "hospital",
+    "name": "Siloam Hospitals",
+    "operator:type": "private",
+    "phone": "+62 31-5031333",
+    "website": "https://www.siloamhospitals.com/"
+   }
+  },
+  {
+   "osm_id": "way/450694876",
+   "lat": -7.2540403,
+   "lng": 112.743466,
+   "tags": {
+    "addr:full": "Jalan Undaan Kulon",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mata Undaan",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/450772004",
+   "lat": -7.250642,
+   "lng": 112.7836416,
+   "tags": {
+    "addr:full": "Jalan Dr. Ir. H. Soekarno Nomor 2 Kalijudan, Kec. Mulyorejo, Kota Surabaya, Jawa Timur",
+    "amenity": "hospital",
+    "name": "RSIA Kendangsari Merr",
+    "operator:type": "private",
+    "website": "https://merr.kendangsari.com/"
+   }
+  },
+  {
+   "osm_id": "way/450927051",
+   "lat": -7.2459712,
+   "lng": 112.7579873,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Tambakrejo No. 45-47",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr.M.Soewandhie",
+    "operator:type": "government",
+    "website": "https://rs-soewandhi.surabaya.go.id/"
+   }
+  },
+  {
+   "osm_id": "way/450968413",
+   "lat": -7.3075501,
+   "lng": 112.7875308,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Gotong Royong",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/450988751",
+   "lat": -7.3085395,
+   "lng": 112.7396657,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Klinik Estetika",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/451670191",
+   "lat": -7.2666818,
+   "lng": 112.6912576,
+   "tags": {
+    "addr:city": "Kota Surabaya, Jawa Timur",
+    "addr:full": "satelit indah vi",
+    "addr:housenumber": "No. 8",
+    "addr:postcode": "60187",
+    "addr:street": "Jalan Satelit Indah II Blok FN, Kelurahan Tanjungsari, Kecamatan Sukomanunggal",
+    "amenity": "hospital",
+    "email": "surabaya@mitrakeluarga.com",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mitra Keluarga",
+    "operator:type": "private",
+    "phone": "+62 31-7345333",
+    "website": "https://mitrakeluarga.com/"
+   }
+  },
+  {
+   "osm_id": "way/451857624",
+   "lat": -7.2972173,
+   "lng": 112.7228121,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Kesatriyan No.17",
+    "amenity": "hospital",
+    "name": "RS Kodam Brawijaya",
+    "operator:type": "government",
+    "website": "http://rs-brawijaya.com/brawijaya/"
+   }
+  },
+  {
+   "osm_id": "way/452200878",
+   "lat": -7.2281429,
+   "lng": 112.7411216,
+   "tags": {
+    "addr:full": "Jalan KH Mas Mansyur",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Al Irsyad",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/452600945",
+   "lat": -7.2299251,
+   "lng": 112.7412128,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit PKU Muhammadiyah Surabaya",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/452601170",
+   "lat": -7.2240386,
+   "lng": 112.7464745,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Paru"
+   }
+  },
+  {
+   "osm_id": "way/453637971",
+   "lat": -7.2994323,
+   "lng": 112.6620645,
+   "tags": {
+    "addr:full": "Jalan Lontar Lidah Kulon",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Orthopedi & Traumatologi",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/454129371",
+   "lat": -7.2756512,
+   "lng": 112.679649,
+   "tags": {
+    "addr:full": "Jalan Raya Darmo Permai Selatan 109-111",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Marien",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/454131833",
+   "lat": -7.2845689,
+   "lng": 112.669523,
+   "tags": {
+    "addr:full": "Jalan Raya Lontar 109",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Lombok Dua dua",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/455658137",
+   "lat": -7.313098,
+   "lng": 112.6917019,
+   "tags": {
+    "addr:full": "Jalan Raya Menganti 398",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Wijaya",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/456376695",
+   "lat": -8.3265617,
+   "lng": 114.0978427,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Puskesmas Tulungrejo"
+   }
+  },
+  {
+   "osm_id": "way/456713946",
+   "lat": -7.3046746,
+   "lng": 112.7084451,
+   "tags": {
+    "addr:full": "Jalan Golf I",
+    "amenity": "hospital",
+    "name": "Rs Marinir Ewa Pangalila",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/456740299",
+   "lat": -7.3112451,
+   "lng": 112.6879189,
+   "tags": {
+    "addr:full": "Jalan Karangan PDAM 1-3",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Wiyung Sejahtera",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/457109445",
+   "lat": -7.2453469,
+   "lng": 112.7277389,
+   "tags": {
+    "addr:full": "Jalan Dupak Nomor 15 A",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Ibu dan Anak IBI Surabaya",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/457123400",
+   "lat": -7.240723,
+   "lng": 112.7310978,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Imdrapura No. 17",
+    "addr:housenumber": "17",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Indrapura",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit UPT Vertikal Surabaya",
+    "operator": "Kementerian Kesehatan RI",
+    "operator:type": "government",
+    "short_name": "Pusdiklat Pelayanan Kesehatan Kemenkes"
+   }
+  },
+  {
+   "osm_id": "way/458235183",
+   "lat": -7.2517325,
+   "lng": 112.6504313,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Bunda Surabaya"
+   }
+  },
+  {
+   "osm_id": "way/458639570",
+   "lat": -7.3253317,
+   "lng": 112.7455018,
+   "tags": {
+    "addr:full": "Jalan Raya Kendangsari 38",
+    "addr:postcode": "60292",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Kendangsari",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/459481999",
+   "lat": -7.3037338,
+   "lng": 112.7081883,
+   "tags": {
+    "addr:full": "Jalan Golf I",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Marinir Ewa Panggalila",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/460664800",
+   "lat": -7.3272735,
+   "lng": 112.7838393,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Eka Candrarini",
+    "official_name": "Rumah Sakit Umum Daerah Eka Candrarini",
+    "operator": "Pemerintah Kota Surabaya"
+   }
+  },
+  {
+   "osm_id": "way/461269463",
+   "lat": -7.328807,
+   "lng": 112.7509277,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Raya Kendangsari Industri",
+    "addr:housenumber": "1",
+    "addr:postcode": "60293",
+    "addr:street": "Jalan Rungkut Industri I",
+    "amenity": "hospital",
+    "email": "info@rsroyalsurabaya.com",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Royal Surabaya",
+    "operator:type": "private",
+    "phone": "+62 31 8476111",
+    "website": "https://www.rsroyalsurabaya.com/web/"
+   }
+  },
+  {
+   "osm_id": "way/462012644",
+   "lat": -7.3124034,
+   "lng": 112.6815596,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Graha Medika"
+   }
+  },
+  {
+   "osm_id": "way/462702755",
+   "lat": -7.2570063,
+   "lng": 112.6708713,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Raya Manukan Wetan",
+    "addr:housenumber": "68 - 68A",
+    "addr:postcode": "60185",
+    "addr:street": "Jl. Raya Manukan Wetan",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Muji Rahayu",
+    "operator": "Private"
+   }
+  },
+  {
+   "osm_id": "way/462704784",
+   "lat": -7.3063163,
+   "lng": 112.734857,
+   "tags": {
+    "addr:city": "Kota Surabaya",
+    "addr:full": "Jalan Achmad Yani No.2-4, Wonokromo, Kecamatan Wonokromo, Kota Surabaya, Jawa Timur 60243",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Islam Surabaya",
+    "operator:type": "private",
+    "website": "https://rsisurabaya.com/"
+   }
+  },
+  {
+   "osm_id": "way/463387641",
+   "lat": -7.3215391,
+   "lng": 112.7137283,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSIA Cempaka Putih Permata"
+   }
+  },
+  {
+   "osm_id": "way/463561564",
+   "lat": -7.2784836,
+   "lng": 112.7489193,
+   "tags": {
+    "addr:full": "Jalan Flores Nomor 12, Ngagel, Surabaya",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Lombok Dua Dua Surabaya",
+    "operator:type": "private",
+    "website": "https://rsialombokduadua.com/"
+   }
+  },
+  {
+   "osm_id": "way/464048633",
+   "lat": -7.3120132,
+   "lng": 112.7229563,
+   "tags": {
+    "addr:full": "Jalan Ketintang Madya I",
+    "amenity": "hospital",
+    "name": "RSU Bhakti Rahayu",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/464057071",
+   "lat": -7.3261478,
+   "lng": 112.7255981,
+   "tags": {
+    "addr:full": "Jalan Gayungan Kebonsari Timur B",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mata Masyarakat Jawa Timur",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/464566820",
+   "lat": -7.2682181,
+   "lng": 112.7583031,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jalan Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota SBY, Jawa Timur 60286",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. Soetomo",
+    "official_name": "Rumah Sakit Umum Daerah Dr. Soetomo",
+    "operator:type": "government",
+    "website": "https://rsudrsoetomo.jatimprov.go.id/"
+   }
+  },
+  {
+   "osm_id": "way/464630285",
+   "lat": -7.2912022,
+   "lng": 112.7372722,
+   "tags": {
+    "addr:city": "Surabaya",
+    "addr:full": "Jl. Raya Diponegoro No.34, Darmo Wonokromo, Surabaya",
+    "addr:housenumber": "34",
+    "addr:postcode": "60241",
+    "addr:street": "Jalan Diponegoro",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit William Booth Surabaya",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/465117740",
+   "lat": -7.2915348,
+   "lng": 112.7409612,
+   "tags": {
+    "addr:full": "Jalan Serayu Nomor 17",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSAU SOEMITRO",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/465127627",
+   "lat": -7.2558516,
+   "lng": 112.636114,
+   "tags": {
+    "addr:full": "Jalan Raya Kendung",
+    "amenity": "hospital",
+    "name": "RSUD Bhakti Dharma Husada",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/465330021",
+   "lat": -7.3243054,
+   "lng": 112.7302983,
+   "tags": {
+    "addr:city": "Ketintang, Gayungan, Surabaya, East Java",
+    "addr:full": "Jalan Jenderal A. Yani No 115",
+    "addr:housenumber": "No.116",
+    "addr:postcode": "60231",
+    "addr:street": "Jalan Jend. A. Yani",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Bhayangkara HS Samsoeri Mertojoso",
+    "official_name": "Rumah Sakit Bhayangkara HS Samsoeri Mertojoso Polda Jatim",
+    "operator:type": "private",
+    "website": "http://rs-bhayangkarasurabaya.jatim.polri.go.id/"
+   }
+  },
+  {
+   "osm_id": "way/467861431",
+   "lat": -7.2640097,
+   "lng": 112.7713289,
+   "tags": {
+    "addr:housenumber": "106-114",
+    "addr:street": "Jalan Kaliwaron",
+    "amenity": "hospital",
+    "email": "info@waronhospital.com",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "paediatrics;mother_child",
+    "name": "Waron Hospital",
+    "website": "https://www.waronhospital.com"
+   }
+  },
+  {
+   "osm_id": "way/468637726",
+   "lat": -7.2353495,
+   "lng": 112.6125421,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Islam Darus Syifa'",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/470106207",
+   "lat": -7.3225208,
+   "lng": 112.7398926,
+   "tags": {
+    "addr:full": "Jalan Jemursari Nomor 51-57, Surabaya",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Islam Jemursari Surabaya",
+    "operator:type": "private",
+    "website": "https://rsisjs.id/"
+   }
+  },
+  {
+   "osm_id": "way/472883217",
+   "lat": -7.4044715,
+   "lng": 111.4147469,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSI At-Tin Husada",
+    "official_name": "Rumah Sakit Islam At-Tin Husada"
+   }
+  },
+  {
+   "osm_id": "way/473429721",
+   "lat": -7.4164813,
+   "lng": 111.3120746,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Kedunggalar"
+   }
+  },
+  {
+   "osm_id": "way/473633339",
+   "lat": -7.652326,
+   "lng": 111.3355876,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Magetan"
+   }
+  },
+  {
+   "osm_id": "way/473908243",
+   "lat": -7.5172175,
+   "lng": 111.259276,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Jogorogo"
+   }
+  },
+  {
+   "osm_id": "way/474211528",
+   "lat": -7.9251896,
+   "lng": 111.4986456,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Yasyfin Darussalam Gontor",
+    "opening_hours": "24/7",
+    "phone": "+62 35-23591202",
+    "website": "rsyasyfin.com"
+   }
+  },
+  {
+   "osm_id": "way/474664791",
+   "lat": -7.406419,
+   "lng": 111.4445888,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS. Widodo Ngawi"
+   }
+  },
+  {
+   "osm_id": "way/484678046",
+   "lat": -8.025147,
+   "lng": 111.6164898,
+   "tags": {
+    "amenity": "hospital",
+    "name": "PUSKESMAS PUCANGANAK"
+   }
+  },
+  {
+   "osm_id": "way/487811799",
+   "lat": -8.134123,
+   "lng": 113.2201559,
+   "tags": {
+    "addr:city": "Lumajang",
+    "addr:street": "Jl. Kyai Muksin",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "name": "Rumah Sakit Islam Lumajang"
+   }
+  },
+  {
+   "osm_id": "way/509611902",
+   "lat": -6.918084,
+   "lng": 112.5571467,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "MABAROT"
+   }
+  },
+  {
+   "osm_id": "way/519812648",
+   "lat": -8.1962943,
+   "lng": 111.0996911,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "IGD RSUD Pacitan"
+   }
+  },
+  {
+   "osm_id": "way/530177054",
+   "lat": -8.148896,
+   "lng": 112.3662011,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Budi Mulyo"
+   }
+  },
+  {
+   "osm_id": "way/544933403",
+   "lat": -7.9334899,
+   "lng": 112.7029304,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Angkatan Udara",
+    "operator:type": "military"
+   }
+  },
+  {
+   "osm_id": "way/545429388",
+   "lat": -7.1506,
+   "lng": 112.6548312,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS MUHAMMADIYAH GRESIK Gedung 2"
+   }
+  },
+  {
+   "osm_id": "way/545429389",
+   "lat": -7.1507262,
+   "lng": 112.6551349,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Muhammadiyah Gresik Gedung 1"
+   }
+  },
+  {
+   "osm_id": "way/546362807",
+   "lat": -7.9946872,
+   "lng": 112.6340353,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Panti Nirmala",
+    "website": "https://www.rspantinirmala.com/"
+   }
+  },
+  {
+   "osm_id": "way/568605947",
+   "lat": -7.4175072,
+   "lng": 112.5837695,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Area Parkir Sakit Umum Al-Islam HM Mawardi"
+   }
+  },
+  {
+   "osm_id": "way/628068136",
+   "lat": -7.4684878,
+   "lng": 112.4367845,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSI Hasanah Muhammadiyah"
+   }
+  },
+  {
+   "osm_id": "way/628713140",
+   "lat": -7.9759525,
+   "lng": 112.621326,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSIA Melati Husada"
+   }
+  },
+  {
+   "osm_id": "way/631161426",
+   "lat": -7.3522035,
+   "lng": 112.6917692,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;mother_and_child_hospital",
+    "name": "RS IBU DAN ANAK SOERYA"
+   }
+  },
+  {
+   "osm_id": "way/631174448",
+   "lat": -7.3490914,
+   "lng": 112.6918737,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSIA Kirana"
+   }
+  },
+  {
+   "osm_id": "way/635303353",
+   "lat": -7.116178,
+   "lng": 112.4371463,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "PONKESDES DEKETKULON"
+   }
+  },
+  {
+   "osm_id": "way/641617493",
+   "lat": -7.3528708,
+   "lng": 112.7661984,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSU Prima Husada Waru"
+   }
+  },
+  {
+   "osm_id": "way/641936693",
+   "lat": -7.3516204,
+   "lng": 112.7707124,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RS Bunda Sidoarjo"
+   }
+  },
+  {
+   "osm_id": "way/642996369",
+   "lat": -7.1997486,
+   "lng": 112.26608,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "puskesmas"
+   }
+  },
+  {
+   "osm_id": "way/646189313",
+   "lat": -8.0356848,
+   "lng": 112.6428119,
+   "tags": {
+    "addr:full": "Jl. Mayjend Sungkono No. 9 RT. 005 RW. 004, Tlogowaru, Kedungkandang, Tlogowaru, Kedungkandang, Kota Malang, Jawa Timur 65132",
+    "amenity": "hospital",
+    "name": "Refa Husada Hospital"
+   }
+  },
+  {
+   "osm_id": "way/669873116",
+   "lat": -7.2096035,
+   "lng": 112.7354571,
+   "tags": {
+    "addr:full": "Jalan Prapat Kurung Selatan No. 1 Tanjung Perak, Kec. Pabean Cantian, Kota Surabaya, Jawa Timur",
+    "amenity": "hospital",
+    "name": "Rumah Sakit PHC Surabaya",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/677387282",
+   "lat": -7.9209886,
+   "lng": 113.8322871,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mitra Medika"
+   }
+  },
+  {
+   "osm_id": "way/677407602",
+   "lat": -7.9189959,
+   "lng": 113.8142323,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Koesnadi"
+   }
+  },
+  {
+   "osm_id": "way/680284053",
+   "lat": -7.653011,
+   "lng": 111.5286435,
+   "tags": {
+    "addr:street": "Jalan Mayor Jenderal D.I. Panjaitan",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Griya Husada"
+   }
+  },
+  {
+   "osm_id": "way/705047709",
+   "lat": -7.1597643,
+   "lng": 112.6430747,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Petrokimia Gresik",
+    "operator": "Petrokimia Gresik"
+   }
+  },
+  {
+   "osm_id": "way/705062945",
+   "lat": -7.1539746,
+   "lng": 112.6462609,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Grha Husada",
+    "operator": "Petrokimia Gresik"
+   }
+  },
+  {
+   "osm_id": "way/719922422",
+   "lat": -7.9059413,
+   "lng": 112.5384275,
+   "tags": {
+    "alt_name": "Rumah Sakit Baptis",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RS Baptis Batu",
+    "operator": "Yayasan Rumah Sakit Baptis Indonesia",
+    "operator:type": "religious",
+    "website": "https://rsbaptisbatu.id/"
+   }
+  },
+  {
+   "osm_id": "way/722381642",
+   "lat": -7.1267965,
+   "lng": 113.0668242,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Blega"
+   }
+  },
+  {
+   "osm_id": "way/772683992",
+   "lat": -7.345429,
+   "lng": 112.7790897,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Bersalin"
+   }
+  },
+  {
+   "osm_id": "way/782882757",
+   "lat": -7.9780265,
+   "lng": 112.6246074,
+   "tags": {
+    "addr:full": "Jalan Tangkubanprahu Nomor 33, Jawa Timur",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Hermina Tangkubanprahu",
+    "operator:type": "private",
+    "website": "https://www.herminahospitalgroup.com/tangkubanprahu"
+   }
+  },
+  {
+   "osm_id": "way/782888464",
+   "lat": -7.7890084,
+   "lng": 112.00075,
+   "tags": {
+    "addr:city": "Kota Kediri",
+    "addr:full": "Jalan Gatot Subroto No.84, Mrican, Kecamatan Mojoroto, Kota Kediri, Provinsi Jawa Timur 64112",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Muhammadiyah Ahmad Dahlan",
+    "operator:type": "private",
+    "website": "https://www.rsmadkotakediri.com/"
+   }
+  },
+  {
+   "osm_id": "way/782906280",
+   "lat": -7.9733156,
+   "lng": 112.6321391,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:full": "Jalan Jaksa Agung Suprapto Nomor 2 Malang Provinsi Jawa Timur",
+    "addr:housenumber": "2",
+    "addr:postcode": "65111",
+    "addr:province": "Jawa Timur",
+    "addr:street": "Jalan Jaksa Agung Suprapto",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;psychiatry;paediatrics;intensive;emergency;dentistry;ophthalmology;orthopaedics;dialysis;gynaecology;cardiology;surgery;dermatology;oncology;radiology;orthodontics;vaccination;internal;physiatry;maternity",
+    "name": "RSUD dr. Saiful Anwar",
+    "official_name": "Rumah Sakit Umum Daerah dr. Saiful Anwar Malang",
+    "operator": "Pemerintah Provinsi Jawa Timur",
+    "operator:type": "government",
+    "phone": "+62 341 362101",
+    "website": "https://rsusaifulanwar.jatimprov.go.id/"
+   }
+  },
+  {
+   "osm_id": "way/782991100",
+   "lat": -7.9655134,
+   "lng": 112.6378362,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:full": "Jalan Wage Rudolf Supratman Nomor 10, Rampal Celaket, Klojen, Kota Malang, Jawa Timur 65111",
+    "addr:housenumber": "10",
+    "addr:postcode": "65111",
+    "addr:street": "Jalan Wage Rudolf Supratman",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Rumah Sakit Lavalette",
+    "phone": "+62 341 478584;+62 341 470805",
+    "website": "https://lavalettehospital.com/"
+   }
+  },
+  {
+   "osm_id": "way/783779692",
+   "lat": -7.6266337,
+   "lng": 111.5244934,
+   "tags": {
+    "addr:city": "Madiun",
+    "addr:full": "Jalan Dr. Sutomo No.59, Kartoharjo, Kartoharjo, Kota Madiun, Jawa Timur 63117",
+    "addr:housenumber": "59",
+    "addr:postcode": "63117",
+    "addr:street": "Jalan Dokter Sutomo",
+    "amenity": "hospital",
+    "email": "rsu_soedonomdn@jatimprov.go.id",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Daerah Dr. Soedono Madiun",
+    "operator": "Pemerintah Provinsi Jawa Timur",
+    "operator:type": "government",
+    "phone": "+62 351 464325",
+    "website": "https://rssoedono.jatimprov.go.id/"
+   }
+  },
+  {
+   "osm_id": "way/783791663",
+   "lat": -7.1685799,
+   "lng": 112.6011941,
+   "tags": {
+    "addr:city": "Gresik",
+    "addr:full": "Jalan Dr. Wahidin S.H. No. 243B",
+    "amenity": "hospital",
+    "name": "RSUD Ibnu Sina",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/783792581",
+   "lat": -7.4576348,
+   "lng": 112.7218811,
+   "tags": {
+    "addr:city": "Kabupaten Sidoarjo",
+    "addr:full": "Jalan Raden Patah No.70 - 72, Jasem, Bulusidokare, Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61234",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Islam Siti Hajar",
+    "operator:type": "private",
+    "website": "https://www.rsi-sitihajar-sidoarjo.com/2015/05/jadwal-dokter.html"
+   }
+  },
+  {
+   "osm_id": "way/783794523",
+   "lat": -7.1089196,
+   "lng": 112.4041745,
+   "tags": {
+    "addr:city": "Lamongan",
+    "addr:full": "Jalan Jaksa Agung Suprapto No. 76",
+    "amenity": "hospital",
+    "name": "RS Muhammadiyah Lamongan",
+    "operator:type": "community",
+    "website": "http://www.rsmlamongan.com/"
+   }
+  },
+  {
+   "osm_id": "way/783814303",
+   "lat": -7.3627542,
+   "lng": 112.7286684,
+   "tags": {
+    "addr:city": "Sidoarjo",
+    "addr:housenumber": "8",
+    "addr:postcode": "61256",
+    "addr:street": "Jalan Jenderal S. Parman",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Mitra Keluarga Waru",
+    "website": "https://mitrakeluarga.com/"
+   }
+  },
+  {
+   "osm_id": "way/783920011",
+   "lat": -8.0679481,
+   "lng": 111.8824331,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Prima Medika"
+   }
+  },
+  {
+   "osm_id": "way/783923934",
+   "lat": -8.1163222,
+   "lng": 112.5742156,
+   "tags": {
+    "addr:city": "Malang",
+    "addr:full": "Jalan Panglima Sudirman No.99A, Lemah Duwur, Dilem, Kec. Kepanjen, Malang, Jawa Timur 65163",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;gynaecology;orthopaedics;dialysis;vaccination;paediatrics",
+    "name": "RS Wava Husada",
+    "operator:type": "private"
+   }
+  },
+  {
+   "osm_id": "way/784664351",
+   "lat": -7.251387,
+   "lng": 112.7850088,
+   "tags": {
+    "addr:full": "Jalan Kenjeran Nomer 506",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Mitra Keluarga Kenjeran",
+    "operator:type": "private",
+    "website": "https://mitrakeluarga.com/"
+   }
+  },
+  {
+   "osm_id": "way/784701011",
+   "lat": -7.3449039,
+   "lng": 112.6988798,
+   "tags": {
+    "addr:city": "Kabupaten Sidoarjo",
+    "addr:full": "Jalan Raya Bebekan, RT.02/RW.01, Bebekan, Kecamatan Taman, Kabupaten Sidoarjo, Jawa Timur 61257",
+    "amenity": "hospital",
+    "name": "Rumah Sakit Siti Khodijah Sepanjang",
+    "operator:type": "private",
+    "website": "http://sitikhodijah.com/"
+   }
+  },
+  {
+   "osm_id": "way/787594275",
+   "lat": -8.2086347,
+   "lng": 114.3657975,
+   "tags": {
+    "addr:city": "Banyuwangi",
+    "addr:housenumber": "49",
+    "addr:postcode": "68415",
+    "addr:street": "Jalan Letkol. Istiqlah",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Blambangan",
+    "operator": "Dinas Kesehatan Kabupaten Banyuwangi",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/787655319",
+   "lat": -7.1601314,
+   "lng": 111.8998721,
+   "tags": {
+    "addr:city": "Bojonegoro",
+    "addr:housenumber": "36",
+    "addr:postcode": "62115",
+    "addr:street": "Jalan Veteran",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. R. Sosodoro Djatikoesoemo",
+    "operator": "Dinas Kesehatan Kabupaten Bojonegoro",
+    "operator:type": "government"
+   }
+  },
+  {
+   "osm_id": "way/788425830",
+   "lat": -7.8901832,
+   "lng": 111.4601581,
+   "tags": {
+    "addr:city": "Ponorogo",
+    "addr:postcode": "63419",
+    "addr:street": "Jl. Laksamana Yos Sudarso, Segading, Pakunden, Kec. Ponorogo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dr. Harjono Ponorogo"
+   }
+  },
+  {
+   "osm_id": "way/788437803",
+   "lat": -7.8774807,
+   "lng": 111.4699931,
+   "tags": {
+    "addr:city": "Ponorogo",
+    "addr:housenumber": "155",
+    "addr:postcode": "63419",
+    "addr:street": "Jalan Jenderal Achmad Yani",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Umum Muslimat Ponorogo"
+   }
+  },
+  {
+   "osm_id": "way/820824890",
+   "lat": -7.0286121,
+   "lng": 112.7598603,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Syarifah Ambami Rato Ebu"
+   }
+  },
+  {
+   "osm_id": "way/825869224",
+   "lat": -7.7438111,
+   "lng": 111.5301755,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RSUD Dolopo"
+   }
+  },
+  {
+   "osm_id": "way/851214961",
+   "lat": -7.289125,
+   "lng": 112.2153251,
+   "tags": {
+    "amenity": "hospital",
+    "name": "RSUD Ngimbang"
+   }
+  },
+  {
+   "osm_id": "way/852413957",
+   "lat": -7.281497,
+   "lng": 112.2122695,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Ngimbang"
+   }
+  },
+  {
+   "osm_id": "way/853508316",
+   "lat": -7.2776748,
+   "lng": 112.1342758,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Puskesmas Bluluk"
+   }
+  },
+  {
+   "osm_id": "way/886688590",
+   "lat": -8.3658548,
+   "lng": 114.1635602,
+   "tags": {
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "RSUD Genteng"
+   }
+  },
+  {
+   "osm_id": "way/886953500",
+   "lat": -8.4034129,
+   "lng": 114.163223,
+   "tags": {
+    "alt_name": "RS Graha Medika",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Graha Medika"
+   }
+  },
+  {
+   "osm_id": "way/887377146",
+   "lat": -8.4018466,
+   "lng": 114.1617435,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Yosomulyo"
+   }
+  },
+  {
+   "osm_id": "way/887380885",
+   "lat": -7.1660066,
+   "lng": 112.6422866,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Rumah Sakit Semen Gresik"
+   }
+  },
+  {
+   "osm_id": "way/887528606",
+   "lat": -8.3532893,
+   "lng": 114.1254909,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Pembantu Gentengkulon"
+   }
+  },
+  {
+   "osm_id": "way/891754831",
+   "lat": -7.5097537,
+   "lng": 111.5134684,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "klinik"
+   }
+  },
+  {
+   "osm_id": "way/892956767",
+   "lat": -7.4895185,
+   "lng": 111.5415696,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Puskesmas Pangkur"
+   }
+  },
+  {
+   "osm_id": "way/921951024",
+   "lat": -7.3048568,
+   "lng": 112.7654146,
+   "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "RS Premier Surabaya"
+   }
+  },
+  {
+   "osm_id": "way/932713615",
+   "lat": -7.2140887,
+   "lng": 113.0447747,
+   "tags": {
+    "addr:city": "Sreseh",
+    "addr:street": "Jalan Raya Noreh",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general",
+    "name": "Puskesmas Sreseh",
+    "operator": "Dinas Kesehatan Kabupaten Sampang"
+   }
+  },
+  {
+   "osm_id": "way/934986929",
+   "lat": -7.5283728,
+   "lng": 112.4101305,
+   "tags": {
+    "amenity": "hospital",
+    "name": "Rumah Sakit Dian Husada"
+   }
+  },
+  {
+   "osm_id": "way/985433940",
+   "lat": -7.2919642,
+   "lng": 112.7276698,
+   "tags": {
+    "addr:street": "Jalan Mayor Jenderal Sungkono",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "Mayapada Hospital",
+    "operator": "Mayapada Group",
+    "operator:type": "private"
+   }
+  }
+ ]
+}

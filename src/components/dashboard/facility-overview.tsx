@@ -1,14 +1,19 @@
 "use client";
 
 import { Loader2, RefreshCw } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { CapStatusChip } from "@/components/badges";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
 import { timeAgo } from "@/lib/client/format";
 import type { Facility } from "@/lib/schema/api";
 import { CAPABILITY_CODES } from "@/lib/schema/enums";
+import { regionOf, SERVICE_REGIONS, type RegionId } from "@/lib/regions";
 
-export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
+type RegionFilter = RegionId | "ALL";
+
+export function FacilityOverview({ refreshKey = 0, defaultRegion = "ALL" }: { refreshKey?: number; defaultRegion?: RegionFilter }) {
+  const [region, setRegion] = useState<RegionFilter>(defaultRegion);
+  const [query, setQuery] = useState("");
   const [data, setData] = useState<{ facilities: Facility[]; stale_after_minutes: number; server_time: string } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -36,6 +41,15 @@ export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
     void fetchData();
   }, [fetchData, refreshKey]);
 
+  const rows = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return (data?.facilities ?? []).filter(
+      (f) =>
+        (region === "ALL" || regionOf(f) === region) &&
+        (!q || f.short_name.toLowerCase().includes(q) || f.name.toLowerCase().includes(q)),
+    );
+  }, [data, region, query]);
+
   return (
     <section aria-labelledby="fac-title" className="space-y-3">
       <div className="flex items-center justify-between">
@@ -53,6 +67,30 @@ export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
         </p>
       )}
       {data && (
+        <div className="flex flex-wrap items-center gap-2">
+          <div role="group" aria-label="Filter wilayah" className="flex flex-wrap gap-1.5">
+            {([["ALL", "Semua"], ...SERVICE_REGIONS.map((r) => [r.id, r.label])] as [RegionFilter, string][]).map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                onClick={() => setRegion(id)}
+                aria-pressed={region === id}
+                className={`btn min-h-9 px-3 text-sm ${region === id ? "btn-primary" : "btn-secondary"}`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <label className="flex min-w-[180px] flex-1 items-center gap-2">
+            <span className="sr-only">Cari rumah sakit</span>
+            <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Cari nama RS…" className="field min-h-9 w-full text-sm" />
+          </label>
+          <span className="text-xs text-muted" aria-live="polite">
+            {rows.length} dari {data.facilities.length} RS
+          </span>
+        </div>
+      )}
+      {data && (
         <div className="overflow-x-auto card">
           <table className="min-w-full text-sm">
             <thead className="bg-[#f1f3f6] text-left">
@@ -67,7 +105,7 @@ export function FacilityOverview({ refreshKey = 0 }: { refreshKey?: number }) {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#eef1f5]">
-              {data.facilities.map((f) => (
+              {rows.map((f) => (
                 <tr key={f.id}>
                   <td className="px-3 py-2">
                     <p className="font-semibold">{f.short_name}</p>

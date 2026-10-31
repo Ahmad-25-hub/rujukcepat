@@ -3,13 +3,9 @@
 import { Check, Crosshair, Loader2, MapPin, MousePointerClick } from "lucide-react";
 import { useState } from "react";
 import MapView from "@/components/map-dynamic";
-import { SERVICE_BOUNDS } from "@/lib/schema/api";
+import { inServiceArea, regionOf, SERVICE_AREA_LABEL, SERVICE_REGIONS, type RegionId } from "@/lib/regions";
 
 export type ReporterLocation = { lat: number; lng: number; source: "GPS" | "MANUAL"; accuracy_m: number | null };
-
-function inBounds(p: { lat: number; lng: number }) {
-  return p.lat >= SERVICE_BOUNDS.minLat && p.lat <= SERVICE_BOUNDS.maxLat && p.lng >= SERVICE_BOUNDS.minLng && p.lng <= SERVICE_BOUNDS.maxLng;
-}
 
 const GEO_ERRORS: Record<number, string> = {
   1: "Izin lokasi ditolak. Anda dapat membuka pengaturan izin situs di browser (ikon gembok di bilah alamat) lalu mencoba lagi, atau pilih titik secara manual di peta.",
@@ -21,6 +17,9 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [manual, setManual] = useState(value?.source === "MANUAL");
+  // Wilayah tampilan peta pemilih; bawaan Jawa Timur (lokasi penjurian di sekitar UPNVJT).
+  const [view, setView] = useState<RegionId>(() => (value && regionOf(value)) || "JAWA_TIMUR");
+  const viewRegion = SERVICE_REGIONS.find((r) => r.id === view) ?? SERVICE_REGIONS[0];
 
   function useGps() {
     setError(null);
@@ -34,8 +33,8 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
       (pos) => {
         setBusy(false);
         const p = { lat: pos.coords.latitude, lng: pos.coords.longitude };
-        if (!inBounds(p)) {
-          setError("Lokasi GPS Anda berada di luar wilayah layanan (Jabodetabek). Pilih titik manual di peta Jakarta.");
+        if (!inServiceArea(p)) {
+          setError(`Lokasi GPS Anda berada di luar wilayah layanan (${SERVICE_AREA_LABEL}). Pilih titik manual di peta.`);
           setManual(true);
           return;
         }
@@ -51,8 +50,8 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
   }
 
   function pick(p: { lat: number; lng: number }) {
-    if (!inBounds(p)) {
-      setError("Titik di luar wilayah layanan (Jabodetabek).");
+    if (!inServiceArea(p)) {
+      setError(`Titik di luar wilayah layanan (${SERVICE_AREA_LABEL}).`);
       return;
     }
     setError(null);
@@ -82,7 +81,23 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
 
       {(manual || value) && (
         <div className="space-y-2 px-[18px]">
-          <MapView origin={value} onPick={manual ? pick : undefined} className="h-60 sm:h-72" />
+          {manual && (
+            <div role="group" aria-label="Tampilkan peta wilayah" className="flex flex-wrap items-center gap-1.5">
+              <span className="text-[13px] font-semibold text-muted">Peta:</span>
+              {SERVICE_REGIONS.map((r) => (
+                <button
+                  key={r.id}
+                  type="button"
+                  onClick={() => setView(r.id)}
+                  aria-pressed={view === r.id}
+                  className={`btn min-h-9 px-3 text-sm ${view === r.id ? "btn-primary" : "btn-secondary"}`}
+                >
+                  {r.viewLabel}
+                </button>
+              ))}
+            </div>
+          )}
+          <MapView origin={value} onPick={manual ? pick : undefined} fitTo={manual ? viewRegion.view : undefined} className="h-60 sm:h-72" />
           {manual && (
             <p className="text-[13px] leading-normal text-muted">
               Ketuk peta untuk menandai lokasi pasien. Lokasi manual mungkin kurang tepat sehingga ETA juga perkiraan.
@@ -103,9 +118,21 @@ export function LocationStep({ value, onChange }: { value: ReporterLocation | nu
           </button>
         </div>
         {manual && (
-          <button type="button" className="btn btn-ghost self-start px-2 text-sm font-semibold text-accent underline" onClick={() => pick({ lat: -6.1767, lng: 106.8416 })}>
-            Gunakan titik contoh (Senen, Jakarta Pusat)
-          </button>
+          <div className="flex flex-wrap gap-x-3">
+            {[...SERVICE_REGIONS].reverse().map((r) => (
+              <button
+                key={r.id}
+                type="button"
+                className="btn btn-ghost px-2 text-sm font-semibold text-accent underline"
+                onClick={() => {
+                  setView(r.id);
+                  pick(r.sample);
+                }}
+              >
+                Titik contoh: {r.sample.label}
+              </button>
+            ))}
+          </div>
         )}
         {error && (
           <p role="alert" className="notice notice-error">

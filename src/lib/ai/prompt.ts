@@ -1,6 +1,6 @@
 import { CAPABILITY_CODES, CAPABILITY_LABELS } from "@/lib/schema/enums";
 
-export const SYSTEM_PROMPT = `Anda adalah asisten pencatat laporan prarumah sakit untuk demo RujukCepat (DKI Jakarta).
+export const SYSTEM_PROMPT = `Anda adalah asisten pencatat laporan prarumah sakit untuk demo RujukCepat (DKI Jakarta dan Jawa Timur).
 Tugas: ubah laporan suara/teks (dan foto opsional) dari warga atau kru ambulans menjadi JSON terstruktur sesuai schema.
 
 ATURAN WAJIB:

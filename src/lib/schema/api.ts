@@ -1,20 +1,12 @@
 import { z } from "zod";
 import { CAPABILITY_CODES, CAPABILITY_STATUS } from "./enums";
 import { NeedSchema } from "./ai";
+import { inServiceArea, SERVICE_AREA_LABEL } from "@/lib/regions";
 
-// Batas wilayah Jabodetabek untuk validasi koordinat pelapor.
-export const SERVICE_BOUNDS = { minLat: -6.8, maxLat: -5.9, minLng: 106.3, maxLng: 107.3 };
-
+// Koordinat pelapor harus berada di wilayah layanan (DKI Jakarta & sekitarnya, Jawa Timur).
 export const LatLngSchema = z
   .object({ lat: z.number(), lng: z.number() })
-  .refine(
-    (p) =>
-      p.lat >= SERVICE_BOUNDS.minLat &&
-      p.lat <= SERVICE_BOUNDS.maxLat &&
-      p.lng >= SERVICE_BOUNDS.minLng &&
-      p.lng <= SERVICE_BOUNDS.maxLng,
-    { message: "Lokasi di luar wilayah layanan (Jabodetabek)." },
-  );
+  .refine(inServiceArea, { message: `Lokasi di luar wilayah layanan (${SERVICE_AREA_LABEL}).` });
 export type LatLng = z.infer<typeof LatLngSchema>;
 
 export const MatchRequestSchema = z.object({
@@ -47,6 +39,9 @@ export const FacilitySchema = z.object({
   capacity_updated_at: z.string(),
   is_simulated: z.boolean(),
   capabilities: z.array(FacilityCapabilitySchema),
+  // Kontak publik dari OpenStreetMap (bila tercantum).
+  phone: z.string().nullish(),
+  website: z.string().nullish(),
 });
 export type Facility = z.infer<typeof FacilitySchema>;
 

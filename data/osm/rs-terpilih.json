@@ -1,0 +1,2545 @@
+{
+ "dibuat": "2026-10-31T18:53:19.918Z",
+ "aturan": "Lihat komentar scripts/build-hospital-seed.ts",
+ "ringkasan": [
+  "JAKARTA: 292 kandidat RS, 4 duplikat dibuang, 90 baru dipilih (kuota 90)",
+  "JAWA_TIMUR: 267 kandidat RS, 2 duplikat dibuang, 100 baru dipilih (kuota 100)"
+ ],
+ "rumah_sakit": [
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/120184483",
+   "nama": "Rumah Sakit Harum Sisma Medika",
+   "singkatan": "RS Harum Sisma Medika",
+   "skor_kelengkapan": 20,
+   "jenis": "UMUM",
+   "telepon": "+62218617212",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/514074371",
+   "nama": "Rumah Sakit Port Medical Center",
+   "singkatan": "RS Port Medical Center",
+   "skor_kelengkapan": 14,
+   "jenis": "UMUM",
+   "telepon": "+62 21 43902350",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/176770279",
+   "nama": "Rumah Sakit Mayapada Kuningan",
+   "singkatan": "RS Mayapada Kuningan",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/334982120",
+   "nama": "Rumah Sakit Umum & Pekerja",
+   "singkatan": "RSU & Pekerja",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 21 2948 4848",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/485813873",
+   "nama": "Rumah Sakit YPK Mandiri",
+   "singkatan": "RS YPK Mandiri",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/509360288",
+   "nama": "RSIA Bunda Aliyah",
+   "singkatan": "RSIA Bunda Aliyah",
+   "skor_kelengkapan": 13,
+   "jenis": "IBU_ANAK",
+   "telepon": "+62 21 86602525",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/514464730",
+   "nama": "RSUD Kebayoran Baru",
+   "singkatan": "RSUD Kebayoran Baru",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 21 2277 4429",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/525515460",
+   "nama": "Rumah Sakit Atma Jaya",
+   "singkatan": "RS Atma Jaya",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 21 6606 127",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/526081060",
+   "nama": "Rumah Sakit Firdaus",
+   "singkatan": "RS Firdaus",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 21 440011",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/783767234",
+   "nama": "RSIA Bunda Jakarta",
+   "singkatan": "RSIA Bunda Jakarta",
+   "skor_kelengkapan": 13,
+   "jenis": "IBU_ANAK",
+   "telepon": "+62 1 500 799",
+   "tempat_tidur_osm": 100,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "relation/17478768",
+   "nama": "Rumah Sakit Medistra",
+   "singkatan": "RS Medistra",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": "+62215210200",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/488197083",
+   "nama": "Rumah Sakit Tebet",
+   "singkatan": "RS Tebet",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": "+6287872016439",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/496038039",
+   "nama": "RSAB Harapan Kita",
+   "singkatan": "RSAB Harapan Kita",
+   "skor_kelengkapan": 12,
+   "jenis": "IBU_ANAK",
+   "telepon": "+62 21 5684093",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/1084151423",
+   "nama": "RSIA Brawijaya Saharjo",
+   "singkatan": "RSIA Brawijaya Saharjo",
+   "skor_kelengkapan": 11,
+   "jenis": "IBU_ANAK",
+   "telepon": "+62 150160",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/119503317",
+   "nama": "RS Sukmul Sisma Medika",
+   "singkatan": "RS Sukmul Sisma Medika",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/483648323",
+   "nama": "Rumah Sakit Umum Daerah Budi Asih",
+   "singkatan": "RSUD Budi Asih",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 58,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/506663668",
+   "nama": "RS Islam Jakarta Pondok Kopi",
+   "singkatan": "RS Islam Jakarta Pondok Kopi",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": "+62 21 29809000",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/513191029",
+   "nama": "RS Grha Kedoya",
+   "singkatan": "RS Grha Kedoya",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/514677663",
+   "nama": "RS Puri Medika",
+   "singkatan": "RS Puri Medika",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/514677664",
+   "nama": "RSIA Santo Yusuf",
+   "singkatan": "RSIA Santo Yusuf",
+   "skor_kelengkapan": 10,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/518174000",
+   "nama": "RSUD Kecamatan Tanjung Priok",
+   "singkatan": "RSUD Kecamatan Tanjung Priok",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/525766019",
+   "nama": "Rumah Sakit Duta Indah",
+   "singkatan": "RS Duta Indah",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/526701941",
+   "nama": "Rumah Sakit Hermina Podomoro",
+   "singkatan": "RS Hermina Podomoro",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/526701955",
+   "nama": "Rumah Sakit Royal Progress",
+   "singkatan": "RS Royal Progress",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/121129268",
+   "nama": "Rumah Sakit MMC",
+   "singkatan": "RS MMC",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": "+62 21 5203 435",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/124163125",
+   "nama": "Rumah Sakit Jakarta",
+   "singkatan": "RS Jakarta",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155097709",
+   "nama": "Rumah Sakit Radjak Salemba",
+   "singkatan": "RS Radjak Salemba",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": "+62213904422",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155947535",
+   "nama": "Rumah Sakit Omni",
+   "singkatan": "RS Omni",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 180,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/502025435",
+   "nama": "RSUD Jati Padang",
+   "singkatan": "RSUD Jati Padang",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": "+622122784447",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/518489595",
+   "nama": "Rumah Sakit Mulyasari",
+   "singkatan": "RS Mulyasari",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/524575649",
+   "nama": "Rumah Sakit Umum Pademangan",
+   "singkatan": "RSU Pademangan",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/526051882",
+   "nama": "Rumah Sakit Islam Jakarta",
+   "singkatan": "RS Islam Jakarta (Tipar Cakung)",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/784967771",
+   "nama": "RS Mitra Kemayoran",
+   "singkatan": "RS Mitra Kemayoran",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "node/13724618901",
+   "nama": "Lamina Hospital",
+   "singkatan": "Lamina Hospital",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/122152269",
+   "nama": "RS Murni Teguh Sudirman Jakarta",
+   "singkatan": "RS Murni Teguh Sudirman Jakarta",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 50,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155097743",
+   "nama": "Rumah Sakit Umum Kecamatan Sawah Besar",
+   "singkatan": "RSU Kecamatan Sawah Besar",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155947536",
+   "nama": "Rumah Sakit Kartika Pulo Mas",
+   "singkatan": "RS Kartika Pulo Mas",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 35,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/156909663",
+   "nama": "Rumah Sakit Umum Ibnu Sina",
+   "singkatan": "RSU Ibnu Sina",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 12,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/156917856",
+   "nama": "Rumah Sakit Umum Taman Sari",
+   "singkatan": "RSU Taman Sari",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 62,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/156928888",
+   "nama": "Rumah Sakit Pelni Petamburan",
+   "singkatan": "RS Pelni Petamburan",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/157211723",
+   "nama": "Rumah Sakit Ibu dan Anak Resti Mulya",
+   "singkatan": "RSIA Resti Mulya",
+   "skor_kelengkapan": 8,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": 20,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/218838822",
+   "nama": "Rumah Sakit Tria Dipa",
+   "singkatan": "RS Tria Dipa",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": "+62217993058",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/485813973",
+   "nama": "Rumah Sakit Abdi Waluyo",
+   "singkatan": "RS Abdi Waluyo",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/490060230",
+   "nama": "Rumah Sakit Jakarta Medical Center",
+   "singkatan": "RS Jakarta Medical Center",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/492989001",
+   "nama": "Rumah Sakit Islam Jakarta",
+   "singkatan": "RS Islam Jakarta (Cempaka Putih Tengah I)",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/511269098",
+   "nama": "Rumah Sakit Duren Sawit",
+   "singkatan": "RS Duren Sawit",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/517146116",
+   "nama": "Rumah Sakit Antam Medika",
+   "singkatan": "RS Antam Medika",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/518483232",
+   "nama": "Rumah Sakit Sumber Waras",
+   "singkatan": "RS Sumber Waras",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/527999398",
+   "nama": "RSIA Brawijaya",
+   "singkatan": "RSIA Brawijaya",
+   "skor_kelengkapan": 8,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/784978246",
+   "nama": "Rumah Sakit Columbia Asia",
+   "singkatan": "RS Columbia Asia",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 52,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "relation/7409174",
+   "nama": "Rumah Sakit Bhayangkara TK. IR. Said Sukanto",
+   "singkatan": "RS Bhayangkara TK. IR. Said Sukanto",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "relation/7409284",
+   "nama": "Rumah Sakit DIK Pusdikkes TNI AD",
+   "singkatan": "RS DIK Pusdikkes TNI AD",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/121802687",
+   "nama": "Rumah Sakit Ibu dan Anak Asta Nugraha",
+   "singkatan": "RSIA Asta Nugraha",
+   "skor_kelengkapan": 7,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": 15,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/1473760265",
+   "nama": "Primaya Hospital Kelapa Gading",
+   "singkatan": "Primaya Hospital Kelapa Gading",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": "+62 1 500 007",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/153303478",
+   "nama": "RSUD Pasar Rebo",
+   "singkatan": "RSUD Pasar Rebo",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155115832",
+   "nama": "Rumah Sakit Dr Mintohardjo",
+   "singkatan": "RS Dr Mintohardjo",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155931564",
+   "nama": "RS Premier Jatinegara",
+   "singkatan": "RS Premier Jatinegara",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/507486834",
+   "nama": "Ciputra Hospital",
+   "singkatan": "Ciputra Hospital",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/510416128",
+   "nama": "Rumah Sakit Husada",
+   "singkatan": "RS Husada",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/782976876",
+   "nama": "RSIA Restu Kasih",
+   "singkatan": "RSIA Restu Kasih",
+   "skor_kelengkapan": 7,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "node/6249775451",
+   "nama": "RSIA Tambak",
+   "singkatan": "RSIA Tambak",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": "+62212303444",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "relation/12613976",
+   "nama": "Rumah Sakit Pertamina Jaya (RSPJ)",
+   "singkatan": "RS Pertamina Jaya (RSPJ)",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/121195900",
+   "nama": "Rumah Sakit Umum UKI",
+   "singkatan": "RSU UKI",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/154830418",
+   "nama": "Rumah Sakit Pluit",
+   "singkatan": "RS Pluit",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/154835529",
+   "nama": "RS Gading Pluit",
+   "singkatan": "RS Gading Pluit",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155109641",
+   "nama": "Primaya Evasari Hospital",
+   "singkatan": "Primaya Evasari Hospital",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155110654",
+   "nama": "Rumah Sakit Umum Kecamatan Cempaka Putih",
+   "singkatan": "RSU Kecamatan Cempaka Putih",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/155936712",
+   "nama": "Rumah Sakit Umum Adhyaksa",
+   "singkatan": "RSU Adhyaksa",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/156919180",
+   "nama": "RS Patria IKKT",
+   "singkatan": "RS Patria IKKT",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/156919546",
+   "nama": "Rumah Sakit Ibu dan Anak Aries",
+   "singkatan": "RSIA Aries",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/156928913",
+   "nama": "RS Bhakti Mulia",
+   "singkatan": "RS Bhakti Mulia",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/157204608",
+   "nama": "Rumah Sakit Bersalin Dokter Sanusi",
+   "singkatan": "RS Bersalin Dokter Sanusi",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": 10,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/157344203",
+   "nama": "RSUD Mampang Prapatan",
+   "singkatan": "RSUD Mampang Prapatan",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/157357100",
+   "nama": "RSUD Kebayoran Lama",
+   "singkatan": "RSUD Kebayoran Lama",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/157358477",
+   "nama": "Rumah Sakit Khusus Bedah Halimun",
+   "singkatan": "RS Khusus Bedah Halimun",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/157362678",
+   "nama": "Rumah Sakit Umum Kecamatan Tebet",
+   "singkatan": "RSU Kecamatan Tebet",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/174132866",
+   "nama": "Rumah Sakit Rawamangun",
+   "singkatan": "RS Rawamangun",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/249665587",
+   "nama": "Rumah Sakit Cinta Kasih Tzu Chi",
+   "singkatan": "RS Cinta Kasih Tzu Chi",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/315412833",
+   "nama": "RSU Kecamatan Cilincing",
+   "singkatan": "RSU Kecamatan Cilincing",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/454014924",
+   "nama": "RS Jantung Jakarta",
+   "singkatan": "RS Jantung Jakarta",
+   "skor_kelengkapan": 6,
+   "jenis": "JANTUNG",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "CATH_LAB (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/482154808",
+   "nama": "RS Hermina Jatinegara",
+   "singkatan": "RS Hermina Jatinegara",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/485074669",
+   "nama": "Rumah Sakit Siloam",
+   "singkatan": "RS Siloam",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/485298952",
+   "nama": "Rumah Sakit Ibu Dan Anak Brawijaya Duren Tiga",
+   "singkatan": "RSIA Brawijaya Duren Tiga",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/485827839",
+   "nama": "RSUD Johar Baru",
+   "singkatan": "RSUD Johar Baru",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/485992308",
+   "nama": "Rumah Sakit Menteng Mitra Afia",
+   "singkatan": "RS Menteng Mitra Afia",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/487295990",
+   "nama": "Rumah Sakit Ibu dan Anak Budhi Jaya",
+   "singkatan": "RSIA Budhi Jaya",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/488404220",
+   "nama": "Rumah Sakit PGI CIKINI",
+   "singkatan": "RS PGI CIKINI",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/488434301",
+   "nama": "Rumah Sakit Bersalin Elshama",
+   "singkatan": "RS Bersalin Elshama",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/488436069",
+   "nama": "Rumah Sakit Umum Pengayoman",
+   "singkatan": "RSU Pengayoman",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAKARTA",
+   "osm_id": "way/488480763",
+   "nama": "Rumah Sakit Harapan Jayakarta",
+   "singkatan": "RS Harapan Jayakarta",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/782906280",
+   "nama": "RSUD dr. Saiful Anwar",
+   "singkatan": "RSUD dr. Saiful Anwar",
+   "skor_kelengkapan": 18,
+   "jenis": "UMUM",
+   "telepon": "+62 341 362101",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)",
+    "HEMODIALISA (OSM_SPESIALISASI)",
+    "CATH_LAB (OSM_SPESIALISASI)",
+    "CT_SCAN (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/782991100",
+   "nama": "Rumah Sakit Lavalette",
+   "singkatan": "RS Lavalette",
+   "skor_kelengkapan": 16,
+   "jenis": "UMUM",
+   "telepon": "+62 341 478584",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "relation/19907673",
+   "nama": "RS Islam Aisyiah",
+   "singkatan": "RS Islam Aisyiah",
+   "skor_kelengkapan": 15,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/388812246",
+   "nama": "RS Panti Waluya Sawahan",
+   "singkatan": "RS Panti Waluya Sawahan",
+   "skor_kelengkapan": 15,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/461269463",
+   "nama": "Rumah Sakit Royal Surabaya",
+   "singkatan": "RS Royal Surabaya",
+   "skor_kelengkapan": 15,
+   "jenis": "UMUM",
+   "telepon": "+62 31 8476111",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1265243159",
+   "nama": "RSUD Umar Mas'ud Bawean",
+   "singkatan": "RSUD Umar Mas'ud Bawean",
+   "skor_kelengkapan": 14,
+   "jenis": "UMUM",
+   "telepon": "+6281336139526",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1421526762",
+   "nama": "RS Universitas Brawijaya",
+   "singkatan": "RS Universitas Brawijaya",
+   "skor_kelengkapan": 14,
+   "jenis": "UMUM",
+   "telepon": "+62 341 403 000",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1465016885",
+   "nama": "RS Permata Bunda",
+   "singkatan": "RS Permata Bunda",
+   "skor_kelengkapan": 14,
+   "jenis": "UMUM",
+   "telepon": "+62 34-1407462",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/249861270",
+   "nama": "Rumah Sakit Umum Daerah Raden Tumenggung Notopuro",
+   "singkatan": "RSUD Raden Tumenggung Notopuro",
+   "skor_kelengkapan": 14,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/783779692",
+   "nama": "Rumah Sakit Umum Daerah Dr. Soedono Madiun",
+   "singkatan": "RSUD Dr. Soedono Madiun",
+   "skor_kelengkapan": 14,
+   "jenis": "UMUM",
+   "telepon": "+62 351 464325",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/2321364839",
+   "nama": "RS. Umum Daerah Dr. Soeroto",
+   "singkatan": "RS Umum Daerah Dr. Soeroto",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)",
+    "CT_SCAN (OSM_SPESIALISASI)",
+    "ICU_VENTILATOR (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/194433170",
+   "nama": "RSUD Haji Provinsi Jawa Timur",
+   "singkatan": "RSUD Haji Provinsi Jawa Timur",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 31-5924000",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/304620874",
+   "nama": "RSUD Jombang",
+   "singkatan": "RSUD Jombang",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 321 863502",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/446537097",
+   "nama": "National Hospital",
+   "singkatan": "National Hospital",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62312975777",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/449624602",
+   "nama": "Rumah Sakit Spesialis Husada Utama",
+   "singkatan": "RS Spesialis Husada Utama",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 31-5017975",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/450513383",
+   "nama": "Siloam Hospitals",
+   "singkatan": "Siloam Hospitals",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 31-5031333",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/451670191",
+   "nama": "Rumah Sakit Mitra Keluarga",
+   "singkatan": "RS Mitra Keluarga",
+   "skor_kelengkapan": 13,
+   "jenis": "UMUM",
+   "telepon": "+62 31-7345333",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/4704620391",
+   "nama": "RS. Ibnu Sina Bojonegoro",
+   "singkatan": "RS Ibnu Sina Bojonegoro",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": "+62 353 883238",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)",
+    "PONEK_NICU (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/158405004",
+   "nama": "RSUD Dr. Iskak Tulungagung",
+   "singkatan": "RSUD Dr. Iskak Tulungagung",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": "+62 355 322609",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/392583090",
+   "nama": "RS Tentara Dr. Soepraoen",
+   "singkatan": "RS Tentara Dr. Soepraoen",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/446524876",
+   "nama": "Rumah Sakit Angkatan Laut Dr. Ramelan",
+   "singkatan": "RS Angkatan Laut Dr. Ramelan",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": "+62 31-8438153",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/467861431",
+   "nama": "Waron Hospital",
+   "singkatan": "Waron Hospital",
+   "skor_kelengkapan": 12,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)",
+    "PONEK_NICU (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1361614541",
+   "nama": "RSIA Husada Bunda",
+   "singkatan": "RSIA Husada Bunda",
+   "skor_kelengkapan": 11,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1463869790",
+   "nama": "RS Islam Unisma",
+   "singkatan": "RS Islam Unisma",
+   "skor_kelengkapan": 11,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/162640488",
+   "nama": "RS Al-Huda Genteng",
+   "singkatan": "RS Al-Huda Genteng",
+   "skor_kelengkapan": 11,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/257897278",
+   "nama": "Rumah Sakit Universitas Airlangga",
+   "singkatan": "RS Universitas Airlangga",
+   "skor_kelengkapan": 11,
+   "jenis": "UMUM",
+   "telepon": "+62315916290",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/282207716",
+   "nama": "Rumah Sakit Umum Daerah Kabupaten Kediri",
+   "singkatan": "RSUD Kabupaten Kediri",
+   "skor_kelengkapan": 11,
+   "jenis": "UMUM",
+   "telepon": "+62 354 391718",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/365353774",
+   "nama": "RS Paru Jember",
+   "singkatan": "RS Paru Jember",
+   "skor_kelengkapan": 11,
+   "jenis": "UMUM",
+   "telepon": "+62331487255",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/449621808",
+   "nama": "Rumah Sakit Adi Husada Undaan Wetan",
+   "singkatan": "RS Adi Husada Undaan Wetan",
+   "skor_kelengkapan": 11,
+   "jenis": "UMUM",
+   "telepon": "+62 31-5318000",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/6009242511",
+   "nama": "Rumah sakit Muhammadiyah",
+   "singkatan": "RS Muhammadiyah",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/9307757682",
+   "nama": "RSI Masyitoh",
+   "singkatan": "RSI Masyitoh",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "relation/20068787",
+   "nama": "RSUD Karsa Husada",
+   "singkatan": "RSUD Karsa Husada",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1463510809",
+   "nama": "Persada Hospital",
+   "singkatan": "Persada Hospital",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/320182744",
+   "nama": "Rumah Sakit Khusus Infeksi",
+   "singkatan": "RS Khusus Infeksi",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": "+62 31 5961389",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/787594275",
+   "nama": "RSUD Blambangan",
+   "singkatan": "RSUD Blambangan",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/787655319",
+   "nama": "RSUD Dr. R. Sosodoro Djatikoesoemo",
+   "singkatan": "RSUD Dr. R. Sosodoro Djatikoesoemo",
+   "skor_kelengkapan": 10,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/10083847367",
+   "nama": "RS. Bhayangkara Pusdik",
+   "singkatan": "RS Bhayangkara Pusdik",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/3763768485",
+   "nama": "RSUD Kerrtosono",
+   "singkatan": "RSUD Kerrtosono",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1466376699",
+   "nama": "RSIA Mutiara Bunda",
+   "singkatan": "RSIA Mutiara Bunda",
+   "skor_kelengkapan": 9,
+   "jenis": "IBU_ANAK",
+   "telepon": "+62 341 400403",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/355649079",
+   "nama": "RS Nahdlatul Ulama",
+   "singkatan": "RS Nahdlatul Ulama",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/424126805",
+   "nama": "RS Ibu dan Anak Galeri Chandra",
+   "singkatan": "RSIA Galeri Chandra",
+   "skor_kelengkapan": 9,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/457123400",
+   "nama": "Rumah Sakit UPT Vertikal Surabaya",
+   "singkatan": "RS UPT Vertikal Surabaya",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/465330021",
+   "nama": "Rumah Sakit Bhayangkara HS Samsoeri Mertojoso",
+   "singkatan": "RS Bhayangkara HS Samsoeri Mertojoso",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/783923934",
+   "nama": "RS Wava Husada",
+   "singkatan": "RS Wava Husada",
+   "skor_kelengkapan": 9,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "PONEK_NICU (OSM_SPESIALISASI)",
+    "TRAUMA_BEDAH (OSM_SPESIALISASI)",
+    "HEMODIALISA (OSM_SPESIALISASI)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1431158719",
+   "nama": "RSUD Gambiran",
+   "singkatan": "RSUD Gambiran",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1465379652",
+   "nama": "RSIA Mardi Waloeja",
+   "singkatan": "RSIA Mardi Waloeja",
+   "skor_kelengkapan": 8,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/239266911",
+   "nama": "RS Elizabeth",
+   "singkatan": "RS Elizabeth",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 50,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/280299555",
+   "nama": "Rumah Sakit Darmo",
+   "singkatan": "RS Darmo",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/450927051",
+   "nama": "RSUD Dr.M.Soewandhie",
+   "singkatan": "RSUD Dr.M.Soewandhie",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/462704784",
+   "nama": "Rumah Sakit Islam Surabaya",
+   "singkatan": "RS Islam Surabaya",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/464566820",
+   "nama": "RSUD Dr. Soetomo",
+   "singkatan": "RSUD Dr. Soetomo",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/719922422",
+   "nama": "RS Baptis Batu",
+   "singkatan": "RS Baptis Batu",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/782888464",
+   "nama": "Rumah Sakit Muhammadiyah Ahmad Dahlan",
+   "singkatan": "RS Muhammadiyah Ahmad Dahlan",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/783792581",
+   "nama": "Rumah Sakit Islam Siti Hajar",
+   "singkatan": "RS Islam Siti Hajar",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/783814303",
+   "nama": "Rumah Sakit Mitra Keluarga Waru",
+   "singkatan": "RS Mitra Keluarga Waru",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/985433940",
+   "nama": "Mayapada Hospital",
+   "singkatan": "Mayapada Hospital",
+   "skor_kelengkapan": 8,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1308943401",
+   "nama": "RS Medika Utama",
+   "singkatan": "RS Medika Utama",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1359834565",
+   "nama": "RS Mitra Sehat",
+   "singkatan": "RS Mitra Sehat",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/185053556",
+   "nama": "RSIA Pusura",
+   "singkatan": "RSIA Pusura",
+   "skor_kelengkapan": 7,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/325854082",
+   "nama": "Rumah Sakit Dr. Soedomo",
+   "singkatan": "RS Dr. Soedomo",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 300,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/448114210",
+   "nama": "RS Manyar Medical Centre",
+   "singkatan": "RS Manyar Medical Centre",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/451857624",
+   "nama": "RS Kodam Brawijaya",
+   "singkatan": "RS Kodam Brawijaya",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/462702755",
+   "nama": "Rumah Sakit Muji Rahayu",
+   "singkatan": "RS Muji Rahayu",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/463561564",
+   "nama": "RSIA Lombok Dua Dua Surabaya",
+   "singkatan": "RSIA Lombok Dua Dua Surabaya",
+   "skor_kelengkapan": 7,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/464630285",
+   "nama": "Rumah Sakit William Booth Surabaya",
+   "singkatan": "RS William Booth Surabaya",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/470106207",
+   "nama": "Rumah Sakit Islam Jemursari Surabaya",
+   "singkatan": "RS Islam Jemursari Surabaya",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/474211528",
+   "nama": "Rumah Sakit Yasyfin Darussalam Gontor",
+   "singkatan": "RS Yasyfin Darussalam Gontor",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": "+62 35-23591202",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/782882757",
+   "nama": "RS Hermina Tangkubanprahu",
+   "singkatan": "RS Hermina Tangkubanprahu",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/783794523",
+   "nama": "RS Muhammadiyah Lamongan",
+   "singkatan": "RS Muhammadiyah Lamongan",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/784701011",
+   "nama": "Rumah Sakit Siti Khodijah Sepanjang",
+   "singkatan": "RS Siti Khodijah Sepanjang",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/886688590",
+   "nama": "RSUD Genteng",
+   "singkatan": "RSUD Genteng",
+   "skor_kelengkapan": 7,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "relation/17796915",
+   "nama": "RSUD Dr. R. Koesma Tuban",
+   "singkatan": "RSUD Dr. R. Koesma Tuban",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "relation/18681976",
+   "nama": "RS Medika Mulia",
+   "singkatan": "RS Medika Mulia",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/121862400",
+   "nama": "Rumah Sakit Onkologi",
+   "singkatan": "RS Onkologi",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1463070224",
+   "nama": "RS Marsudi Waluyo",
+   "singkatan": "RS Marsudi Waluyo",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1463412159",
+   "nama": "RSIA Muhammadiyah",
+   "singkatan": "RSIA Muhammadiyah",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1464094923",
+   "nama": "RSIA Puri Bunda",
+   "singkatan": "RSIA Puri Bunda",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1568134686",
+   "nama": "Rumah Sakit Umum Daerah Bangil",
+   "singkatan": "RSUD Bangil",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/325854081",
+   "nama": "RS Budi Asih",
+   "singkatan": "RS Budi Asih",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": 60,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/448112158",
+   "nama": "RS Ibu dan Anak Putri",
+   "singkatan": "RSIA Putri",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/449903849",
+   "nama": "Rumah Sakit Pura Raharja",
+   "singkatan": "RS Pura Raharja",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/450772004",
+   "nama": "RSIA Kendangsari Merr",
+   "singkatan": "RSIA Kendangsari Merr",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/458639570",
+   "nama": "RSIA Kendangsari",
+   "singkatan": "RSIA Kendangsari",
+   "skor_kelengkapan": 6,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/487811799",
+   "nama": "Rumah Sakit Islam Lumajang",
+   "singkatan": "RS Islam Lumajang",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/546362807",
+   "nama": "Rumah Sakit Panti Nirmala",
+   "singkatan": "RS Panti Nirmala",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/784664351",
+   "nama": "Rumah Sakit Mitra Keluarga Kenjeran",
+   "singkatan": "RS Mitra Keluarga Kenjeran",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/788425830",
+   "nama": "RSUD Dr. Harjono Ponorogo",
+   "singkatan": "RSUD Dr. Harjono Ponorogo",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/788437803",
+   "nama": "Rumah Sakit Umum Muslimat Ponorogo",
+   "singkatan": "RSU Muslimat Ponorogo",
+   "skor_kelengkapan": 6,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/12037920569",
+   "nama": "Rumah Sakit Umum Jasem",
+   "singkatan": "RSU Jasem",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": "+62 31 8962129",
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/1376961352",
+   "nama": "Rumah Sakit Anak Bersalin Muslimat",
+   "singkatan": "RS Anak Bersalin Muslimat",
+   "skor_kelengkapan": 5,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/13824545101",
+   "nama": "Rumah Sakit Usada",
+   "singkatan": "RS Usada",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "node/9601981870",
+   "nama": "Rumah Sakit Ibu dan Anak Amanah Probolinggo",
+   "singkatan": "RSIA Amanah Probolinggo",
+   "skor_kelengkapan": 5,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1231912486",
+   "nama": "Rumah Sakit Ibu dan Anak Nirmala",
+   "singkatan": "RSIA Nirmala",
+   "skor_kelengkapan": 5,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/1464395419",
+   "nama": "RSIA Permata Hati",
+   "singkatan": "RSIA Permata Hati",
+   "skor_kelengkapan": 5,
+   "jenis": "IBU_ANAK",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "PONEK_NICU (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/376494209",
+   "nama": "Rumah Sakit Katolik St. Vincentius A Paulo (RKZ)",
+   "singkatan": "RS Katolik St. Vincentius A Paulo (RKZ)",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/447610406",
+   "nama": "Rumah Sakit Adi Husada Kapasan",
+   "singkatan": "RS Adi Husada Kapasan",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/447615916",
+   "nama": "Rumah Sakit Surabaya Medical Center",
+   "singkatan": "RS Surabaya Medical Center",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/450968413",
+   "nama": "Rumah Sakit Gotong Royong",
+   "singkatan": "RS Gotong Royong",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (OSM_EMERGENCY)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/453637971",
+   "nama": "RS Orthopedi & Traumatologi",
+   "singkatan": "RS Orthopedi & Traumatologi",
+   "skor_kelengkapan": 5,
+   "jenis": "ORTOPEDI",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)",
+    "TRAUMA_BEDAH (JENIS_RS_DARI_NAMA)"
+   ]
+  },
+  {
+   "wilayah": "JAWA_TIMUR",
+   "osm_id": "way/454129371",
+   "nama": "Rumah Sakit Marien",
+   "singkatan": "RS Marien",
+   "skor_kelengkapan": 5,
+   "jenis": "UMUM",
+   "telepon": null,
+   "tempat_tidur_osm": null,
+   "kapabilitas": [
+    "IGD_DASAR (BAWAAN_IMPOR)"
+   ]
+  }
+ ]
+}

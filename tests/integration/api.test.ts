@@ -136,8 +136,10 @@ describe("akses petugas", () => {
 describe("kuota diatur manual oleh rumah sakit", () => {
   it("pencarian rekomendasi berulang tidak mengurangi kuota", async () => {
     const before = await slots(TARAKAN);
+    // Titik di depan RSUD Tarakan agar Tarakan termasuk kandidat yang dirutekan.
+    const nearTarakan = { ...matchBody, location: { lat: -6.1716, lng: 106.8103 } };
     for (let i = 0; i < 3; i++) {
-      const r = await call(routes.match.POST, "POST", { body: matchBody });
+      const r = await call(routes.match.POST, "POST", { body: nearTarakan });
       expect(r.status).toBe(200);
       const ids = [r.json.data.primary, ...r.json.data.alternatives].filter(Boolean).map((c: { facility_id: string }) => c.facility_id);
       expect(ids).toContain(TARAKAN);

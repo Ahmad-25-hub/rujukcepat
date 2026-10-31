@@ -40,7 +40,7 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={submit} className="space-y-4 card p-6" aria-labelledby="login-title">
+    <form onSubmit={submit} className="space-y-4 rounded-[26px] border border-white/10 bg-white p-6 shadow-[0_40px_90px_-40px_rgba(0,0,0,.9)] sm:p-7" aria-labelledby="login-title">
       <h1 id="login-title" className="text-2xl font-extrabold">
         Masuk petugas IGD
       </h1>

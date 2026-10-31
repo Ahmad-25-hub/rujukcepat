@@ -130,7 +130,7 @@ export function ReportWizard() {
 
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-line bg-white/80 shadow-[0_10px_30px_-24px_rgba(11,19,36,.45)] backdrop-blur-xl backdrop-saturate-150">
         <div className={`mx-auto flex flex-col gap-2 px-3 pb-2.5 pt-2 ${step === "destination" ? "max-w-6xl" : "max-w-2xl"}`}>
           <div className="flex items-center gap-2">
             {back === "home" ? (
@@ -158,7 +158,7 @@ export function ReportWizard() {
             {STEPS.map((s, i) => (
               <li key={s.id} aria-current={i === currentIdx ? "step" : undefined} className="relative h-1 overflow-hidden rounded-full bg-[#dce1e9]">
                 <span
-                  className={`absolute inset-y-0 left-0 rounded-full bg-ink transition-[width] duration-500 ease-out ${i <= currentIdx ? "w-full" : "w-0"}`}
+                  className={`absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-ink to-brand transition-[width] duration-700 ease-out ${i <= currentIdx ? "w-full" : "w-0"}`}
                   aria-hidden
                 />
                 <span className="sr-only">
