@@ -1,0 +1,2811 @@
+{
+ "source": "OpenStreetMap via Overpass API",
+ "attribution": "© OpenStreetMap contributors (ODbL)",
+ "query": "[out:json][timeout:60];\narea[\"name\"=\"Daerah Khusus Ibukota Jakarta\"][\"admin_level\"=\"4\"]->.a;\nnwr[\"amenity\"=\"hospital\"][\"name\"](area.a);\nout center tags;",
+ "fetched_at": "2026-10-31T05:40:47.476Z",
+ "osm_base_timestamp": "2026-10-31T05:39:12Z",
+ "note": "Hanya lokasi. Tidak menyiratkan kemitraan, kapabilitas, atau ketersediaan layanan.",
+ "count": 350,
+ "hospitals": [
+  {
+   "osm_id": "node/5673769081",
+   "name": "Rumah Sakit Pelita Harapan",
+   "lat": -6.1698218,
+   "lng": 106.7837097,
+   "address": null,
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "node/5751013085",
+   "name": "Dentista",
+   "lat": -6.2854953,
+   "lng": 106.8335564,
+   "address": "Jalan Sebret, DKI Jakarta",
+   "emergency": "no"
+  },
+  {
+   "osm_id": "node/5903905786",
+   "name": "Puskesmas Kecamatan Jagakarsa",
+   "lat": -6.3365448,
+   "lng": 106.8173674,
+   "address": "Gang Masjid Al Afiah",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/5994596682",
+   "name": "Rumah Sakit Ketergantungan Obat",
+   "lat": -6.3469579,
+   "lng": 106.8724481,
+   "address": "Jl. Raya Lapangan Tembank",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/6210541001",
+   "name": "RSUD TARAKAN JAKARTA",
+   "lat": -6.1716474,
+   "lng": 106.8106413,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/6210541003",
+   "name": "RSUD Tarakan",
+   "lat": -6.1723055,
+   "lng": 106.8106017,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/6239456587",
+   "name": "Emergency",
+   "lat": -6.180435,
+   "lng": 106.8181303,
+   "address": "Jalan Budi Kemuliaan",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/6249775451",
+   "name": "RSIA Tambak",
+   "lat": -6.206253,
+   "lng": 106.8486027,
+   "address": "Jalan Tambak",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/8244411780",
+   "name": "apotik & Lab Muara Karang",
+   "lat": -6.1155534,
+   "lng": 106.7807682,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/8367863494",
+   "name": "GETHealthy Clinic",
+   "lat": -6.1247726,
+   "lng": 106.7111509,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/9064896760",
+   "name": "Rumah Sakit Ibu dan Anak Ibnu Sina",
+   "lat": -6.1604025,
+   "lng": 106.7960691,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/9531931749",
+   "name": "RSUD KEBAYORAN BARU",
+   "lat": -6.2688379,
+   "lng": 106.7965498,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/10554018661",
+   "name": "Klinik SouthernUK",
+   "lat": -6.2078757,
+   "lng": 106.8675387,
+   "address": "Jalan Kelapa Tunggal, DKI Jakarta",
+   "emergency": "no"
+  },
+  {
+   "osm_id": "node/10746436417",
+   "name": "Puskesmas Kecamatan Senen Kramat Baru",
+   "lat": -6.1823419,
+   "lng": 106.8442225,
+   "address": "Jalan Kramat Baru, Kramat",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/10758124598",
+   "name": "Ocean Dental Tebet",
+   "lat": -6.2282877,
+   "lng": 106.8554624,
+   "address": "Jalan Tebet Raya, Tebet, South Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11285959508",
+   "name": "Dermaster Pakubuwono",
+   "lat": -6.2406027,
+   "lng": 106.7879193,
+   "address": "Jalan Kyai Maja, South Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11578451908",
+   "name": "Rumah Sakit Ibu dan Anak Aries",
+   "lat": -6.1576355,
+   "lng": 106.809994,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11778237962",
+   "name": "RS FIRDAUS",
+   "lat": -6.156138,
+   "lng": 106.923068,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11779845210",
+   "name": "RS MMC;RS METROPOLITAN MEDICAL CENTER (MMC) JAKARTA",
+   "lat": -6.2199462,
+   "lng": 106.832438,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878621854",
+   "name": "RS YARSI JAKARTA",
+   "lat": -6.1698396,
+   "lng": 106.8690492,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878633338",
+   "name": "RSU SUMBER WARAS",
+   "lat": -6.1686623,
+   "lng": 106.7976264,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878641454",
+   "name": "RSUD KALIDERES",
+   "lat": -6.1461812,
+   "lng": 106.7082289,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878659444",
+   "name": "RS SILOAM KEBON JERUK",
+   "lat": -6.1908388,
+   "lng": 106.7637229,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878675946",
+   "name": "RS MEDIKA PERMATA HIJAU",
+   "lat": -6.2181713,
+   "lng": 106.778025,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878676583",
+   "name": "RSUD TAMAN SARI",
+   "lat": -6.143789,
+   "lng": 106.819198,
+   "address": "Jakarta Barat",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878679140",
+   "name": "RS CIPUTRA CITRAGARDEN CITY",
+   "lat": -6.1230894,
+   "lng": 106.704998,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878683364",
+   "name": "RS MENTENG MITRA AFIA",
+   "lat": -6.1869354,
+   "lng": 106.838375,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878684983",
+   "name": "RS HERMINA DAAN MOGOT",
+   "lat": -6.152934,
+   "lng": 106.712303,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878686074",
+   "name": "RS BHAKTI MULIA",
+   "lat": -6.1995871,
+   "lng": 106.8005392,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878687400",
+   "name": "RS ANGGREK MAS",
+   "lat": -6.2030307,
+   "lng": 106.7726845,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878689318",
+   "name": "RS ISLAM JAKARTA CEMPAKA PUTIH",
+   "lat": -6.1706549,
+   "lng": 106.8708222,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878691259",
+   "name": "RSUD CEMPAKA PUTIH",
+   "lat": -6.184668,
+   "lng": 106.8723994,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878691282",
+   "name": "RS PELNI PETAMBURAN",
+   "lat": -6.1931924,
+   "lng": 106.8036904,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878695701",
+   "name": "RSUD JOHOR BARU",
+   "lat": -6.1818356,
+   "lng": 106.8504657,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878695836",
+   "name": "RS PRIMAYA PGI CIKINI",
+   "lat": -6.1914003,
+   "lng": 106.8419064,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878697704",
+   "name": "RSU PURI INDAH PONDOK INDAH",
+   "lat": -6.1859889,
+   "lng": 106.7353186,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878701669",
+   "name": "RS GRHA KEDOYA",
+   "lat": -6.1683669,
+   "lng": 106.7651412,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878701671",
+   "name": "RS MANUELA",
+   "lat": -6.1504414,
+   "lng": 106.825941,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878704271",
+   "name": "RSU PATRIA JAKARTA",
+   "lat": -6.1973116,
+   "lng": 106.7926441,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878704833",
+   "name": "RSUD ABDI WALUYO",
+   "lat": -6.1898118,
+   "lng": 106.8293431,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878706387",
+   "name": "RSU ROYAL TARUMA",
+   "lat": -6.1665351,
+   "lng": 106.7852311,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878707065",
+   "name": "RSUD TANAH ABANG",
+   "lat": -6.1910555,
+   "lng": 106.8144549,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878707089",
+   "name": "RSUD KEMAYORAN",
+   "lat": -6.1567123,
+   "lng": 106.8637725,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878708199",
+   "name": "RS PERTAMINA JAYA",
+   "lat": -6.1731387,
+   "lng": 106.8758643,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878709433",
+   "name": "RS PRIMAYA EVASARI",
+   "lat": -6.1935611,
+   "lng": 106.8598631,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878714650",
+   "name": "RSAL dr. MINTOHARDJO",
+   "lat": -6.2108836,
+   "lng": 106.811964,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878716743",
+   "name": "RSUD SAWAH BESAR",
+   "lat": -6.1489027,
+   "lng": 106.8298217,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878718495",
+   "name": "RS MITRA KELUARGA KEMAYORAN",
+   "lat": -6.1521122,
+   "lng": 106.8585957,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878722409",
+   "name": "RS ST. CAROLUS",
+   "lat": -6.1958347,
+   "lng": 106.8517604,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878725578",
+   "name": "RS HERMINA KEMAYORAN",
+   "lat": -6.1542245,
+   "lng": 106.8456843,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878731552",
+   "name": "RS RADJAK SALEMBA",
+   "lat": -6.1936527,
+   "lng": 106.8520454,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878734766",
+   "name": "RS KRAMAT 128",
+   "lat": -6.1856105,
+   "lng": 106.8439659,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878742555",
+   "name": "RSUD JAGAKARSA",
+   "lat": -6.3161758,
+   "lng": 106.8113627,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878744028",
+   "name": "RS MURNI TEGUH SUDIRMAN JAKARTA",
+   "lat": -6.2095279,
+   "lng": 106.8193331,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878745952",
+   "name": "RSUD PESANGGRAHAN",
+   "lat": -6.2581316,
+   "lng": 106.7567132,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878753760",
+   "name": "RSUD TEBET",
+   "lat": -6.2316371,
+   "lng": 106.8466802,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878754351",
+   "name": "RS HUSADA",
+   "lat": -6.1474995,
+   "lng": 106.829499,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878763169",
+   "name": "RSUD JATI PADANG",
+   "lat": -6.2855018,
+   "lng": 106.8423101,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878763188",
+   "name": "RSUD KEBAYORAN LAMA",
+   "lat": -6.2487063,
+   "lng": 106.785659,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878766162",
+   "name": "RSUD MAMPANG PRAPATAN",
+   "lat": -6.2404652,
+   "lng": 106.8269643,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878847403",
+   "name": "RS DR. SUTOYO PUSREHAB KEMHAN",
+   "lat": -6.2673998,
+   "lng": 106.7666233,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878857367",
+   "name": "RS PUSAT PERTAMINA",
+   "lat": -6.2401658,
+   "lng": 106.7929683,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878857368",
+   "name": "RS TEBET",
+   "lat": -6.2427408,
+   "lng": 106.8501648,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878969542",
+   "name": "RS SILOAM ASRI",
+   "lat": -6.254542,
+   "lng": 106.8323327,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11878969544",
+   "name": "RS SILOAM TB SIMATUPANG",
+   "lat": -6.2922458,
+   "lng": 106.7843724,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879033486",
+   "name": "RS BRAWIJAYA SAHARJO",
+   "lat": -6.2245705,
+   "lng": 106.8480329,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879056884",
+   "name": "RS AGUNG",
+   "lat": -6.2091793,
+   "lng": 106.8463579,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879058895",
+   "name": "RS JAKARTA MEDICAL CENTER",
+   "lat": -6.2713208,
+   "lng": 106.8302102,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879062582",
+   "name": "RS ALI SIBROH MALISI",
+   "lat": -6.3448144,
+   "lng": 106.8138523,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879064202",
+   "name": "RS HARAPAN KARTINI",
+   "lat": -6.2860998,
+   "lng": 106.8159371,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879068354",
+   "name": "RS GANDARIA",
+   "lat": -6.2439271,
+   "lng": 106.7907444,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879068357",
+   "name": "RS TRIA DIPA",
+   "lat": -6.250886,
+   "lng": 106.8419482,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879076104",
+   "name": "RS MUHAMMADIYAH TAMAN PURING",
+   "lat": -6.2417055,
+   "lng": 106.7871369,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879092538",
+   "name": "RS AULIA",
+   "lat": -6.3345083,
+   "lng": 106.8273883,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879094685",
+   "name": "RS MARINIR CILANDAK",
+   "lat": -6.3048414,
+   "lng": 106.810618,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879101761",
+   "name": "RS SETIA MITRA",
+   "lat": -6.2812583,
+   "lng": 106.7958226,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879103257",
+   "name": "RS PRIKASIH",
+   "lat": -6.3145283,
+   "lng": 106.7941837,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879103566",
+   "name": "RS MEDISTRA",
+   "lat": -6.2398349,
+   "lng": 106.8336597,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879105317",
+   "name": "RS ANTAM MEDIKA",
+   "lat": -6.192682,
+   "lng": 106.9026992,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879105876",
+   "name": "RS Petukangan",
+   "lat": -6.2368522,
+   "lng": 106.7517244,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879105877",
+   "name": "RS PONDOK INDAH",
+   "lat": -6.2838411,
+   "lng": 106.7815932,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879111685",
+   "name": "RSUD KRAMAT JATI",
+   "lat": -6.2868679,
+   "lng": 106.8622797,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879111687",
+   "name": "RS HAJI JAKARTA",
+   "lat": -6.2898814,
+   "lng": 106.8891492,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879113156",
+   "name": "RSKB Columbia Asia Pulomas",
+   "lat": -6.1821493,
+   "lng": 106.891082,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879114083",
+   "name": "RSUD CIRACAS",
+   "lat": -6.3455971,
+   "lng": 106.8738712,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879117977",
+   "name": "RSUD MATRAMAN",
+   "lat": -6.2062623,
+   "lng": 106.8660138,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879120264",
+   "name": "RS YADIKA KEBAYORAN LAMA",
+   "lat": -6.2550734,
+   "lng": 106.7777289,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879121418",
+   "name": "RSUD PASAR REBO",
+   "lat": -6.3033892,
+   "lng": 106.8618752,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879123854",
+   "name": "RSAU DR. ESNAWAN ANTARIKSA",
+   "lat": -6.2573733,
+   "lng": 106.8918558,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879123942",
+   "name": "RSUD BUDHI ASIH",
+   "lat": -6.2560273,
+   "lng": 106.862978,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879124001",
+   "name": "RS BHAYANGKARA RADEN SAID SUKANTO",
+   "lat": -6.2696092,
+   "lng": 106.8711147,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879128229",
+   "name": "RS RIDWAN MOREKSA",
+   "lat": -6.2942592,
+   "lng": 106.8825824,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879129277",
+   "name": "RS ADHYAKSA",
+   "lat": -6.3078316,
+   "lng": 106.8927312,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879129531",
+   "name": "RS YADIKA PONDOK BAMBU",
+   "lat": -6.2371953,
+   "lng": 106.8991335,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879130107",
+   "name": "RS HERMINA JATINEGARA",
+   "lat": -6.2215235,
+   "lng": 106.8644361,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879130853",
+   "name": "RSUP Persahabatan",
+   "lat": -6.2026878,
+   "lng": 106.8847484,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879131879",
+   "name": "RS HARAPAN BUNDA",
+   "lat": -6.3029512,
+   "lng": 106.8680213,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879134331",
+   "name": "RS DHARMA NUGRAHA",
+   "lat": -6.1960084,
+   "lng": 106.8863978,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879136526",
+   "name": "RS HARAPAN JAYAKARTA",
+   "lat": -6.1948769,
+   "lng": 106.9062814,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879139983",
+   "name": "RS KESDAM JAYA CIJANTUNG",
+   "lat": -6.3073687,
+   "lng": 106.8589442,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879140461",
+   "name": "RS ISLAM JAKARTA PONDOK KOPI",
+   "lat": -6.2200191,
+   "lng": 106.9396181,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879140742",
+   "name": "RSUD PADEMANGAN",
+   "lat": -6.1328308,
+   "lng": 106.8402507,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879142776",
+   "name": "RS KARTIKA PULOMAS",
+   "lat": -6.1759668,
+   "lng": 106.8848922,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879145123",
+   "name": "RSUD TANJUNG PRIOK",
+   "lat": -6.116082,
+   "lng": 106.8888254,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879146995",
+   "name": "RSU PANTAI INDAH KAPUK",
+   "lat": -6.1118898,
+   "lng": 106.7527392,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879149960",
+   "name": "RS HARUM SISMA MEDIKA",
+   "lat": -6.2481403,
+   "lng": 106.9096007,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879152935",
+   "name": "RS EMC PULOMAS",
+   "lat": -6.1802378,
+   "lng": 106.8837433,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879157183",
+   "name": "RS PENGAYOMAN CIPINANG",
+   "lat": -6.2149417,
+   "lng": 106.8837596,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879160224",
+   "name": "RS MEDIROS",
+   "lat": -6.1798914,
+   "lng": 106.9036994,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879166703",
+   "name": "RSUD CILINCING",
+   "lat": -6.112986,
+   "lng": 106.9262566,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879166704",
+   "name": "RSUD KOJA",
+   "lat": -6.1089322,
+   "lng": 106.8996682,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879166705",
+   "name": "RS DUTA INDAH",
+   "lat": -6.1384133,
+   "lng": 106.7837975,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879169364",
+   "name": "RS PELABUHAN JAKARTA",
+   "lat": -6.1249202,
+   "lng": 106.9178262,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879170165",
+   "name": "RS PUSDIKKES",
+   "lat": -6.276816,
+   "lng": 106.8694697,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879171288",
+   "name": "RS ROYAL PROGRESS",
+   "lat": -6.1394322,
+   "lng": 106.865455,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879175999",
+   "name": "RSUD TUGU KOJA",
+   "lat": -6.1274896,
+   "lng": 106.906859,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879176030",
+   "name": "RS HERMINA PODOMORO",
+   "lat": -6.1455694,
+   "lng": 106.8613627,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879176491",
+   "name": "RS ATMA JAYA",
+   "lat": -6.1264458,
+   "lng": 106.7926902,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879177881",
+   "name": "RS PURI MEDIKA",
+   "lat": -6.1291818,
+   "lng": 106.890191,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879183054",
+   "name": "RSU MULYASARI",
+   "lat": -6.1290752,
+   "lng": 106.9064976,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879184355",
+   "name": "RS MITRA KELUARGA KELAPA GADING",
+   "lat": -6.1518139,
+   "lng": 106.89704,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879184360",
+   "name": "RSU GADING PLUIT",
+   "lat": -6.166093,
+   "lng": 106.9159241,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879186164",
+   "name": "RSU PORT MEDICAL CENTER",
+   "lat": -6.1103582,
+   "lng": 106.8893777,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879186328",
+   "name": "RS ISLAM JAKARTA SUKAPURA",
+   "lat": -6.1397437,
+   "lng": 106.9208253,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879197294",
+   "name": "RS SUKMUL SISMA MEDIKA",
+   "lat": -6.1120721,
+   "lng": 106.8820012,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879197804",
+   "name": "RSU PEKERJA",
+   "lat": -6.145254,
+   "lng": 106.9232026,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879199228",
+   "name": "RS PLUIT",
+   "lat": -6.1257296,
+   "lng": 106.7994919,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879200350",
+   "name": "RS SATYA NEGARA",
+   "lat": -6.1388457,
+   "lng": 106.8615552,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/11879215369",
+   "name": "RS ZAHIRAH",
+   "lat": -6.3357413,
+   "lng": 106.8235642,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "node/12517711794",
+   "name": "Dentalogic Fatmawati",
+   "lat": -6.2998296,
+   "lng": 106.7959612,
+   "address": "Ruko Soho Botany Hills, Jakarta Selatan",
+   "emergency": "no"
+  },
+  {
+   "osm_id": "node/12995144591",
+   "name": "Plong Kramat Jati",
+   "lat": -6.288994,
+   "lng": 106.869359,
+   "address": "Jalan Raya Inpres, Jakarta Timur",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/13454929113",
+   "name": "Sinshe Tong Ren",
+   "lat": -6.2618713,
+   "lng": 106.8292364,
+   "address": "Jalan Mampang Prapatan Raya, jakarta selatan",
+   "emergency": "no"
+  },
+  {
+   "osm_id": "node/13717635847",
+   "name": "RS PGI CIKINI",
+   "lat": -6.1913999,
+   "lng": 106.8418969,
+   "address": "Jalan Raden Saleh Raya, Jakarta Pusat",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/13724580524",
+   "name": "CANCER ARMY GYM",
+   "lat": -6.3495295,
+   "lng": 106.8945349,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "node/13724618901",
+   "name": "Lamina Hospital",
+   "lat": -6.284324,
+   "lng": 106.827048,
+   "address": null,
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "node/14104829662",
+   "name": "MELANGE KOREA Aesthetic Clinic",
+   "lat": -6.1772919,
+   "lng": 106.7895941,
+   "address": "Jalan Podomoro Avenue, Tanjung Duren Selatan, West Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/119503317",
+   "name": "RS Sukmul Sisma Medika",
+   "lat": -6.1120749,
+   "lng": 106.8819941,
+   "address": "DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/119913162",
+   "name": "Rumah Sakit Cijantung",
+   "lat": -6.3074662,
+   "lng": 106.8588999,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/120184483",
+   "name": "Rumah Sakit Harum Sisma Medika",
+   "lat": -6.2481335,
+   "lng": 106.9096278,
+   "address": "Tarum Barat, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/120495770",
+   "name": "Rumah Sakit Bersalin Bidara Mulia",
+   "lat": -6.2306521,
+   "lng": 106.8669761,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/120509598",
+   "name": "RSKB Medika",
+   "lat": -6.1981107,
+   "lng": 106.8517129,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/121129268",
+   "name": "Rumah Sakit MMC",
+   "lat": -6.2199172,
+   "lng": 106.8324139,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/121195900",
+   "name": "Rumah Sakit Umum UKI",
+   "lat": -6.2508359,
+   "lng": 106.8723868,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/121261419",
+   "name": "Rumah Sakit Hewan Jakarta",
+   "lat": -6.2990985,
+   "lng": 106.8196995,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/121802687",
+   "name": "Rumah Sakit Ibu dan Anak Asta Nugraha",
+   "lat": -6.2215123,
+   "lng": 106.9147916,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/122152269",
+   "name": "RS Murni Teguh Sudirman Jakarta",
+   "lat": -6.2094632,
+   "lng": 106.8195335,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/124163125",
+   "name": "Rumah Sakit Jakarta",
+   "lat": -6.2185961,
+   "lng": 106.8163304,
+   "address": "DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/153303478",
+   "name": "RSUD Pasar Rebo",
+   "lat": -6.3035975,
+   "lng": 106.8620935,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/153318583",
+   "name": "Rumah Sakit Umum Persahabatan",
+   "lat": -6.2047966,
+   "lng": 106.8842734,
+   "address": "Jalan Persahabatan Raya, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/154078977",
+   "name": "Garuda Sentra Medika",
+   "lat": -6.1572889,
+   "lng": 106.8414238,
+   "address": "Jalan Angkasa Raya, Jakarta Pusat",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/154830418",
+   "name": "Rumah Sakit Pluit",
+   "lat": -6.1257361,
+   "lng": 106.7994863,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/154835529",
+   "name": "RS Gading Pluit",
+   "lat": -6.1661784,
+   "lng": 106.9160662,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155097709",
+   "name": "Rumah Sakit Radjak Salemba",
+   "lat": -6.1936543,
+   "lng": 106.8520926,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155097743",
+   "name": "Rumah Sakit Umum Kecamatan Sawah Besar",
+   "lat": -6.1489007,
+   "lng": 106.829821,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155098189",
+   "name": "Rumah Sakit Khusus THT dan Bedah Kepala Leher Proklamasi",
+   "lat": -6.2018877,
+   "lng": 106.8472497,
+   "address": "Jalan Proklamasi, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/155109641",
+   "name": "Primaya Evasari Hospital",
+   "lat": -6.1935524,
+   "lng": 106.8597557,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155110654",
+   "name": "Rumah Sakit Umum Kecamatan Cempaka Putih",
+   "lat": -6.1846854,
+   "lng": 106.8723951,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155110911",
+   "name": "Lembaga Kesehatan Budi Kemuliaan",
+   "lat": -6.1805236,
+   "lng": 106.818208,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155115812",
+   "name": "Rumah Sakit Gigi dan Mulut Ladokgi TNI AL R.E Martadinata",
+   "lat": -6.2114473,
+   "lng": 106.8087207,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155115832",
+   "name": "Rumah Sakit Dr Mintohardjo",
+   "lat": -6.2108675,
+   "lng": 106.8108281,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155931564",
+   "name": "RS Premier Jatinegara",
+   "lat": -6.2216906,
+   "lng": 106.8688366,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155936712",
+   "name": "Rumah Sakit Umum Adhyaksa",
+   "lat": -6.3078333,
+   "lng": 106.8927101,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155947535",
+   "name": "Rumah Sakit Omni",
+   "lat": -6.1803165,
+   "lng": 106.883958,
+   "address": "Jalan Pulo Mas Barat VI, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155947536",
+   "name": "Rumah Sakit Kartika Pulo Mas",
+   "lat": -6.1759621,
+   "lng": 106.884906,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155948488",
+   "name": "Rumah Sakit Islam Jiwa Jakarta",
+   "lat": -6.221861,
+   "lng": 106.9330896,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155951286",
+   "name": "Rumah Sakit Ibu dan Anak Restu Kasih",
+   "lat": -6.2650891,
+   "lng": 106.8664545,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/155955548",
+   "name": "RSUD Duren Sawit : Instalasi Kedaruratan Emosi dan Perilaku",
+   "lat": -6.2311393,
+   "lng": 106.9086019,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/156909663",
+   "name": "Rumah Sakit Umum Ibnu Sina",
+   "lat": -6.1604079,
+   "lng": 106.7960677,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/156917856",
+   "name": "Rumah Sakit Umum Taman Sari",
+   "lat": -6.1437715,
+   "lng": 106.8192284,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/156919180",
+   "name": "RS Patria IKKT",
+   "lat": -6.197305,
+   "lng": 106.7926195,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/156919546",
+   "name": "Rumah Sakit Ibu dan Anak Aries",
+   "lat": -6.1576321,
+   "lng": 106.8099989,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/156928888",
+   "name": "Rumah Sakit Pelni Petamburan",
+   "lat": -6.1932311,
+   "lng": 106.8037259,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/156928913",
+   "name": "RS Bhakti Mulia",
+   "lat": -6.1995786,
+   "lng": 106.8006181,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157204608",
+   "name": "Rumah Sakit Bersalin Dokter Sanusi",
+   "lat": -6.2029947,
+   "lng": 106.7731462,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157211723",
+   "name": "Rumah Sakit Ibu dan Anak Resti Mulya",
+   "lat": -6.2087559,
+   "lng": 106.941783,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157213675",
+   "name": "RSUD Kepulauan Seribu",
+   "lat": -5.7448398,
+   "lng": 106.6134125,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157344203",
+   "name": "RSUD Mampang Prapatan",
+   "lat": -6.2404906,
+   "lng": 106.8270049,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157357100",
+   "name": "RSUD Kebayoran Lama",
+   "lat": -6.2486524,
+   "lng": 106.7856024,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157358477",
+   "name": "Rumah Sakit Khusus Bedah Halimun",
+   "lat": -6.2062282,
+   "lng": 106.8340331,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157360778",
+   "name": "Rumah Bersalin Budi Kemuliaan",
+   "lat": -6.2103297,
+   "lng": 106.8351386,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/157362678",
+   "name": "Rumah Sakit Umum Kecamatan Tebet",
+   "lat": -6.2316306,
+   "lng": 106.8466818,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/174132866",
+   "name": "Rumah Sakit Rawamangun",
+   "lat": -6.1963359,
+   "lng": 106.8854695,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/176770279",
+   "name": "Rumah Sakit Mayapada Kuningan",
+   "lat": -6.2185187,
+   "lng": 106.8318722,
+   "address": "Jalan Hajjah R. Rasuna Said, Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/218838822",
+   "name": "Rumah Sakit Tria Dipa",
+   "lat": -6.2508431,
+   "lng": 106.8419704,
+   "address": "Jalan Raya Pasar Minggu, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/249665587",
+   "name": "Rumah Sakit Cinta Kasih Tzu Chi",
+   "lat": -6.1320482,
+   "lng": 106.7370952,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/300734979",
+   "name": "Rumah Sakit Sofa Marwa",
+   "lat": -6.3555381,
+   "lng": 106.8199834,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/315412833",
+   "name": "RSU Kecamatan Cilincing",
+   "lat": -6.1129911,
+   "lng": 106.926417,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/334958356",
+   "name": "RSIA Avisena",
+   "lat": -6.2323053,
+   "lng": 106.7625799,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/334982120",
+   "name": "Rumah Sakit Umum & Pekerja",
+   "lat": -6.1455012,
+   "lng": 106.923865,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/454014924",
+   "name": "RS Jantung Jakarta",
+   "lat": -6.2001801,
+   "lng": 106.8553878,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/482154808",
+   "name": "RS Hermina Jatinegara",
+   "lat": -6.2212375,
+   "lng": 106.8647139,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/482154870",
+   "name": "Bidakara Medical Center",
+   "lat": -6.2401608,
+   "lng": 106.8411685,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/482346450",
+   "name": "Rumah Sakit Bedah Bina Estetika",
+   "lat": -6.1991941,
+   "lng": 106.8375324,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/482346485",
+   "name": "Rumah Sakit Mata JEC",
+   "lat": -6.1986006,
+   "lng": 106.8368349,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/482414704",
+   "name": "Rumah Sakit Umum Al Fauzan",
+   "lat": -6.2995986,
+   "lng": 106.8690857,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/483358515",
+   "name": "RSIA Tambak",
+   "lat": -6.2063926,
+   "lng": 106.8484395,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/483382036",
+   "name": "RS K",
+   "lat": -6.2020346,
+   "lng": 106.8468714,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/483648323",
+   "name": "Rumah Sakit Umum Daerah Budi Asih",
+   "lat": -6.2558465,
+   "lng": 106.8630464,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485074669",
+   "name": "Rumah Sakit Siloam",
+   "lat": -6.21909,
+   "lng": 106.8171913,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485298952",
+   "name": "Rumah Sakit Ibu Dan Anak Brawijaya Duren Tiga",
+   "lat": -6.253289,
+   "lng": 106.8411934,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485813728",
+   "name": "RSU Bunda Jakarta",
+   "lat": -6.1959654,
+   "lng": 106.8371674,
+   "address": "Central Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485813873",
+   "name": "Rumah Sakit YPK Mandiri",
+   "lat": -6.1913149,
+   "lng": 106.8278537,
+   "address": "Jakarta Pusat",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485813973",
+   "name": "Rumah Sakit Abdi Waluyo",
+   "lat": -6.1898132,
+   "lng": 106.8293587,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485827839",
+   "name": "RSUD Johar Baru",
+   "lat": -6.1818294,
+   "lng": 106.8504636,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/485992308",
+   "name": "Rumah Sakit Menteng Mitra Afia",
+   "lat": -6.1868538,
+   "lng": 106.8384083,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/486017076",
+   "name": "RSIA Sayyidah",
+   "lat": -6.2302838,
+   "lng": 106.9253539,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/486544471",
+   "name": "Rumah Sehat Sunda Kelapa",
+   "lat": -6.2008329,
+   "lng": 106.8319244,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/487295990",
+   "name": "Rumah Sakit Ibu dan Anak Budhi Jaya",
+   "lat": -6.218954,
+   "lng": 106.8449439,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/488197083",
+   "name": "Rumah Sakit Tebet",
+   "lat": -6.2425781,
+   "lng": 106.8501822,
+   "address": "Jalan Letnan Jenderal MT Haryono, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/488404220",
+   "name": "Rumah Sakit PGI CIKINI",
+   "lat": -6.1913911,
+   "lng": 106.8418202,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/488434301",
+   "name": "Rumah Sakit Bersalin Elshama",
+   "lat": -6.2817889,
+   "lng": 106.8715226,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/488436069",
+   "name": "Rumah Sakit Umum Pengayoman",
+   "lat": -6.2155914,
+   "lng": 106.8837973,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/488480763",
+   "name": "Rumah Sakit Harapan Jayakarta",
+   "lat": -6.1950006,
+   "lng": 106.9058521,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/489236891",
+   "name": "RS Hermina Kemayoran",
+   "lat": -6.1542962,
+   "lng": 106.845645,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/489532008",
+   "name": "RSUD Matraman",
+   "lat": -6.206244,
+   "lng": 106.8660168,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/489532419",
+   "name": "RSCM Unit Pelayanan Mata",
+   "lat": -6.1974803,
+   "lng": 106.8446646,
+   "address": "DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/489540663",
+   "name": "Rumah Sakit Umum Kramat Jati",
+   "lat": -6.2868559,
+   "lng": 106.8623328,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/490060230",
+   "name": "Rumah Sakit Jakarta Medical Center",
+   "lat": -6.27138,
+   "lng": 106.8302149,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/491033065",
+   "name": "Rumah Sakit Siloam ASRI",
+   "lat": -6.2545615,
+   "lng": 106.8324121,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/491242356",
+   "name": "Rumah Sakit St. Carolus",
+   "lat": -6.1955802,
+   "lng": 106.8515231,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/491242371",
+   "name": "RSKGM - FKG UI",
+   "lat": -6.1943447,
+   "lng": 106.8486195,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/491244198",
+   "name": "Rumah Sakit Cipto Mangunkusumo",
+   "lat": -6.1971484,
+   "lng": 106.8471306,
+   "address": "DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/492535915",
+   "name": "RSUD Tarakan",
+   "lat": -6.1716313,
+   "lng": 106.8103422,
+   "address": "Jl. Kyai Caringin No.7. Jakarta Pusat, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/492945012",
+   "name": "Rumah Sakit Umum Kecamatan Tanah Abang",
+   "lat": -6.1909714,
+   "lng": 106.8143546,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/492989001",
+   "name": "Rumah Sakit Islam Jakarta",
+   "lat": -6.1712857,
+   "lng": 106.8713153,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/493574020",
+   "name": "Rumah Sakit Pondok Indah",
+   "lat": -6.1861872,
+   "lng": 106.7354015,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/494646941",
+   "name": "Puskesmas Kecamatan Senen Kramat Baru",
+   "lat": -6.1823339,
+   "lng": 106.8442279,
+   "address": "Jalan Kramat Baru, Kramat",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/495395057",
+   "name": "Rumah Sakit Kanker \"Dharmais\"",
+   "lat": -6.1867845,
+   "lng": 106.7980146,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/495402738",
+   "name": "RSU Kecamatan Kembangan",
+   "lat": -6.1946782,
+   "lng": 106.7362834,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/495415697",
+   "name": "Rumah Sakit Kramat 128",
+   "lat": -6.1855639,
+   "lng": 106.8440404,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/496038039",
+   "name": "RSAB Harapan Kita",
+   "lat": -6.1847331,
+   "lng": 106.7990603,
+   "address": "DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/496643326",
+   "name": "Rumah Sakit THT Bedah Prof. Nizar",
+   "lat": -6.1712414,
+   "lng": 106.8154247,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/496806581",
+   "name": "RS Khusus Mata SMECO Jakarta",
+   "lat": -6.1927314,
+   "lng": 106.8827041,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/498439150",
+   "name": "Rumah Sakit Mata Primasana",
+   "lat": -6.1142804,
+   "lng": 106.8897867,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/498489836",
+   "name": "Klinik Mata Nusantara",
+   "lat": -6.2917121,
+   "lng": 106.7825276,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/498534952",
+   "name": "Klinik Kandungan Adinaya by dr. Widi, SpOG",
+   "lat": -6.3469665,
+   "lng": 106.8947314,
+   "address": "Jalan Buni, Jakarta Timur",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/499215974",
+   "name": "Rumah Sakit Ketergantungan Obat (RSKO) Jakarta",
+   "lat": -6.3469069,
+   "lng": 106.8724458,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/499215999",
+   "name": "RSUD Ciracas",
+   "lat": -6.345676,
+   "lng": 106.8738909,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/500025512",
+   "name": "Rumah Sakit Moh. Ridwan Meuraksa",
+   "lat": -6.2944252,
+   "lng": 106.8827153,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/500052290",
+   "name": "RS Bersalin Rosa Kartika",
+   "lat": -6.3278755,
+   "lng": 106.822765,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/500082522",
+   "name": "Rumah Sakit Olahraga Nasional",
+   "lat": -6.3685476,
+   "lng": 106.8927658,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/500318061",
+   "name": "RSPAD Gatot Soebroto",
+   "lat": -6.1766671,
+   "lng": 106.8371519,
+   "address": "JL. ABDUL RAHMAN SALEH, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/500577009",
+   "name": "RS Medika Permata Hijau",
+   "lat": -6.2182019,
+   "lng": 106.7778424,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/500647932",
+   "name": "Rumah Sakit Hermina Daan Mogot",
+   "lat": -6.1529364,
+   "lng": 106.7123058,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/500836758",
+   "name": "RSUD Kecamatan Kemayoran",
+   "lat": -6.1566769,
+   "lng": 106.8637808,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/502025435",
+   "name": "RSUD Jati Padang",
+   "lat": -6.2854869,
+   "lng": 106.8423285,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/506663668",
+   "name": "RS Islam Jakarta Pondok Kopi",
+   "lat": -6.2202593,
+   "lng": 106.9401576,
+   "address": "Jalan Raya Pondok Kopi, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/506895845",
+   "name": "RS Ibu dan Anak Andhika",
+   "lat": -6.3442499,
+   "lng": 106.8143056,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/507486831",
+   "name": "Rumah Sakit Umum Daerah Kalideres",
+   "lat": -6.1268441,
+   "lng": 106.7039992,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/507486834",
+   "name": "Ciputra Hospital",
+   "lat": -6.1231259,
+   "lng": 106.704966,
+   "address": "Jakarta Barat",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/508130705",
+   "name": "Rumah Sakit Bersalin Anggrek Mas",
+   "lat": -6.2030303,
+   "lng": 106.7726837,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/508918547",
+   "name": "Rumah Sakit Umum Kecamatan Jagakarsa",
+   "lat": -6.3161814,
+   "lng": 106.811358,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/508918843",
+   "name": "RS Aulia",
+   "lat": -6.3345587,
+   "lng": 106.8271626,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/509344178",
+   "name": "RSIA SamMarie Basra",
+   "lat": -6.2292129,
+   "lng": 106.8973049,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/509360288",
+   "name": "RSIA Bunda Aliyah",
+   "lat": -6.2332796,
+   "lng": 106.8971964,
+   "address": "Jalan Pahlawan Revolusi, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/509782590",
+   "name": "RSIA Kemang",
+   "lat": -6.2861605,
+   "lng": 106.8192964,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/509813981",
+   "name": "Rumah Sakit Ibu Anak dr. Euis",
+   "lat": -6.2454991,
+   "lng": 106.9428319,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/510416128",
+   "name": "Rumah Sakit Husada",
+   "lat": -6.1463661,
+   "lng": 106.8291005,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/510968265",
+   "name": "Rumah Sakit Marinir Cilandak",
+   "lat": -6.3048255,
+   "lng": 106.8104899,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/511014020",
+   "name": "RS Ali Sibroh Malisi",
+   "lat": -6.344684,
+   "lng": 106.8139234,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/511178888",
+   "name": "Rumah Sakit Bina Sehat Mandiri",
+   "lat": -6.1856008,
+   "lng": 106.771464,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/511186795",
+   "name": "RS Ukrida Duri Kepa",
+   "lat": -6.1851702,
+   "lng": 106.7808057,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/511210788",
+   "name": "Rumah Sakit Jantung Binawaluya",
+   "lat": -6.3079579,
+   "lng": 106.8708721,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/511269098",
+   "name": "Rumah Sakit Duren Sawit",
+   "lat": -6.2318975,
+   "lng": 106.9094221,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/512761969",
+   "name": "Rumah Sakit Harapan Bunda",
+   "lat": -6.3030271,
+   "lng": 106.8680514,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/513191029",
+   "name": "RS Grha Kedoya",
+   "lat": -6.168127,
+   "lng": 106.7648571,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/513565284",
+   "name": "Rumah Sakit Umum Pusat Fatmawati",
+   "lat": -6.2952467,
+   "lng": 106.7962661,
+   "address": "Jl. RS. Fatmawati Raya, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/514074371",
+   "name": "Rumah Sakit Port Medical Center",
+   "lat": -6.1104012,
+   "lng": 106.8893894,
+   "address": "Jalan Enggano No.10, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/514372137",
+   "name": "PMI Kota Jakarta Utara",
+   "lat": -6.1317017,
+   "lng": 106.9144788,
+   "address": "Jalan Plumpang Semper, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/514454612",
+   "name": "RS Sanatorium Dharmawangsa",
+   "lat": -6.2550316,
+   "lng": 106.8028009,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/514464730",
+   "name": "RSUD Kebayoran Baru",
+   "lat": -6.2655205,
+   "lng": 106.7986583,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/514677663",
+   "name": "RS Puri Medika",
+   "lat": -6.1291989,
+   "lng": 106.8901851,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/514677664",
+   "name": "RSIA SANTO YUSUF",
+   "lat": -6.1171014,
+   "lng": 106.881699,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/515753829",
+   "name": "RS Khusus THT- Bedah Ciranjang",
+   "lat": -6.2367123,
+   "lng": 106.811307,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/515753856",
+   "name": "Rumah Sakit Ibu dan Anak Panti Nugraha",
+   "lat": -6.2364834,
+   "lng": 106.8158619,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/516544702",
+   "name": "RSIA Asih",
+   "lat": -6.2479973,
+   "lng": 106.8009409,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/517115182",
+   "name": "Rumah Sakit Royal Taruma",
+   "lat": -6.1666566,
+   "lng": 106.7854227,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/517146116",
+   "name": "Rumah Sakit Antam Medika",
+   "lat": -6.1926993,
+   "lng": 106.9026918,
+   "address": "Jl. Raya Pemuda",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/517182375",
+   "name": "Rumah Sakit Jiwa Dr Soeharto Heerdjan",
+   "lat": -6.1628447,
+   "lng": 106.7885056,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/517559312",
+   "name": "Rumah Sakit Umum Daerah (RSUD) Koja",
+   "lat": -6.1089611,
+   "lng": 106.9000678,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518174000",
+   "name": "RSUD KECAMATAN TANJUNG PRIOK",
+   "lat": -6.1161747,
+   "lng": 106.8889959,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518180742",
+   "name": "Rumah Sakit Gandaria",
+   "lat": -6.2439197,
+   "lng": 106.7907445,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518180746",
+   "name": "RS Muhammadiyah Taman Puring",
+   "lat": -6.2415666,
+   "lng": 106.7871598,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518483232",
+   "name": "Rumah Sakit Sumber Waras",
+   "lat": -6.1678722,
+   "lng": 106.7979848,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518489595",
+   "name": "Rumah Sakit Mulyasari",
+   "lat": -6.1290827,
+   "lng": 106.9065008,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518489598",
+   "name": "RSUD Tugu Koja Jakarta",
+   "lat": -6.1274392,
+   "lng": 106.9071668,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/518511876",
+   "name": "Rumah Sakit Yadika",
+   "lat": -6.2551312,
+   "lng": 106.7777391,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/519262206",
+   "name": "Rumah Sakit Dr. Suyoto",
+   "lat": -6.2673438,
+   "lng": 106.766691,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/519470129",
+   "name": "Rumah Sakit Pelabuhan Jakarta",
+   "lat": -6.125037,
+   "lng": 106.9177538,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/521149157",
+   "name": "Kartini Hospital",
+   "lat": -6.2383426,
+   "lng": 106.7697763,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/521153202",
+   "name": "Rumah Sakit Petukangan",
+   "lat": -6.2369158,
+   "lng": 106.7517133,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/521154271",
+   "name": "RS Pertamina Tanjung Duren",
+   "lat": -6.1828975,
+   "lng": 106.7907693,
+   "address": "Jalan Tanjung Duren Dalam III",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/521454629",
+   "name": "Rumah Sakit Bhayangkara",
+   "lat": -6.2864159,
+   "lng": 106.7703372,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/522338999",
+   "name": "RSU Kecamatan Pesanggrahan",
+   "lat": -6.2580265,
+   "lng": 106.7567585,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/523567065",
+   "name": "Toko Obat",
+   "lat": -6.1277509,
+   "lng": 106.8904896,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/524575649",
+   "name": "Rumah Sakit Umum Pademangan",
+   "lat": -6.1328075,
+   "lng": 106.840291,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/525515369",
+   "name": "RS Husada",
+   "lat": -6.1362538,
+   "lng": 106.7993223,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/525515460",
+   "name": "Rumah Sakit Atma Jaya",
+   "lat": -6.1262799,
+   "lng": 106.7929855,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/525766019",
+   "name": "Rumah Sakit Duta Indah",
+   "lat": -6.1385261,
+   "lng": 106.783809,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/525787696",
+   "name": "RSIA Family",
+   "lat": -6.1333478,
+   "lng": 106.7903302,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/526051882",
+   "name": "Rumah Sakit Islam Jakarta",
+   "lat": -6.13979,
+   "lng": 106.9207828,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/526081060",
+   "name": "Rumah Sakit Firdaus",
+   "lat": -6.1561392,
+   "lng": 106.9230698,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/526701941",
+   "name": "Rumah Sakit Hermina Podomoro",
+   "lat": -6.1455484,
+   "lng": 106.8613679,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/526701955",
+   "name": "Rumah Sakit Royal Progress",
+   "lat": -6.1394485,
+   "lng": 106.8654705,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/527999398",
+   "name": "RSIA Brawijaya",
+   "lat": -6.2578905,
+   "lng": 106.8075967,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/528074194",
+   "name": "Rumah Sakit Gigi Dan Mulut Fakultas Kedokteran Gigi Universitas Prof. Dr. Moestopo Bintaro",
+   "lat": -6.2588149,
+   "lng": 106.764927,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/782976876",
+   "name": "RSIA Restu Kasih",
+   "lat": -6.2657071,
+   "lng": 106.8664712,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/782995198",
+   "name": "RS Angkatan Udara Dr. Esnawan Antariksa",
+   "lat": -6.2574869,
+   "lng": 106.8921946,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/783767234",
+   "name": "RSIA Bunda Jakarta",
+   "lat": -6.1961094,
+   "lng": 106.8363169,
+   "address": "Jalan Teuku Cik Ditiro, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/783775577",
+   "name": "RSUD Cengkareng",
+   "lat": -6.1429663,
+   "lng": 106.7348955,
+   "address": null,
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/783784511",
+   "name": "RS Haji",
+   "lat": -6.2898379,
+   "lng": 106.8891747,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/784660823",
+   "name": "Husada",
+   "lat": -6.1475417,
+   "lng": 106.829533,
+   "address": "Jalan Mangga Besar, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/784967771",
+   "name": "RS Mitra Kemayoran",
+   "lat": -6.152172,
+   "lng": 106.858545,
+   "address": "Jalan HBR Motik, Landas Pacu Timur, Kemayoran, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/784978246",
+   "name": "Rumah Sakit Columbia Asia",
+   "lat": -6.1819789,
+   "lng": 106.8911924,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/912306495",
+   "name": "Rumah Sakit Mediros",
+   "lat": -6.1799536,
+   "lng": 106.9037271,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/913499828",
+   "name": "Rumah Sakit Pondok Indah",
+   "lat": -6.2837297,
+   "lng": 106.7816562,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/914672731",
+   "name": "Rumah Sakit Dharma Nugraha",
+   "lat": -6.1959885,
+   "lng": 106.8864229,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/917333594",
+   "name": "RSUD Pasar Minggu Jakarta",
+   "lat": -6.293984,
+   "lng": 106.8198692,
+   "address": "Jalan Tahi Bonar Simatupang, Jakarta Selatan",
+   "emergency": "no"
+  },
+  {
+   "osm_id": "way/920699992",
+   "name": "Rumah Sakit Siloam",
+   "lat": -6.1911419,
+   "lng": 106.7638204,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/921918673",
+   "name": "Rumah Sakit Satya Negara",
+   "lat": -6.1388802,
+   "lng": 106.8615384,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/924776348",
+   "name": "RS Siaga Raya",
+   "lat": -6.2729042,
+   "lng": 106.8390949,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/927020149",
+   "name": "Rumah Sakit Pusat Otak Nasional Prof. Dr. dr. Mahar Mardjono Jakarta",
+   "lat": -6.2463095,
+   "lng": 106.8696599,
+   "address": "Jakarta Timur",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/927644507",
+   "name": "RS Yadika",
+   "lat": -6.2372229,
+   "lng": 106.8991312,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/931261559",
+   "name": "Rumah Sakit Setia Mitra",
+   "lat": -6.2812621,
+   "lng": 106.7958428,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/933128823",
+   "name": "RS Agung",
+   "lat": -6.2092671,
+   "lng": 106.8464081,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/933179109",
+   "name": "RS Pusat Pertamina",
+   "lat": -6.2405034,
+   "lng": 106.7936375,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/933304329",
+   "name": "RS Pantai Indah Kapuk",
+   "lat": -6.1118534,
+   "lng": 106.7530852,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/933663646",
+   "name": "Puskesmas Kecamatan Pesanggrahan",
+   "lat": -6.2237471,
+   "lng": 106.7599886,
+   "address": "Jalan Palem VIII, DKI Jakarta",
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/933772265",
+   "name": "RS Prikasih",
+   "lat": -6.3144209,
+   "lng": 106.7941713,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/980076978",
+   "name": "RS Abdi Waluyo Physiotherapy",
+   "lat": -6.1889142,
+   "lng": 106.8285946,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1084151423",
+   "name": "RSIA Brawijaya Saharjo",
+   "lat": -6.2245723,
+   "lng": 106.8480747,
+   "address": "Jalan Dokter Saharjo",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1151600428",
+   "name": "Rumah Sakit Mitra Keluarga",
+   "lat": -6.1518769,
+   "lng": 106.897148,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1215624271",
+   "name": "Siloam Hospitals",
+   "lat": -6.2926861,
+   "lng": 106.7843997,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1215624275",
+   "name": "Mayapada Hospital",
+   "lat": -6.2981069,
+   "lng": 106.7859833,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1221031552",
+   "name": "RSPI Prof. Dr. Sulianti Saroso",
+   "lat": -6.1295753,
+   "lng": 106.8623153,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1278557235",
+   "name": "Tzu Chi Hospital",
+   "lat": -6.106138,
+   "lng": 106.7387925,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1279302859",
+   "name": "RS Mayapada Kuningan",
+   "lat": -6.2185353,
+   "lng": 106.8318976,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1289553197",
+   "name": "RS Mitra Keluarga Kalideres",
+   "lat": -6.1496766,
+   "lng": 106.701615,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1413415663",
+   "name": "Siloam Hospitals Mampang",
+   "lat": -6.253438,
+   "lng": 106.826487,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1416301560",
+   "name": "Mayapada Hospital",
+   "lat": -6.172681,
+   "lng": 106.9587762,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1433665749",
+   "name": "RSIA Grand Family",
+   "lat": -6.1230164,
+   "lng": 106.7389965,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1473760265",
+   "name": "Primaya Hospital Kelapa Gading",
+   "lat": -6.1640052,
+   "lng": 106.9296244,
+   "address": null,
+   "emergency": "yes"
+  },
+  {
+   "osm_id": "way/1476920023",
+   "name": "RSUD Cipayung",
+   "lat": -6.30742,
+   "lng": 106.9050595,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "way/1483467070",
+   "name": "Rumah Sakit Mata JEC Kedoya",
+   "lat": -6.1895668,
+   "lng": 106.7615177,
+   "address": null,
+   "emergency": null
+  },
+  {
+   "osm_id": "relation/7409174",
+   "name": "Rumah Sakit Bhayangkara TK. IR. Said Sukanto",
+   "lat": -6.2694619,
+   "lng": 106.8707144,
+   "address": "Jl. Rs Polri Sukanto, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "relation/7409284",
+   "name": "Rumah Sakit DIK Pusdikkes TNI AD",
+   "lat": -6.2763115,
+   "lng": 106.8692774,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "relation/10908525",
+   "name": "Rumah Sakit Zahirah",
+   "lat": -6.3358621,
+   "lng": 106.8235557,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "relation/12613976",
+   "name": "Rumah Sakit Pertamina Jaya (RSPJ)",
+   "lat": -6.1731527,
+   "lng": 106.8758854,
+   "address": "DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "relation/17478768",
+   "name": "Rumah Sakit Medistra",
+   "lat": -6.2398558,
+   "lng": 106.8336695,
+   "address": "Jalan Jenderal Gatot Subroto, DKI Jakarta",
+   "emergency": null
+  },
+  {
+   "osm_id": "relation/17510859",
+   "name": "RS MCC",
+   "lat": -6.2199563,
+   "lng": 106.832441,
+   "address": null,
+   "emergency": null
+  }
+ ]
+}

@@ -1,0 +1,98 @@
+"use client";
+
+import "leaflet/dist/leaflet.css";
+import { useEffect } from "react";
+import { CircleMarker, MapContainer, Polyline, TileLayer, Tooltip, useMap, useMapEvents } from "react-leaflet";
+import type { LatLngBoundsExpression } from "leaflet";
+
+export type MapMarker = {
+  id: string;
+  lat: number;
+  lng: number;
+  label: string;
+  kind: "primary" | "alternative" | "excluded" | "selected" | "facility";
+};
+
+const KIND_STYLE: Record<MapMarker["kind"], { color: string; fill: string; radius: number }> = {
+  selected: { color: "#1e3a8a", fill: "#2563eb", radius: 12 },
+  primary: { color: "#14532d", fill: "#16a34a", radius: 11 },
+  alternative: { color: "#1e40af", fill: "#60a5fa", radius: 9 },
+  excluded: { color: "#64748b", fill: "#cbd5e1", radius: 6 },
+  facility: { color: "#7f1d1d", fill: "#ef4444", radius: 7 },
+};
+
+export const JAKARTA_CENTER = { lat: -6.2088, lng: 106.8456 };
+
+function ClickPicker({ onPick }: { onPick: (p: { lat: number; lng: number }) => void }) {
+  useMapEvents({ click: (e) => onPick({ lat: e.latlng.lat, lng: e.latlng.lng }) });
+  return null;
+}
+
+function FitBounds({ points }: { points: [number, number][] }) {
+  const map = useMap();
+  const key = JSON.stringify(points);
+  useEffect(() => {
+    if (points.length >= 2) map.fitBounds(points as LatLngBoundsExpression, { padding: [30, 30], maxZoom: 15 });
+    else if (points.length === 1) map.setView(points[0], 14);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key, map]);
+  return null;
+}
+
+export default function MapView({
+  origin,
+  markers = [],
+  route,
+  onPick,
+  onMarkerClick,
+  fitTo,
+  className = "h-72",
+}: {
+  origin?: { lat: number; lng: number } | null;
+  markers?: MapMarker[];
+  route?: [number, number][] | null;
+  onPick?: (p: { lat: number; lng: number }) => void;
+  onMarkerClick?: (id: string) => void;
+  fitTo?: [number, number][];
+  className?: string;
+}) {
+  const center = origin ?? JAKARTA_CENTER;
+  return (
+    <div className={`relative w-full overflow-hidden rounded-xl border border-slate-300 ${className}`}>
+      <MapContainer center={[center.lat, center.lng]} zoom={12} className="h-full w-full" scrollWheelZoom>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {onPick && <ClickPicker onPick={onPick} />}
+        {fitTo && <FitBounds points={fitTo} />}
+        {route && route.length > 1 && <Polyline positions={route} pathOptions={{ color: "#2563eb", weight: 5, opacity: 0.8 }} />}
+        {markers.map((m) => {
+          const s = KIND_STYLE[m.kind];
+          return (
+            <CircleMarker
+              key={`${m.id}-${m.kind}`}
+              center={[m.lat, m.lng]}
+              radius={s.radius}
+              pathOptions={{ color: s.color, fillColor: s.fill, fillOpacity: 0.9, weight: 2 }}
+              eventHandlers={onMarkerClick ? { click: () => onMarkerClick(m.id) } : undefined}
+            >
+              <Tooltip direction="top">{m.label}</Tooltip>
+            </CircleMarker>
+          );
+        })}
+        {origin && (
+          <CircleMarker
+            center={[origin.lat, origin.lng]}
+            radius={9}
+            pathOptions={{ color: "#000", fillColor: "#facc15", fillOpacity: 1, weight: 3 }}
+          >
+            <Tooltip direction="top" permanent>
+              Lokasi pelapor
+            </Tooltip>
+          </CircleMarker>
+        )}
+      </MapContainer>
+    </div>
+  );
+}

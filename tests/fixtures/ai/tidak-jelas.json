@@ -1,0 +1,17 @@
+{
+  "report": {
+    "transcript": "(suara tidak jelas) ... tolong ... (bising)",
+    "summary": "Laporan tidak dapat dipahami.",
+    "language": null
+  },
+  "soap": {
+    "subjective": [],
+    "objective": [],
+    "assessment": { "value": null, "origin": "UNKNOWN", "note": "Laporan tidak cukup jelas untuk dinilai." },
+    "plan": ["Rekam ulang laporan di tempat yang lebih tenang atau gunakan input teks."]
+  },
+  "urgency": { "level": null, "reason": "Informasi tidak cukup untuk memperkirakan urgensi." },
+  "needs": [],
+  "unknowns": ["Keluhan utama", "Usia", "Tanda vital"],
+  "input_quality": "AUDIO_TIDAK_JELAS"
+}

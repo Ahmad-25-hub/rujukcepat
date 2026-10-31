@@ -1,0 +1,30 @@
+{
+  "report": {
+    "transcript": "Anak saya digigit ular di kebun dekat rumah, kakinya bengkak dan nyeri, sekitar lima belas menit lalu.",
+    "summary": "Anak digigit ular ±15 menit lalu, kaki bengkak dan nyeri.",
+    "language": "id"
+  },
+  "soap": {
+    "subjective": [
+      { "value": "Digigit ular di kaki ±15 menit lalu", "origin": "USER_STATEMENT", "note": null },
+      { "value": "Kaki bengkak dan nyeri", "origin": "USER_STATEMENT", "note": null }
+    ],
+    "objective": [
+      { "label": "Usia anak", "value": null, "unit": null, "origin": "UNKNOWN" },
+      { "label": "Jenis ular", "value": null, "unit": null, "origin": "UNKNOWN" }
+    ],
+    "assessment": {
+      "value": "Perkiraan: gigitan ular dengan reaksi lokal; perlu penilaian kemungkinan bisa.",
+      "origin": "AI_INTERPRETATION",
+      "note": "Bukan diagnosis."
+    },
+    "plan": ["Hubungi IGD tujuan yang memiliki layanan antibisa.", "Sampaikan waktu gigitan dan ciri ular bila diketahui."]
+  },
+  "urgency": { "level": "KUNING", "reason": "Gigitan ular dengan bengkak perlu penilaian di fasilitas dengan layanan antibisa." },
+  "needs": [
+    { "code": "IGD_DASAR", "required": true, "reason": "Penilaian awal." },
+    { "code": "ANTI_BISA", "required": true, "reason": "Kemungkinan memerlukan layanan antibisa." }
+  ],
+  "unknowns": ["Usia anak", "Jenis ular", "Tanda vital"],
+  "input_quality": "OK"
+}
