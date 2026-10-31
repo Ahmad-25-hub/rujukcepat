@@ -40,11 +40,11 @@ export function LoginForm() {
   }
 
   return (
-    <form onSubmit={submit} className="space-y-4 rounded-xl border border-slate-300 bg-white p-6" aria-labelledby="login-title">
+    <form onSubmit={submit} className="space-y-4 card p-6" aria-labelledby="login-title">
       <h1 id="login-title" className="text-2xl font-extrabold">
         Masuk petugas IGD (demo)
       </h1>
-      <p className="text-sm text-slate-700">
+      <p className="text-sm text-ink-2">
         Akses dibatasi per rumah sakit: setiap akun demo hanya melihat dan mengubah data RS-nya sendiri. Kata sandi akun demo ditetapkan oleh admin demo melalui
         environment server dan tidak ditampilkan di sini.
       </p>
@@ -60,7 +60,7 @@ export function LoginForm() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           list="demo-emails"
-          className="w-full rounded-lg border-2 border-slate-400 px-3 py-3 text-base"
+          className="field w-full"
         />
         <datalist id="demo-emails">
           {DEMO_EMAILS.map(([v, l]) => (
@@ -81,23 +81,23 @@ export function LoginForm() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full rounded-lg border-2 border-slate-400 px-3 py-3 text-base"
+          className="field w-full"
         />
       </div>
       {error && (
-        <p role="alert" className="rounded-lg border-2 border-red-400 bg-red-50 p-3 text-sm text-red-950">
+        <p role="alert" className="rounded-lg border-2 border-[#f3c6ce] bg-brand-tint p-3 text-sm text-[#6e0a1b]">
           {error}
         </p>
       )}
       <button
         type="submit"
         disabled={busy}
-        className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-700 px-6 py-3 text-lg font-bold text-white disabled:bg-slate-400"
+        className="btn btn-primary btn-lg w-full"
       >
         {busy ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <LogIn className="h-5 w-5" aria-hidden />}
         Masuk
       </button>
-      <details className="text-sm text-slate-700">
+      <details className="text-sm text-ink-2">
         <summary className="cursor-pointer font-semibold">Akun demo yang tersedia</summary>
         <ul className="mt-2 list-disc space-y-0.5 pl-5">
           {DEMO_EMAILS.map(([v, l]) => (

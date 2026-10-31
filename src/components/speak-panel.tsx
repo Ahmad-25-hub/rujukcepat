@@ -56,10 +56,10 @@ export function SpeakPanel({ lines, title = "Panduan suara" }: { lines: string[]
   );
 
   return (
-    <section aria-labelledby="speak-title" className="space-y-3 rounded-xl border border-slate-300 bg-white p-4">
+    <section aria-labelledby="speak-title" className="space-y-3 card p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 id="speak-title" className="flex items-center gap-2 text-base font-bold">
-          <Volume2 className="h-5 w-5 text-blue-700" aria-hidden />
+          <Volume2 className="h-5 w-5 text-accent" aria-hidden />
           {title}
         </h3>
         {canSpeak ? (
@@ -68,7 +68,7 @@ export function SpeakPanel({ lines, title = "Panduan suara" }: { lines: string[]
               type="button"
               onClick={play}
               disabled={speaking || lines.length === 0}
-              className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-2.5 font-bold text-white disabled:bg-slate-400"
+              className="btn btn-primary"
             >
               <Volume2 className="h-4 w-4" aria-hidden />
               Putar
@@ -77,7 +77,7 @@ export function SpeakPanel({ lines, title = "Panduan suara" }: { lines: string[]
               type="button"
               onClick={stop}
               disabled={!speaking}
-              className="flex items-center gap-2 rounded-lg border-2 border-slate-500 bg-white px-4 py-2.5 font-bold disabled:opacity-50"
+              className="btn btn-secondary"
             >
               <Square className="h-4 w-4" aria-hidden />
               Berhenti
@@ -86,27 +86,27 @@ export function SpeakPanel({ lines, title = "Panduan suara" }: { lines: string[]
         ) : null}
       </div>
       {!canSpeak && (
-        <p role="note" className="flex items-start gap-2 rounded-lg bg-amber-50 p-3 text-sm text-amber-950">
+        <p role="note" className="flex items-start gap-2 rounded-lg bg-[#fff8e6] p-3 text-sm text-warn-ink">
           <VolumeX className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
           Browser ini tidak mendukung suara (speechSynthesis). Silakan baca panduan tertulis di bawah.
         </p>
       )}
       {speaking && (
-        <p role="status" className="text-sm font-semibold text-blue-800">
+        <p role="status" className="text-sm font-semibold text-accent">
           Sedang membacakan panduan…
         </p>
       )}
       {error && (
-        <p role="alert" className="text-sm text-amber-900">
+        <p role="alert" className="text-sm text-warn-ink">
           {error}
         </p>
       )}
-      <ul className="list-disc space-y-1 pl-5 text-sm text-slate-800">
+      <ul className="list-disc space-y-1 pl-5 text-sm text-ink-2">
         {lines.map((l, i) => (
           <li key={i}>{l}</li>
         ))}
       </ul>
-      <p className="text-xs text-slate-600">Panduan ini hanya untuk koordinasi rujukan, bukan diagnosis atau instruksi pengobatan.</p>
+      <p className="text-xs text-muted">Panduan ini hanya untuk koordinasi rujukan, bukan diagnosis atau instruksi pengobatan.</p>
     </section>
   );
 }

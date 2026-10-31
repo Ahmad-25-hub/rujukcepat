@@ -1,50 +1,61 @@
 "use client";
 
-import { ShieldCheck } from "lucide-react";
-import { useState } from "react";
+import { Lock } from "lucide-react";
 import type { ServiceStatus } from "@/lib/client/api";
 
-export function ConsentStep({ status, onAccept }: { status: ServiceStatus | null; onAccept: () => void }) {
-  const [checked, setChecked] = useState(false);
+export function ConsentStep({ status, checked, onChange }: { status: ServiceStatus | null; checked: boolean; onChange: (v: boolean) => void }) {
   const provider =
     status?.ai_mode === "MOCK"
-      ? "Mode AI simulasi sedang aktif: rekaman dikirim ke server demo tetapi TIDAK dianalisis oleh Gemini; hasil berasal dari skenario sintetis."
-      : `Rekaman suara (dan foto bila Anda tambahkan) dikirim melalui server aplikasi ke Google Gemini API${status?.ai_model ? ` (${status.ai_model})` : ""} untuk diringkas.`;
+      ? "Mode AI simulasi aktif: rekaman dikirim ke server demo tetapi TIDAK dianalisis Gemini; hasil berasal dari skenario sintetis."
+      : `Server aplikasi, lalu Google Gemini API${status?.ai_model ? ` (${status.ai_model})` : ""} untuk menyusun ringkasan.`;
+  const rows: [string, React.ReactNode][] = [
+    ["Yang dikirim", "Rekaman suara atau teks, foto opsional, dan titik lokasi."],
+    ["Diproses oleh", provider],
+    [
+      "Disimpan",
+      <>
+        Audio dan foto <strong>tidak disimpan</strong> setelah diproses. Ringkasan baru disimpan bila Anda mengirim permintaan rujukan.
+      </>,
+    ],
+  ];
   return (
-    <section aria-labelledby="consent-title" className="space-y-4">
-      <h2 id="consent-title" className="flex items-center gap-2 text-xl font-bold">
-        <ShieldCheck className="h-6 w-6 text-blue-700" aria-hidden />
-        Sebelum melapor
-      </h2>
-      <ul className="list-disc space-y-2 pl-5 text-base leading-relaxed">
-        <li>{provider}</li>
-        <li>
-          Audio dan foto <strong>tidak disimpan</strong> setelah diproses. Ringkasan baru disimpan bila Anda mengirim permintaan rujukan.
-        </li>
-        <li>Ini <strong>demo dengan data simulasi</strong>. Jangan menyebut nama, NIK, atau identitas asli pasien.</li>
-        <li>Hasil AI adalah perkiraan untuk membantu koordinasi, bukan diagnosis dan bukan konfirmasi rumah sakit.</li>
-        <li>
-          Dalam keadaan darurat nyata, hubungi <a className="font-bold text-red-700 underline" href="tel:119">119</a> atau{" "}
-          <a className="font-bold text-red-700 underline" href="tel:112">112</a>.
-        </li>
-      </ul>
-      <label className="flex cursor-pointer items-start gap-3 rounded-lg border-2 border-slate-300 bg-white p-4 text-base">
-        <input
-          type="checkbox"
-          className="mt-1 h-5 w-5 accent-blue-700"
-          checked={checked}
-          onChange={(e) => setChecked(e.target.checked)}
-        />
-        <span>Saya memahami penjelasan di atas dan setuju laporan diproses untuk demo ini.</span>
-      </label>
-      <button
-        type="button"
-        disabled={!checked}
-        onClick={onAccept}
-        className="w-full rounded-xl bg-blue-700 px-6 py-4 text-lg font-bold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
+    <section aria-labelledby="consent-title" className="anim-rise anim-d1 card flex flex-col gap-3.5 p-[18px]">
+      <div className="flex items-center gap-3">
+        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-accent-tint text-accent">
+          <Lock className="h-5 w-5" aria-hidden />
+        </span>
+        <h2 id="consent-title" className="text-lg font-extrabold">
+          Bagaimana data diproses
+        </h2>
+      </div>
+      <dl className="grid gap-2.5">
+        {rows.map(([k, v]) => (
+          <div key={k} className="flex gap-2.5 rounded-2xl bg-soft p-3">
+            <dt className="w-[92px] shrink-0 text-[13px] font-bold text-muted">{k}</dt>
+            <dd className="text-sm leading-normal">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="notice notice-warn !text-[13px]">
+        Demo dengan data simulasi: jangan sebut nama, NIK, atau identitas asli pasien. Hasil AI adalah perkiraan, bukan diagnosis atau konfirmasi rumah sakit.
+      </p>
+      <p className="text-sm text-ink-2">
+        Darurat nyata? Hubungi{" "}
+        <a className="font-bold text-brand-ink underline" href="tel:119">
+          119
+        </a>{" "}
+        atau{" "}
+        <a className="font-bold text-brand-ink underline" href="tel:112">
+          112
+        </a>
+        .
+      </p>
+      <label
+        className={`flex min-h-[52px] cursor-pointer items-center gap-3 rounded-2xl border-[1.5px] px-3 py-2 transition-colors ${checked ? "border-ink bg-white" : "border-line-strong bg-white hover:border-faint"}`}
       >
-        Lanjut ke lokasi
-      </button>
+        <input type="checkbox" className="h-[22px] w-[22px] shrink-0 accent-ink" checked={checked} onChange={(e) => onChange(e.target.checked)} />
+        <span className="text-[15px] font-bold">Saya mengerti dan setuju laporan diproses untuk demo ini</span>
+      </label>
     </section>
   );
 }

@@ -2,7 +2,7 @@
 
 import { AlertTriangle, Ban, CheckCircle2, Clock, Hourglass, Loader2, RefreshCw, ShieldCheck, WifiOff, XCircle } from "lucide-react";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { SimBadge, UrgencyBadge } from "@/components/badges";
+import { UrgencyBadge } from "@/components/badges";
 import { SpeakPanel } from "@/components/speak-panel";
 import { SyncBadge } from "@/components/sync-badge";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
@@ -46,15 +46,16 @@ export function useActiveReferral(): string | null {
   return useSyncExternalStore(subscribeActive, readActiveReferral, () => null);
 }
 
-const STATUS_STYLE: Record<ReferralView["status"], { cls: string; icon: React.ReactNode }> = {
-  PENDING: { cls: "border-amber-500 bg-amber-50 text-amber-950", icon: <Hourglass className="h-7 w-7" aria-hidden /> },
-  ACCEPTED: { cls: "border-green-700 bg-green-50 text-green-950", icon: <CheckCircle2 className="h-7 w-7" aria-hidden /> },
-  REJECTED: { cls: "border-red-700 bg-red-50 text-red-950", icon: <XCircle className="h-7 w-7" aria-hidden /> },
-  CANCELLED: { cls: "border-slate-500 bg-slate-100 text-slate-900", icon: <Ban className="h-7 w-7" aria-hidden /> },
-  EXPIRED: { cls: "border-slate-500 bg-slate-100 text-slate-900", icon: <Clock className="h-7 w-7" aria-hidden /> },
+const STATUS_STYLE: Record<ReferralView["status"], { cls: string; iconCls: string; icon: React.ReactNode }> = {
+  PENDING: { cls: "card", iconCls: "", icon: <Hourglass className="h-7 w-7" aria-hidden /> },
+  ACCEPTED: { cls: "bg-ok text-white", iconCls: "bg-white text-ok", icon: <CheckCircle2 className="h-9 w-9" aria-hidden /> },
+  REJECTED: { cls: "card !border-[#f3b8c2]", iconCls: "bg-brand-tint text-brand", icon: <XCircle className="h-7 w-7" aria-hidden /> },
+  CANCELLED: { cls: "card", iconCls: "bg-[#eef1f5] text-ink-2", icon: <Ban className="h-7 w-7" aria-hidden /> },
+  EXPIRED: { cls: "card", iconCls: "bg-[#eef1f5] text-ink-2", icon: <Clock className="h-7 w-7" aria-hidden /> },
 };
 
-function Countdown({ expiresAt, offsetMs, onZero }: { expiresAt: string; offsetMs: number; onZero: () => void }) {
+/** Cincin hitung mundur: teks mm:ss tetap ada, cincin hanya pelengkap visual. */
+function Countdown({ expiresAt, createdAt, offsetMs, onZero }: { expiresAt: string; createdAt: string; offsetMs: number; onZero: () => void }) {
   const [now, setNow] = useState(() => Date.now());
   const fired = useRef(false);
   useEffect(() => {
@@ -62,6 +63,7 @@ function Countdown({ expiresAt, offsetMs, onZero }: { expiresAt: string; offsetM
     return () => clearInterval(t);
   }, []);
   const left = Math.max(0, Math.floor((Date.parse(expiresAt) - (now + offsetMs)) / 1000));
+  const total = Math.max(1, (Date.parse(expiresAt) - Date.parse(createdAt)) / 1000);
   useEffect(() => {
     if (left === 0 && !fired.current) {
       fired.current = true;
@@ -70,10 +72,31 @@ function Countdown({ expiresAt, offsetMs, onZero }: { expiresAt: string; offsetM
   }, [left, onZero]);
   const mm = String(Math.floor(left / 60)).padStart(2, "0");
   const ss = String(left % 60).padStart(2, "0");
+  const C = 2 * Math.PI * 48;
   return (
-    <span className="font-mono text-lg font-bold" aria-label={`Sisa waktu ${mm} menit ${ss} detik`}>
-      {mm}:{ss}
-    </span>
+    <div className="relative h-[132px] w-[132px]">
+      <svg width="132" height="132" viewBox="0 0 120 120" aria-hidden className="-rotate-90">
+        <circle cx="60" cy="60" r="48" fill="none" stroke="#f1e4c4" strokeWidth="9" />
+        <circle
+          cx="60"
+          cy="60"
+          r="48"
+          fill="none"
+          stroke="#c78a00"
+          strokeWidth="9"
+          strokeLinecap="round"
+          strokeDasharray={C}
+          strokeDashoffset={C * (1 - Math.min(1, left / total))}
+          className="transition-[stroke-dashoffset] duration-1000 ease-linear"
+        />
+      </svg>
+      <span className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="font-mono text-[28px] font-bold tracking-tight" aria-label={`Sisa waktu ${mm} menit ${ss} detik`}>
+          {mm}:{ss}
+        </span>
+        <span className="text-[11px] font-bold uppercase tracking-[0.06em] text-muted">sisa waktu</span>
+      </span>
+    </div>
   );
 }
 
@@ -146,16 +169,16 @@ export function StatusStep({
   if (!data) {
     if (error) {
       return (
-        <div role="alert" className="space-y-3 rounded-xl border-2 border-red-300 bg-red-50 p-4">
-          <p className="text-base text-red-900">{error.message}</p>
+        <div role="alert" className="space-y-3 rounded-xl border-2 border-[#f3c6ce] bg-brand-tint p-4">
+          <p className="text-base text-brand-ink">{error.message}</p>
           <div className="flex gap-2">
             {!error.gone && (
-              <button type="button" onClick={() => void load()} className="flex items-center gap-2 rounded-lg bg-red-700 px-4 py-3 font-bold text-white">
+              <button type="button" onClick={() => void load()} className="btn btn-brand">
                 <RefreshCw className="h-4 w-4" aria-hidden />
                 Coba lagi
               </button>
             )}
-            <button type="button" onClick={error.gone ? onGone : onNew} className="rounded-lg border-2 border-slate-400 bg-white px-4 py-3 font-bold">
+            <button type="button" onClick={error.gone ? onGone : onNew} className="btn btn-secondary">
               {error.gone ? "Mulai laporan baru" : "Kembali"}
             </button>
           </div>
@@ -173,133 +196,148 @@ export function StatusStep({
   const r = data.referral;
   const st = STATUS_STYLE[r.status];
   const terminal = r.status !== "PENDING" && r.status !== "ACCEPTED";
+  const accepted = r.status === "ACCEPTED";
 
   return (
-    <section aria-labelledby="status-title" className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 id="status-title" className="text-xl font-bold">
-          Status permintaan rujukan
-        </h2>
+    <section aria-labelledby="status-title" className="flex flex-1 flex-col gap-3.5">
+      <div className="flex justify-end">
         <SyncBadge sync={sync} />
       </div>
 
       {!online && (
-        <p role="alert" className="flex items-center gap-2 rounded-lg bg-red-700 px-3 py-2 text-sm font-semibold text-white">
-          <WifiOff className="h-4 w-4" aria-hidden />
+        <p role="alert" className="notice notice-error font-semibold">
+          <WifiOff className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
           Anda offline – status di bawah mungkin sudah tidak mutakhir.
         </p>
       )}
       {error && (
-        <p role="alert" className="rounded-lg border-2 border-amber-400 bg-amber-50 p-3 text-sm text-amber-950">
+        <p role="alert" className="notice notice-warn">
           {error.message}
         </p>
       )}
 
-      <div className={`space-y-2 rounded-xl border-2 p-4 ${st.cls}`} aria-live="polite">
-        <p className="flex items-center gap-3 text-2xl font-extrabold">
-          {st.icon}
-          {STATUS_LABEL[r.status]}
-        </p>
-        <p className="text-base">
-          Tujuan: <strong>{r.hospital.name}</strong>
-        </p>
+      <div
+        key={r.status}
+        className={`anim-rise flex flex-col items-center gap-3.5 rounded-3xl px-[18px] py-6 text-center ${st.cls}`}
+        aria-live="polite"
+      >
+        {r.status === "PENDING" ? (
+          <Countdown key={r.id} expiresAt={r.expires_at} createdAt={r.created_at} offsetMs={data.offsetMs} onZero={() => void load()} />
+        ) : (
+          <span className={`anim-pop grid place-items-center rounded-full ${accepted ? "h-[76px] w-[76px]" : "h-14 w-14 !rounded-2xl"} ${st.iconCls}`}>{st.icon}</span>
+        )}
+        <div>
+          <h1 id="status-title" className="text-2xl font-extrabold leading-tight tracking-tight">
+            {STATUS_LABEL[r.status]}
+          </h1>
+          <p className={`mt-1.5 text-base ${accepted ? "text-white/90" : "text-ink-2"}`}>
+            {r.status === "PENDING" ? (
+              <>
+                IGD <strong className="text-ink">{r.hospital.name}</strong> sudah menerima pemberitahuan pra-kedatangan.
+              </>
+            ) : (
+              <>
+                Tujuan: <strong>{r.hospital.name}</strong>
+              </>
+            )}
+          </p>
+        </div>
         {r.status === "PENDING" && (
-          <p className="flex flex-wrap items-center gap-2 text-sm">
-            <Clock className="h-4 w-4" aria-hidden />
-            Kedaluwarsa dalam <Countdown key={r.id} expiresAt={r.expires_at} offsetMs={data.offsetMs} onZero={() => void load()} />
-            <span>bila belum dikonfirmasi petugas.</span>
+          <p className="max-w-md text-[13px] leading-normal text-muted">
+            Jika belum dikonfirmasi petugas sebelum waktu habis, permintaan kedaluwarsa dan kuota simulasi dilepas. Anda dapat memilih RS lain.
+          </p>
+        )}
+        {accepted && (
+          <p className="text-sm text-white/90">
+            Diterima {timeAgo(r.decided_at ?? r.updated_at)}.{" "}
+            {r.arrived_at ? "Petugas telah menandai pasien tiba." : "Kuota tetap ditahan sampai petugas menandai pasien tiba atau membatalkan penerimaan."}
           </p>
         )}
         {r.decision_note && (
-          <p className="text-sm">
-            Catatan petugas: <em>{r.decision_note}</em>
-          </p>
-        )}
-        {r.status === "ACCEPTED" && (
-          <p className="text-sm">
-            Diterima {timeAgo(r.decided_at ?? r.updated_at)}. {r.arrived_at ? "Petugas telah menandai pasien tiba." : "Kuota tetap ditahan sampai petugas menandai pasien tiba atau membatalkan penerimaan."}
+          <p className={`rounded-xl px-3 py-2 text-sm ${accepted ? "bg-white/15 text-white" : "bg-soft text-ink-2"}`}>
+            Catatan petugas: “{r.decision_note}”
           </p>
         )}
       </div>
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div className="space-y-1 rounded-xl border border-slate-300 bg-white p-3">
-          <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Status permintaan</p>
-          <p className="text-base font-semibold">{STATUS_LABEL[r.status]}</p>
-          <p className="text-xs text-slate-600">Keputusan petugas IGD; bukan hasil AI.</p>
+      <div className="anim-rise anim-d1 grid grid-cols-3 gap-2">
+        <div className="card !rounded-2xl px-3 py-2.5">
+          <p className="text-xs font-bold text-muted">Permintaan</p>
+          <p className="mt-1 text-[15px] font-extrabold leading-tight">{STATUS_LABEL[r.status].split(" ")[0]}</p>
         </div>
-        <div className="space-y-1 rounded-xl border border-slate-300 bg-white p-3">
-          <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-slate-600">
-            Kuota rujukan <SimBadge>Simulasi</SimBadge>
+        <div className="card !rounded-2xl px-3 py-2.5">
+          <p className="text-xs font-bold text-muted">Kuota simulasi</p>
+          <p className="mt-1 text-[15px] font-extrabold leading-tight">
+            {r.reservation_status ? { HELD: "Ditahan", RELEASED: "Dilepas", CONSUMED: "Terpakai" }[r.reservation_status] : "—"}
           </p>
-          <p className="text-base font-semibold">{r.reservation_status ? RESERVATION_LABEL[r.reservation_status] : "Tidak ada reservasi"}</p>
-          <p className="text-xs text-slate-600">Penguncian slot simulasi, bukan konfirmasi penerimaan klinis.</p>
+        </div>
+        <div className="card !rounded-2xl px-3 py-2.5">
+          <p className="text-xs font-bold text-muted">Urgensi (AI)</p>
+          <p className="mt-1 text-[15px] font-extrabold leading-tight">{r.urgency ?? "Tinjau"}</p>
         </div>
       </div>
+      <p className="-mt-1 px-1 text-xs text-muted">
+        Status permintaan adalah keputusan petugas IGD. {r.reservation_status ? RESERVATION_LABEL[r.reservation_status] : "Tidak ada reservasi"}: penguncian slot
+        simulasi, bukan konfirmasi klinis.
+      </p>
 
-      <div className="space-y-2 rounded-xl border border-slate-300 bg-white p-3">
-        <p className="text-xs font-bold uppercase tracking-wide text-slate-600">Ringkasan laporan (perkiraan AI)</p>
+      <section aria-labelledby="trip-title" className="anim-rise anim-d2 flex flex-col gap-3 rounded-[22px] bg-ink p-4 text-[#e6ebf3]">
+        <h2 id="trip-title" className="eyebrow !text-[#9fb0c8]">
+          Perjalanan ke {r.hospital.short_name}
+        </h2>
+        {r.eta_seconds != null ? (
+          <p className="flex flex-wrap items-baseline gap-2">
+            <span className="text-[28px] font-extrabold tracking-tight text-white">{formatEta(r.eta_seconds)}</span>
+            <span className="text-sm text-[#b7c3d6]">{r.eta_source === "MOCK" ? "ETA simulasi" : "perkiraan rute OSRM tanpa lalu lintas langsung"}</span>
+          </p>
+        ) : (
+          <p className="text-base font-semibold text-white">ETA tidak tersedia</p>
+        )}
         <div className="flex flex-wrap items-center gap-2">
-          <UrgencyBadge level={r.urgency} />
-          {r.eta_seconds != null ? (
-            <span className="text-sm">
-              <strong>{formatEta(r.eta_seconds)}</strong> {r.eta_source === "MOCK" ? "(ETA simulasi)" : "(perkiraan rute OSRM tanpa lalu lintas langsung)"}
-            </span>
-          ) : (
-            <span className="text-sm text-slate-700">ETA tidak tersedia</span>
-          )}
+          <UrgencyBadge level={r.urgency} size="sm" />
+          <a href="tel:119" className="btn ml-auto border-[#34425e] bg-transparent text-white hover:bg-[#1a2640]">
+            Telepon 119
+          </a>
         </div>
-        <p className="text-sm">{r.ai_result.report.summary}</p>
-        <p className="flex items-start gap-2 text-xs text-slate-600">
+        <p className="text-sm leading-normal text-[#c9d2e0]">{r.ai_result.report.summary}</p>
+        <p className="flex items-start gap-2 text-xs text-[#9fb0c8]">
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" aria-hidden />
           Hasil AI adalah perkiraan awal yang perlu ditinjau tenaga kesehatan, bukan diagnosis dan bukan bukti rumah sakit menerima pasien.
         </p>
-      </div>
+      </section>
 
-      <SpeakPanel lines={buildGuidance(r)} />
+      <SpeakPanel lines={buildGuidance(r)} title="Panduan sambil menunggu" />
 
-      {r.status === "PENDING" && (
-        <div className="space-y-2">
-          {!confirmCancel ? (
-            <button
-              type="button"
-              onClick={() => setConfirmCancel(true)}
-              className="w-full rounded-xl border-2 border-red-700 bg-white px-4 py-3 text-base font-bold text-red-800"
-            >
-              Batalkan permintaan
-            </button>
-          ) : (
-            <div role="alertdialog" aria-label="Konfirmasi pembatalan" className="space-y-2 rounded-xl border-2 border-red-700 bg-red-50 p-3">
-              <p className="text-base font-semibold text-red-950">Batalkan permintaan rujukan ke {r.hospital.short_name}? Kuota simulasi akan dilepas.</p>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={cancel}
-                  disabled={cancelling || !online}
-                  className="flex items-center gap-2 rounded-lg bg-red-700 px-4 py-3 font-bold text-white disabled:bg-slate-400"
-                >
-                  {cancelling && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
-                  Ya, batalkan
-                </button>
-                <button type="button" onClick={() => setConfirmCancel(false)} className="rounded-lg border-2 border-slate-500 bg-white px-4 py-3 font-bold">
-                  Tidak
-                </button>
-              </div>
+      {r.status === "PENDING" &&
+        (!confirmCancel ? (
+          <button type="button" onClick={() => setConfirmCancel(true)} className="btn btn-danger btn-lg w-full">
+            Batalkan permintaan
+          </button>
+        ) : (
+          <div role="alertdialog" aria-label="Konfirmasi pembatalan" className="anim-rise flex flex-col gap-2.5 rounded-2xl border border-[#f3c6ce] bg-brand-tint p-3.5">
+            <p className="text-base font-semibold text-[#6e0a1b]">Batalkan permintaan rujukan ke {r.hospital.short_name}? Kuota simulasi akan dilepas.</p>
+            <div className="flex flex-wrap gap-2">
+              <button type="button" onClick={cancel} disabled={cancelling || !online} className="btn btn-brand flex-1">
+                {cancelling && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}
+                Ya, batalkan
+              </button>
+              <button type="button" onClick={() => setConfirmCancel(false)} className="btn btn-secondary flex-1">
+                Tidak
+              </button>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        ))}
 
       {terminal && onBack && (
-        <button type="button" onClick={onBack} className="w-full rounded-xl bg-blue-700 px-4 py-3 text-base font-bold text-white">
+        <button type="button" onClick={onBack} className="btn btn-primary btn-lg w-full">
           Pilih tujuan lain
         </button>
       )}
-      <button type="button" onClick={onNew} className="w-full rounded-xl border-2 border-slate-500 bg-white px-4 py-3 text-base font-bold">
+      <button type="button" onClick={onNew} className="btn btn-ghost w-full">
         Buat laporan baru
       </button>
 
-      <p className="flex items-center gap-2 text-xs text-slate-600">
+      <p className="flex items-center justify-center gap-2 text-xs text-muted">
         <ShieldCheck className="h-4 w-4" aria-hidden />
         Status ini dibaca dari server; tidak disimpan offline.
       </p>

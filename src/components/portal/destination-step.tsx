@@ -1,8 +1,8 @@
 "use client";
 
-import { Ban, CheckCircle2, Hospital, Loader2, Navigation, Phone, RefreshCw, Route, Send } from "lucide-react";
+import { Ban, Check, Loader2, Phone, RefreshCw, Route, Send } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { CapStatusChip, SimBadge } from "@/components/badges";
+import { CapStatusChip } from "@/components/badges";
 import MapView, { type MapMarker } from "@/components/map-dynamic";
 import { ApiClientError, apiFetch } from "@/lib/client/api";
 import { formatEta, formatKm, timeAgo } from "@/lib/client/format";
@@ -19,18 +19,16 @@ type RouteGeo = { source: "OSRM" | "MOCK"; duration_s: number; distance_m: numbe
 function EtaLine({ c }: { c: Candidate }) {
   if (c.eta_seconds == null) {
     return (
-      <p className="text-sm text-slate-700">
+      <p className="text-sm text-ink-2">
         <strong>ETA tidak tersedia</strong> · jarak garis lurus {c.straight_km.toLocaleString("id-ID")} km (bukan waktu tempuh)
       </p>
     );
   }
   return (
-    <p className="text-base">
-      <strong>{formatEta(c.eta_seconds)}</strong>
-      {c.distance_m != null && <> · {formatKm(c.distance_m)}</>}{" "}
-      <span className="text-xs text-slate-600">
-        {c.eta_source === "MOCK" ? "(ETA simulasi)" : "(perkiraan rute OSRM tanpa lalu lintas langsung)"}
-      </span>
+    <p className="flex flex-wrap items-baseline gap-x-2">
+      <span className="text-[26px] font-extrabold tracking-tight">{formatEta(c.eta_seconds)}</span>
+      {c.distance_m != null && <span className="text-sm text-ink-2">{formatKm(c.distance_m)}</span>}
+      <span className="text-xs text-muted">{c.eta_source === "MOCK" ? "ETA simulasi" : "perkiraan rute OSRM, tanpa lalu lintas langsung"}</span>
     </p>
   );
 }
@@ -38,51 +36,71 @@ function EtaLine({ c }: { c: Candidate }) {
 function CandidateCard({
   c,
   label,
+  index,
   selected,
   onSelect,
 }: {
   c: Candidate;
   label: string;
+  index: number;
   selected: boolean;
   onSelect: () => void;
 }) {
+  const pct = c.total_slots > 0 ? Math.round((c.available_slots / c.total_slots) * 100) : 0;
   return (
-    <li>
+    <li className="anim-rise" style={{ animationDelay: `${0.06 * index}s` }}>
       <button
         type="button"
         onClick={onSelect}
         aria-pressed={selected}
-        className={`w-full space-y-2 rounded-xl border-2 p-4 text-left ${selected ? "border-blue-700 bg-blue-50 ring-2 ring-blue-300" : "border-slate-300 bg-white"}`}
+        className={`flex w-full flex-col gap-2.5 rounded-[20px] border-2 bg-white p-4 text-left transition-[border-color,box-shadow] ${
+          selected ? "border-accent shadow-[0_0_0_4px_#dce6ff,0_18px_36px_-24px_rgba(29,78,216,.6)]" : "border-line hover:border-faint"
+        }`}
       >
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span className="text-xs font-bold uppercase tracking-wide text-slate-600">{label}</span>
+        <span className="flex w-full items-center justify-between gap-2">
+          <span className="flex items-center gap-2">
+            <span
+              className={`grid h-6 w-6 place-items-center rounded-full text-xs font-extrabold ${index === 0 ? "bg-brand text-white" : "border-2 border-ink bg-white text-ink"}`}
+            >
+              {index + 1}
+            </span>
+            <span className="eyebrow">{label}</span>
+          </span>
           {selected && (
-            <span className="flex items-center gap-1 text-sm font-bold text-blue-800">
-              <CheckCircle2 className="h-4 w-4" aria-hidden /> Dipilih
+            <span className="flex items-center gap-1 text-[13px] font-extrabold text-accent">
+              <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> Dipilih
             </span>
           )}
-        </div>
-        <p className="text-lg font-bold leading-tight">{c.short_name}</p>
-        <p className="text-sm text-slate-600">{c.name}</p>
+        </span>
+        <span className="block">
+          <span className="block text-[19px] font-extrabold leading-tight tracking-tight">{c.short_name}</span>
+          <span className="block text-[13px] text-muted">{c.name}</span>
+        </span>
         <EtaLine c={c} />
-        <div className="flex flex-wrap gap-1.5">
+        <span className="flex flex-wrap gap-1.5">
           {c.checks.map((k) => (
             <span key={k.code} className="inline-flex items-center gap-1 text-xs">
-              <span className="font-semibold">
+              <span className="font-mono font-bold">
                 {k.code}
                 {k.required ? "*" : ""}
               </span>
               <CapStatusChip status={k.status} />
             </span>
           ))}
-        </div>
-        <div className="flex flex-wrap items-center gap-2 text-sm">
-          <span>
-            Kuota rujukan: <strong>{c.available_slots}</strong>/{c.total_slots}
+        </span>
+        <span className="flex w-full items-center gap-2.5 border-t border-[#eef1f5] pt-2.5">
+          <span className="shrink-0 text-[13px] text-ink-2">Kuota rujukan</span>
+          <span aria-hidden className="h-1.5 flex-1 overflow-hidden rounded-full bg-[#e6eaf0]">
+            <span className={`block h-full rounded-full ${pct < 25 ? "bg-[#c25a0c]" : "bg-ok"}`} style={{ width: `${pct}%` }} />
           </span>
-          {c.is_simulated && <SimBadge>Kapasitas simulasi</SimBadge>}
-          <span className="text-xs text-slate-600">diperbarui {timeAgo(c.capacity_updated_at)}</span>
-        </div>
+          <span className="shrink-0 font-mono text-sm font-bold">
+            {c.available_slots}/{c.total_slots}
+          </span>
+        </span>
+        <span className="flex flex-wrap items-center gap-2 text-xs text-muted">
+          {c.is_simulated && <span className="sim-badge">Kapasitas simulasi</span>}
+          diperbarui {timeAgo(c.capacity_updated_at)}
+        </span>
       </button>
     </li>
   );
@@ -227,23 +245,27 @@ export function DestinationStep({
 
   if (loading) {
     return (
-      <div role="status" className="flex items-center justify-center gap-3 rounded-xl bg-white p-10 text-lg">
-        <Loader2 className="h-6 w-6 animate-spin" aria-hidden />
-        Mencocokkan kebutuhan dengan kesiapan rumah sakit…
+      <div role="status" className="card flex flex-col gap-4 rounded-3xl p-5">
+        <p className="flex items-center gap-3 text-base font-semibold">
+          <Loader2 className="h-5 w-5 animate-spin" aria-hidden />
+          Mencocokkan kebutuhan dengan kesiapan rumah sakit…
+        </p>
+        <span className="skeleton h-48 w-full !rounded-2xl" aria-hidden />
+        <span className="skeleton h-24 w-full !rounded-2xl" aria-hidden />
       </div>
     );
   }
 
   if (error || !result) {
     return (
-      <div role="alert" className="space-y-3 rounded-xl border-2 border-red-300 bg-red-50 p-4">
-        <p className="text-base text-red-900">{error}</p>
-        <div className="flex gap-2">
-          <button type="button" onClick={load} className="flex items-center gap-2 rounded-lg bg-red-700 px-4 py-3 font-bold text-white">
+      <div role="alert" className="card flex flex-col gap-3 rounded-3xl !border-[#f3c6ce] p-5">
+        <p className="text-base text-[#6e0a1b]">{error}</p>
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={load} className="btn btn-primary">
             <RefreshCw className="h-4 w-4" aria-hidden />
             Coba lagi
           </button>
-          <button type="button" onClick={onBack} className="rounded-lg border-2 border-slate-400 bg-white px-4 py-3 font-bold">
+          <button type="button" onClick={onBack} className="btn btn-secondary">
             Kembali
           </button>
         </div>
@@ -251,53 +273,134 @@ export function DestinationStep({
     );
   }
 
-  return (
-    <section aria-labelledby="dest-title" className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <h2 id="dest-title" className="flex items-center gap-2 text-xl font-bold">
-          <Hospital className="h-6 w-6 text-blue-700" aria-hidden />
-          Pilih rumah sakit tujuan
-        </h2>
-        <button type="button" onClick={load} className="flex items-center gap-1 text-sm font-semibold text-blue-800 underline">
-          <RefreshCw className="h-4 w-4" aria-hidden />
-          Perbarui
-        </button>
-      </div>
+  const count = (result.primary ? 1 : 0) + result.alternatives.length;
 
-      <div className="space-y-1 rounded-lg border border-slate-300 bg-white p-3 text-sm">
-        <p className="flex items-start gap-2">
-          <Route className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-          <span>
-            {result.routing_note}
-            {location.source === "MANUAL" && " Dihitung dari titik yang Anda pilih secara manual."}
-          </span>
-        </p>
-        <p className="text-xs text-slate-600">Aturan: {result.policy} Kebutuhan bertanda * wajib.</p>
-        <div className="flex flex-wrap gap-2 pt-1">
-          <SimBadge>Status & kapasitas RS simulasi</SimBadge>
-          {result.routing_status === "MOCK" && <SimBadge>Rute simulasi</SimBadge>}
+  return (
+    <section aria-labelledby="dest-title" className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-wrap items-start gap-4">
+        <div className="anim-rise flex min-w-0 flex-[1_1_340px] flex-col gap-2.5 lg:sticky lg:top-28">
+          <div className="relative">
+            <MapView
+              origin={location}
+              markers={markers}
+              route={route?.geometry ?? null}
+              fitTo={focusPoint ? [focusPoint] : fitTo}
+              onMarkerClick={(id) => onSelect(all.find((c) => c.facility_id === id) ?? null)}
+              className="h-64 sm:h-80"
+            />
+            <div className="pointer-events-none absolute right-2.5 top-2.5 z-[500] flex max-w-[60%] flex-wrap justify-end gap-1.5">
+              <span className="sim-badge">Status &amp; kapasitas simulasi</span>
+              {result.routing_status === "MOCK" && <span className="sim-badge">Rute simulasi</span>}
+            </div>
+          </div>
+          <p className="px-1 text-xs leading-normal text-muted">
+            Lokasi RS dari OpenStreetMap; tidak menyiratkan kemitraan atau penerimaan pasien.
+            {route && ` Garis biru: ${route.source === "MOCK" ? "garis lurus simulasi" : "rute perkiraan OSRM"}.`}
+            {routeError && ` ${routeError}`}
+          </p>
+          <details className="card px-3.5">
+            <summary className="flex min-h-12 cursor-pointer items-center gap-2 text-sm font-bold">
+              <Route className="h-[18px] w-[18px]" aria-hidden />
+              Cara rumah sakit dipilih
+            </summary>
+            <div className="mb-3.5 space-y-1.5 text-sm leading-relaxed text-ink-2">
+              <p>
+                {result.routing_note}
+                {location.source === "MANUAL" && " Dihitung dari titik yang Anda pilih secara manual."}
+              </p>
+              <p className="text-xs text-muted">Aturan: {result.policy} Kebutuhan bertanda * wajib.</p>
+            </div>
+          </details>
+        </div>
+
+        <div className="flex min-w-0 flex-[1_1_340px] flex-col gap-3">
+          <div className="flex items-center justify-between gap-2">
+            <h1 id="dest-title" className="anim-rise text-[22px] font-extrabold leading-tight tracking-tight">
+              {result.primary ? `${count} IGD cocok untuk kebutuhan ini` : "Belum ada IGD yang cocok"}
+            </h1>
+            <button type="button" onClick={load} aria-label="Perbarui pencocokan" title="Perbarui" className="btn btn-ghost btn-icon shrink-0">
+              <RefreshCw className="h-5 w-5" aria-hidden />
+            </button>
+          </div>
+
+          {result.primary ? (
+            <ul className="flex flex-col gap-2.5">
+              <CandidateCard c={result.primary} index={0} label="Kandidat utama" selected={selectedId === result.primary.facility_id} onSelect={() => onSelect(result.primary)} />
+              {result.alternatives.map((c, i) => (
+                <CandidateCard key={c.facility_id} c={c} index={i + 1} label={`Alternatif ${i + 1}`} selected={selectedId === c.facility_id} onSelect={() => onSelect(c)} />
+              ))}
+              {result.alternatives.length === 0 && <li className="px-1 text-sm text-ink-2">Tidak ada alternatif lain yang memenuhi kebutuhan wajib.</li>}
+              {result.other_eligible_count > 0 && <li className="px-1 text-sm text-ink-2">{result.other_eligible_count} RS layak lain lebih jauh tidak ditampilkan.</li>}
+            </ul>
+          ) : (
+            <div role="alert" className="card flex flex-col gap-3 rounded-3xl !border-[#f3c6ce] p-5">
+              <p className="flex items-center gap-2 text-lg font-extrabold text-brand-ink">
+                <Ban className="h-5 w-5" aria-hidden />
+                Tidak ada kandidat yang sesuai
+              </p>
+              <p className="text-base text-ink-2">{result.no_candidate_reason}</p>
+              <ul className="list-disc space-y-1 pl-5 text-[15px] text-ink-2">
+                <li>
+                  Hubungi layanan darurat{" "}
+                  <a href="tel:119" className="font-bold text-brand-ink underline">
+                    119
+                  </a>{" "}
+                  /{" "}
+                  <a href="tel:112" className="font-bold text-brand-ink underline">
+                    112
+                  </a>
+                  .
+                </li>
+                <li>Tinjau kembali kebutuhan (mis. jadikan opsional bila tidak mutlak).</li>
+                <li>Coba lagi beberapa saat; status fasilitas dapat berubah.</li>
+              </ul>
+              <div className="flex flex-wrap gap-2">
+                <button type="button" onClick={onBack} className="btn btn-primary">
+                  Tinjau kebutuhan
+                </button>
+                <a href="tel:119" className="btn btn-danger">
+                  <Phone className="h-4 w-4" aria-hidden />
+                  Telepon 119
+                </a>
+              </div>
+            </div>
+          )}
+
+          {selected && route && (
+            <RouteGuide
+              hospitalName={selected.short_name}
+              origin={location}
+              dest={{ lat: selected.lat, lng: selected.lng }}
+              steps={route.steps ?? []}
+              source={route.source}
+              durationS={route.duration_s}
+              distanceM={route.distance_m}
+              onFocusStep={setFocusPoint}
+              onStartNavigation={() => setNavigating(true)}
+            />
+          )}
+
+          {selected && (
+            <p className="px-1 text-xs leading-normal text-muted">
+              Mengirim akan menahan satu kuota simulasi di {selected.short_name} sampai petugas menjawab. Server memeriksa ulang kesiapan dan kapasitas saat
+              pengiriman.
+            </p>
+          )}
+          {result.excluded.length > 0 && (
+            <details className="rounded-2xl border border-dashed border-[#c7ceda] bg-[#fafbfc] px-3.5">
+              <summary className="flex min-h-12 cursor-pointer items-center text-sm font-bold text-ink-2">Tidak disarankan ({result.excluded.length}) dan alasannya</summary>
+              <ul className="mb-3 flex flex-col gap-1.5 text-sm text-ink-2">
+                {result.excluded.map((x) => (
+                  <li key={x.facility_id}>
+                    <strong className="text-ink">{x.short_name}</strong> · {x.reasons.join(" · ")}
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
         </div>
       </div>
 
-      <MapView origin={location} markers={markers} route={route?.geometry ?? null} fitTo={focusPoint ? [focusPoint] : fitTo} onMarkerClick={(id) => onSelect(all.find((c) => c.facility_id === id) ?? null)} className="h-80" />
-      <p className="text-xs text-slate-600">
-        Lokasi RS dari OpenStreetMap; tidak menyiratkan kemitraan atau penerimaan pasien.
-        {route && ` Garis biru: ${route.source === "MOCK" ? "garis lurus simulasi" : "rute perkiraan OSRM"}.`}
-        {routeError && ` ${routeError}`}
-      </p>
-      {selected && route && (
-        <RouteGuide
-          hospitalName={selected.short_name}
-          origin={location}
-          dest={{ lat: selected.lat, lng: selected.lng }}
-          steps={route.steps ?? []}
-          source={route.source}
-          durationS={route.duration_s}
-          distanceM={route.distance_m}
-          onFocusStep={setFocusPoint}
-          onStartNavigation={() => setNavigating(true)}
-        />
-      )}
       {navigating && selected && route && (
         <NavigationView
           hospital={{ id: selected.facility_id, short_name: selected.short_name, name: selected.name, lat: selected.lat, lng: selected.lng }}
@@ -307,95 +410,34 @@ export function DestinationStep({
         />
       )}
 
-      {result.primary ? (
-        <ul className="space-y-3">
-          <CandidateCard c={result.primary} label="Kandidat utama" selected={selectedId === result.primary.facility_id} onSelect={() => onSelect(result.primary)} />
-          {result.alternatives.map((c, i) => (
-            <CandidateCard key={c.facility_id} c={c} label={`Alternatif ${i + 1}`} selected={selectedId === c.facility_id} onSelect={() => onSelect(c)} />
-          ))}
-          {result.alternatives.length === 0 && <li className="text-sm text-slate-700">Tidak ada alternatif lain yang memenuhi kebutuhan wajib.</li>}
-          {result.other_eligible_count > 0 && <li className="text-sm text-slate-700">{result.other_eligible_count} RS layak lain lebih jauh tidak ditampilkan.</li>}
-        </ul>
-      ) : (
-        <div role="alert" className="space-y-3 rounded-xl border-2 border-red-400 bg-red-50 p-4">
-          <p className="flex items-center gap-2 text-lg font-bold text-red-900">
-            <Ban className="h-5 w-5" aria-hidden />
-            Tidak ada kandidat yang sesuai
+      <div className="action-bar mt-auto">
+        <div className="mx-auto flex w-full max-w-xl flex-col gap-2">
+        {sendError && (
+          <p role="alert" className="notice notice-error">
+            {sendError.message}
+            {sendError.conflict && " Daftar tujuan sudah diperbarui."}
           </p>
-          <p className="text-base text-red-950">{result.no_candidate_reason}</p>
-          <ul className="list-disc space-y-1 pl-5 text-base text-red-950">
-            <li>
-              Hubungi layanan darurat <a href="tel:119" className="font-bold underline">119</a> / <a href="tel:112" className="font-bold underline">112</a>.
-            </li>
-            <li>Tinjau kembali kebutuhan (mis. jadikan opsional bila tidak mutlak).</li>
-            <li>Coba lagi beberapa saat; status fasilitas dapat berubah.</li>
-          </ul>
-          <div className="flex flex-wrap gap-2">
-            <button type="button" onClick={onBack} className="rounded-lg bg-red-700 px-4 py-3 font-bold text-white">
-              Tinjau kebutuhan
+        )}
+        {!online && (
+          <p role="alert" className="notice notice-error font-semibold">
+            Anda offline. Rujukan tidak dapat dikirim sampai koneksi kembali; tidak ada antrean offline.
+          </p>
+        )}
+        {selected ? (
+          <>
+            <button type="button" onClick={() => void send(selected)} disabled={sending || !online} aria-busy={sending} className="btn btn-brand btn-lg w-full">
+              {sending ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Send className="h-5 w-5" aria-hidden />}
+              <span>{sending ? "Mengirim…" : sendError && !sendError.conflict ? "Coba kirim lagi" : `Kirim permintaan ke ${selected.short_name}`}</span>
             </button>
-            <a href="tel:119" className="flex items-center gap-2 rounded-lg border-2 border-red-700 bg-white px-4 py-3 font-bold text-red-800">
-              <Phone className="h-4 w-4" aria-hidden />
-              Telepon 119
-            </a>
-          </div>
-        </div>
-      )}
-
-      {result.excluded.length > 0 && (
-        <details className="rounded-xl border border-slate-300 bg-white p-3">
-          <summary className="cursor-pointer text-base font-semibold">RS yang dikecualikan ({result.excluded.length}) dan alasannya</summary>
-          <ul className="mt-2 divide-y divide-slate-200">
-            {result.excluded.map((x) => (
-              <li key={x.facility_id} className="py-2 text-sm">
-                <p className="font-semibold">{x.short_name}</p>
-                <p className="text-slate-700">{x.reasons.join(" · ")}</p>
-              </li>
-            ))}
-          </ul>
-        </details>
-      )}
-
-      {selected && (
-        <div className="space-y-3 rounded-xl border-2 border-blue-700 bg-white p-4">
-          <p className="flex items-center gap-2 text-base font-bold">
-            <Navigation className="h-5 w-5 text-blue-700" aria-hidden />
-            Tujuan dipilih: {selected.short_name}
-          </p>
-          <p className="text-sm text-slate-700">
-            Pilihan ini <strong>belum</strong> merupakan konfirmasi rumah sakit. Rumah sakit baru mengetahui setelah permintaan rujukan dikirim, dan penerimaan
-            tetap diputuskan petugas IGD.
-          </p>
-          {sendError && (
-            <p role="alert" className="rounded-lg border-2 border-red-400 bg-red-50 p-3 text-sm text-red-950">
-              {sendError.message}
-              {sendError.conflict && " Daftar tujuan sudah diperbarui."}
-            </p>
-          )}
-          {!online && (
-            <p role="alert" className="text-sm font-semibold text-red-800">
-              Anda offline. Rujukan tidak dapat dikirim sampai koneksi kembali; tidak ada antrean offline.
-            </p>
-          )}
-          <button
-            type="button"
-            onClick={() => void send(selected)}
-            disabled={sending || !online}
-            aria-busy={sending}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-red-700 px-6 py-4 text-lg font-bold text-white hover:bg-red-800 disabled:bg-slate-400"
-          >
-            {sending ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Send className="h-5 w-5" aria-hidden />}
-            {sending ? "Mengirim…" : sendError && !sendError.conflict ? "Coba kirim lagi" : "Kirim permintaan rujukan"}
+            <p className="text-center text-xs leading-normal text-muted">Mengirim bukan berarti diterima — petugas IGD yang mengonfirmasi.</p>
+          </>
+        ) : (
+          <button type="button" onClick={onBack} className="btn btn-secondary btn-lg w-full">
+            Kembali ke ringkasan
           </button>
-          <p className="text-xs text-slate-600">
-            Mengirim akan menahan satu kuota simulasi di {selected.short_name} sampai petugas menjawab. Server memeriksa ulang kesiapan dan kapasitas saat pengiriman.
-          </p>
-        </div>
-      )}
-
-      <button type="button" onClick={onBack} className="w-full rounded-xl border-2 border-slate-500 bg-white px-4 py-3 text-base font-bold">
-        Kembali ke ringkasan
-      </button>
+        )}
+      </div>
+      </div>
     </section>
   );
 }

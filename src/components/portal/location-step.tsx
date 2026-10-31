@@ -1,6 +1,6 @@
 "use client";
 
-import { Crosshair, Loader2, MapPin, MousePointerClick } from "lucide-react";
+import { Check, Crosshair, Loader2, MapPin, MousePointerClick } from "lucide-react";
 import { useState } from "react";
 import MapView from "@/components/map-dynamic";
 import { SERVICE_BOUNDS } from "@/lib/schema/api";
@@ -17,15 +17,7 @@ const GEO_ERRORS: Record<number, string> = {
   3: "Pencarian lokasi terlalu lama. Coba lagi atau pilih titik secara manual di peta.",
 };
 
-export function LocationStep({
-  value,
-  onChange,
-  onNext,
-}: {
-  value: ReporterLocation | null;
-  onChange: (l: ReporterLocation | null) => void;
-  onNext: () => void;
-}) {
+export function LocationStep({ value, onChange }: { value: ReporterLocation | null; onChange: (l: ReporterLocation | null) => void }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [manual, setManual] = useState(value?.source === "MANUAL");
@@ -68,68 +60,64 @@ export function LocationStep({
   }
 
   return (
-    <section aria-labelledby="loc-title" className="space-y-4">
-      <h2 id="loc-title" className="flex items-center gap-2 text-xl font-bold">
-        <MapPin className="h-6 w-6 text-blue-700" aria-hidden />
-        Lokasi pasien
-      </h2>
-      <p className="text-base text-slate-700">Lokasi dipakai untuk memperkirakan rute ke rumah sakit. Koordinat dibulatkan sebelum disimpan.</p>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <button
-          type="button"
-          onClick={useGps}
-          disabled={busy}
-          className="flex items-center justify-center gap-2 rounded-xl bg-blue-700 px-4 py-4 text-lg font-bold text-white disabled:bg-slate-400"
-        >
-          {busy ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Crosshair className="h-5 w-5" aria-hidden />}
-          {busy ? "Mencari lokasi…" : "Gunakan lokasi saya"}
-        </button>
-        <button
-          type="button"
-          onClick={() => setManual(true)}
-          className="flex items-center justify-center gap-2 rounded-xl border-2 border-blue-700 bg-white px-4 py-4 text-lg font-bold text-blue-800"
-        >
-          <MousePointerClick className="h-5 w-5" aria-hidden />
-          Pilih di peta
-        </button>
-      </div>
-      {error && (
-        <p role="alert" className="rounded-lg border-2 border-red-300 bg-red-50 p-3 text-base text-red-900">
-          {error}
-        </p>
-      )}
-      {(manual || value) && (
-        <div className="space-y-2">
-          {manual && (
-            <p className="text-sm text-slate-700">
-              Ketuk/klik peta untuk menandai lokasi pasien. Lokasi manual mungkin kurang tepat sehingga ETA juga perkiraan.
+    <section aria-labelledby="loc-title" className="anim-rise anim-d2 card overflow-hidden">
+      <div className="flex items-center gap-3 px-[18px] pb-3.5 pt-[18px]">
+        <span className={`grid h-10 w-10 shrink-0 place-items-center rounded-xl ${value ? "bg-ok-tint text-ok" : "bg-[#eef1f5] text-ink-2"}`}>
+          <MapPin className="h-5 w-5" aria-hidden />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h2 id="loc-title" className="text-lg font-extrabold">
+            Lokasi pasien
+          </h2>
+          {value ? (
+            <p role="status" className="mt-0.5 flex items-center gap-1.5 text-sm font-bold text-ok">
+              <Check className="h-4 w-4" aria-hidden />
+              {value.source === "GPS" ? `Terdeteksi dari GPS · ± ${value.accuracy_m} m` : "Dipilih manual di peta"}
             </p>
+          ) : (
+            <p className="mt-0.5 text-sm text-muted">Dipakai untuk memperkirakan rute; koordinat dibulatkan sebelum disimpan.</p>
           )}
-          <MapView origin={value} onPick={manual ? pick : undefined} className="h-72" />
+        </div>
+      </div>
+
+      {(manual || value) && (
+        <div className="space-y-2 px-[18px]">
+          <MapView origin={value} onPick={manual ? pick : undefined} className="h-60 sm:h-72" />
           {manual && (
-            <button
-              type="button"
-              className="text-sm font-semibold text-blue-800 underline"
-              onClick={() => pick({ lat: -6.1767, lng: 106.8416 })}
-            >
-              Gunakan titik contoh demo (Senen, Jakarta Pusat)
-            </button>
+            <p className="text-[13px] leading-normal text-muted">
+              Ketuk peta untuk menandai lokasi pasien. Lokasi manual mungkin kurang tepat sehingga ETA juga perkiraan.
+            </p>
           )}
         </div>
       )}
-      {value && (
-        <p className="rounded-lg bg-green-50 p-3 text-base text-green-900" role="status">
-          Lokasi {value.source === "GPS" ? `GPS (akurasi ± ${value.accuracy_m} m)` : "manual"}: {value.lat.toFixed(4)}, {value.lng.toFixed(4)}
-        </p>
-      )}
-      <button
-        type="button"
-        disabled={!value}
-        onClick={onNext}
-        className="w-full rounded-xl bg-blue-700 px-6 py-4 text-lg font-bold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
-      >
-        Lanjut ke laporan suara
-      </button>
+
+      <div className="flex flex-col gap-2.5 px-[18px] pb-[18px] pt-3.5">
+        <div className="flex flex-wrap gap-2">
+          <button type="button" onClick={useGps} disabled={busy} className={`btn flex-[1_1_150px] ${value ? "btn-secondary" : "btn-primary"}`}>
+            {busy ? <Loader2 className="h-[18px] w-[18px] animate-spin" aria-hidden /> : <Crosshair className="h-[18px] w-[18px]" aria-hidden />}
+            {busy ? "Mencari lokasi…" : value?.source === "GPS" ? "Perbarui GPS" : "Gunakan lokasi saya"}
+          </button>
+          <button type="button" onClick={() => setManual(true)} aria-pressed={manual} className="btn btn-secondary flex-[1_1_150px]">
+            <MousePointerClick className="h-[18px] w-[18px]" aria-hidden />
+            Pilih di peta
+          </button>
+        </div>
+        {manual && (
+          <button type="button" className="btn btn-ghost self-start px-2 text-sm font-semibold text-accent underline" onClick={() => pick({ lat: -6.1767, lng: 106.8416 })}>
+            Gunakan titik contoh demo (Senen, Jakarta Pusat)
+          </button>
+        )}
+        {error && (
+          <p role="alert" className="notice notice-error">
+            {error}
+          </p>
+        )}
+        {value && (
+          <p className="font-mono text-xs text-muted">
+            {value.lat.toFixed(4)}, {value.lng.toFixed(4)}
+          </p>
+        )}
+      </div>
     </section>
   );
 }

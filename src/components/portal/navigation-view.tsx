@@ -307,7 +307,7 @@ export function NavigationView({
         <Flag className="h-8 w-8 shrink-0" aria-hidden />
         <div>
           <p className="text-xl font-extrabold">Anda telah tiba di {hospital.short_name}</p>
-          <p className="text-sm text-blue-100">Tiba di lokasi bukan konfirmasi penerimaan; ikuti arahan petugas IGD.</p>
+          <p className="text-sm text-[#c9d2e0]">Tiba di lokasi bukan konfirmasi penerimaan; ikuti arahan petugas IGD.</p>
         </div>
       </div>
     );
@@ -317,7 +317,7 @@ export function NavigationView({
         <AlertTriangle className="mt-1 h-6 w-6 shrink-0" aria-hidden />
         <div>
           <p className="text-lg font-bold">GPS tidak tersedia</p>
-          <p className="text-sm text-blue-50">
+          <p className="text-sm text-[#e6ebf3]">
             {gps.status === "denied" ? GPS_DENIED : "Browser ini tidak mendukung lokasi langsung. Gunakan tombol aplikasi peta di bawah."}
           </p>
         </div>
@@ -369,7 +369,7 @@ export function NavigationView({
 
   return (
     <div role="dialog" aria-modal="true" aria-labelledby="nav-title" className="fixed inset-0 z-[2000] flex flex-col bg-white">
-      <header className="bg-blue-900 px-4 py-3 text-white">
+      <header className="bg-ink px-4 py-3 text-white">
         <h2 id="nav-title" ref={titleRef} tabIndex={-1} className="sr-only">
           Navigasi ke {hospital.name}
         </h2>
@@ -390,19 +390,19 @@ export function NavigationView({
         />
         <div className="pointer-events-none absolute left-2 top-2 z-[1000] flex flex-col items-start gap-1">
           {simulate && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-amber-500 bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-900">
+            <span className="inline-flex items-center gap-1 rounded-full border border-[#e2b33b] bg-warn-tint px-2 py-0.5 text-xs font-bold text-warn-ink">
               <FlaskConical className="h-3.5 w-3.5" aria-hidden />
               Simulasi GPS – bukan posisi nyata
             </span>
           )}
           {route.source === "MOCK" && (
-            <span className="inline-flex items-center gap-1 rounded-full border border-amber-500 bg-amber-100 px-2 py-0.5 text-xs font-bold text-amber-900">
+            <span className="inline-flex items-center gap-1 rounded-full border border-[#e2b33b] bg-warn-tint px-2 py-0.5 text-xs font-bold text-warn-ink">
               <FlaskConical className="h-3.5 w-3.5" aria-hidden />
               Rute simulasi
             </span>
           )}
           {!online && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-red-700 px-2 py-0.5 text-xs font-bold text-white">
+            <span className="btn btn-brand">
               <WifiOff className="h-3.5 w-3.5" aria-hidden />
               Offline – peta & rute baru tidak dapat dimuat
             </span>
@@ -412,7 +412,7 @@ export function NavigationView({
           <button
             type="button"
             onClick={() => setFollow(true)}
-            className="absolute bottom-3 right-3 z-[1000] flex items-center gap-2 rounded-full bg-blue-700 px-4 py-3 font-bold text-white shadow-lg"
+            className="btn btn-primary"
           >
             <Crosshair className="h-5 w-5" aria-hidden />
             Pusatkan
@@ -420,9 +420,9 @@ export function NavigationView({
         )}
       </div>
 
-      <footer className="space-y-2 border-t border-slate-300 bg-white p-3">
+      <footer className="space-y-2 border-t border-line bg-white p-3">
         {(gpsIssue || rerouteNote || (pos?.accuracy != null && pos.accuracy > 100)) && (
-          <p role="status" className="rounded-lg border border-amber-400 bg-amber-50 p-2 text-sm text-amber-950">
+          <p role="status" className="notice notice-warn">
             {rerouteNote ?? gpsIssue ?? `Akurasi GPS rendah (± ${Math.round(pos?.accuracy ?? 0)} m); deteksi keluar jalur ditunda.`}
           </p>
         )}
@@ -431,17 +431,17 @@ export function NavigationView({
             <p className="text-lg">
               <strong>{formatKm(remainingM)}</strong> lagi · <strong>{formatEta(eta)}</strong>
             </p>
-            <p className="text-xs text-slate-600">{route.source === "MOCK" ? "Perkiraan simulasi" : "Perkiraan, tanpa lalu lintas langsung"}</p>
+            <p className="text-xs text-muted">{route.source === "MOCK" ? "Perkiraan simulasi" : "Perkiraan, tanpa lalu lintas langsung"}</p>
           </div>
         )}
 
         {(gps.status === "denied" || gps.status === "unsupported" || rerouteNote || offRoute) && (
           <div className="grid grid-cols-2 gap-2">
-            <a href={links.google} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 rounded-lg bg-blue-700 px-2 py-2.5 text-sm font-bold text-white">
+            <a href={links.google} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
               <ExternalLink className="h-4 w-4" aria-hidden />
               Google Maps
             </a>
-            <a href={links.waze} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-1.5 rounded-lg border-2 border-blue-700 px-2 py-2.5 text-sm font-bold text-blue-800">
+            <a href={links.waze} target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
               <ExternalLink className="h-4 w-4" aria-hidden />
               Waze
             </a>
@@ -450,20 +450,20 @@ export function NavigationView({
 
         <div className="flex flex-wrap gap-2">
           {gps.status === "denied" && !simulate && (
-            <button type="button" onClick={retryGps} className="flex items-center gap-1.5 rounded-lg border-2 border-slate-500 px-2.5 py-1.5 text-sm font-semibold">
+            <button type="button" onClick={retryGps} className="btn btn-secondary">
               <RefreshCw className="h-4 w-4" aria-hidden />
               Coba GPS lagi
             </button>
           )}
           {speechSupported() ? (
-            <button type="button" onClick={toggleVoice} aria-pressed={voice} className="flex items-center gap-1.5 rounded-lg border-2 border-slate-500 px-2.5 py-1.5 text-sm font-semibold">
+            <button type="button" onClick={toggleVoice} aria-pressed={voice} className="btn btn-secondary">
               {voice ? <Volume2 className="h-4 w-4" aria-hidden /> : <VolumeX className="h-4 w-4" aria-hidden />}
               Suara {voice ? "aktif" : "mati"}
             </button>
           ) : (
-            <span className="self-center text-xs text-slate-600">Panduan suara tidak didukung browser ini; ikuti teks di atas.</span>
+            <span className="self-center text-xs text-muted">Panduan suara tidak didukung browser ini; ikuti teks di atas.</span>
           )}
-          <button type="button" onClick={toggleSimulate} aria-pressed={simulate} className="flex items-center gap-1.5 rounded-lg border-2 border-amber-500 bg-amber-50 px-2.5 py-1.5 text-sm font-semibold text-amber-950">
+          <button type="button" onClick={toggleSimulate} aria-pressed={simulate} className="btn border-[#e2b33b] bg-[#fff8e6] text-sm text-warn-ink hover:bg-warn-tint">
             <FlaskConical className="h-4 w-4" aria-hidden />
             {simulate ? "Matikan simulasi" : "Simulasi perjalanan (demo)"}
           </button>
@@ -473,17 +473,17 @@ export function NavigationView({
               onClick={() => {
                 simOffset.current = { lat: SIM_OFFSET_DEG, lng: SIM_OFFSET_DEG };
               }}
-              className="rounded-lg border-2 border-amber-500 bg-white px-2.5 py-1.5 text-sm font-semibold text-amber-950"
+              className="btn border-[#e2b33b] bg-white text-sm text-warn-ink hover:bg-[#fff8e6]"
             >
               Simulasikan keluar jalur
             </button>
           )}
-          <button type="button" onClick={onClose} className="ml-auto flex items-center gap-1.5 rounded-lg bg-slate-900 px-3 py-1.5 text-sm font-bold text-white">
+          <button type="button" onClick={onClose} className="btn btn-primary">
             <X className="h-4 w-4" aria-hidden />
             {arrived ? "Selesai" : "Hentikan navigasi"}
           </button>
         </div>
-        <details className="text-[11px] text-slate-500">
+        <details className="text-[11px] text-muted">
           <summary className="cursor-pointer">Privasi, batasan ETA, dan atribusi</summary>
           <p className="mt-1">
             Posisi GPS hanya diproses di perangkat ini; server hanya menerima koordinat untuk menghitung ulang rute dan tidak menyimpannya.

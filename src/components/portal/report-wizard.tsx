@@ -1,6 +1,7 @@
 "use client";
 
-import { Loader2, RefreshCw, X } from "lucide-react";
+import { Check, ChevronLeft, Clock, Loader2, RefreshCw, TriangleAlert, WifiOff, X } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ModeBanner } from "@/components/badges";
 import { ApiClientError, apiFetch, type ServiceStatus } from "@/lib/client/api";
@@ -14,14 +15,13 @@ import { RecordStep, type ReportDraft } from "./record-step";
 import { setActiveReferral, StatusStep, useActiveReferral } from "./status-step";
 import { effectiveNeeds, ReviewStep, type NeedEdits } from "./review-step";
 
-type Step = "consent" | "location" | "record" | "processing" | "review" | "destination" | "status";
+type Step = "prepare" | "record" | "processing" | "review" | "destination" | "status";
 const STEPS: { id: Step; label: string }[] = [
-  { id: "consent", label: "Persetujuan" },
-  { id: "location", label: "Lokasi" },
-  { id: "record", label: "Laporan" },
-  { id: "review", label: "Tinjau" },
-  { id: "destination", label: "Tujuan" },
-  { id: "status", label: "Status" },
+  { id: "prepare", label: "Persiapan" },
+  { id: "record", label: "Laporan kondisi" },
+  { id: "review", label: "Tinjau ringkasan" },
+  { id: "destination", label: "Pilih rumah sakit" },
+  { id: "status", label: "Status rujukan" },
 ];
 
 type Stage = "prepare" | "upload" | "done";
@@ -29,7 +29,8 @@ type Stage = "prepare" | "upload" | "done";
 export function ReportWizard() {
   const [status, setStatus] = useState<ServiceStatus | null>(null);
   const [statusError, setStatusError] = useState(false);
-  const [step, setStep] = useState<Step>("consent");
+  const [step, setStep] = useState<Step>("prepare");
+  const [consent, setConsent] = useState(false);
   const [location, setLocation] = useState<ReporterLocation | null>(null);
   const [draft, setDraftState] = useState<ReportDraft>({ audio: null, text: "", useText: false, photo: null, scenario: "" });
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
@@ -117,7 +118,7 @@ export function ReportWizard() {
     setEdits({});
     setSelected(null);
     setDraftState({ audio: null, text: "", useText: false, photo: null, scenario: "" });
-    setStep("record");
+    setStep(consent && location ? "record" : "prepare");
   }
 
   const supabaseChannels = status?.data_mode === "SUPABASE" && referralId ? ["rc:facilities", `rc:referral:${referralId}`] : null;
@@ -128,44 +129,92 @@ export function ReportWizard() {
   if (status?.routing_mode === "MOCK") banner.push("Rute simulasi");
   if (status?.data_mode === "LOCAL") banner.push("Database lokal");
 
-  const currentIdx = STEPS.findIndex((s) => s.id === (step === "processing" ? "record" : step));
+  const viewStep = step === "processing" ? "record" : step;
+  const currentIdx = STEPS.findIndex((s) => s.id === viewStep);
+  const current = STEPS[currentIdx];
+  const back: (() => void) | "home" | null =
+    step === "prepare"
+      ? "home"
+      : step === "record"
+        ? () => setStep("prepare")
+        : step === "review"
+          ? () => setStep("record")
+          : step === "destination"
+            ? () => setStep("review")
+            : step === "status"
+              ? "home"
+              : null;
 
   return (
     <div className="flex flex-1 flex-col">
-      <ModeBanner items={banner} />
-      {!online && (
-        <p role="alert" className="bg-red-700 px-4 py-2 text-center text-sm font-semibold text-white">
-          Anda offline – laporan tidak dapat dianalisis dan data kapasitas tidak dapat diperbarui.
-        </p>
-      )}
-      {statusError && (
-        <p role="alert" className="bg-amber-100 px-4 py-2 text-center text-sm text-amber-950">
-          Status layanan tidak dapat dimuat; mode AI/rute mungkin tidak terlihat.
-        </p>
-      )}
-      {status && status.ai_mode === "LIVE" && !status.ai_configured && (
-        <p role="alert" className="bg-red-100 px-4 py-2 text-center text-sm text-red-900">
-          Layanan AI belum dikonfigurasi di server (GEMINI_API_KEY). Analisis akan gagal sampai kunci diisi atau mode simulasi diaktifkan.
-        </p>
-      )}
-
-      <main id="main" className="mx-auto w-full max-w-2xl flex-1 space-y-5 px-4 py-5">
-        <nav aria-label="Langkah laporan">
-          <ol className="flex gap-1">
+      <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
+        <div className={`mx-auto flex flex-col gap-2 px-3 pb-2.5 pt-2 ${step === "destination" ? "max-w-6xl" : "max-w-2xl"}`}>
+          <div className="flex items-center gap-2">
+            {back === "home" ? (
+              <Link href="/" aria-label="Kembali ke beranda" className="btn btn-ghost btn-icon shrink-0">
+                <ChevronLeft className="h-[22px] w-[22px]" aria-hidden />
+              </Link>
+            ) : back ? (
+              <button type="button" onClick={back} aria-label="Kembali ke langkah sebelumnya" className="btn btn-ghost btn-icon shrink-0">
+                <ChevronLeft className="h-[22px] w-[22px]" aria-hidden />
+              </button>
+            ) : (
+              <span className="w-2" aria-hidden />
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-semibold text-muted">
+                Langkah {currentIdx + 1} dari {STEPS.length}
+              </p>
+              <p className="truncate text-base font-extrabold tracking-tight">{step === "processing" ? "Menganalisis laporan" : current.label}</p>
+            </div>
+            <a href="tel:119" className="btn btn-secondary shrink-0 px-3 text-sm text-brand-ink">
+              119
+            </a>
+          </div>
+          <ol aria-label="Kemajuan laporan" className="grid grid-cols-5 gap-1 px-1">
             {STEPS.map((s, i) => (
-              <li key={s.id} className="flex-1">
-                <div className={`h-1.5 rounded-full ${i <= currentIdx ? "bg-blue-700" : "bg-slate-300"}`} aria-hidden />
-                <span className={`mt-1 block text-center text-[11px] sm:text-xs ${i === currentIdx ? "font-bold text-blue-800" : "text-slate-600"}`} aria-current={i === currentIdx ? "step" : undefined}>
+              <li key={s.id} aria-current={i === currentIdx ? "step" : undefined} className="relative h-1 overflow-hidden rounded-full bg-[#dce1e9]">
+                <span
+                  className={`absolute inset-y-0 left-0 rounded-full bg-ink transition-[width] duration-500 ease-out ${i <= currentIdx ? "w-full" : "w-0"}`}
+                  aria-hidden
+                />
+                <span className="sr-only">
                   {s.label}
+                  {i < currentIdx ? " (selesai)" : i === currentIdx ? " (saat ini)" : ""}
                 </span>
               </li>
             ))}
           </ol>
-        </nav>
+        </div>
+      </header>
 
-        <div ref={headingRef} tabIndex={-1} className="outline-none">
-          {step === "consent" && (
-            <div className="space-y-4">
+      {!online && (
+        <p role="alert" className="flex items-center justify-center gap-2 bg-brand px-4 py-2 text-center text-sm font-semibold text-white">
+          <WifiOff className="h-4 w-4 shrink-0" aria-hidden />
+          Anda offline – laporan tidak dapat dianalisis dan data kapasitas tidak dapat diperbarui.
+        </p>
+      )}
+
+      <main id="main" className={`mx-auto flex w-full flex-1 flex-col gap-4 px-4 pb-6 pt-4 ${step === "destination" ? "max-w-6xl" : "max-w-2xl"}`}>
+        <ModeBanner items={banner} />
+        {statusError && (
+          <p role="alert" className="notice notice-warn">
+            Status layanan tidak dapat dimuat; mode AI/rute mungkin tidak terlihat.
+          </p>
+        )}
+        {status && status.ai_mode === "LIVE" && !status.ai_configured && (
+          <p role="alert" className="notice notice-error">
+            Layanan AI belum dikonfigurasi di server (GEMINI_API_KEY). Analisis akan gagal sampai kunci diisi atau mode simulasi diaktifkan.
+          </p>
+        )}
+
+        <div ref={headingRef} tabIndex={-1} className="flex flex-1 flex-col outline-none">
+          {step === "prepare" && (
+            <div className="flex flex-1 flex-col gap-4">
+              <div className="anim-rise">
+                <h1 className="text-[28px] font-extrabold leading-tight tracking-[-0.03em]">Dua hal sebelum mulai</h1>
+                <p className="mt-1.5 text-base leading-relaxed text-ink-2">Setelah ini langsung ke rekaman.</p>
+              </div>
               {lastReferralId && (
                 <button
                   type="button"
@@ -173,53 +222,74 @@ export function ReportWizard() {
                     setReferralId(lastReferralId);
                     setStep("status");
                   }}
-                  className="w-full rounded-xl border-2 border-blue-700 bg-blue-50 px-4 py-3 text-base font-bold text-blue-900"
+                  className="anim-rise flex min-h-[60px] items-center gap-3 rounded-2xl border border-line bg-white px-3 py-2.5 text-left transition-colors hover:bg-[#eef1f5]"
                 >
-                  Lihat status permintaan rujukan terakhir
+                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-warn-tint text-warn-ink">
+                    <Clock className="h-[18px] w-[18px]" aria-hidden />
+                  </span>
+                  <span className="flex-1">
+                    <span className="block text-xs font-semibold text-muted">Rujukan terakhir di perangkat ini</span>
+                    <span className="block text-[15px] font-bold">Lihat status permintaan</span>
+                  </span>
                 </button>
               )}
-              <ConsentStep status={status} onAccept={() => setStep("location")} />
+              <ConsentStep status={status} checked={consent} onChange={setConsent} />
+              <LocationStep value={location} onChange={setLocation} />
+              <div className="action-bar mt-auto">
+                <button type="button" disabled={!consent || !location} onClick={() => setStep("record")} className="btn btn-primary btn-lg w-full">
+                  {!consent ? "Setujui pemrosesan data dulu" : !location ? "Tentukan lokasi dulu" : "Lanjut ke laporan"}
+                </button>
+              </div>
             </div>
           )}
-
-          {step === "location" && <LocationStep value={location} onChange={setLocation} onNext={() => setStep("record")} />}
 
           {step === "record" && <RecordStep draft={draft} setDraft={setDraft} status={status} onSubmit={analyze} />}
 
           {step === "processing" && (
-            <section aria-live="polite" className="space-y-4 rounded-xl border-2 border-slate-300 bg-white p-6">
+            <section aria-live="polite" aria-labelledby="proc-title" className="anim-rise flex flex-col gap-[18px]">
               {!procError ? (
                 <>
-                  <ol className="space-y-3 text-lg">
-                    <li className="flex items-center gap-3">
-                      {stage === "prepare" ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <span aria-hidden>✓</span>}
-                      Menyiapkan laporan
-                    </li>
-                    <li className={`flex items-center gap-3 ${stage === "prepare" ? "text-slate-400" : ""}`}>
-                      {stage === "upload" ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <span aria-hidden>{stage === "done" ? "✓" : "○"}</span>}
-                      Mengunggah, menganalisis, dan memvalidasi format
-                    </li>
+                  <div className="card relative overflow-hidden rounded-3xl p-5" aria-hidden>
+                    <div className="scan-line" />
+                    <div className="flex flex-col gap-4">
+                      {["S", "O", "A", "P"].map((l, i) => (
+                        <div key={l} className="flex items-center gap-2.5">
+                          <span className={`grid h-7 w-7 place-items-center rounded-lg text-[13px] font-extrabold ${i < 2 ? "bg-ink text-white" : "bg-[#dce1e9] text-ink-2"}`}>{l}</span>
+                          <span className="skeleton h-3" style={{ width: ["100%", "60%", "75%", "45%"][i] }} />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <h1 id="proc-title" className="text-[22px] font-extrabold tracking-tight">
+                    Menyusun ringkasan terstruktur
+                  </h1>
+                  <ol className="flex flex-col gap-1">
+                    <ProcRow state={stage === "prepare" ? "active" : "done"} label="Menyiapkan laporan" />
+                    <ProcRow state={stage === "prepare" ? "todo" : stage === "upload" ? "active" : "done"} label="Mengunggah dan menganalisis" />
+                    <ProcRow state={stage === "done" ? "done" : "todo"} label="Memvalidasi format hasil" />
                   </ol>
-                  <button
-                    type="button"
-                    onClick={() => abortRef.current?.abort()}
-                    className="flex items-center gap-2 rounded-lg border-2 border-slate-400 px-4 py-2 font-semibold"
-                  >
-                    <X className="h-4 w-4" aria-hidden />
+                  <p className="text-[13px] leading-normal text-muted">Hasil yang tidak lolos validasi tidak dipakai untuk pencocokan rumah sakit.</p>
+                  <button type="button" onClick={() => abortRef.current?.abort()} className="btn btn-secondary btn-lg">
+                    <X className="h-[18px] w-[18px]" aria-hidden />
                     Batal
                   </button>
                 </>
               ) : (
-                <div role="alert" className="space-y-3">
-                  <p className="text-lg font-bold text-red-800">Laporan belum berhasil diproses</p>
-                  <p className="text-base">{procError}</p>
-                  <p className="text-sm text-slate-600">Rekaman/teks Anda masih tersimpan di perangkat ini dan tidak hilang.</p>
-                  <div className="flex flex-wrap gap-2">
-                    <button type="button" onClick={analyze} className="flex items-center gap-2 rounded-lg bg-blue-700 px-4 py-3 font-bold text-white">
-                      <RefreshCw className="h-4 w-4" aria-hidden />
+                <div role="alert" className="card flex flex-col gap-3.5 rounded-3xl !border-[#f3c6ce] p-5">
+                  <span className="grid h-12 w-12 place-items-center rounded-2xl bg-brand-tint text-brand">
+                    <TriangleAlert className="h-6 w-6" aria-hidden />
+                  </span>
+                  <h1 id="proc-title" className="text-[22px] font-extrabold tracking-tight">
+                    Laporan belum berhasil diproses
+                  </h1>
+                  <p className="text-base leading-relaxed text-ink-2">{procError}</p>
+                  <p className="text-sm text-muted">Rekaman/teks Anda masih tersimpan di perangkat ini dan tidak hilang.</p>
+                  <div className="flex flex-wrap gap-2.5">
+                    <button type="button" onClick={analyze} className="btn btn-primary btn-lg flex-[2_1_180px]">
+                      <RefreshCw className="h-[18px] w-[18px]" aria-hidden />
                       Coba lagi
                     </button>
-                    <button type="button" onClick={() => setStep("record")} className="rounded-lg border-2 border-slate-400 px-4 py-3 font-bold">
+                    <button type="button" onClick={() => setStep("record")} className="btn btn-secondary btn-lg flex-[1_1_140px]">
                       Ubah laporan
                     </button>
                   </div>
@@ -256,12 +326,32 @@ export function ReportWizard() {
               onNew={startNew}
               onGone={() => {
                 rememberReferral(null);
-                setStep("consent");
+                setStep("prepare");
               }}
             />
           )}
         </div>
       </main>
     </div>
+  );
+}
+
+function ProcRow({ state, label }: { state: "done" | "active" | "todo"; label: string }) {
+  return (
+    <li className={`flex min-h-12 items-center gap-3 ${state === "todo" ? "text-muted" : ""}`}>
+      {state === "done" ? (
+        <span className="anim-pop grid h-7 w-7 shrink-0 place-items-center rounded-full bg-ok text-white">
+          <Check className="h-4 w-4" strokeWidth={3} aria-hidden />
+        </span>
+      ) : state === "active" ? (
+        <span className="grid h-7 w-7 shrink-0 place-items-center">
+          <Loader2 className="h-6 w-6 animate-spin text-ink" aria-hidden />
+        </span>
+      ) : (
+        <span className="h-7 w-7 shrink-0 rounded-full border-2 border-dashed border-[#b5becc]" aria-hidden />
+      )}
+      <span className={`flex-1 text-base ${state === "active" ? "font-extrabold" : "font-semibold"}`}>{label}</span>
+      <span className={`text-[13px] font-bold ${state === "done" ? "text-ok" : "text-ink-2"}`}>{state === "done" ? "Selesai" : state === "active" ? "Sedang" : ""}</span>
+    </li>
   );
 }

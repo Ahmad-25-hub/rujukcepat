@@ -10,79 +10,134 @@ import {
   Wrench,
   XCircle,
 } from "lucide-react";
+import Link from "next/link";
 import type { ReactNode } from "react";
 import { DATA_ORIGIN_LABELS, type DataOrigin, type Urgency } from "@/lib/schema/enums";
 
+/** Logo RujukCepat: tanda denyut di kotak merah + nama. */
+export function BrandMark({ size = 32 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden className="shrink-0">
+      <rect width="32" height="32" rx="9" fill="#c4122f" />
+      <path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function BrandLink({ dark = false, compact = false }: { dark?: boolean; compact?: boolean }) {
+  return (
+    <Link href="/" aria-label="RujukCepat – beranda" className={`flex min-h-11 min-w-11 items-center gap-2.5 rounded-xl ${dark ? "text-white" : "text-ink"}`}>
+      <BrandMark />
+      <span className={`text-lg font-extrabold tracking-tight ${compact ? "max-[520px]:sr-only" : ""}`}>RujukCepat</span>
+    </Link>
+  );
+}
+
 export function SimBadge({ children = "Data simulasi" }: { children?: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1 rounded-full border border-amber-500 bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900">
+    <span className="sim-badge">
       <FlaskConical className="h-3.5 w-3.5" aria-hidden />
       {children}
     </span>
   );
 }
 
-const URGENCY_STYLE: Record<Urgency | "REVIEW", { cls: string; label: string; icon: ReactNode }> = {
+const URGENCY_STYLE: Record<Urgency | "REVIEW", { cls: string; label: string; short: string; icon: (c: string) => ReactNode }> = {
   MERAH: {
-    cls: "bg-red-700 text-white border-red-800",
+    cls: "bg-brand text-white",
     label: "MERAH – gawat",
-    icon: <AlertTriangle className="h-5 w-5" aria-hidden />,
+    short: "MERAH",
+    icon: (c) => <AlertTriangle className={c} aria-hidden />,
   },
   KUNING: {
-    cls: "bg-yellow-300 text-yellow-950 border-yellow-500",
+    cls: "bg-signal-yellow text-[#3b2a00]",
     label: "KUNING – perlu segera",
-    icon: <CircleAlert className="h-5 w-5" aria-hidden />,
+    short: "KUNING",
+    icon: (c) => <CircleAlert className={c} aria-hidden />,
   },
   HIJAU: {
-    cls: "bg-green-700 text-white border-green-800",
+    cls: "bg-ok text-white",
     label: "HIJAU – tidak mendesak",
-    icon: <CircleCheck className="h-5 w-5" aria-hidden />,
+    short: "HIJAU",
+    icon: (c) => <CircleCheck className={c} aria-hidden />,
   },
   REVIEW: {
-    cls: "bg-slate-200 text-slate-900 border-slate-400",
+    cls: "border border-dashed border-muted bg-[#e6eaf0] text-ink",
     label: "Perlu peninjauan",
-    icon: <CircleHelp className="h-5 w-5" aria-hidden />,
+    short: "Tinjau",
+    icon: (c) => <CircleHelp className={c} aria-hidden />,
   },
 };
 
-export function UrgencyBadge({ level }: { level: Urgency | null }) {
+export function UrgencyBadge({ level, size = "md" }: { level: Urgency | null; size?: "sm" | "md" | "lg" }) {
   const s = URGENCY_STYLE[level ?? "REVIEW"];
+  const sz =
+    size === "sm"
+      ? "gap-1 rounded-md px-2 py-0.5 text-xs font-extrabold"
+      : size === "lg"
+        ? "gap-2 rounded-xl px-3.5 py-2 text-base font-extrabold"
+        : "gap-1.5 rounded-lg px-2.5 py-1 text-sm font-extrabold";
   return (
-    <span className={`inline-flex items-center gap-2 rounded-lg border-2 px-3 py-1.5 text-base font-bold ${s.cls}`}>
-      {s.icon}
+    <span className={`inline-flex items-center ${sz} ${s.cls}`}>
+      {s.icon(size === "sm" ? "h-3.5 w-3.5" : "h-4 w-4")}
       {s.label}
     </span>
   );
 }
 
+/** Kartu urgensi besar untuk peninjauan. */
+export function UrgencyHero({ level, reason }: { level: Urgency | null; reason: string }) {
+  const s = URGENCY_STYLE[level ?? "REVIEW"];
+  const dark = level === "MERAH" || level === "HIJAU";
+  return (
+    <div className={`anim-rise space-y-3 rounded-3xl p-5 ${level ? s.cls : "border-2 border-dashed border-muted bg-white text-ink"}`}>
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <p className={`eyebrow ${dark ? "!text-white/80" : "!text-current"}`}>Perkiraan urgensi · AI</p>
+        <span className={`rounded-full px-2 py-0.5 text-xs font-bold ${dark ? "bg-white/15" : "bg-black/5"}`}>Perlu ditinjau</span>
+      </div>
+      <p className="flex items-center gap-3">
+        <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-2xl ${dark ? "bg-white text-current" : "bg-white/70"}`}>
+          {s.icon(`h-6 w-6 ${level === "MERAH" ? "text-brand" : level === "HIJAU" ? "text-ok" : ""}`)}
+        </span>
+        <span className="flex flex-col">
+          <span className="text-[28px] font-extrabold leading-none tracking-tight">{level ?? "Belum dapat dinilai"}</span>
+          <span className={`mt-1 text-[15px] font-semibold ${dark ? "text-white/85" : ""}`}>{s.label.split("–")[1]?.trim() ?? s.label}</span>
+        </span>
+      </p>
+      <p className={`text-[15px] leading-relaxed ${dark ? "text-white/90" : ""}`}>{reason}</p>
+    </div>
+  );
+}
+
 const ORIGIN_STYLE: Record<DataOrigin, { cls: string; icon: ReactNode }> = {
-  USER_STATEMENT: { cls: "bg-blue-50 text-blue-900 border-blue-300", icon: <MessageSquareQuote className="h-3.5 w-3.5" aria-hidden /> },
-  PHOTO_READING: { cls: "bg-purple-50 text-purple-900 border-purple-300", icon: <Camera className="h-3.5 w-3.5" aria-hidden /> },
-  AI_INTERPRETATION: { cls: "bg-orange-50 text-orange-900 border-orange-300", icon: <Bot className="h-3.5 w-3.5" aria-hidden /> },
-  UNKNOWN: { cls: "bg-slate-100 text-slate-700 border-slate-300", icon: <CircleHelp className="h-3.5 w-3.5" aria-hidden /> },
+  USER_STATEMENT: { cls: "bg-accent-tint text-accent-ink", icon: <MessageSquareQuote className="h-3.5 w-3.5" aria-hidden /> },
+  PHOTO_READING: { cls: "bg-[#f1ecfb] text-[#4c2e91]", icon: <Camera className="h-3.5 w-3.5" aria-hidden /> },
+  AI_INTERPRETATION: { cls: "bg-[#fff1e6] text-[#8a3b00]", icon: <Bot className="h-3.5 w-3.5" aria-hidden /> },
+  UNKNOWN: { cls: "border border-dashed border-faint bg-[#f1f3f6] text-ink-2", icon: <CircleHelp className="h-3.5 w-3.5" aria-hidden /> },
 };
 
 export function OriginChip({ origin }: { origin: DataOrigin }) {
   const s = ORIGIN_STYLE[origin];
   return (
-    <span className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${s.cls}`}>
+    <span className={`inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-xs font-bold ${s.cls}`}>
       {s.icon}
       {DATA_ORIGIN_LABELS[origin]}
     </span>
   );
 }
 
+const CAP_STYLE: Record<string, { cls: string; icon: ReactNode; label: string }> = {
+  READY: { cls: "border-[#a9dcc3] bg-ok-tint text-ok-strong", icon: <CircleCheck className="h-3.5 w-3.5" aria-hidden />, label: "READY" },
+  PENUH: { cls: "border-[#f3b8c2] bg-brand-tint text-[#8e0d24]", icon: <XCircle className="h-3.5 w-3.5" aria-hidden />, label: "PENUH" },
+  MAINTENANCE: { cls: "border-[#f0d08a] bg-warn-tint text-warn-ink", icon: <Wrench className="h-3.5 w-3.5" aria-hidden />, label: "MAINTENANCE" },
+  TIDAK_TERSEDIA: { cls: "border-line-strong bg-[#f1f3f6] text-ink-2", icon: <XCircle className="h-3.5 w-3.5" aria-hidden />, label: "Tidak tersedia" },
+  KEDALUWARSA: { cls: "border-dashed border-faint bg-[#f1f3f6] text-ink-2", icon: <CircleHelp className="h-3.5 w-3.5" aria-hidden />, label: "Status kedaluwarsa" },
+};
+
 export function CapStatusChip({ status }: { status: string }) {
-  const map: Record<string, { cls: string; icon: ReactNode; label: string }> = {
-    READY: { cls: "bg-green-50 text-green-900 border-green-400", icon: <CircleCheck className="h-3.5 w-3.5" aria-hidden />, label: "READY" },
-    PENUH: { cls: "bg-red-50 text-red-900 border-red-400", icon: <XCircle className="h-3.5 w-3.5" aria-hidden />, label: "PENUH" },
-    MAINTENANCE: { cls: "bg-amber-50 text-amber-900 border-amber-400", icon: <Wrench className="h-3.5 w-3.5" aria-hidden />, label: "MAINTENANCE" },
-    TIDAK_TERSEDIA: { cls: "bg-slate-100 text-slate-700 border-slate-300", icon: <XCircle className="h-3.5 w-3.5" aria-hidden />, label: "Tidak tersedia" },
-    KEDALUWARSA: { cls: "bg-slate-100 text-slate-700 border-slate-400", icon: <CircleHelp className="h-3.5 w-3.5" aria-hidden />, label: "Status kedaluwarsa" },
-  };
-  const s = map[status] ?? map.TIDAK_TERSEDIA;
+  const s = CAP_STYLE[status] ?? CAP_STYLE.TIDAK_TERSEDIA;
   return (
-    <span className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-xs font-semibold ${s.cls}`}>
+    <span className={`inline-flex items-center gap-1 rounded-md border px-1.5 py-0.5 text-xs font-bold ${s.cls}`}>
       {s.icon}
       {s.label}
     </span>
@@ -92,7 +147,7 @@ export function CapStatusChip({ status }: { status: string }) {
 export function ModeBanner({ items }: { items: string[] }) {
   if (!items.length) return null;
   return (
-    <div role="status" className="flex flex-wrap items-center gap-2 border-b border-amber-300 bg-amber-50 px-4 py-2 text-xs text-amber-950">
+    <div role="status" className="flex flex-wrap items-center gap-1.5">
       {items.map((i) => (
         <SimBadge key={i}>{i}</SimBadge>
       ))}

@@ -14,11 +14,11 @@ export type MapMarker = {
 };
 
 const KIND_STYLE: Record<MapMarker["kind"], { color: string; fill: string; radius: number }> = {
-  selected: { color: "#1e3a8a", fill: "#2563eb", radius: 12 },
-  primary: { color: "#14532d", fill: "#16a34a", radius: 11 },
-  alternative: { color: "#1e40af", fill: "#60a5fa", radius: 9 },
-  excluded: { color: "#64748b", fill: "#cbd5e1", radius: 6 },
-  facility: { color: "#7f1d1d", fill: "#ef4444", radius: 7 },
+  selected: { color: "#0b1324", fill: "#c4122f", radius: 13 },
+  primary: { color: "#ffffff", fill: "#c4122f", radius: 10 },
+  alternative: { color: "#0b1324", fill: "#ffffff", radius: 9 },
+  excluded: { color: "#9aa5b8", fill: "#e3e7ee", radius: 6 },
+  facility: { color: "#ffffff", fill: "#c4122f", radius: 7 },
 };
 
 export const JAKARTA_CENTER = { lat: -6.2088, lng: 106.8456 };
@@ -82,7 +82,7 @@ export default function MapView({
 }) {
   const center = origin ?? JAKARTA_CENTER;
   return (
-    <div className={`relative w-full overflow-hidden rounded-xl border border-slate-300 ${className}`}>
+    <div className={`relative w-full overflow-hidden rounded-[22px] border border-line ${className}`}>
       <MapContainer center={[center.lat, center.lng]} zoom={12} className="h-full w-full" scrollWheelZoom>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -91,7 +91,7 @@ export default function MapView({
         {onPick && <ClickPicker onPick={onPick} />}
         {fitTo && <FitBounds points={fitTo} />}
         {live !== undefined && <Follower live={live} follow={follow} onUserPan={onUserPan} />}
-        {route && route.length > 1 && <Polyline positions={route} pathOptions={{ color: "#2563eb", weight: 5, opacity: 0.8 }} />}
+        {route && route.length > 1 && <Polyline positions={route} pathOptions={{ color: "#1d4ed8", weight: 5, opacity: 0.9, lineCap: "round", lineJoin: "round" }} />}
         {markers.map((m) => {
           const s = KIND_STYLE[m.kind];
           return (
@@ -99,7 +99,7 @@ export default function MapView({
               key={`${m.id}-${m.kind}`}
               center={[m.lat, m.lng]}
               radius={s.radius}
-              pathOptions={{ color: s.color, fillColor: s.fill, fillOpacity: 0.9, weight: 2 }}
+              pathOptions={{ color: s.color, fillColor: s.fill, fillOpacity: 1, weight: 3 }}
               eventHandlers={onMarkerClick ? { click: () => onMarkerClick(m.id) } : undefined}
             >
               <Tooltip direction="top">{m.label}</Tooltip>
@@ -110,7 +110,7 @@ export default function MapView({
           <CircleMarker
             center={[origin.lat, origin.lng]}
             radius={9}
-            pathOptions={{ color: "#000", fillColor: "#facc15", fillOpacity: 1, weight: 3 }}
+            pathOptions={{ color: "#ffffff", fillColor: "#1d4ed8", fillOpacity: 1, weight: 4 }}
           >
             <Tooltip direction="top" permanent>
               {originLabel}

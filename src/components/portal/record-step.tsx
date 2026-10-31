@@ -1,6 +1,6 @@
 "use client";
 
-import { Keyboard, Mic, RotateCcw, Square } from "lucide-react";
+import { ArrowRight, Keyboard, Mic, RotateCcw, Square } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { isRecordingSupported, pickRecorderMime } from "@/lib/client/audio";
 import { formatBytes } from "@/lib/client/format";
@@ -112,59 +112,118 @@ export function RecordStep({
   const canSubmit = useText ? draft.text.trim().length >= 10 : !!draft.audio;
   const dur = draft.audio?.durationS ?? 0;
 
+  const remain = Math.max(0, Math.ceil(MAX_SECONDS - elapsed));
+  const mmss = (v: number) => `00:${String(Math.floor(v)).padStart(2, "0")}`;
+
   return (
-    <section aria-labelledby="rec-title" className="space-y-5">
-      <h2 id="rec-title" className="flex items-center gap-2 text-xl font-bold">
-        <Mic className="h-6 w-6 text-blue-700" aria-hidden />
-        Ceritakan kondisi pasien
-      </h2>
-      <p className="text-base text-slate-700">
-        Rekam {TARGET_MIN}-{TARGET_MAX} detik: keluhan utama, sejak kapan, usia perkiraan, dan angka alat ukur bila ada. Jangan sebut nama asli.
-      </p>
+    <section aria-labelledby="rec-title" className="flex flex-1 flex-col gap-4">
+      {supported !== false && (
+        <div role="group" aria-label="Cara melapor" className="seg">
+          <button
+            type="button"
+            aria-pressed={!useText}
+            disabled={recording}
+            onClick={() => setDraft((d) => ({ ...d, useText: false }))}
+            className="seg-btn inline-flex items-center justify-center gap-2 text-[15px]"
+          >
+            <Mic className="h-[18px] w-[18px]" aria-hidden />
+            Suara
+          </button>
+          <button
+            type="button"
+            aria-pressed={useText}
+            disabled={recording}
+            onClick={() => setDraft((d) => ({ ...d, useText: true }))}
+            className="seg-btn inline-flex items-center justify-center gap-2 text-[15px]"
+          >
+            <Keyboard className="h-[18px] w-[18px]" aria-hidden />
+            Ketik
+          </button>
+        </div>
+      )}
 
       {!useText && (
-        <div className="space-y-4 rounded-xl border-2 border-slate-300 bg-white p-4">
+        <div className="anim-rise card flex flex-col items-center gap-4 rounded-3xl px-[18px] py-6 text-center">
+          <h1 id="rec-title" className="text-[22px] font-extrabold leading-tight tracking-tight">
+            {recording ? "Merekam… ceritakan dengan tenang" : draft.audio ? "Rekaman siap ditinjau" : "Tekan dan ceritakan kondisi pasien"}
+          </h1>
+
+          <div aria-hidden className="flex h-14 w-full items-center justify-center gap-1">
+            {recording ? (
+              Array.from({ length: 20 }, (_, i) => <span key={i} className="wave-bar" style={{ animationDelay: `${-((i * 37) % 100) / 100}s` }} />)
+            ) : draft.audio ? (
+              [12, 26, 18, 34, 22, 40, 16, 30, 24, 36, 20, 28, 14, 32, 18, 10].map((h, i) => <span key={i} className="w-1 rounded bg-ink" style={{ height: h }} />)
+            ) : (
+              <span className="h-0.5 w-full max-w-[260px] bg-[repeating-linear-gradient(90deg,#c7ceda_0_6px,transparent_6px_12px)]" />
+            )}
+          </div>
+
+          <p className="flex items-center gap-2.5 font-mono text-[30px] font-bold tracking-tight" role="status" aria-live="polite">
+            {recording && <span className="anim-blink h-2.5 w-2.5 rounded-full bg-brand" aria-hidden />}
+            <span className="sr-only">{recording ? "Merekam, " : draft.audio ? "Durasi rekaman " : ""}</span>
+            {recording ? mmss(elapsed) : draft.audio ? mmss(dur) : "00:00"}
+            <span className="text-lg text-faint">/ 00:{String(TARGET_MAX).padStart(2, "0")}</span>
+          </p>
+
           {recording ? (
-            <div className="space-y-3 text-center">
-              <div className="flex items-center justify-center gap-2 text-red-700" role="status" aria-live="polite">
-                <span className="h-3 w-3 animate-pulse rounded-full bg-red-600" aria-hidden />
-                <span className="text-lg font-bold">Merekam… {elapsed.toFixed(0)} detik</span>
+            <>
+              <span className="relative grid h-28 w-28 place-items-center">
+                <span className="anim-ring absolute inset-0 rounded-full bg-brand/30" aria-hidden />
+                <span className="anim-ring anim-ring-late absolute inset-0 rounded-full bg-brand/30" aria-hidden />
+                <button
+                  type="button"
+                  onClick={stop}
+                  aria-label="Berhenti merekam"
+                  className="relative grid h-28 w-28 place-items-center rounded-full bg-ink text-white transition-transform active:scale-95"
+                >
+                  <Square className="h-8 w-8 fill-current" aria-hidden />
+                </button>
+              </span>
+              <div className="h-1.5 w-full max-w-xs overflow-hidden rounded-full bg-[#e6eaf0]" aria-hidden>
+                <div
+                  className={`h-full rounded-full transition-[width] duration-200 ${elapsed >= TARGET_MIN ? "bg-ok" : "bg-brand"}`}
+                  style={{ width: `${Math.min(100, (elapsed / MAX_SECONDS) * 100)}%` }}
+                />
               </div>
-              <div className="h-3 w-full overflow-hidden rounded-full bg-slate-200" aria-hidden>
-                <div className={`h-full ${elapsed >= TARGET_MIN ? "bg-green-600" : "bg-red-500"}`} style={{ width: `${Math.min(100, (elapsed / MAX_SECONDS) * 100)}%` }} />
-              </div>
-              <p className="text-sm text-slate-600">
-                {elapsed < TARGET_MIN ? `Target minimal ${TARGET_MIN} detik` : elapsed <= TARGET_MAX ? "Durasi sudah cukup" : `Berhenti otomatis pada ${MAX_SECONDS} detik`}
+              <p className="text-sm text-muted">
+                {elapsed < TARGET_MIN
+                  ? `Target minimal ${TARGET_MIN} detik`
+                  : elapsed <= TARGET_MAX
+                    ? "Durasi sudah cukup — tekan kotak hitam untuk berhenti"
+                    : `Berhenti otomatis dalam ${remain} detik`}
               </p>
-              <button type="button" onClick={stop} className="mx-auto flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-4 text-lg font-bold text-white">
-                <Square className="h-5 w-5" aria-hidden />
-                Berhenti
-              </button>
-            </div>
+            </>
           ) : draft.audio ? (
-            <div className="space-y-3">
-              <p className="text-base font-semibold" role="status">
-                Rekaman {dur.toFixed(1)} detik ({formatBytes(draft.audio.blob.size)})
-              </p>
-              {dur < TARGET_MIN && <p className="text-sm text-amber-800">Rekaman lebih pendek dari {TARGET_MIN} detik; informasi mungkin kurang. Anda tetap dapat melanjutkan.</p>}
+            <div className="flex w-full flex-col gap-3">
               <audio controls src={draft.audio.url} className="w-full" />
-              <button type="button" onClick={discard} className="flex items-center gap-2 rounded-lg border-2 border-slate-400 px-4 py-2 font-semibold">
+              <p className="text-sm text-muted">
+                {dur.toFixed(1)} detik · {formatBytes(draft.audio.blob.size)} · tersimpan di perangkat ini sampai dikirim
+              </p>
+              {dur < TARGET_MIN && (
+                <p className="notice notice-warn text-left">Rekaman lebih pendek dari {TARGET_MIN} detik; informasi mungkin kurang. Anda tetap dapat melanjutkan.</p>
+              )}
+              <button type="button" onClick={discard} className="btn btn-secondary self-center">
                 <RotateCcw className="h-4 w-4" aria-hidden />
                 Rekam ulang
               </button>
             </div>
           ) : (
-            <button
-              type="button"
-              onClick={start}
-              className="mx-auto flex h-32 w-32 flex-col items-center justify-center gap-1 rounded-full bg-red-700 text-lg font-bold text-white shadow-lg disabled:bg-slate-400"
-            >
-              <Mic className="h-10 w-10" aria-hidden />
-              Rekam
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={start}
+                aria-label="Mulai merekam"
+                className="grid h-28 w-28 place-items-center rounded-full bg-brand text-white shadow-[0_16px_32px_-14px_rgba(196,18,47,.7)] transition hover:shadow-[0_0_0_8px_rgba(196,18,47,.12)] active:scale-95"
+              >
+                <Mic className="h-10 w-10" aria-hidden />
+              </button>
+              <p className="text-sm text-muted">
+                Bicara biasa saja, {TARGET_MIN}–{TARGET_MAX} detik cukup. Jangan sebut nama asli.
+              </p>
+            </>
           )}
           {error && (
-            <p role="alert" className="rounded-lg border-2 border-red-300 bg-red-50 p-3 text-base text-red-900">
+            <p role="alert" className="notice notice-error w-full text-left">
               {error}
             </p>
           )}
@@ -172,43 +231,50 @@ export function RecordStep({
       )}
 
       {useText && (
-        <div className="space-y-2">
-          <label htmlFor="report-text" className="flex items-center gap-2 text-base font-bold">
-            <Keyboard className="h-5 w-5" aria-hidden />
-            Laporan tertulis (cadangan bila suara tidak dapat dipakai)
+        <div className="anim-rise card flex flex-col gap-2.5 rounded-3xl p-[18px]">
+          <h1 id="rec-title" className="sr-only">
+            Laporan tertulis
+          </h1>
+          <label htmlFor="report-text" className="text-lg font-extrabold">
+            Tulis kondisi pasien
           </label>
           <textarea
             id="report-text"
-            rows={5}
+            rows={6}
             maxLength={2000}
             value={draft.text}
             onChange={(e) => setDraft((d) => ({ ...d, text: e.target.value }))}
             placeholder="Contoh: Ayah saya 70 tahun tiba-tiba lemas dan keringat dingin sejak 30 menit lalu, masih bisa bicara tapi bingung."
-            className="w-full rounded-xl border-2 border-slate-400 p-3 text-base"
+            className="field resize-y leading-normal"
           />
-          <p className="text-xs text-slate-600">{draft.text.length}/2000 karakter (minimal 10)</p>
+          <p className="text-[13px] text-muted">
+            {draft.text.length}/2000 karakter (minimal 10){!supported ? " · perekaman suara tidak didukung browser ini" : ""}
+          </p>
         </div>
       )}
 
-      {supported !== false && (
-        <button type="button" onClick={() => setDraft((d) => ({ ...d, useText: !d.useText }))} className="text-base font-semibold text-blue-800 underline">
-          {useText ? "Kembali ke rekaman suara" : "Tidak bisa bicara? Ketik laporan"}
-        </button>
-      )}
+      <section aria-labelledby="tips-title" className="card px-[18px] py-4">
+        <h2 id="tips-title" className="eyebrow mb-2.5">
+          Sebutkan bila tahu
+        </h2>
+        <ul className="flex flex-wrap gap-2">
+          {["Keluhan utama", "Sejak kapan", "Sadar atau tidak", "Napas", "Perkiraan usia", "Angka alat ukur"].map((t) => (
+            <li key={t} className="rounded-full bg-ground px-3 py-2 text-sm font-semibold">
+              {t}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-2.5 text-[13px] text-muted">Yang tidak disebut tetap ditandai “tidak diketahui”, tidak ditebak.</p>
+      </section>
 
       <PhotoPicker value={draft.photo} onChange={(photo) => setDraft((d) => ({ ...d, photo }))} />
 
       {status?.ai_mode === "MOCK" && status.mock_scenarios.length > 0 && (
-        <div className="space-y-1 rounded-xl border-2 border-amber-400 bg-amber-50 p-3">
-          <label htmlFor="scenario" className="text-sm font-bold text-amber-950">
+        <div className="flex flex-col gap-1.5 rounded-2xl border border-[#f0d08a] bg-[#fff8e6] p-3">
+          <label htmlFor="scenario" className="text-sm font-bold text-warn-ink">
             Skenario AI simulasi (mode mock aktif – audio tidak dianalisis)
           </label>
-          <select
-            id="scenario"
-            value={draft.scenario}
-            onChange={(e) => setDraft((d) => ({ ...d, scenario: e.target.value }))}
-            className="w-full rounded-lg border border-amber-500 bg-white p-2 text-base"
-          >
+          <select id="scenario" value={draft.scenario} onChange={(e) => setDraft((d) => ({ ...d, scenario: e.target.value }))} className="field">
             <option value="">Otomatis (dari kata kunci teks; default skenario proposal)</option>
             {status.mock_scenarios.map((s) => (
               <option key={s.id} value={s.id}>
@@ -219,14 +285,12 @@ export function RecordStep({
         </div>
       )}
 
-      <button
-        type="button"
-        disabled={!canSubmit || recording}
-        onClick={onSubmit}
-        className="w-full rounded-xl bg-blue-700 px-6 py-4 text-lg font-bold text-white disabled:cursor-not-allowed disabled:bg-slate-400"
-      >
-        Kirim untuk diringkas
-      </button>
+      <div className="action-bar mt-auto">
+        <button type="button" disabled={!canSubmit || recording} onClick={onSubmit} className="btn btn-primary btn-lg w-full">
+          {canSubmit ? "Analisis laporan" : useText ? "Tulis minimal 10 karakter" : "Rekam dulu untuk melanjutkan"}
+          {canSubmit && <ArrowRight className="h-5 w-5" aria-hidden />}
+        </button>
+      </div>
     </section>
   );
 }

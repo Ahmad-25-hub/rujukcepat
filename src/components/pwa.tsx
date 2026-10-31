@@ -52,16 +52,16 @@ export function InstallButton() {
           if (choice.outcome === "accepted") setDone(true);
           setEvt(null);
         }}
-        className="flex w-full items-center justify-center gap-2 rounded-xl border-2 border-blue-700 bg-white px-4 py-3 text-lg font-bold text-blue-800"
+        className="btn btn-ghost w-full border-dashed !border-[#c7ceda]"
       >
-        <Download className="h-5 w-5" aria-hidden />
+        <Download className="h-4 w-4" aria-hidden />
         Pasang aplikasi di perangkat
       </button>
     );
   }
   if (ios) {
     return (
-      <p className="flex items-start gap-2 rounded-xl border border-slate-300 bg-white p-3 text-sm text-slate-800">
+      <p className="flex items-start gap-2 rounded-2xl border border-dashed border-[#c7ceda] p-3 text-sm text-ink-2">
         <Smartphone className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
         Di iPhone/iPad: ketuk tombol Bagikan lalu “Tambah ke Layar Utama” untuk memasang.
       </p>
