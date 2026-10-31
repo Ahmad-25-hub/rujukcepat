@@ -4,10 +4,10 @@ Dijalankan **setelah** deployment publik ada (Vercel + Supabase). Hasil lokal ti
 
 ## Persiapan (perlu otorisasi dan kredensial pengguna)
 
-1. Supabase: project baru (Singapura) → jalankan `supabase/migrations/0001…0003.sql`, lalu `supabase/seed.sql`.
+1. Supabase: isi konfigurasi server → `npm run supabase:setup` (migrasi 0001–0004, seed hanya jika kosong) → `npm run check:supabase`. Alternatif SQL Editor: jalankan seluruh migrasi berurutan; seed hanya untuk database baru.
 2. Repo GitHub (akun pemilik Vercel Hobby; Hobby dapat membatasi repo organisasi privat) → import ke Vercel (preset Next.js, `vercel.json` region `sin1`).
 3. Environment Vercel (Production dan Preview terpisah; Preview boleh `AI_MODE=mock`):
-   `DATA_MODE=supabase`, `SUPABASE_DB_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_APP_ENV`, `SESSION_SECRET`, `DEMO_STAFF_PASSWORD`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `AI_MODE`, `ROUTING_MODE`.
+   `DATA_MODE=supabase`, `SUPABASE_DB_URL`, `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_APP_ENV`, `SESSION_SECRET`, `DEMO_STAFF_PASSWORD`, `GEMINI_API_KEY`, `GEMINI_MODEL`, `AI_MODE`, `ROUTING_MODE`. Key `SERVICE_ROLE_KEY`/`ANON_KEY` lama tetap didukung.
 4. Verifikasi batas Vercel Hobby di dokumentasi resmi saat itu (body ±4,5 MB, durasi fungsi, cron) — SPEC §13.1.
 
 ## Catatan teknis yang harus diuji di deployment

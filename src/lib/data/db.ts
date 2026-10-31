@@ -11,21 +11,22 @@ import { applySeed, openDatabase } from "./local-db";
 export type Db = {
   query<T = Record<string, unknown>>(sql: string, params?: unknown[]): Promise<{ rows: T[] }>;
   exec(sql: string): Promise<unknown>;
+  close?(): Promise<void>;
 };
 
 const g = globalThis as unknown as { __rujukDbHandle?: Promise<Db> };
 
 async function openSupabaseDb(): Promise<Db> {
-  const url = process.env.SUPABASE_DB_URL;
-  if (!url || url.startsWith("<")) throw new Error("SUPABASE_DB_URL_MISSING");
-  const { Pool } = await import("pg");
-  const pool = new Pool({ connectionString: url, max: 5, ssl: { rejectUnauthorized: false } });
+  const { createSupabasePool } = await import("./supabase-db");
+  const pool = createSupabasePool();
+  pool.on("error", () => console.error("SUPABASE_DB_IDLE_CONNECTION_ERROR"));
   return {
     query: async (sql, params) => {
       const r = await pool.query(sql, params as unknown[]);
       return { rows: r.rows };
     },
     exec: async (sql) => pool.query(sql),
+    close: () => pool.end(),
   };
 }
 

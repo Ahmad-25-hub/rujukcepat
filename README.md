@@ -53,7 +53,7 @@ Untuk AI sungguhan: `AI_MODE=live` + `GEMINI_API_KEY` (cek dengan `npm run check
 | `REFERRAL_PENDING_TTL_SECONDS` | Masa tunggu `PENDING` sebelum `EXPIRED` (bawaan 600 dtk). |
 | `STALE_AFTER_MINUTES` | Status fasilitas lebih tua dari ini dianggap kedaluwarsa, bukan READY (bawaan 1440). |
 | `ANALYZE_RATE_PER_MINUTE`, `LOGIN_RATE_PER_MINUTE` | Pembatas laju per klien (bawaan 12 dan 10). |
-| `SUPABASE_DB_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SUPABASE_*` | Hanya `DATA_MODE=supabase`. Kunci rahasia hanya dibaca server. |
+| `SUPABASE_DB_URL`, `SUPABASE_SECRET_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Mode Supabase; key `ANON_KEY`/`SERVICE_ROLE_KEY` lama juga didukung. Rahasia hanya dibaca server. |
 
 Daftar lengkap: [.env.example](.env.example). **Jangan commit `.env.local`.**
 
@@ -88,11 +88,31 @@ Skenario sintetis proposal: lansia 70 tahun lemas dan berkeringat dingin; foto o
   - UI: dashboard sebagai admin → "Reset data demo" → ketik `RESET`. API: `POST /api/demo/reset` `{"confirm":"RESET"}`.
 - Lokasi RS diambil sekali oleh skrip (`npm run fetch:hospitals`, Overpass), bukan saat runtime.
 
-### Memakai Supabase (belum diuji — tanpa kredensial di pengembangan)
+### Memakai Supabase
 
-1. Buat project Supabase (region Singapura disarankan). Jalankan `supabase/migrations/*.sql` berurutan lalu `supabase/seed.sql` di SQL Editor (jangan jalankan `supabase/local/auth-shim.sql`).
-2. Isi `DATA_MODE=supabase`, `SUPABASE_DB_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SESSION_SECRET`, `DEMO_STAFF_PASSWORD`.
-3. Sinkronisasi memakai kanal broadcast Supabase Realtime yang dipicu server (`rc:facilities`, `rc:hospital:<id>`, `rc:referral:<id>`); klien tetap mengambil ulang data dari API dan memakai polling 5 dtk bila kanal terputus.
+URL + publishable key dapat mengidentifikasi project dan mengakses layanan publik, tetapi **bukan kredensial PostgreSQL**. Aplikasi ini memakai koneksi SQL server untuk transaksi rujukan/kuota dan sesi cookie sendiri untuk petugas (bukan Supabase Auth).
+
+1. Isi `.env.local` tanpa membagikan nilainya di chat atau Git:
+
+   ```ini
+   NEXT_PUBLIC_SUPABASE_URL=https://<project>.supabase.co
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<publishable-key>
+   SUPABASE_DB_URL=postgresql://postgres.<project>:<password-database>@<host-pooler>:5432/postgres
+   SUPABASE_SECRET_KEY=<secret-key>
+   SESSION_SECRET=<string-acak-panjang>
+   DEMO_STAFF_PASSWORD=<kata-sandi-demo>
+   ```
+
+   Ambil connection string dari **Connect → Session pooler** (IPv4 untuk pengembangan lokal), atau **Transaction pooler** (port 6543 untuk serverless). Salin host/user/port persis dari dashboard; isi password database, dengan URL encoding bila mengandung karakter khusus. Secret key ada di **Settings → API Keys**. Untuk proyek lama, `NEXT_PUBLIC_SUPABASE_ANON_KEY` dan `SUPABASE_SERVICE_ROLE_KEY` tetap didukung; key baru diprioritaskan. URL tanpa `https://` dinormalisasi otomatis. [Dokumentasi koneksi](https://supabase.com/docs/guides/database/connecting-to-postgres), [jenis API key](https://supabase.com/docs/guides/api/api-keys).
+2. Jalankan `npm run supabase:setup`. Migrasi di `supabase/migrations/` diterapkan dalam satu transaksi dengan lock dan catatan checksum. **Seed hanya dijalankan ketika tabel RS kosong**, sehingga setup ulang tidak mereset kapasitas/rujukan. Jangan jalankan shim `supabase/local/auth-shim.sql` di Supabase. Alternatif SQL Editor: jalankan migrasi berurutan; seed hanya untuk database baru (seed manual mengembalikan kapasitas ke awal).
+3. Jalankan `npm run check:supabase`: memeriksa endpoint + kunci publik, koneksi SQL/schema/seed, izin fungsi transaksi, dan broadcast server → klien pada kanal uji sementara (tanpa data pasien, tanpa mengubah tabel). Output tidak menampilkan rahasia. HTTP 200 dari endpoint saja belum membuktikan alur rujukan terhubung.
+4. Setelah setup berhasil, set `DATA_MODE=supabase`, mulai ulang Next.js (`npm run dev`), lalu uji alur portal–dashboard. Setelah mengubah `NEXT_PUBLIC_*` pada produksi, build ulang. Akun petugas dibuat saat login pertama memakai `DEMO_STAFF_PASSWORD`.
+
+Sinkronisasi memakai broadcast server (`rc:facilities`, `rc:hospital:<id>`, `rc:referral:<id>`) sebagai pemicu ambil ulang dari API; polling 5 dtk berjalan ketika koneksi putus. Kanal publik hanya membawa metadata teknis, bukan laporan pasien. Fungsi mutasi SQL dibatasi untuk koneksi server pada migrasi `0004_server_only_rpc.sql`, agar Data API publik tidak melewati otorisasi route. Lihat [fungsi database](https://supabase.com/docs/guides/database/functions).
+
+Koneksi SQL memakai SSL require dan satu koneksi per proses. Opsional `SUPABASE_DB_CA_CERT` (CA dari Database Settings; baris baru dapat ditulis `\n`) mengaktifkan verifikasi sertifikat. Tanpa CA, koneksi terenkripsi tetapi sertifikat tidak diverifikasi. Tidak ada fallback diam-diam ke database lokal jika mode Supabase gagal.
+
+**Hasil terbaru (31-10-2026):** koneksi PostgreSQL nyata lulus; migrasi 0001–0004 dan seed 10 RS diterapkan. Setup ulang melewati migrasi/seed dan mempertahankan data. `DATA_MODE=supabase` aktif. Next.js produksi lokal membaca 10 RS dari Supabase (HTTP 200); API antrean tanpa sesi ditolak 401. Transaksi SQL nyata (buat, retry idempoten, reservasi, ACCEPT, REVOKE, pelepasan sekali, RLS anon) lulus dalam satu transaksi yang seluruhnya di-rollback. URL + publishable key dan **secret key terbaru sama-sama HTTP 200**. `npm run check:supabase` exit 0: **broadcast Realtime server → klien publik lulus** pada kanal uji sementara. Pemindaian bundle klien dengan nilai rahasia terbaru lulus. Password petugas masih perlu diisi, sehingga alur login/kirim/konfirmasi pada dua sesi belum diuji; `SESSION_SECRET` acak sudah dibuat lokal. Konkurensi multi-koneksi belum diuji. Detail ada di `TASK.md`.
 
 ## Arsitektur
 

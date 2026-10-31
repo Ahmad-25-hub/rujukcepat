@@ -32,6 +32,19 @@ afterAll(async () => {
 });
 
 describe("migrasi dan seed", () => {
+  it("anon/authenticated tidak dapat memanggil fungsi transaksi yang melewati otorisasi route", async () => {
+    const { rows } = await db.query<{ name: string; anon_execute: boolean; authenticated_execute: boolean }>(`
+      select p.proname as name,
+        has_function_privilege('anon', p.oid, 'EXECUTE') as anon_execute,
+        has_function_privilege('authenticated', p.oid, 'EXECUTE') as authenticated_execute
+      from pg_proc p join pg_namespace n on n.oid = p.pronamespace
+      where n.nspname = 'public' and p.proname in (
+        'create_referral', 'transition_referral', 'update_facility', 'release_reservation', 'expire_stale_referrals')
+    `);
+    expect(rows).toHaveLength(5);
+    expect(rows.every((r) => !r.anon_execute && !r.authenticated_execute)).toBe(true);
+  });
+
   it("migrasi & seed dapat dijalankan ulang tanpa error/duplikasi", async () => {
     await applyMigrations(db);
     await applySeed(db);

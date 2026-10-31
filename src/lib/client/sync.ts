@@ -2,6 +2,7 @@
 
 import { createClient, type RealtimeChannel, type SupabaseClient } from "@supabase/supabase-js";
 import { useEffect, useRef, useState } from "react";
+import { getSupabasePublicConfig } from "@/lib/supabase/public-config";
 
 // Sinkronisasi sisi klien. Event hanya pemicu: setiap event/reconnect/polling memanggil
 // `onChange` yang mengambil ulang data dari API (database = sumber kebenaran), sehingga
@@ -70,26 +71,25 @@ export function useSync(opts: { onChange: () => void; supabaseChannels?: string[
         es.onerror = () => set("limited");
       }
     } else {
-      const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-      if (!url || !key) {
+      const settings = getSupabasePublicConfig();
+      if (!settings) {
         set("limited");
       } else {
-        sb = createClient(url, key, { auth: { persistSession: false } });
-        let subscribed = 0;
+        sb = createClient(settings.url, settings.key, { auth: { persistSession: false } });
+        const subscribed = new Set<string>();
         for (const name of channelsKey.split("|")) {
           const ch = sb
             .channel(name)
             .on("broadcast", { event: "change" }, (m) => changed((m.payload as { at?: number } | undefined)?.at))
             .subscribe((status) => {
               if (status === "SUBSCRIBED") {
-                subscribed += 1;
-                if (subscribed >= channelsKey.split("|").length) {
+                subscribed.add(name);
+                if (subscribed.size === channelsKey.split("|").length) {
                   set("live");
                   cb.current();
                 }
               } else if (status === "CHANNEL_ERROR" || status === "TIMED_OUT" || status === "CLOSED") {
-                subscribed = Math.max(0, subscribed - 1);
+                subscribed.delete(name);
                 set("limited");
               }
             });

@@ -5,8 +5,9 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 
-const SECRET_NAMES = ["GEMINI_API_KEY", "SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_DB_URL", "DEMO_STAFF_PASSWORD", "SESSION_SECRET"];
+const SECRET_NAMES = ["GEMINI_API_KEY", "SUPABASE_SECRET_KEY", "SUPABASE_SERVICE_ROLE_KEY", "SUPABASE_DB_URL", "DEMO_STAFF_PASSWORD", "SESSION_SECRET"];
 const PATTERNS: [string, RegExp][] = [
+  ["pola secret key Supabase", /sb_secret_[0-9A-Za-z_-]+/],
   ["pola kunci Google API (AIza…)", /AIza[0-9A-Za-z_-]{35}/],
   ["peran service_role", /service_role/],
 ];

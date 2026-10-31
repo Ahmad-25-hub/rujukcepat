@@ -1,6 +1,7 @@
 import "server-only";
 import { createClient } from "@supabase/supabase-js";
 import { config } from "@/lib/config";
+import { getSupabaseServerConfig } from "@/lib/supabase/server-config";
 
 // Pemicu sinkronisasi. Database adalah sumber kebenaran; event hanya memberi tahu klien
 // bahwa ada yang berubah sehingga klien mengambil ulang data (tanpa membawa data kesehatan).
@@ -36,10 +37,9 @@ export function publicEvent(e: SyncEvent) {
 
 let sbClient: ReturnType<typeof createClient> | null = null;
 function supabaseClient() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key || url.startsWith("<") || key.startsWith("<")) return null;
-  return (sbClient ??= createClient(url, key, { auth: { persistSession: false } }));
+  const settings = getSupabaseServerConfig();
+  if (!settings) return null;
+  return (sbClient ??= createClient(settings.url, settings.key, { auth: { persistSession: false } }));
 }
 
 async function broadcast(e: SyncEvent) {
