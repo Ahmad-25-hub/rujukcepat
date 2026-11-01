@@ -70,7 +70,6 @@ export const AnalyzeResponseSchema = z.object({
   input: z.object({
     kind: z.enum(["AUDIO", "TEXT"]),
     audio_bytes: z.number().nullable(),
-    photo_bytes: z.number().nullable(),
   }),
 });
 export type AnalyzeResponse = z.infer<typeof AnalyzeResponseSchema>;

@@ -33,7 +33,6 @@ export type CapabilityStatus = (typeof CAPABILITY_STATUS)[number];
 
 export const DATA_ORIGIN = [
   "USER_STATEMENT",
-  "PHOTO_READING",
   "AI_INTERPRETATION",
   "UNKNOWN",
 ] as const;
@@ -41,12 +40,11 @@ export type DataOrigin = (typeof DATA_ORIGIN)[number];
 
 export const DATA_ORIGIN_LABELS: Record<DataOrigin, string> = {
   USER_STATEMENT: "Anda katakan",
-  PHOTO_READING: "Terbaca dari foto",
   AI_INTERPRETATION: "Perkiraan AI",
   UNKNOWN: "Tidak diketahui",
 };
 
-export const INPUT_QUALITY = ["OK", "AUDIO_TIDAK_JELAS", "FOTO_TIDAK_TERBACA"] as const;
+export const INPUT_QUALITY = ["OK", "AUDIO_TIDAK_JELAS"] as const;
 export type InputQuality = (typeof INPUT_QUALITY)[number];
 
 export function isCapabilityCode(v: string): v is CapabilityCode {

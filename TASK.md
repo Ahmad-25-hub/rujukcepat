@@ -72,7 +72,7 @@ T08, T13, dan T14 adalah kelengkapan P1. Kerjakan setelah dependensinya terpenuh
 
   **Bukti:** `src/lib/matching/match.ts` (murni). Kebijakan: semua kebutuhan wajib READY + segar + kuota > 0; opsional hanya pemecah seri; pra-urut garis lurus untuk ≤ `MATCH_MAX_ROUTED` lalu ETA; tanpa pelonggaran diam-diam; alasan pengecualian per RS. `tests/unit/matching.test.ts` (8 kode, PENUH/MAINTENANCE/tidak tersedia/kedaluwarsa, kapasitas 0, multi-kebutuhan, tanpa kandidat, urut ETA ≠ jarak, rute gagal/sebagian, tie-break opsional, batas N) — lulus. `/api/match` LIVE: kebutuhan CATH_LAB → RSCM/RS PON/Fatmawati, 7 RS dikecualikan dengan alasan; HEMODIALISA+ANTI_BISA wajib → tanpa kandidat dengan alasan.
 
-- [x] **T08 - Foto pendukung opsional** (P1; setelah T04/T06).
+- [x] **T08 - Foto pendukung opsional** (P1; setelah T04/T06). **Dihapus atas permintaan pengguna (01-11-2026), lihat §9; bukti di bawah adalah kondisi sebelum penghapusan.**
   **Kerjakan:** Tambahkan unggahan/kamera, preview/hapus, validasi file, dan interpretasi foto melalui adapter AI. Tandai angka tidak terbaca dan pertahankan asal datanya.
 
   **Kriteria selesai:** laporan tetap dapat diteruskan tanpa foto dan kegagalan foto tidak menghasilkan fakta buatan. Bukti: AC-02/AC-11.
@@ -262,9 +262,21 @@ Bug kode terbukti melalui tes: password benar + NODE_ENV produksi + secret hilan
 
 **Bukti:** typecheck 0 error, eslint 0 masalah, `vitest` **97/97 (12 file)** (db: 200 RS tanpa osm_id ganda; Senen: 100 RS Jakarta dinilai, 100 di luar radius; UPNVJT: semua kandidat Jawa Timur ≤ 100 km). `next build` sukses. Lokal (`.data/pglite-uji`): impor 200 RS + 195 akun; login RS Royal Surabaya via form → dashboard RS itu saja, filter Jawa Timur 100/200; `/api/match` dari UPNVJT → RS Royal Surabaya (8 mnt, telepon OSM), RS Gotong Royong, RS Onkologi, RS Islam Jemursari. **Supabase nyata:** `supabase:setup` menerapkan 0005; `hospitals:import` → 200 RS, 195 akun (kata sandi sama dengan file lokal); `check:supabase` lulus (200 RS, Realtime); lewat server dev pengguna (SUPABASE): login Ciputra Hospital, RS Royal Surabaya, RSUD Dr. Soetomo 200, sandi salah 401, UPNVJT → 4 RS Surabaya, 48 RS bertelepon. **Belum:** deployment Vercel memakai kode baru (perlu push + redeploy; `STALE_AFTER_MINUTES` di Vercel bila pernah diisi), kapabilitas lanjutan RS impor sebagian besar hanya IGD_DASAR (petugas dapat menambah lewat dashboard). Tidak ada commit.
 
+**Fitur foto alat ukur dihapus (01-11-2026, permintaan pengguna).** Alasan pengguna: pembacaan foto oleh Gemini sering gagal sehingga berisiko saat juri mencoba aplikasi. Keputusan ini menggantikan GOAL (fitur foto opsional, pembacaan angka dari foto, foto pada AC-11, foto pada skenario proposal) dan T08 untuk proyek ini. Angka alat ukur tetap dapat disebut lewat suara/teks dan berasal `USER_STATEMENT`. Rincian di `SPEC.md` §23.
+
+- [x] Portal: kotak "Foto alat ukur" (`photo-picker.tsx`) dan kompresi gambar klien (`src/lib/client/image.ts`) dihapus; draf laporan tanpa `photo`. Teks persetujuan, FAQ, langkah beranda, dan pratinjau SOAP tidak lagi menyebut foto.
+- [x] Server/AI: `/api/analyze` tidak membaca field `photo` (diabaikan bila dikirim); adapter Gemini, mock, prompt, dan normalisasi tanpa jalur foto; `input.photo_bytes` dihapus dari respons. Enum `PHOTO_READING` dan `FOTO_TIDAK_TERBACA` dihapus dari schema, sehingga skema respons Gemini tidak lagi menawarkannya dan keluaran yang memakainya ditolak validasi.
+- [x] Tes/fixture: tes khusus foto dihapus, tes baru memastikan kedua enum lama ditolak; fixture `lansia-lemas.json` tanpa angka gula darah dari foto; `tests/fixtures/photo/` dan opsi `PHOTO=1` pada `npm run measure` dihapus.
+
+**Bukti:** `npm run typecheck` dan `npm run lint` tanpa error, `npm test` **93/93 (12 file)**, `npm run build` sukses. Browser (`next start` port 3100, data lokal, AI mock): langkah Laporan kondisi tidak lagi menampilkan kotak foto; laporan teks → Tinjau ringkasan tampil dengan chip asal data Anda katakan / Perkiraan AI / Tidak diketahui. **Belum diuji:** analisis LIVE Gemini setelah perubahan schema (tidak dijalankan agar tidak memakai kuota), deployment. Tidak ada commit.
+
+**Logo tim menggantikan logo placeholder (01-11-2026, permintaan pengguna).** Logo pin lokasi merah + salib + panah dari pengguna dipotong dan latar putih luarnya dibuat transparan (panah dan salib tetap putih) → `public/brand/rujukcepat-logo.png` (411×512). `BrandMark` (header beranda, dashboard, login petugas, footer) kini memakai gambar ini; ikon PWA `public/icons/*` (192/512 transparan, maskable 512 dan apple-touch 180 berlatar putih) dan `src/app/favicon.ico` (16–256 px) dibuat ulang dari logo yang sama. `scripts/make-icons.ts` + `npm run make:icons` (pembuat ikon salib lama) dihapus agar tidak menimpa logo. Versi cache service worker dinaikkan ke `v2` agar ikon lama terganti.
+
+**Bukti:** typecheck, lint, `npm test` **93/93**, `npm run build` lulus. Browser (`next start` port 3100): logo tampil di header beranda (36 px), footer, dan login petugas berlatar gelap; `/favicon.ico` dan ikon 200. **Belum:** tampilan ikon terpasang (PWA) di ponsel nyata. Tidak ada commit.
+
 | Tugas aktif | Status | Kendala | Langkah berikutnya |
 | --- | --- | --- | --- |
-| T18 (berikutnya, terhambat) | T01–T17 selesai dan terverifikasi lokal (31-10-2026): alur P0 dua tampilan berfungsi (portal → AI → pencocokan → rujukan → dashboard → konfirmasi → status), P1 diimplementasikan, 78 tes lulus, README + deklarasi ada. T18–T20 **belum** dikerjakan | Butuh otorisasi/kredensial pengguna: Vercel, Supabase (+ `SUPABASE_DB_URL`), `GEMINI_API_KEY`, GitHub, izin commit/push/tag, challenge brief, Devpost. Realtime Supabase, RLS Supabase, mikrofon/kamera/GPS/TTS/alarm/PWA pada perangkat nyata, dan performa LIVE terbaru belum diuji | Pengguna memutuskan T18: kredensial + otorisasi deployment dan commit; jalankan `docs/SMOKE-TEST.md`; ukur LIVE (`AUDIO=1 PHOTO=1 npm run measure`); lalu T19 (video/deck/tag) dan T20 (Devpost). |
+| T18 (berikutnya, terhambat) | T01–T17 selesai dan terverifikasi lokal (31-10-2026): alur P0 dua tampilan berfungsi (portal → AI → pencocokan → rujukan → dashboard → konfirmasi → status), P1 diimplementasikan, 78 tes lulus, README + deklarasi ada. T18–T20 **belum** dikerjakan | Butuh otorisasi/kredensial pengguna: Vercel, Supabase (+ `SUPABASE_DB_URL`), `GEMINI_API_KEY`, GitHub, izin commit/push/tag, challenge brief, Devpost. Realtime Supabase, RLS Supabase, mikrofon/kamera/GPS/TTS/alarm/PWA pada perangkat nyata, dan performa LIVE terbaru belum diuji | Pengguna memutuskan T18: kredensial + otorisasi deployment dan commit; jalankan `docs/SMOKE-TEST.md`; ukur LIVE (`AUDIO=1 npm run measure`); lalu T19 (video/deck/tag) dan T20 (Devpost). |
 
 | Keputusan yang diperlukan | Tugas terkait |
 | --- | --- |
@@ -303,7 +315,7 @@ Catat keputusan final beserta alasan dan dampaknya pada implementasi. Jangan men
 
 **Cakupan T01 (dirangkum dari GOAL; brief panitia belum tersedia → belum terverifikasi):**
 
-- Alur demo: portal (persetujuan → lokasi → rekam/teks + foto opsional → ringkasan AI → tinjau → pilih RS) → [T10+] kirim rujukan → dashboard IGD → konfirmasi → status di portal.
+- Alur demo: portal (persetujuan → lokasi → rekam/teks → ringkasan AI → tinjau → pilih RS) → [T10+] kirim rujukan → dashboard IGD → konfirmasi → status di portal.
 - Batas simulasi: seluruh kapasitas/kesiapan RS adalah seed berlabel "simulasi"; lokasi RS dari OSM tidak menyiratkan kemitraan; pasien sintetis; AI hanya perkiraan; ETA OSRM tanpa lalu lintas langsung. Badge mode (AI simulasi, Rute simulasi, Database lokal) tampil di portal.
 - Luaran wajib (GOAL §11): aplikasi dua antarmuka + repo GitHub, README, deklarasi AI/pihak ketiga/atribusi, tag `submission-24h`, video < 3 menit, pitch deck, isian Devpost — belum dikerjakan (T17–T20).
 - Instruksi pengguna (31-10-2026): kerjakan sampai T09; keamanan bukan fokus → pembatasan akses dan RLS ditulis sesuai SPEC tetapi tidak diuji mendalam pada tahap ini.

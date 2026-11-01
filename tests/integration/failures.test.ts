@@ -2,7 +2,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import type { Db } from "@/lib/data/db";
 
 // T15 - penanganan gagal pada jalur analisis (mode AI simulasi): persetujuan, validasi unggahan,
-// keluaran AI rusak, audio tidak jelas, foto tidak terbaca, rate limit, dan tidak ada data
+// keluaran AI rusak, audio tidak jelas, rate limit, dan tidak ada data
 // pasien/media yang tersimpan hanya karena analisis.
 
 process.env.DATA_MODE = "local";
@@ -47,8 +47,6 @@ describe("analisis laporan - kegagalan dan pemulihan", () => {
     expect(badType.status).toBe(415);
     const big = await post(form({ consent: "true", audio: wav(1.6 * 1024 * 1024) }));
     expect(big.status).toBe(413);
-    const badPhoto = await post(form({ consent: "true", text: "tes", photo: new File([new Uint8Array(10)], "x.gif", { type: "image/gif" }) }));
-    expect(badPhoto.status).toBe(415);
     const longText = await post(form({ consent: "true", text: "a".repeat(2001) }));
     expect(longText.status).toBe(413);
   });
@@ -71,18 +69,11 @@ describe("analisis laporan - kegagalan dan pemulihan", () => {
     expect(body.data.mode).toBe("MOCK");
   });
 
-  it("foto ada tetapi tanpa angka terbaca -> ditandai FOTO_TIDAK_TERBACA, angka tidak dikarang", async () => {
-    const photo = new File([new Uint8Array(20)], "foto.jpg", { type: "image/jpeg" });
-    const res = await post(form({ consent: "true", text: "Ayah saya lemas dan keringat dingin", mock_scenario: "tidak-jelas", photo }));
-    const body = await res.json();
-    expect(body.data.result.soap.objective.every((o: { origin: string; value: string | null }) => o.origin !== "PHOTO_READING" || o.value === null)).toBe(true);
-  });
-
-  it("analisis tidak menyimpan laporan, audio, atau foto ke database", async () => {
+  it("analisis tidak menyimpan laporan atau audio ke database", async () => {
     const count = async () =>
       (await db.query<{ n: number }>("select (select count(*) from referral_requests)::int + (select count(*) from referral_events)::int as n")).rows[0].n;
     const before = await count();
-    await post(form({ consent: "true", text: "Nyeri dada menjalar", photo: new File([new Uint8Array(20)], "f.jpg", { type: "image/jpeg" }) }));
+    await post(form({ consent: "true", text: "Nyeri dada menjalar" }));
     await post(form({ consent: "true", audio: wav() }));
     expect(await count()).toBe(before);
     // tidak ada kolom/tabel penyimpan media pada skema

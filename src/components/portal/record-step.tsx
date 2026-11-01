@@ -5,14 +5,12 @@ import { useEffect, useRef, useState } from "react";
 import { isRecordingSupported, pickRecorderMime } from "@/lib/client/audio";
 import { formatBytes } from "@/lib/client/format";
 import type { ServiceStatus } from "@/lib/client/api";
-import { PhotoPicker, type PhotoDraft } from "./photo-picker";
 
 export type AudioDraft = { blob: Blob; url: string; durationS: number; mime: string };
 export type ReportDraft = {
   audio: AudioDraft | null;
   text: string;
   useText: boolean;
-  photo: PhotoDraft | null;
   scenario: string;
 };
 
@@ -266,8 +264,6 @@ export function RecordStep({
         </ul>
         <p className="mt-2.5 text-[13px] text-muted">Yang tidak disebut tetap ditandai “tidak diketahui”, tidak ditebak.</p>
       </section>
-
-      <PhotoPicker value={draft.photo} onChange={(photo) => setDraft((d) => ({ ...d, photo }))} />
 
       {status?.ai_mode === "MOCK" && status.mock_scenarios.length > 0 && (
         <div className="flex flex-col gap-1.5 rounded-2xl border border-[#f0d08a] bg-[#fff8e6] p-3">

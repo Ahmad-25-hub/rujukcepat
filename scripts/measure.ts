@@ -2,7 +2,6 @@
 //   npm run dev   (atau npm run build && npm start)  lalu, di terminal lain:
 //   BASE_URL=http://localhost:3000 DEMO_STAFF_PASSWORD=... RUNS=5 npm run measure
 //   AUDIO=1  -> kirim tests/fixtures/audio/lansia-lemas-sintetis.wav (bukan teks)
-//   PHOTO=1  -> sertakan tests/fixtures/photo/glukometer-46-sintetis.jpg
 // Alur: pelapor (analisis -> rekomendasi -> rute) dan petugas (ubah kuota -> portal menerima event SSE).
 // Portal hanya merekomendasikan; tidak ada pengiriman rujukan. Hasil dicetak sebagai tabel dan
 // ditulis ke docs/hasil-ukur-<mode>.json. Mode MOCK dan LIVE dipisahkan; jangan dicampur dalam klaim.
@@ -97,11 +96,8 @@ async function main() {
   await sendJson(admin, "POST", "/api/demo/reset", { confirm: "RESET" });
 
   const useAudio = process.env.AUDIO === "1";
-  const usePhoto = process.env.PHOTO === "1";
   const audioFile = path.resolve("tests/fixtures/audio/lansia-lemas-sintetis.wav");
-  const photoFile = path.resolve("tests/fixtures/photo/glukometer-46-sintetis.jpg");
   const audioBytes = useAudio ? readFileSync(audioFile) : null;
-  const photoBytes = usePhoto ? readFileSync(photoFile) : null;
 
   // Portal pelapor mendengarkan perubahan fasilitas (data publik) seperti di browser.
   const portalStream = openStream(jar());
@@ -120,7 +116,6 @@ async function main() {
     fd.set("consent", "true");
     if (audioBytes) fd.set("audio", new Blob([new Uint8Array(audioBytes)], { type: "audio/wav" }), "laporan.wav");
     else fd.set("text", "Ayah saya 70 tahun tiba-tiba lemas dan keringat dingin sejak 30 menit lalu, masih bisa bicara tapi bingung.");
-    if (photoBytes) fd.set("photo", new Blob([new Uint8Array(photoBytes)], { type: "image/jpeg" }), "foto.jpg");
     const tA = performance.now();
     const an = await call(rep, "/api/analyze", { method: "POST", body: fd });
     const analyzeTotal = ms(tA);
@@ -202,7 +197,7 @@ async function main() {
     mode_data: st.data_mode,
     perangkat: `${os.type()} ${os.release()} ${os.arch()}, ${os.cpus()[0]?.model ?? "cpu"}, Node ${process.version}`,
     jaringan: BASE.includes("localhost") ? "loopback (localhost)" : "jaringan lain (isi manual)",
-    masukan: { jenis: useAudio ? "AUDIO wav" : "TEKS", audio_bytes: audioBytes?.length ?? null, foto_bytes: photoBytes?.length ?? null },
+    masukan: { jenis: useAudio ? "AUDIO wav" : "TEKS", audio_bytes: audioBytes?.length ?? null },
     percobaan: RUNS,
     berhasil: rows.length,
     kuota_tanpa_tindakan_petugas: kuotaTetap,

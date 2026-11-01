@@ -44,7 +44,7 @@ export function SummaryPreview() {
           <dt className="font-mono font-bold text-ink">S</dt>
           <dd className="text-ink-2">Nyeri dada ± 30 menit, keringat dingin</dd>
           <dt className="font-mono font-bold text-ink">O</dt>
-          <dd className="text-ink-2">Tensi 150/95 (terbaca dari foto)</dd>
+          <dd className="text-ink-2">Tensi 150/95 (disebut pelapor)</dd>
           <dt className="font-mono font-bold text-ink">A</dt>
           <dd className="text-ink-2">Perkiraan AI: perlu evaluasi jantung segera</dd>
         </dl>

@@ -11,7 +11,7 @@
       { "value": "Masih dapat diajak bicara namun bingung", "origin": "USER_STATEMENT", "note": null }
     ],
     "objective": [
-      { "label": "Gula darah (alat ukur)", "value": "46", "unit": "mg/dL", "origin": "PHOTO_READING" },
+      { "label": "Gula darah (alat ukur)", "value": null, "unit": null, "origin": "UNKNOWN" },
       { "label": "Tekanan darah", "value": null, "unit": null, "origin": "UNKNOWN" },
       { "label": "Denyut nadi", "value": null, "unit": null, "origin": "UNKNOWN" }
     ],
@@ -34,6 +34,6 @@
     { "code": "IGD_DASAR", "required": true, "reason": "Penilaian dan stabilisasi awal di IGD." },
     { "code": "ICU_VENTILATOR", "required": false, "reason": "Cadangan bila kesadaran memburuk." }
   ],
-  "unknowns": ["Tekanan darah", "Denyut nadi", "Riwayat penyakit dan obat yang diminum"],
+  "unknowns": ["Gula darah", "Tekanan darah", "Denyut nadi", "Riwayat penyakit dan obat yang diminum"],
   "input_quality": "OK"
 }

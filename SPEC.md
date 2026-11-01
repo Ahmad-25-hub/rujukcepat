@@ -483,7 +483,7 @@ Pengukuran performa: `timing` dari `/api/analyze`, `referral_events` untuk waktu
 | Realtime | `postgres_changes` terfilter RLS | Event = pemicu ambil-ulang: SSE `/api/stream` (lokal) atau broadcast Supabase Realtime dari server ke `rc:facilities`, `rc:hospital:<id>`, `rc:referral:<id>`; polling 5 dtk bila putus | Sesi tidak memakai Supabase Auth dan SSE tidak lintas instans serverless (T12). Jalur Supabase belum diuji. |
 | Pengujian dua sesi | Playwright | Tes API (dua cookie jar), browser pane manual, `scripts/measure.ts` (HTTP+SSE) | Tanpa unduhan browser Playwright (T16). |
 | Pembatas laju | usulan §16 | Dalam memori per proses: 12 analisis/menit, 10 login/menit (env) | Melindungi kuota AI gratis (T15). |
-| PWA | §11.3 | `public/sw.js` + `public/offline.html`; `app/manifest.ts`; ikon dibuat `npm run make:icons` | Cache hanya aset statis; offline jujur (T14). |
+| PWA | §11.3 | `public/sw.js` + `public/offline.html`; `app/manifest.ts`; ikon dari logo tim (`public/brand/rujukcepat-logo.png`) | Cache hanya aset statis; offline jujur (T14). |
 
 ## 19. Navigasi langsung di portal (tambahan, 31-10-2026)
 
@@ -534,3 +534,14 @@ Keputusan pengguna; menggantikan §8 (lifecycle rujukan dan kuota), bagian rujuk
 | Kedaluwarsa | `STALE_AFTER_MINUTES` bawaan 43200 (30 hari) selama masa lomba, karena RS impor tidak punya petugas nyata; seed Kramat Jati dibuat 45 hari agar uji kedaluwarsa tetap ada. |
 | Akun | `scripts/hospitals-import.ts`: satu akun per RS tanpa akun demo (195), email `slug@rujukcepat.demo`, kata sandi acak 10 karakter disimpan sekali di `data/akun-rumahsakit.local.json` (gitignored) → hash scrypt di `staff_credentials`; daftar ditulis ke `akunRumahsakit.md` (gitignored). Hash/UUID dipindah ke `src/lib/auth/password.ts` agar dapat dipakai skrip. |
 | Penerapan | Lokal: seed otomatis untuk database baru dan reset demo. Supabase: `supabase:setup` (0005) lalu `hospitals:import` (diterapkan 01-11-2026: 200 RS, 195 akun). |
+
+## 23. Penghapusan foto alat ukur (01-11-2026)
+
+Atas permintaan pengguna (pembacaan foto oleh Gemini sering gagal dan berisiko saat dinilai juri), fitur foto pendukung dihapus. Bagian spesifikasi yang menyebut foto (§1 alur, §5 `PHOTO_READING`/`FOTO_TIDAK_TERBACA`, §7 retensi, §10 `photo` pada `POST /api/analyze`, §11 langkah foto, §12 kegagalan foto, §18 baris foto) tidak berlaku lagi.
+
+| Bagian | Sekarang |
+| --- | --- |
+| Masukan | Rekaman suara atau teks saja. Angka alat ukur disebut pelapor → asal `USER_STATEMENT`. |
+| Schema | `DATA_ORIGIN` = `USER_STATEMENT`, `AI_INTERPRETATION`, `UNKNOWN`; `INPUT_QUALITY` = `OK`, `AUDIO_TIDAK_JELAS`. Respons analisis tanpa `input.photo_bytes`. |
+| API | `POST /api/analyze` mengabaikan field `photo`; tidak ada lagi galat `UNSUPPORTED_PHOTO`/`PHOTO_TOO_LARGE`. |
+| UI | Tanpa kotak foto, tanpa chip "Terbaca dari foto". |

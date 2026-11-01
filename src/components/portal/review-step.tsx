@@ -97,8 +97,6 @@ export function ReviewStep({
             <p className="font-bold">Perlu peninjauan</p>
             {unclear ? (
               <p>Laporan suara tidak jelas. Sebaiknya rekam ulang di tempat yang lebih tenang atau ketik laporan.</p>
-            ) : r.input_quality === "FOTO_TIDAK_TERBACA" ? (
-              <p>Foto tidak terbaca; angka dari foto tidak dipakai. Laporan suara tetap dapat dilanjutkan.</p>
             ) : (
               <p>Sebagian hasil tidak dapat dipastikan (mis. urgensi atau kebutuhan). Tinjau kebutuhan di bawah sebelum mencari rumah sakit.</p>
             )}
@@ -124,9 +122,6 @@ export function ReviewStep({
           <ul aria-label="Keterangan asal data" className="flex flex-wrap gap-1.5">
             <li>
               <OriginChip origin="USER_STATEMENT" />
-            </li>
-            <li>
-              <OriginChip origin="PHOTO_READING" />
             </li>
             <li>
               <OriginChip origin="AI_INTERPRETATION" />

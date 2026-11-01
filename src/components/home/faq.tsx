@@ -16,8 +16,8 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
     a: "Tidak. Ringkasan SOAP dan tingkat urgensi adalah perkiraan untuk membantu koordinasi. Anda dapat memeriksa dan mengoreksinya sebelum mencari rumah sakit, dan keputusan klinis tetap pada tenaga kesehatan.",
   },
   {
-    q: "Apa yang terjadi dengan rekaman suara dan foto saya?",
-    a: "Rekaman, teks, foto opsional, dan titik lokasi dikirim ke server aplikasi lalu diproses Google Gemini untuk menyusun ringkasan. Audio dan foto tidak disimpan setelah diproses, dan ringkasan hanya ditampilkan di perangkat Anda. Jangan sebut nama atau NIK pasien.",
+    q: "Apa yang terjadi dengan rekaman suara saya?",
+    a: "Rekaman, teks, dan titik lokasi dikirim ke server aplikasi lalu diproses Google Gemini untuk menyusun ringkasan. Audio tidak disimpan setelah diproses, dan ringkasan hanya ditampilkan di perangkat Anda. Jangan sebut nama atau NIK pasien.",
   },
   {
     q: "Dari mana data kesiapan IGD berasal?",

@@ -23,7 +23,7 @@ const PHOTO = {
 const STEPS = [
   {
     title: "Ceritakan kondisi pasien",
-    body: "Tekan rekam dan jelaskan keluhan dengan kata-kata sendiri, sekitar 15 detik. Bisa juga diketik. Tambahkan foto tensimeter atau glukometer bila ada.",
+    body: "Tekan rekam dan jelaskan keluhan dengan kata-kata sendiri, sekitar 15 detik. Bisa juga diketik. Sebutkan angka tensimeter atau glukometer bila ada.",
     preview: <RecordPreview />,
   },
   {
@@ -324,7 +324,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 text-[13px] text-muted md:grid-cols-[1.2fr_1fr_1fr]">
             <div className="flex flex-col gap-3">
               <span className="flex items-center gap-2 text-base font-bold text-ink">
-                <BrandMark size={26} />
+                <BrandMark size={30} />
                 RujukCepat
               </span>
               <p className="max-w-xs leading-relaxed">Koordinasi rujukan prarumah sakit untuk DKI Jakarta dan Jawa Timur. Prototipe demo; data kesiapan dan kuota adalah simulasi.</p>

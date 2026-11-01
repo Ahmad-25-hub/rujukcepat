@@ -8,14 +8,14 @@ const load = (name: string) => JSON.parse(readFileSync(path.join(FIXTURES, name)
 
 describe("validasi keluaran AI", () => {
   it.each(readdirSync(FIXTURES))("fixture %s lolos schema", (f) => {
-    const r = normalizeAiOutput(load(f), { hasPhoto: true });
+    const r = normalizeAiOutput(load(f));
     expect(r.ok).toBe(true);
   });
 
   it("menolak JSON yang field wajibnya hilang", () => {
     const raw = load("lansia-lemas.json");
     delete raw.soap;
-    const r = normalizeAiOutput(raw, { hasPhoto: false });
+    const r = normalizeAiOutput(raw);
     expect(r.ok).toBe(false);
     if (!r.ok) expect(r.issues.join(" ")).toContain("soap");
   });
@@ -23,7 +23,7 @@ describe("validasi keluaran AI", () => {
   it("menolak tipe salah dan kategori urgensi di luar enum", () => {
     const raw = load("lansia-lemas.json");
     raw.urgency.level = "UNGU";
-    expect(normalizeAiOutput(raw, { hasPhoto: false }).ok).toBe(false);
+    expect(normalizeAiOutput(raw).ok).toBe(false);
   });
 
   it("parseJsonLoose melempar untuk JSON rusak dan menerima blok kode", () => {
@@ -38,7 +38,7 @@ describe("validasi keluaran AI", () => {
       { code: "RADIOTERAPI", required: true, reason: "tidak dikenal" },
       { code: "igd_dasar", required: true, reason: "y" },
     ];
-    const r = normalizeAiOutput(raw, { hasPhoto: false });
+    const r = normalizeAiOutput(raw);
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.result.needs.map((n) => n.code)).toEqual(["CATH_LAB", "IGD_DASAR"]);
@@ -46,7 +46,7 @@ describe("validasi keluaran AI", () => {
   });
 
   it("kebutuhan kosong → IGD_DASAR wajib sementara + perlu peninjauan", () => {
-    const r = normalizeAiOutput(load("tidak-jelas.json"), { hasPhoto: false });
+    const r = normalizeAiOutput(load("tidak-jelas.json"));
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.result.needs).toEqual([expect.objectContaining({ code: "IGD_DASAR", required: true })]);
@@ -56,35 +56,20 @@ describe("validasi keluaran AI", () => {
   it("nilai tidak diketahui tetap null dan urgensi null ditandai peninjauan", () => {
     const raw = load("lansia-lemas.json");
     raw.urgency.level = null;
-    const r = normalizeAiOutput(raw, { hasPhoto: true });
+    const r = normalizeAiOutput(raw);
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.needs_review).toBe(true);
     expect(r.result.soap.objective.find((o) => o.label === "Tekanan darah")?.value).toBeNull();
   });
 
-  it("angka 'terbaca dari foto' tanpa foto dikosongkan (tidak ada fakta buatan)", () => {
-    const r = normalizeAiOutput(load("lansia-lemas.json"), { hasPhoto: false });
-    expect(r.ok).toBe(true);
-    if (!r.ok) return;
-    const gd = r.result.soap.objective.find((o) => o.label.startsWith("Gula darah"))!;
-    expect(gd.value).toBeNull();
-    expect(gd.origin).toBe("UNKNOWN");
-  });
-
-  it("angka dari foto dipertahankan dengan asal PHOTO_READING bila ada foto", () => {
-    const r = normalizeAiOutput(load("lansia-lemas.json"), { hasPhoto: true });
-    if (!r.ok) throw new Error("harus valid");
-    const gd = r.result.soap.objective.find((o) => o.label.startsWith("Gula darah"))!;
-    expect(gd).toMatchObject({ value: "46", unit: "mg/dL", origin: "PHOTO_READING" });
-  });
-
-  it("foto ada tetapi tidak ada angka terbaca → FOTO_TIDAK_TERBACA + perlu peninjauan", () => {
-    const r = normalizeAiOutput(load("nyeri-dada.json"), { hasPhoto: true });
-    if (!r.ok) throw new Error("harus valid");
-    expect(r.result.input_quality).toBe("FOTO_TIDAK_TERBACA");
-    expect(r.needs_review).toBe(true);
-    expect(r.result.soap.objective.every((o) => o.value === null)).toBe(true);
+  it("asal PHOTO_READING dan kualitas FOTO_TIDAK_TERBACA tidak lagi diterima (fitur foto dihapus)", () => {
+    const raw = load("lansia-lemas.json");
+    raw.soap.objective[0].origin = "PHOTO_READING";
+    expect(normalizeAiOutput(raw).ok).toBe(false);
+    const raw2 = load("lansia-lemas.json");
+    raw2.input_quality = "FOTO_TIDAK_TERBACA";
+    expect(normalizeAiOutput(raw2).ok).toBe(false);
   });
 
   it("item Plan berisi dosis/terapi dihapus, angka mg/dL tidak dianggap dosis", () => {
@@ -94,7 +79,7 @@ describe("validasi keluaran AI", () => {
       "Minumkan obat glukosa 2 tablet",
       "Laporkan gula darah 46 mg/dL ke IGD tujuan",
     ];
-    const r = normalizeAiOutput(raw, { hasPhoto: true });
+    const r = normalizeAiOutput(raw);
     if (!r.ok) throw new Error("harus valid");
     expect(r.result.soap.plan).toEqual(["Laporkan gula darah 46 mg/dL ke IGD tujuan"]);
   });
@@ -102,7 +87,7 @@ describe("validasi keluaran AI", () => {
   it("assessment selalu berasal dari interpretasi AI", () => {
     const raw = load("nyeri-dada.json");
     raw.soap.assessment.origin = "USER_STATEMENT";
-    const r = normalizeAiOutput(raw, { hasPhoto: false });
+    const r = normalizeAiOutput(raw);
     if (!r.ok) throw new Error("harus valid");
     expect(r.result.soap.assessment.origin).toBe("AI_INTERPRETATION");
   });
@@ -110,7 +95,7 @@ describe("validasi keluaran AI", () => {
   it("tanpa kebutuhan wajib → satu kebutuhan dijadikan wajib dan perlu ditinjau", () => {
     const raw = load("nyeri-dada.json");
     raw.needs = [{ code: "CATH_LAB", required: false, reason: "x" }];
-    const r = normalizeAiOutput(raw, { hasPhoto: false });
+    const r = normalizeAiOutput(raw);
     if (!r.ok) throw new Error("harus valid");
     expect(r.result.needs[0].required).toBe(true);
     expect(r.needs_review).toBe(true);

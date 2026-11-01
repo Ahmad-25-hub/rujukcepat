@@ -12,7 +12,6 @@
     "db:reset": "tsx scripts/db-reset.ts",
     "measure": "tsx scripts/measure.ts",
     "check:secrets": "tsx scripts/check-secrets.ts",
-    "make:icons": "tsx scripts/make-icons.ts",
     "fetch:hospitals": "tsx scripts/fetch-hospitals.ts",
     "build:hospitals": "tsx scripts/build-hospital-seed.ts",
     "hospitals:import": "tsx --conditions=react-server scripts/hospitals-import.ts",

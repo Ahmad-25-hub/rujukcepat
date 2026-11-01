@@ -1,7 +1,6 @@
 import {
   AlertTriangle,
   Bot,
-  Camera,
   CircleAlert,
   CircleCheck,
   CircleHelp,
@@ -9,25 +8,17 @@ import {
   Wrench,
   XCircle,
 } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { DATA_ORIGIN_LABELS, type DataOrigin, type Urgency } from "@/lib/schema/enums";
 
-/** Logo RujukCepat: tanda denyut di kotak merah + nama. */
-export function BrandMark({ size = 32 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden className="shrink-0">
-      <defs>
-        <linearGradient id="rc-brand-g" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#ef2b4f" />
-          <stop offset="1" stopColor="#a90f28" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="9" fill="url(#rc-brand-g)" />
-      <rect x=".5" y=".5" width="31" height="31" rx="8.5" fill="none" stroke="#fff" strokeOpacity=".18" />
-      <path d="M6 17h5l2.5-6 4 11 2.5-5H26" fill="none" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
+// Logo buatan tim (pin lokasi merah + salib + panah), latar transparan, rasio 411:512.
+const LOGO_RATIO = 411 / 512;
+
+/** Logo RujukCepat; `size` = tinggi dalam piksel. */
+export function BrandMark({ size = 36 }: { size?: number }) {
+  return <Image src="/brand/rujukcepat-logo.png" alt="" width={Math.round(size * LOGO_RATIO)} height={size} loading="eager" className="shrink-0" />;
 }
 
 export function BrandLink({ dark = false, compact = false }: { dark?: boolean; compact?: boolean }) {
@@ -108,7 +99,6 @@ export function UrgencyHero({ level, reason }: { level: Urgency | null; reason: 
 
 const ORIGIN_STYLE: Record<DataOrigin, { cls: string; icon: ReactNode }> = {
   USER_STATEMENT: { cls: "bg-accent-tint text-accent-ink", icon: <MessageSquareQuote className="h-3.5 w-3.5" aria-hidden /> },
-  PHOTO_READING: { cls: "bg-[#f1ecfb] text-[#4c2e91]", icon: <Camera className="h-3.5 w-3.5" aria-hidden /> },
   AI_INTERPRETATION: { cls: "bg-[#fff1e6] text-[#8a3b00]", icon: <Bot className="h-3.5 w-3.5" aria-hidden /> },
   UNKNOWN: { cls: "border border-dashed border-faint bg-[#f1f3f6] text-ink-2", icon: <CircleHelp className="h-3.5 w-3.5" aria-hidden /> },
 };

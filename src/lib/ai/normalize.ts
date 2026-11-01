@@ -20,10 +20,7 @@ export function parseJsonLoose(text: string): unknown {
   return JSON.parse(trimmed);
 }
 
-export function normalizeAiOutput(
-  raw: unknown,
-  ctx: { hasPhoto: boolean },
-): NormalizeOk | NormalizeErr {
+export function normalizeAiOutput(raw: unknown): NormalizeOk | NormalizeErr {
   const parsed = AiResultSchema.safeParse(raw);
   if (!parsed.success) {
     return {
@@ -77,26 +74,7 @@ export function normalizeAiOutput(
     return true;
   });
 
-  // 3. Angka "terbaca dari foto" tanpa foto adalah fakta buatan → kosongkan.
-  const objective = r.soap.objective.map((o) => {
-    if (o.origin === "PHOTO_READING" && !ctx.hasPhoto) {
-      warnings.push(`Nilai "${o.label}" ditandai terbaca dari foto padahal tidak ada foto; dikosongkan.`);
-      return { ...o, value: null, unit: o.unit, origin: "UNKNOWN" as const };
-    }
-    return o;
-  });
-  const subjective = r.soap.subjective.map((s) =>
-    s.origin === "PHOTO_READING" && !ctx.hasPhoto ? { ...s, value: null, origin: "UNKNOWN" as const } : s,
-  );
-
-  // Foto ada tetapi tidak satu pun nilai terbaca: tandai jelas, jangan diam-diam.
-  const photoRead = objective.some((o) => o.origin === "PHOTO_READING" && o.value != null);
-  if (ctx.hasPhoto && !photoRead) {
-    warnings.push("Foto diterima tetapi tidak ada angka yang terbaca darinya; nilai tetap tidak diketahui.");
-    if (r.input_quality === "OK") r.input_quality = "FOTO_TIDAK_TERBACA";
-  }
-
-  // 4. Assessment selalu interpretasi AI.
+  // 3. Assessment selalu interpretasi AI.
   const assessment = { ...r.soap.assessment, origin: r.soap.assessment.value == null ? ("UNKNOWN" as const) : ("AI_INTERPRETATION" as const) };
 
   if (r.urgency.level === null) needsReview = true;
@@ -104,7 +82,7 @@ export function normalizeAiOutput(
 
   const result: NormalizedAiResult = {
     ...r,
-    soap: { subjective, objective, assessment, plan },
+    soap: { ...r.soap, assessment, plan },
     needs: [...needs.values()],
   };
   return { ok: true, result, warnings, needs_review: needsReview };

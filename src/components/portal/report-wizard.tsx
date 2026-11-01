@@ -31,7 +31,7 @@ export function ReportWizard() {
   const [step, setStep] = useState<Step>("prepare");
   const [consent, setConsent] = useState(false);
   const [location, setLocation] = useState<ReporterLocation | null>(null);
-  const [draft, setDraftState] = useState<ReportDraft>({ audio: null, text: "", useText: false, photo: null, scenario: "" });
+  const [draft, setDraftState] = useState<ReportDraft>({ audio: null, text: "", useText: false, scenario: "" });
   const [analysis, setAnalysis] = useState<AnalyzeResponse | null>(null);
   const [edits, setEdits] = useState<NeedEdits>({});
   const [stage, setStage] = useState<Stage>("prepare");
@@ -83,7 +83,6 @@ export function ReportWizard() {
         const ext = audio.type.includes("wav") ? "wav" : audio.type.includes("mp4") ? "m4a" : audio.type.includes("ogg") ? "ogg" : "webm";
         form.set("audio", audio, `laporan.${ext}`);
       }
-      if (draft.photo) form.set("photo", draft.photo.blob, "foto.jpg");
       if (draft.scenario) form.set("mock_scenario", draft.scenario);
       if (ctrl.signal.aborted) return;
       setStage("upload");
@@ -108,7 +107,7 @@ export function ReportWizard() {
     setAnalysis(null);
     setEdits({});
     setSelected(null);
-    setDraftState({ audio: null, text: "", useText: false, photo: null, scenario: "" });
+    setDraftState({ audio: null, text: "", useText: false, scenario: "" });
     setStep(consent && location ? "record" : "prepare");
   }
 

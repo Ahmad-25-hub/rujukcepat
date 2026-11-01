@@ -32,7 +32,7 @@ async function main() {
   const audio = { mimeType: "audio/wav", data: readFileSync(file) };
   const { analyzeReport } = await import("../src/lib/ai/analyze");
   const t0 = performance.now();
-  const r = await analyzeReport({ audio, photo: null, text: null, mockScenario: null });
+  const r = await analyzeReport({ audio, text: null, mockScenario: null });
   console.log(
     JSON.stringify(
       {

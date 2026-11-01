@@ -9,12 +9,12 @@ export function ConsentStep({ status, checked, onChange }: { status: ServiceStat
       ? "Server aplikasi menggunakan skenario contoh; rekaman tidak dianalisis oleh Gemini."
       : `Server aplikasi, lalu Google Gemini API${status?.ai_model ? ` (${status.ai_model})` : ""} untuk menyusun ringkasan.`;
   const rows: [string, React.ReactNode][] = [
-    ["Yang dikirim", "Rekaman suara atau teks, foto opsional, dan titik lokasi."],
+    ["Yang dikirim", "Rekaman suara atau teks, dan titik lokasi."],
     ["Diproses oleh", provider],
     [
       "Disimpan",
       <>
-        Audio dan foto <strong>tidak disimpan</strong> setelah diproses. Ringkasan hanya ditampilkan di perangkat ini dan tidak disimpan di server.
+        Audio <strong>tidak disimpan</strong> setelah diproses. Ringkasan hanya ditampilkan di perangkat ini dan tidak disimpan di server.
       </>,
     ],
   ];

@@ -106,9 +106,9 @@ describe("service worker", () => {
 
   it("aktivasi menghapus cache versi lama", async () => {
     const sw = setup();
-    sw.store.set("rujukcepat-static-v0", new Map([["/lama", "x"]]));
+    sw.store.set("rujukcepat-static-v1", new Map([["/lama", "x"]]));
     await sw.lifecycle("install");
     await sw.lifecycle("activate");
-    expect([...sw.store.keys()]).toEqual(["rujukcepat-static-v1"]);
+    expect([...sw.store.keys()]).toEqual(["rujukcepat-static-v2"]);
   });
 });

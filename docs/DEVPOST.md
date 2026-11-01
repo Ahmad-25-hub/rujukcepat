@@ -12,7 +12,7 @@ Koordinasi rujukan gawat darurat DKI Jakarta: dari laporan suara sampai IGD tahu
 Keluarga dan kru ambulans sering tidak tahu IGD mana yang kapabilitasnya siap sebelum berangkat, sehingga rujukan berulang dapat terjadi. (Berdasarkan proposal; belum dibuktikan oleh uji lapangan.)
 
 ## Apa yang dilakukan
-PWA dua antarmuka: portal ponsel (laporan suara/teks + foto opsional, ringkasan SOAP berlabel asal data, pilihan tujuan dengan peta dan ETA OSRM) dan dashboard IGD (pre-arrival alert, terima/tolak/pasien tiba, kontrol READY/PENUH/MAINTENANCE dan kapasitas). Kuota simulasi dikunci atomik dan idempoten; status permintaan dan reservasi kuota dibedakan.
+PWA dua antarmuka: portal ponsel (laporan suara/teks, ringkasan SOAP berlabel asal data, pilihan tujuan dengan peta dan ETA OSRM) dan dashboard IGD (pre-arrival alert, terima/tolak/pasien tiba, kontrol READY/PENUH/MAINTENANCE dan kapasitas). Kuota simulasi dikunci atomik dan idempoten; status permintaan dan reservasi kuota dibedakan.
 
 ## Cara membangun
 Next.js 16, React, TypeScript, Tailwind CSS, Lucide; Zod; Google Gemini API (server); PostgreSQL (PGlite lokal / Supabase) dengan fungsi transaksi SQL; Leaflet + OpenStreetMap + Overpass + OSRM; Web Speech API; SSE / Supabase Realtime; Vercel (rencana).

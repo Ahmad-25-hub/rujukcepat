@@ -45,27 +45,11 @@ export function pickScenario(text: string | null, requested: MockScenario | null
 export async function mockGenerate(opts: {
   scenario: MockScenario;
   text: string | null;
-  hasPhoto: boolean;
 }): Promise<string> {
   await new Promise((r) => setTimeout(r, 600));
   const entry = MOCK_SCENARIOS[opts.scenario];
   if (!entry.data) return '{"report": {"transcript": "terpotong...", "summary": 42'; // JSON rusak
-  const data = structuredClone(entry.data) as Record<string, unknown> & {
-    report: { transcript: string };
-    soap: { objective: { origin: string; value: string | null; unit: string | null }[] };
-    unknowns: string[];
-    input_quality: string;
-  };
+  const data = structuredClone(entry.data) as Record<string, unknown> & { report: { transcript: string } };
   if (opts.text) data.report.transcript = opts.text.slice(0, 2000);
-  if (!opts.hasPhoto) {
-    // Tanpa foto, tidak ada angka yang "terbaca dari foto".
-    for (const o of data.soap.objective) {
-      if (o.origin === "PHOTO_READING") {
-        data.unknowns.push(`${(o as unknown as { label: string }).label} (tidak ada foto)`);
-        o.value = null;
-        o.origin = "UNKNOWN";
-      }
-    }
-  }
   return JSON.stringify(data);
 }

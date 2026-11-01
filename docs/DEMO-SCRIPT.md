@@ -5,8 +5,8 @@ Rekam hanya setelah demo publik lolos smoke test. Gunakan data sintetis; tampilk
 | Waktu | Layar | Narasi (Bahasa Indonesia) |
 | --- | --- | --- |
 | 0:00–0:15 | Beranda portal | "Di rujukan gawat darurat, keluarga atau kru ambulans sering tidak tahu IGD mana yang siap. RujukCepat adalah demo koordinasi rujukan prarumah sakit untuk DKI Jakarta. Semua data kapasitas di demo ini simulasi." |
-| 0:15–0:45 | Portal: izin + rekam 10–15 dtk + foto glukometer sintetis | "Pendamping melaporkan lansia 70 tahun lemas dan berkeringat dingin, lalu memotret alat ukur. Audio dan foto diproses AI Gemini dan tidak disimpan." |
-| 0:45–1:10 | Layar tinjau | "AI menyusun ringkasan SOAP, perkiraan urgensi, dan kebutuhan layanan. Setiap data diberi asal: dikatakan pengguna, terbaca dari foto, atau perkiraan AI. Yang tidak disebut tetap 'tidak diketahui'. Ini bukan diagnosis." |
+| 0:15–0:45 | Portal: izin + rekam 10–15 dtk | "Pendamping melaporkan lansia 70 tahun lemas dan berkeringat dingin, termasuk angka glukometer bila ada. Audio diproses AI Gemini dan tidak disimpan." |
+| 0:45–1:10 | Layar tinjau | "AI menyusun ringkasan SOAP, perkiraan urgensi, dan kebutuhan layanan. Setiap data diberi asal: dikatakan pengguna atau perkiraan AI. Yang tidak disebut tetap 'tidak diketahui'. Ini bukan diagnosis." |
 | 1:10–1:40 | Pilih tujuan: peta + kandidat | "Aplikasi hanya mengajukan rumah sakit yang kapabilitasnya READY dan punya kuota, lalu mengurutkan menurut perkiraan waktu tempuh OSRM — perkiraan, bukan lalu lintas langsung. Alasan RS yang tersaring terlihat." |
 | 1:40–2:05 | Dashboard IGD (layar terpisah): ubah kuota/kapabilitas → portal perbarui daftar | "Petugas RS mengatur sendiri kesiapan layanan dan kuota kapan saja. Saat kuota diubah menjadi 0 atau layanan PENUH, rumah sakit itu langsung tidak direkomendasikan di portal." |
 | 2:05–2:25 | Portal: Navigasi ke RS (simulasi perjalanan) | "Pelapor langsung bernavigasi: rute OSRM, petunjuk belok, dan deteksi keluar jalur, tanpa API berbayar. Untuk video kami memakai simulasi perjalanan yang berlabel." |

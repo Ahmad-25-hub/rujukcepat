@@ -17,14 +17,14 @@ Atas permintaan pengguna pada 31-10-2026, penjelasan demo/simulasi dipusatkan di
 - **Rute:** `ROUTING_MODE=mock` menghitung waktu dari jarak garis lurus dikalikan faktor jalan. Ini bukan ETA berkendara dan tidak menyediakan petunjuk belok. Mode `live` memakai OSRM tanpa informasi lalu lintas langsung.
 - **Pratinjau perjalanan:** tombol ini memutar posisi buatan sepanjang rute untuk demonstrasi, bukan posisi GPS perangkat. Akhiri pratinjau untuk kembali memakai GPS.
 - **Penyimpanan dan sinkronisasi:** mode lokal memakai PGlite dan SSE; mode Supabase memakai PostgreSQL dan Realtime. Pilihan mode tetap mengikuti environment meskipun badge teknis di header dihapus.
-- **Data masukan:** gunakan pasien sintetis tanpa identitas atau data kesehatan orang nyata. Audio/foto tidak disimpan setelah diproses; ringkasan berada di perangkat. Persetujuan pemrosesan, informasi penyedia, batas AI, atribusi peta, dan pesan kegagalan tetap tersedia di antarmuka.
+- **Data masukan:** gunakan pasien sintetis tanpa identitas atau data kesehatan orang nyata. Audio tidak disimpan setelah diproses; ringkasan berada di perangkat. Persetujuan pemrosesan, informasi penyedia, batas AI, atribusi peta, dan pesan kegagalan tetap tersedia di antarmuka.
 
 ## Status (31-10-2026)
 
 | Bagian | Status |
 | --- | --- |
 | Portal → AI → rekomendasi RS → navigasi → "Sudah sampai"; dashboard mengatur kesiapan/kuota | Berfungsi (mode data lokal, diuji di browser 31-10-2026). Lihat "Hasil pengujian". |
-| P1: foto opsional, bacakan ringkasan (TTS), PWA, aksesibilitas | Diimplementasikan; kekurangan uji perangkat nyata dicatat di bawah. Alarm permintaan masuk dihapus bersama fitur kirim. |
+| P1: bacakan ringkasan (TTS), PWA, aksesibilitas | Diimplementasikan; kekurangan uji perangkat nyata dicatat di bawah. Alarm permintaan masuk dihapus bersama fitur kirim. Foto alat ukur dihapus (01-11-2026) karena pembacaan foto oleh AI tidak andal; angka alat ukur cukup disebut lewat suara/teks. |
 | Demo publik (Vercel/Supabase), video, pitch deck, tag `submission-24h`, Devpost | **Belum dilakukan** (butuh otorisasi/kredensial pengguna). Bahan pendukung ada di `docs/`. |
 
 Rincian per tugas dan bukti ada di [TASK.md](TASK.md); rancangan teknis di [SPEC.md](SPEC.md).
@@ -86,13 +86,13 @@ Akun dibuat/disinkronkan otomatis saat login pertama dari `DEMO_STAFF_PASSWORD`.
 ## Skenario demo (dua tampilan)
 
 1. Buka portal (`/lapor`) di ponsel/tab 1; buka dashboard (`/dashboard`) di desktop/tab 2, login sebagai petugas RS (mis. `tarakan@rujukcepat.demo`).
-2. Portal: setujui pemrosesan → lokasi (GPS, atau "Pilih di peta"/titik contoh) → rekam suara 10–15 dtk atau ketik laporan (+ foto opsional) → tinjau ringkasan → "Cari rumah sakit".
+2. Portal: setujui pemrosesan → lokasi (GPS, atau "Pilih di peta"/titik contoh) → rekam suara 10–15 dtk atau ketik laporan → tinjau ringkasan → "Cari rumah sakit".
 3. Portal menampilkan IGD yang cocok (utama + alternatif) beserta ETA, status kapabilitas, dan kuota. Tidak ada permintaan yang dikirim; kuota tidak berubah.
 4. Dashboard: petugas mengubah status kapabilitas (READY/PENUH/MAINTENANCE) atau kuota (mis. kuota 0) → tekan perbarui di portal → rekomendasi berubah.
 5. Portal: **Navigasi ke RS** → layar navigasi GPS (atau "Pratinjau perjalanan") → **Sudah sampai**.
 6. Layar "Sudah sampai" menampilkan ringkasan SOAP, urgensi, dan kebutuhan untuk ditunjukkan/dibacakan (TTS) ke petugas IGD. Ringkasan hanya di perangkat, tidak dikirim ke RS.
 
-Skenario sintetis proposal: lansia 70 tahun lemas dan berkeringat dingin; foto opsional glukometer menunjukkan 46 mg/dL (`tests/fixtures/photo/glukometer-46-sintetis.jpg`). Tidak ada diagnosis/terapi yang ditetapkan sebagai fakta.
+Skenario sintetis proposal: lansia 70 tahun lemas dan berkeringat dingin; angka glukometer (mis. 46 mg/dL) dapat disebut dalam laporan suara/teks. Tidak ada diagnosis/terapi yang ditetapkan sebagai fakta.
 
 ### Navigasi di peta
 
@@ -144,7 +144,7 @@ Bug lama meletakkan pembuatan cookie di luar penanganan error, sehingga `SESSION
 
 ```
 Portal (ponsel)                      Server (Next.js route handlers, Node)                     Data
- rekam/teks + foto ──POST /api/analyze──► adapter Gemini ─► validasi Zod ─► normalisasi
+ rekam/teks        ──POST /api/analyze──► adapter Gemini ─► validasi Zod ─► normalisasi
  tinjau hasil     ──POST /api/match────► pencocokan murni (kapabilitas+READY+segar+kuota) ─► ETA OSRM
  navigasi         ──GET /api/route─────► rute OSRM + petunjuk belok
  sudah sampai     (hanya di perangkat; tidak ada yang dikirim)                                 PostgreSQL
@@ -177,7 +177,7 @@ npm run measure          # ukur skenario terhadap server berjalan (lihat scripts
 | Pemeriksaan | Hasil |
 | --- | --- |
 | `npm run lint`, `npm run typecheck`, `npm run build` | Lulus (ulang setelah perubahan alur 31-10-2026). |
-| `npm test` | 87 tes, 10 file, lulus (setelah perubahan alur). Mencakup: schema/normalisasi AI, pencocokan, navigasi, migrasi+seed+`update_facility`, **API** (login, akses lintas RS, cookie palsu, kuota manual, pencarian berulang tidak mengurangi kuota, kuota 0 tidak direkomendasikan lalu muncul lagi, event, reset), **kegagalan** (persetujuan, unggahan, JSON rusak, audio tidak jelas, foto tidak terbaca, OSRM gagal, tanpa kandidat, rate limit), perilaku service worker. |
+| `npm test` | 87 tes, 10 file, lulus (setelah perubahan alur). Mencakup: schema/normalisasi AI, pencocokan, navigasi, migrasi+seed+`update_facility`, **API** (login, akses lintas RS, cookie palsu, kuota manual, pencarian berulang tidak mengurangi kuota, kuota 0 tidak direkomendasikan lalu muncul lagi, event, reset), **kegagalan** (persetujuan, unggahan, JSON rusak, audio tidak jelas, OSRM gagal, tanpa kandidat, rate limit), perilaku service worker. |
 | Browser, alur baru (`next start`, data lokal, AI mock, OSRM live) | Portal → rekomendasi tanpa tombol kirim → Navigasi → **Sudah sampai** → ringkasan serah terima; kuota Tarakan tetap 1/4. Dashboard tanpa antrean; kuota Tarakan diubah 0 → Tarakan dikecualikan ("Kuota … 0"), tersinkron SSE 42 ms. Tampilan ponsel 375 px tanpa scroll horizontal. |
 | `npm run check:secrets` | Lulus; nilai `SESSION_SECRET` dan `DEMO_STAFF_PASSWORD` tidak ada di `.next/static`. Pemindai terbukti mendeteksi nilai yang sengaja disisipkan. `GEMINI_API_KEY`/Supabase belum diisi saat pemindaian — ulangi setelah diisi. |
 | *(Alur lama, sebelum perubahan)* Dua tampilan di browser | Kirim → alert dashboard → Terima → status portal berubah; ubah kapabilitas → rekomendasi berubah; kuota bentrok → pesan + daftar tujuan diperbarui; klik kirim berulang → satu reservasi; server mati lalu hidup → dashboard pulih dari database. |
@@ -196,11 +196,11 @@ Target adalah sasaran proposal, bukan jaminan. Detail mentah: `docs/hasil-ukur-m
 | Interaksi pembaruan status (< 2 dtk) | 8 ms / 11 ms (PATCH kuota oleh petugas) | Sisi server+jaringan loopback. |
 | Kuota tanpa tindakan petugas | RSCM 3/6 → 3/6 setelah 3 rekomendasi | Rekomendasi tidak mengubah kuota. |
 
-**LIVE (Gemini):** pada sesi ini **belum diukur ulang** (tanpa `GEMINI_API_KEY`). Pengukuran awal 31-10-2026 pada tahap T04 (`gemini-3.5-flash`, jaringan rumah) berkisar 5,5–13,2 dtk — **target < 3 dtk belum tercapai** (lihat TASK.md §10). Jalankan `AUDIO=1 PHOTO=1 npm run measure` dengan server `AI_MODE=live` untuk hasil terbaru.
+**LIVE (Gemini):** pada sesi ini **belum diukur ulang** (tanpa `GEMINI_API_KEY`). Pengukuran awal 31-10-2026 pada tahap T04 (`gemini-3.5-flash`, jaringan rumah) berkisar 5,5–13,2 dtk — **target < 3 dtk belum tercapai** (lihat TASK.md §10). Jalankan `AUDIO=1 npm run measure` dengan server `AI_MODE=live` untuk hasil terbaru.
 
 ## Cakupan terhadap proposal dan selisih
 
-P0 dan P1 (foto, TTS, alarm, PWA, aksesibilitas dasar) diimplementasikan. Selisih yang diketahui:
+P0 dan P1 (TTS, PWA, aksesibilitas dasar) diimplementasikan; foto alat ukur dihapus atas permintaan tim. Selisih yang diketahui:
 
 - Realtime **Supabase** belum diuji (tanpa kredensial); sinkronisasi terverifikasi memakai SSE pada mode data lokal.
 - Registrasi service worker tidak dapat diuji di browser pane pengembangan (registrasi ditolak); perilaku dilindungi tes tiruan, perlu uji di Chrome/Android/iOS sungguhan.
@@ -212,13 +212,13 @@ P0 dan P1 (foto, TTS, alarm, PWA, aksesibilitas dasar) diimplementasikan. Selisi
 ## Privasi, data, dan retensi
 
 - Hanya data sintetis. Jangan memasukkan identitas atau data kesehatan orang nyata ke seed, log, tangkapan layar, atau rekaman demo.
-- Sebelum unggah, portal menjelaskan bahwa audio/foto/teks dikirim ke Google Gemini untuk diringkas. Server menolak unggahan tanpa persetujuan.
-- **Audio, foto, laporan, ringkasan AI, dan lokasi pelapor tidak disimpan di server** (diproses di memori fungsi). Ringkasan "Sudah sampai" hanya ada di memori halaman perangkat pelapor dan hilang saat "Buat laporan baru" atau halaman ditutup.
-- Log hanya memuat kode galat/status, bukan transkrip, SOAP, audio, atau foto.
+- Sebelum unggah, portal menjelaskan bahwa audio/teks dikirim ke Google Gemini untuk diringkas. Server menolak unggahan tanpa persetujuan.
+- **Audio, laporan, ringkasan AI, dan lokasi pelapor tidak disimpan di server** (diproses di memori fungsi). Ringkasan "Sudah sampai" hanya ada di memori halaman perangkat pelapor dan hilang saat "Buat laporan baru" atau halaman ditutup.
+- Log hanya memuat kode galat/status, bukan transkrip, SOAP, atau audio.
 
 ## Deklarasi penggunaan AI, layanan pihak ketiga, dan atribusi
 
-- **AI:** Google Gemini API (`@google/genai`, model `gemini-3.5-flash` pada mode live) untuk transkripsi/ringkasan SOAP, perkiraan urgensi, dan kebutuhan kapabilitas dari suara/teks/foto sintetis. Keluaran divalidasi schema dan disaring (kode ilegal dibuang, item rencana berdosis dibuang); bukan diagnosis. Bila memakai tier gratis, penyedia dapat memakai data untuk peningkatan layanan — gunakan data sintetis saja. Kode proyek ini dibantu asisten AI (Claude) di bawah arahan tim.
+- **AI:** Google Gemini API (`@google/genai`, model `gemini-3.5-flash` pada mode live) untuk transkripsi/ringkasan SOAP, perkiraan urgensi, dan kebutuhan kapabilitas dari suara/teks sintetis. Keluaran divalidasi schema dan disaring (kode ilegal dibuang, item rencana berdosis dibuang); bukan diagnosis. Bila memakai tier gratis, penyedia dapat memakai data untuk peningkatan layanan — gunakan data sintetis saja. Kode proyek ini dibantu asisten AI (Claude) di bawah arahan tim.
 - **Peta/lokasi/rute:** © OpenStreetMap contributors (ODbL) — tile OSM, snapshot lokasi RS via Overpass API (diambil 31-10-2026), Leaflet; rute/ETA via OSRM publik (perkiraan tanpa lalu lintas langsung; layanan demo tanpa SLA).
 - **Foto beranda** (`public/images/`, diunduh 01-11-2026, dikompresi ulang): “Vibrant Night in Jakarta” oleh David Tumpal, “Woman in Pink Hijab Holding Black Mobile Phone” oleh Tia Rahayu, dan “Healthcare Professionals in Hospital Corridor” oleh Adarsh Mp — semuanya dari Pexels ([lisensi Pexels](https://www.pexels.com/license/)); “Toyota HiAce ambulance in Jakarta, Indonesia” oleh Secretdriver, [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Toyota_HiAce_ambulance_in_Jakarta,_Indonesia.jpg), [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Orang di foto adalah model stok, bukan pasien atau petugas RujukCepat, dan tidak menyatakan dukungan.
 - **Data:** PGlite (Postgres WASM) lokal; Supabase (opsional, belum diuji); Next.js, React, Tailwind CSS, Lucide Icons, Zod.

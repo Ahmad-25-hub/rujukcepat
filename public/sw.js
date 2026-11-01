@@ -2,7 +2,7 @@
 //  - Hanya meng-cache cangkang statis (aset /_next/static berhash dan ikon) + halaman offline.
 //  - TIDAK PERNAH meng-cache /api/* (status kapasitas, rujukan, laporan pasien) maupun halaman HTML.
 //  - Navigasi: jaringan dulu; bila offline tampil /offline.html yang jujur (tanpa data lama).
-const VERSION = "v1";
+const VERSION = "v2"; // naikkan bila ikon/aset prapindai berubah
 const STATIC_CACHE = `rujukcepat-static-${VERSION}`;
 const PRECACHE = ["/offline.html", "/icons/icon-192.png", "/icons/icon-512.png"];
 

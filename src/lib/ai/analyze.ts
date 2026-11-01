@@ -7,7 +7,6 @@ import { normalizeAiOutput, parseJsonLoose } from "./normalize";
 
 export type AnalyzeInput = {
   audio: MediaInput | null;
-  photo: MediaInput | null;
   text: string | null;
   mockScenario: MockScenario | null;
   signal?: AbortSignal;
@@ -34,7 +33,6 @@ const PROVIDER_MESSAGES: Record<ProviderError["code"], [number, string]> = {
 export async function analyzeReport(input: AnalyzeInput): Promise<AnalyzeResponse> {
   const t0 = performance.now();
   let providerMs = 0;
-  const hasPhoto = input.photo !== null;
   const mode = config.aiMode === "mock" ? "MOCK" : "LIVE";
   const scenario = pickScenario(input.text, input.mockScenario);
   let lastIssues: string[] = [];
@@ -45,8 +43,8 @@ export async function analyzeReport(input: AnalyzeInput): Promise<AnalyzeRespons
     try {
       raw =
         mode === "MOCK"
-          ? await mockGenerate({ scenario, text: input.text, hasPhoto })
-          : await geminiGenerate({ audio: input.audio, photo: input.photo, text: input.text, signal: input.signal });
+          ? await mockGenerate({ scenario, text: input.text })
+          : await geminiGenerate({ audio: input.audio, text: input.text, signal: input.signal });
     } catch (e) {
       if (e instanceof ProviderError) {
         // Pesan penyedia berisi kode/status HTTP, bukan isi laporan.
@@ -66,7 +64,7 @@ export async function analyzeReport(input: AnalyzeInput): Promise<AnalyzeRespons
       lastIssues = ["(root): bukan JSON yang valid"];
       continue;
     }
-    const norm = normalizeAiOutput(json, { hasPhoto });
+    const norm = normalizeAiOutput(json);
     if (!norm.ok) {
       lastIssues = norm.issues;
       continue;
@@ -84,7 +82,6 @@ export async function analyzeReport(input: AnalyzeInput): Promise<AnalyzeRespons
       input: {
         kind: input.audio ? "AUDIO" : "TEXT",
         audio_bytes: input.audio?.data.length ?? null,
-        photo_bytes: input.photo?.data.length ?? null,
       },
     };
   }
