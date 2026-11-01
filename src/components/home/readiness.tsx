@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowRight, CircleCheck, CircleHelp, RefreshCw, Wrench, XCircle } from "lucide-react";
-import type { ReactNode } from "react";
+import { ArrowRight, ChevronDown, ChevronUp, CircleCheck, CircleHelp, RefreshCw, Wrench, XCircle } from "lucide-react";
+import { useRef, useState, type ReactNode } from "react";
 import MapView, { type MapMarker } from "@/components/map-dynamic";
 import { CountUp } from "@/components/motion";
 import type { SyncState } from "@/lib/client/sync";
@@ -32,6 +32,9 @@ const STATE_EXPLAINED: { state: IgdState; text: string }[] = [
   { state: "MAINTENANCE", text: "Layanan sedang dalam perawatan atau perbaikan." },
   { state: "KEDALUWARSA", text: "Petugas belum memperbarui status. Tidak dianggap siap." },
 ];
+
+/** Jumlah RS yang tampil di daftar beranda sebelum tombol "Lihat semua" ditekan. Peta tetap memuat semua. */
+const LIST_PREVIEW = 30;
 
 export function StateChip({ state }: { state: IgdState }) {
   const s = STATE[state];
@@ -107,6 +110,8 @@ export function ReadinessSnapshot() {
 /** Panel lengkap: ringkasan, peta statis, dan daftar seluruh RS. */
 export function ReadinessPanel() {
   const { summary, error, sync, now, reload, loading } = useFacilityFeed();
+  const [showAll, setShowAll] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
 
   if (error && !summary) {
     return (
@@ -140,6 +145,14 @@ export function ReadinessPanel() {
     kind: STATE[i.state].marker,
   }));
   const full = summary.items.filter((i) => i.state === "PENUH").map((i) => i.facility.short_name);
+  const hidden = Math.max(0, summary.items.length - LIST_PREVIEW);
+  const listed = showAll ? summary.items : summary.items.slice(0, LIST_PREVIEW);
+
+  const toggleList = () => {
+    // Saat diciutkan, kembalikan pandangan ke awal daftar agar pengguna tidak tertinggal di bawah.
+    if (showAll) listRef.current?.scrollIntoView({ block: "start", behavior: "smooth" });
+    setShowAll((v) => !v);
+  };
 
   return (
     <div className="card overflow-hidden !rounded-2xl">
@@ -176,8 +189,8 @@ export function ReadinessPanel() {
         </p>
       )}
 
-      <ul className="divide-y divide-line" aria-label="Status IGD per rumah sakit">
-        {summary.items.map((i) => {
+      <ul ref={listRef} id="daftar-kesiapan" className="scroll-mt-20 divide-y divide-line" aria-label="Status IGD per rumah sakit">
+        {listed.map((i) => {
           const f = i.facility;
           const pct = f.total_slots ? (f.available_slots / f.total_slots) * 100 : 0;
           return (
@@ -202,6 +215,30 @@ export function ReadinessPanel() {
           );
         })}
       </ul>
+
+      {hidden > 0 && (
+        <div className="border-t border-line px-4 py-3 sm:px-5">
+          <button
+            type="button"
+            onClick={toggleList}
+            aria-expanded={showAll}
+            aria-controls="daftar-kesiapan"
+            className="btn btn-secondary w-full"
+          >
+            {showAll ? (
+              <>
+                <ChevronUp className="h-4 w-4" aria-hidden />
+                Tampilkan lebih sedikit
+              </>
+            ) : (
+              <>
+                <ChevronDown className="h-4 w-4" aria-hidden />
+                Lihat semua {summary.items.length} rumah sakit ({hidden} lainnya)
+              </>
+            )}
+          </button>
+        </div>
+      )}
 
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-soft px-5 py-3">
         <p className="text-xs leading-relaxed text-muted">Sumber: dashboard petugas RS RujukCepat · Lokasi © OpenStreetMap contributors</p>
