@@ -327,7 +327,7 @@ export default function Home() {
                 <BrandMark size={30} />
                 RujukCepat
               </span>
-              <p className="max-w-xs leading-relaxed">Koordinasi rujukan prarumah sakit untuk DKI Jakarta dan Jawa Timur. Prototipe demo; data kesiapan dan kuota adalah simulasi.</p>
+              <p className="max-w-xs leading-relaxed">Koordinasi rujukan prarumah sakit untuk DKI Jakarta dan Jawa Timur. Prototipe hackathon dengan data fasilitas contoh.</p>
             </div>
             <div className="flex flex-col gap-2">
               <span className="font-semibold text-ink">Aplikasi</span>

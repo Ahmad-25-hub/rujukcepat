@@ -1,4 +1,4 @@
-// Memeriksa bahwa rahasia server tidak masuk bundle klien (.next/static) — AC-12 / SPEC §13.4 butir 6.
+// Memeriksa bahwa rahasia server tidak masuk bundle klien (.next/static).
 // Jalankan setelah `npm run build`:  npm run check:secrets
 // Nama variabel boleh muncul (mis. di pesan galat UI); yang dilarang adalah NILAI-nya.
 // Nilai rahasia dibaca dari environment proses dan .env.local; yang dicari adalah NILAI-nya (tanpa dicetak).
@@ -48,7 +48,7 @@ for (const file of walk(root)) {
   for (const [name, value] of secrets) if (text.includes(value!)) findings.push(`${path.relative(".", file)}: memuat NILAI ${name}`);
   for (const [label, re] of PATTERNS) {
     const m = re.exec(text);
-    if (m) findings.push(`${path.relative(".", file)}: ${label} (cocok: "${m[0].slice(0, 30)}", sekitar: …${text.slice(Math.max(0, m.index - 60), m.index).replace(/\s+/g, " ")}…)`);
+    if (m) findings.push(`${path.relative(".", file)}: ${label}`);
   }
 }
 

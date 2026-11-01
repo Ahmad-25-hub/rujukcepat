@@ -23,7 +23,7 @@ const STATE: Record<IgdState, { label: string; cls: string; dot: string; marker:
 const LATEST_LABEL: Record<LatestKind, string> = {
   STAFF: "Diperbarui petugas RS",
   CAPACITY: "Kuota diperbarui",
-  SEED: "Data awal simulasi",
+  SEED: "Data awal demonstrasi",
 };
 
 const STATE_EXPLAINED: { state: IgdState; text: string }[] = [
@@ -242,7 +242,6 @@ export function ReadinessPanel() {
 
       <div className="flex flex-wrap items-center justify-between gap-2 border-t border-line bg-soft px-5 py-3">
         <p className="text-xs leading-relaxed text-muted">Sumber: dashboard petugas RS RujukCepat · Lokasi © OpenStreetMap contributors</p>
-        <span className="sim-badge">Data simulasi</span>
       </div>
     </div>
   );

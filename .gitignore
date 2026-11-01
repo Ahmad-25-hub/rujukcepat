@@ -12,6 +12,8 @@
 
 # testing
 /coverage
+/test-results/
+/playwright-report/
 
 # next.js
 /.next/
@@ -22,7 +24,17 @@
 
 # misc
 .DS_Store
+Thumbs.db
+Desktop.ini
 *.pem
+*.key
+*.p12
+*.pfx
+*.log
+*.tmp
+*.bak
+*.orig
+*.rej
 
 # debug
 npm-debug.log*
@@ -43,7 +55,29 @@ next-env.d.ts
 
 # database lokal PGlite (data simulasi)
 /.data/
+*.sqlite
+*.sqlite3
+*.db
+*.dump
 
 # akun petugas RS impor (berisi kata sandi; hanya di perangkat lokal)
 /akunRumahsakit.md
 /data/akun-rumahsakit.local.json
+
+# Konfigurasi asisten dan editor lokal
+/.claude/
+/.codex/
+/.idea/
+/.vscode/
+
+# Catatan kerja lokal; dokumentasi publik tersedia di README.md dan docs/
+/AGENTS.md
+/GOAL.md
+/SPEC.md
+/TASK.md
+
+# Bahan pengumpulan yang belum final dan hasil pengukuran lokal
+/docs/DEVPOST.md
+/docs/PITCH-DECK.md
+/docs/SMOKE-TEST.md
+/docs/hasil-ukur-*.json

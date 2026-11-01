@@ -52,7 +52,7 @@ export function InstallButton() {
           if (choice.outcome === "accepted") setDone(true);
           setEvt(null);
         }}
-        className="btn btn-ghost w-full border-dashed !border-[#c7ceda]"
+        className="btn btn-glass w-full border-dashed !border-[#c7ceda]"
       >
         <Download className="h-4 w-4" aria-hidden />
         Pasang aplikasi di perangkat

@@ -17,11 +17,11 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "Apa yang terjadi dengan rekaman suara saya?",
-    a: "Rekaman, teks, dan titik lokasi dikirim ke server aplikasi lalu diproses Google Gemini untuk menyusun ringkasan. Audio tidak disimpan setelah diproses, dan ringkasan hanya ditampilkan di perangkat Anda. Jangan sebut nama atau NIK pasien.",
+    a: "Pada mode AI live, rekaman atau teks diproses Google Gemini melalui server aplikasi untuk menyusun ringkasan. Mode contoh menggunakan skenario yang telah disiapkan. Audio tidak disimpan oleh aplikasi setelah diproses, dan ringkasan hanya ditampilkan di perangkat Anda. Lokasi digunakan untuk pencocokan dan rute. Jangan sebut nama atau NIK pasien.",
   },
   {
     q: "Dari mana data kesiapan IGD berasal?",
-    a: "Petugas IGD memperbarui status delapan layanan dan kuota lewat dashboard RujukCepat. Pada versi demo ini, seluruh data kesiapan dan kuota adalah simulasi; lokasi rumah sakit diambil dari OpenStreetMap dan tidak menyiratkan kemitraan.",
+    a: "Petugas memperbarui status delapan layanan dan kuota lewat dashboard RujukCepat. Prototipe ini memakai data fasilitas contoh untuk demonstrasi. Lokasi rumah sakit berasal dari OpenStreetMap dan tidak menyatakan kemitraan atau kesiapan layanan yang telah diverifikasi.",
   },
   {
     q: "Perlu membuat akun?",
